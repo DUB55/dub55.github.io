@@ -1,282 +1,142 @@
-
-<!-- saved from url=(0029)https://blooketbot.glitch.me/ -->
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" href="./Blooket Bot_files/css">
-<link rel="icon" href="https://cdn.glitch.global/50648a61-8fe9-4ce0-a01c-baff9438bbf2/bblogo.png">
-<meta name="google-site-verification" content="UCESNa27VYtuffW-_CapVrfDLOYPhwcyZXGAFe3rp9w">
-    <title>Blooket Bot</title>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DUB5</title>
     <style>
-      .mainBody {
-    margin: 0;
-    padding: 0;
-    position: absolute;
-    top: 0;
-    left: 0;
-    font-family: Nunito, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    color: #3a3a3a;
-    width: 100%;
-    min-height: 100vh;
-}
-.errorBar {
-    position:absolute;
-    top:100%;
-    color:#fff;
-    background-color:#e84135;
-    min-height:55px;
-    width:100%;
-    left:0;
-    padding:11px 5px 5px;
-    box-sizing:border-box;
-    box-shadow:inset 0 6px #0003;
-    overflow:hidden;
-    z-index:10;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    font-size:20px;
-    transition:.1s
-}
-.joinButton {
-    height: 60px;
-    width: 60px;
-    cursor: pointer;
-    overflow: hidden;
-    outline: none;
-    background-color: #fff;
-    padding-bottom: 6px;
-    box-shadow: inset 0 -6px #0003, 0 0 4px #00000026;
-    border-radius: 5px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: .2s;
-}
-.joinButton:hover {
-    transform: scale(.9)
-}
-.nameInput {
-    width: 100%;
-    height: 100%;
-    background-color: transparent;
-    border: none;
-    padding: 5px;
-    box-sizing: border-box;
-    font-size: 35px;
-    font-weight: 700;
-    text-align: center;
-    outline: none;
-    font-family: Nunito, sans-serif;
-    color: #5f5f5f;
-}
-.idInputContainer {
-width: 200px;
-    height: 60px;
-    padding-bottom: 6px;
-    box-shadow: inset 0 -6px #0003, 0 0 4px #00000026;
-    background-color: #fff;
-    border-radius: 6px;
-}
-.nameInputContainer {
-    width: 348px;
-    height: 60px;
-    padding-bottom: 6px;
-    box-shadow: inset 0 -6px #0003, 0 0 4px #00000026;
-    background-color: #fff;
-    border-radius: 6px;
-}
-.idInput {
-width: 100%;
-    height: 100%;
-    background-color: transparent;
-    border: none;
-    padding: 5px;
-    box-sizing: border-box;
-    font-size: 35px;
-    font-weight: 700;
-    text-align: center;
-    font-family: Nunito, sans-serif;
-    outline: none;
-    color: #5f5f5f;
-}
-* {
-touch-action: manipulation;
-}
-      .normtext {
-        font-size: 40px;
-        color: #fff;
-        text-align: left;
-        margin-left: 1px;
-        font-family: Titan One, sans-serif;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
-        text-decoration: none;
-      }
-
-      .codecontainer {
-        margin: 5px;
-      }
-
-      .btext {
-        font-size: 140%;
-        color: #5f5f5f;
-        -webkit-user-select: none;
-      }
-      #ctrlpanel {
-	margin:9px;
-	}
-.inputcontainer {
-    background-color: orange;
-    display: inline-block;
-    border-radius: 4px;
-    user-select: none;
-    cursor: pointer;
-}
-.inputcontainer > div {
-    font-size: 23px;
-    text-align: center;
-}
-.inputcontainer > input {
-    margin: 4px;
-    text-align: center;
-    font-size: 18px;
-}
-.inputcontainer > select {
-    margin: 4px;
-    text-align: center;
-    font-size: 18px;
-    width: -webkit-fill-available;
-}
-button {
-font-size: 23px;
-}
-.cheatcontainer > * {
-    margin: 15px;
-}
-checkbox {
-    background-color: white;
-    font-size: 30px;
-    margin: 2px;
-    user-select: none;
-    cursor: pointer;
-    font-family: Titan One, sans-serif;
-    padding-right: 2px;
-    border-radius: 5px;
-    font-weight: bold;
-}
-checkbox::before {
-content: "X";
-font-weight: lighter;
-}
-checkbox[checked]::before {
-   content: "✔";
-}
-::selection {
-    background-color: #0ab6c250
-}
-.chat {
-    position: fixed;
-    margin: 10px;
-    background-color: orange;
-    border-radius: 10px;
-}
-.chatcontainer {
-    width: 750px;
-    height: 250px;
-    background-color: #202020a0;
-    margin: 10px;
-    flex-direction: column-reverse;
-    display: flex;
-    overflow-y: auto;
-}
-.chatmsg {
-   color: white;
-   font-size: 22px;
-   margin-left: 1px;
-}
-.chatinpcontainer {
-   margin: 10px;
-}
-#chat {
-    width: -webkit-fill-available;
-    font-size: 22px;
-}
-.dragcontainer {
-background-color: orange;
-font-size: 20px;
-position: absolute;
-border-radius: 10px;
-font-weight: bold;
-}
-#drag {
-    margin: 5px;
-    user-select: none;
-    cursor: move;
-}
+                body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            background: linear-gradient(to bottom, #000022, #000066);
+            color: white;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+        h1 {
+            font-size: 5em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            margin-top: 50px;
+        }
+        h2 {
+            font-size: 2em;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .button-container {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        .button {
+            padding: 15px 30px;
+            font-size: 1.5em;
+            color: white;
+            background: linear-gradient(to bottom, #000044, #000088);
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            text-decoration: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            transition: background 1s, transform 0.3s;
+        }
+        .button:hover {
+            background: linear-gradient(to bottom, #000033, #000077);
+            transform: scale(1.05);
+        }
+        .text-container {
+            max-width: 600px;
+            padding: 20px;
+            margin-top: 20px;
+            border: 5px solid;
+            border-image: linear-gradient(to bottom, #000044, #000088);
+            border-image-slice: 1;
+            border-radius: 20px;
+            text-align: left;
+            overflow: hidden;
+        }
+        .custom-text {
+            font-size: 1.2em;
+            color: white;
+            font-weight: bold;
+            margin: 0;
+        }
+        .custom-text p {
+            margin: 0 0 10px 0;
+        }
     </style>
-  </head>
-  <body>
-    <div class="mainBody" style="z-index:0;background-color: rgb(9, 148, 65);overflow: hidden;">
-<div class="chat" style="top:350;left:200;display:none;"><div class="chatcontainer"><div class="chatmsg"></div></div><div class="chatinpcontainer"><input id="chat" placeholder="Type a message..."></div><div class="dragcontainer" style="background-color: orange;font-size: 20px;position: absolute;border-radius: 10px;font-weight: bold;"><div id="drag">Drag</div></div></div>
-      <div class="codecontainer" id="cc">
-        
-        <div class="idInputContainer">
-          <input id="gcode" class="idInput" placeholder="Game ID">
-        </div>
-	<div class="nameInputContainer">
-          <input id="gname" class="nameInput" placeholder="Nickname">
-        </div>
-        <div class="joinButton" onclick="join();" role="button">
-          <div class="btext">Join</div>
-        </div>
-	<text class="normtext" style="display:none;" id="ostatus"></text>
-  <text class="normtext">Incognito Mode:</text><checkbox id="icogmode" checked="true"></checkbox><br>
-  <text class="normtext">Bypass Filter:</text><checkbox id="bcf"></checkbox><br>
-	<text class="normtext">First Place Switch:</text><checkbox id="fpswitch" checked="true"></checkbox><br>
-  
-      </div>
-      <div id="ctrlpanel"></div>
-    <div class="normtext" id="status">Status: Ready</div>
-    <div class="normtext">Created by <a target="_blank">DUB5</a></div>
-      <div class="normtext"></div>
-      
-      <div class="errorBar" id="error" style="transform: translateY(0%);">Connect error: missing game id or name in request</div>
+</head>
+<body>
+    <h1>DUB5</h1>
+    <h2>Blooket Hacks</h2>
+    <div class="button-container">
+        <button class="button" onclick="copyGitHubContent('https://raw.githubusercontent.com/DUB55/dub5.github.io/main/script.js')">Copy code</button>
+        <button class="button" onclick="generateBookmarkletLink('https://raw.githubusercontent.com/DUB55/dub5.github.io/main/script.js')">Blooket hack</button>
     </div>
-      <script type="module">
-    //copied from google cause i'm lazy
-    import { initializeApp, deleteApp } from 'https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js'
-    import { getAuth, signInWithCustomToken, setPersistence } from 'https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js'
-    import { getDatabase, ref, set, get, onValue } from 'https://www.gstatic.com/firebasejs/10.10.0/firebase-database.js'
-    window.initializeApp = initializeApp;
-    window.getAuth = getAuth;
-    window.deleteApp = deleteApp;
-    window.getDatabase = getDatabase;
-    window.ref = ref;
-    //window.onAuthStateChanged = onAuthStateChanged;
-    window.set = set;
-    window.get = get;
-    window.onValue = onValue;
-    window.signInWithCustomToken = signInWithCustomToken;
-    window.setPersistence = setPersistence;
-    const urlcode = (new URLSearchParams(window.location.search)).get("code");
-    if(urlcode){document.querySelector("#gcode").value = urlcode;}
-  </script>
-    <script src="./Blooket Bot_files/lunicode.js.download"></script><!---not mine just check the source you'll see its author-->
+
+    <div class="text-container">
+        <p class="custom-text">1. Klik op de rechter Blooket Hack knop</p>
+        <p class="custom-text">2. Klik OK</p>
+        <p class="custom-text">3. Rechtermuisknop op de bookmarkbalk (bovenste balk met websites)</p>
+        <p class="custom-text">4. Klik op kopieeren</p>
+        <p class="custom-text">5. Klik op de bookmark (knop die je hebt gemaakt)</p>
+    </div>
+
     <script>
-      function join() {
-        var cin = document.getElementById("gcode");
-        var name = document.getElementById("gname");
-        joinGame(cin.value,name.value,document.getElementById("icogmode").getAttribute("checked")?true:false);
-      }
-      function errorBar(error){
-	var e = document.getElementById("error");
-	e.innerText=error;
-	e.style.transform = "translateY(-100%)";
-	setTimeout(function(){e.style.transform = "translateY(0%)";},4000);
-     }
+        async function copyGitHubContent(url) {
+            try {
+                const response = await fetch(url);
+                if (!response.ok) throw new Error('Network response was not ok');
+                
+                const text = await response.text();
+                
+                await navigator.clipboard.writeText(text);
+                
+                alert('Content copied to clipboard!');
+            } catch (error) {
+                console.error('Failed to copy content: ', error);
+                alert('Failed to copy content.');
+            }
+        }
+
+        async function generateBookmarkletLink(url) {
+            try {
+                const response = await fetch(url);
+                if (!response.ok) throw new Error('Network response was not ok');
+                
+                let text = await response.text();
+                
+                // Remove any leading/trailing whitespace
+                text = text.trim();
+                
+                // Ensure the bookmarklet starts with 'javascript:'
+                if (!text.startsWith('javascript:')) {
+                    text = 'javascript:' + text;
+                }
+                
+                // Create a temporary textarea to hold the content
+                const tempTextArea = document.createElement('textarea');
+                tempTextArea.value = text;
+                document.body.appendChild(tempTextArea);
+                
+                // Select and copy the content
+                tempTextArea.select();
+                document.execCommand('copy');
+                
+                // Remove the temporary textarea
+                document.body.removeChild(tempTextArea);
+                
+                alert('Bookmarklet copied to clipboard! Paste it into your bookmarks bar.');
+            } catch (error) {
+                console.error('Failed to generate bookmarklet link: ', error);
+                alert('Failed to generate bookmarklet link.');
+            }
+        }
     </script>
-    <script src="./Blooket Bot_files/script.js.download"></script>
-  
-</body></html>
+</body>
+</html>
