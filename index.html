@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DUB5</title>
     <style>
-                body {
+        body {
             margin: 0;
             height: 100vh;
             display: flex;
@@ -22,6 +22,7 @@
             font-weight: bold;
             margin-bottom: 10px;
             margin-top: 50px;
+            
         }
         h2 {
             font-size: 2em;
@@ -44,6 +45,9 @@
             text-decoration: none;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
             transition: background 1s, transform 0.3s;
+            min-width: 200px; /* Ensure all buttons have a minimum width */
+            display: inline-block; /* Make it behave like a button */
+            text-align: center; /* Center the text inside the button */
         }
         .button:hover {
             background: linear-gradient(to bottom, #000033, #000077);
@@ -77,6 +81,7 @@
     <div class="button-container">
         <button class="button" onclick="copyGitHubContent('https://raw.githubusercontent.com/DUB55/dub5.github.io/main/script.js')">Copy code</button>
         <button class="button" onclick="generateBookmarkletLink('https://raw.githubusercontent.com/DUB55/dub5.github.io/main/script.js')">Blooket hack</button>
+        <a id="bookmarkletButton" class="button" draggable="true"></a>
     </div>
 
     <div class="text-container">
@@ -105,38 +110,25 @@
         }
 
         async function generateBookmarkletLink(url) {
-            try {
-                const response = await fetch(url);
-                if (!response.ok) throw new Error('Network response was not ok');
-                
-                let text = await response.text();
-                
-                // Remove any leading/trailing whitespace
-                text = text.trim();
-                
-                // Ensure the bookmarklet starts with 'javascript:'
-                if (!text.startsWith('javascript:')) {
-                    text = 'javascript:' + text;
-                }
-                
-                // Create a temporary textarea to hold the content
-                const tempTextArea = document.createElement('textarea');
-                tempTextArea.value = text;
-                document.body.appendChild(tempTextArea);
-                
-                // Select and copy the content
-                tempTextArea.select();
-                document.execCommand('copy');
-                
-                // Remove the temporary textarea
-                document.body.removeChild(tempTextArea);
-                
-                alert('Bookmarklet copied to clipboard! Paste it into your bookmarks bar.');
-            } catch (error) {
-                console.error('Failed to generate bookmarklet link: ', error);
-                alert('Failed to generate bookmarklet link.');
+            const response = await fetch(url);
+            if (!response.ok) throw new Error('Network response was not ok');
+            
+            let text = await response.text();
+            text = text.trim();
+            if (!text.startsWith('javascript:')) {
+                text = 'javascript:' + text;
             }
+            return text;  // Return the formatted bookmarklet link
         }
+
+        // Setup the bookmarklet button on page load
+        window.onload = async () => {
+            const bookmarkletButton = document.getElementById('bookmarkletButton');
+            const bookmarkletCode = await generateBookmarkletLink('https://raw.githubusercontent.com/DUB55/dub5.github.io/main/script.js');
+            bookmarkletButton.setAttribute('href', bookmarkletCode);
+            bookmarkletButton.setAttribute('target', '_blank');
+            bookmarkletButton.innerHTML = '&nbsp;'; // Set a non-breaking space for an empty look
+        };
     </script>
 </body>
 </html>
