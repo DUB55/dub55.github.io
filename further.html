@@ -5,16 +5,55 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Interviewverslag</title>
     <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            background: linear-gradient(to bottom, #000022, #000066);
+            color: white;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+        h1 {
+            font-size: 3em;
+            margin-top: 30px;
+            color: #ffffff;
+        }
+        .button {
+            padding: 15px 30px;
+            font-size: 1.5em;
+            color: white;
+            background: linear-gradient(to bottom, #000044, #000088);
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            transition: background 1s, transform 0.3s;
+            margin-bottom: 20px;
+        }
+        .button:hover {
+            background: linear-gradient(to bottom, #000033, #000077);
+            transform: scale(1.05);
+        }
         #text {
             display: none;
             white-space: pre-wrap;
-            width: 50%; /* Restrict the text width to 50% of the screen */
-            margin: 0 auto; /* Center the text block */
+            max-width: 50%; /* Restrict the text width to 50% of the screen */
             padding: 20px;
-            line-height: 1.6; /* Increase line spacing for readability */
-            border: 1px solid #ccc;
-            background-color: #f9f9f9;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+            border: 5px solid;
+            border-image: linear-gradient(to bottom, #000044, #000088) 1;
+            border-radius: 20px;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+            overflow-y: auto;
+            max-height: 60vh; /* Prevent the text container from taking up too much vertical space */
+            font-size: 1.2em;
+            line-height: 1.6;
         }
     </style>
     <script>
@@ -27,7 +66,7 @@
 <body>
 
     <h1>Interviewverslag</h1>
-    <button onclick="showText()">Klik om het verslag te lezen</button>
+    <button class="button" onclick="showText()">Klik om het verslag te lezen</button>
     
     <div id="text">
         Nederlands – interviewverslag
