@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DUB5</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            background: linear-gradient(to bottom, #000022, #000066);
+            color: white;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+        h1 {
+            font-size: 5em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            margin-top: 50px;
+            
+        }
+        h2 {
+            font-size: 2em;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .button-container {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        .button {
+            padding: 15px 30px;
+            font-size: 1.5em;
+            color: white;
+            background: linear-gradient(to bottom, #000044, #000088);
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            text-decoration: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            transition: background 1s, transform 0.3s;
+            min-width: 200px; /* Ensure all buttons have a minimum width */
+            display: inline-block; /* Make it behave like a button */
+            text-align: center; /* Center the text inside the button */
+        }
+        .button:hover {
+            background: linear-gradient(to bottom, #000033, #000077);
+            transform: scale(1.05);
+        }
+        .text-container {
+            max-width: 600px;
+            padding: 20px;
+            margin-top: 20px;
+            border: 5px solid;
+            border-image: linear-gradient(to bottom, #000044, #000088);
+            border-image-slice: 1;
+            border-radius: 20px;
+            text-align: left;
+            overflow: hidden;
+        }
+        .custom-text {
+            font-size: 1.2em;
+            color: white;
+            font-weight: bold;
+            margin: 0;
+        }
+        .custom-text p {
+            margin: 0 0 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>DUB5</h1>
+    <h2>Blooket Hacks</h2>
+    <div class="button-container">
+        <button class="button" onclick="copyGitHubContent('https://raw.githubusercontent.com/DUB55/dub5.github.io/main/script.js')">Copy code</button>
+        <button class="button" onclick="generateBookmarkletLink('https://raw.githubusercontent.com/DUB55/dub5.github.io/main/script.js')">Blooket hack</button>
+        <a id="bookmarkletButton" class="button" draggable="true"></a>
+    </div>
+
+    <div class="text-container">
+        <p class="custom-text">1. Sleep de meest rechte knop naar de bookmarkbalk</p>
+        <p class="custom-text">(Bookmarkbalk = bovenste balk met websites)</p>
+        <p class="custom-text">2. Klik op de bookmark/knop die je net hebt aangemaakt</p>
+
+    </div>
+
+    <script>
+        async function copyGitHubContent(url) {
+            try {
+                const response = await fetch(url);
+                if (!response.ok) throw new Error('Network response was not ok');
+                
+                const text = await response.text();
+                
+                await navigator.clipboard.writeText(text);
+                
+                alert('Content copied to clipboard!');
+            } catch (error) {
+                console.error('Failed to copy content: ', error);
+                alert('Failed to copy content.');
+            }
+        }
+
+        async function generateBookmarkletLink(url) {
+            const response = await fetch(url);
+            if (!response.ok) throw new Error('Network response was not ok');
+            
+            let text = await response.text();
+            text = text.trim();
+            if (!text.startsWith('javascript:')) {
+                text = 'javascript:' + text;
+            }
+            return text;  // Return the formatted bookmarklet link
+        }
+
+        // Setup the bookmarklet button on page load
+        window.onload = async () => {
+            const bookmarkletButton = document.getElementById('bookmarkletButton');
+            const bookmarkletCode = await generateBookmarkletLink('https://raw.githubusercontent.com/DUB55/dub5.github.io/main/script.js');
+            bookmarkletButton.setAttribute('href', bookmarkletCode);
+            bookmarkletButton.setAttribute('target', '_blank');
+            bookmarkletButton.innerHTML = '&nbsp;'; // Set a non-breaking space for an empty look
+        };
+    </script>
+</body>
+</html>
