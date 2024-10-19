@@ -16,13 +16,35 @@
             color: white;
             font-family: Arial, sans-serif;
             overflow: hidden;
+            position: relative; /* For positioning the nav bar */
+        }
+        .nav {
+            position: absolute; /* Positioning the nav bar */
+            top: 20px; /* Distance from the top */
+            right: 20px; /* Distance from the right */
+            display: flex;
+            gap: 20px;
+            z-index: 1; /* Ensure the nav is on top */
+        }
+        .nav a {
+            padding: 10px 20px;
+            font-size: 1.2em;
+            color: white;
+            background: linear-gradient(to bottom, #000044, #000088);
+            text-decoration: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            transition: background 0.3s, transform 0.3s;
+        }
+        .nav a:hover {
+            background: linear-gradient(to bottom, #000033, #000077);
+            transform: scale(1.05);
         }
         h1 {
             font-size: 5em;
             font-weight: bold;
             margin-bottom: 10px;
-            margin-top: 50px;
-            
+            margin-top: 120px; /* Increased margin-top to push header down */
         }
         h2 {
             font-size: 2em;
@@ -76,6 +98,13 @@
     </style>
 </head>
 <body>
+    <div class="nav">
+        <a href="/index.html">Home</a> <!-- Link to Home -->
+        <a href="/secret-text">Secret Text</a> <!-- Link for Secret Text -->
+        <a href="/blooket-hacks.html">Blooket</a> <!-- Link for Blooket -->
+        <a href="/cities-skylines-ii-download.html">Cities: Skylines II</a> <!-- Link for Cities: Skylines II -->
+    </div>
+
     <h1>DUB5</h1>
     <h2>Blooket Hacks</h2>
     <div class="button-container">
@@ -88,7 +117,6 @@
         <p class="custom-text">1. Sleep de meest rechte knop naar de bookmarkbalk</p>
         <p class="custom-text">(Bookmarkbalk = bovenste balk met websites)</p>
         <p class="custom-text">2. Klik op de bookmark/knop die je net hebt aangemaakt</p>
-
     </div>
 
     <script>
