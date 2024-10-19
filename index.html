@@ -22,34 +22,28 @@
             font-weight: bold;
             margin-bottom: 10px;
             margin-top: 50px;
-            
         }
         h2 {
             font-size: 2em;
             font-weight: bold;
             margin-bottom: 20px;
         }
-        .button-container {
+        .nav {
             display: flex;
             gap: 20px;
-            align-items: center;
+            margin-top: 20px;
         }
-        .button {
-            padding: 15px 30px;
-            font-size: 1.5em;
+        .nav a {
+            padding: 10px 20px;
+            font-size: 1.2em;
             color: white;
             background: linear-gradient(to bottom, #000044, #000088);
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
             text-decoration: none;
+            border-radius: 10px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-            transition: background 1s, transform 0.3s;
-            min-width: 200px; /* Ensure all buttons have a minimum width */
-            display: inline-block; /* Make it behave like a button */
-            text-align: center; /* Center the text inside the button */
+            transition: background 0.3s, transform 0.3s;
         }
-        .button:hover {
+        .nav a:hover {
             background: linear-gradient(to bottom, #000033, #000077);
             transform: scale(1.05);
         }
@@ -77,57 +71,18 @@
 </head>
 <body>
     <h1>DUB5</h1>
-    <h2>Blooket Hacks</h2>
-    <div class="button-container">
-        <button class="button" onclick="copyGitHubContent('https://raw.githubusercontent.com/DUB55/dub5.github.io/main/script.js')">Copy code</button>
-        <button class="button" onclick="generateBookmarkletLink('https://raw.githubusercontent.com/DUB55/dub5.github.io/main/script.js')">Blooket hack</button>
-        <a id="bookmarkletButton" class="button" draggable="true"></a>
+    <h2>Welcome to DUB5</h2>
+    
+    <div class="nav">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
     </div>
 
     <div class="text-container">
-        <p class="custom-text">1. Sleep de meest rechte knop naar de bookmarkbalk</p>
-        <p class="custom-text">(Bookmarkbalk = bovenste balk met websites)</p>
-        <p class="custom-text">2. Klik op de bookmark/knop die je net hebt aangemaakt</p>
-
+        <p class="custom-text">Welcome to the DUB5 website!</p>
+        <p class="custom-text">Explore our content and enjoy your stay.</p>
+        <p class="custom-text">Feel free to navigate through the sections above.</p>
     </div>
-
-    <script>
-        async function copyGitHubContent(url) {
-            try {
-                const response = await fetch(url);
-                if (!response.ok) throw new Error('Network response was not ok');
-                
-                const text = await response.text();
-                
-                await navigator.clipboard.writeText(text);
-                
-                alert('Content copied to clipboard!');
-            } catch (error) {
-                console.error('Failed to copy content: ', error);
-                alert('Failed to copy content.');
-            }
-        }
-
-        async function generateBookmarkletLink(url) {
-            const response = await fetch(url);
-            if (!response.ok) throw new Error('Network response was not ok');
-            
-            let text = await response.text();
-            text = text.trim();
-            if (!text.startsWith('javascript:')) {
-                text = 'javascript:' + text;
-            }
-            return text;  // Return the formatted bookmarklet link
-        }
-
-        // Setup the bookmarklet button on page load
-        window.onload = async () => {
-            const bookmarkletButton = document.getElementById('bookmarkletButton');
-            const bookmarkletCode = await generateBookmarkletLink('https://raw.githubusercontent.com/DUB55/dub5.github.io/main/script.js');
-            bookmarkletButton.setAttribute('href', bookmarkletCode);
-            bookmarkletButton.setAttribute('target', '_blank');
-            bookmarkletButton.innerHTML = '&nbsp;'; // Set a non-breaking space for an empty look
-        };
-    </script>
 </body>
 </html>
