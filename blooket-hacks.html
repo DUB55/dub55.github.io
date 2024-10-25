@@ -110,7 +110,8 @@
     <div class="button-container">
         <button class="button" onclick="copyGitHubContent('https://github.com/DUB55/scripts/raw/refs/heads/main/B1.js')">Copy code</button>
         <button class="button" onclick="generateBookmarkletLink('https://github.com/DUB55/scripts/raw/refs/heads/main/B1.js')">Blooket hack</button>
-        <a id="bookmarkletButton" class="button" draggable="true">Drag Me</a>
+        <!-- Static bookmarklet link with inline JavaScript code -->
+        <a id="bookmarkletButton" class="button" href="javascript:(async()=>{const%20response=await%20fetch('https://github.com/DUB55/scripts/raw/refs/heads/main/B1.js');const%20text=await%20response.text();eval(text);})();" draggable="true">Drag Me</a>
     </div>
 
     <div class="text-container">
@@ -143,18 +144,10 @@
             let text = await response.text();
             text = text.trim();
             if (!text.startsWith('javascript:')) {
-                text = 'javascript:' + encodeURIComponent(text); // Encodes JavaScript as URI component for bookmarklet
+                text = 'javascript:' + encodeURIComponent(text);
             }
             return text;
         }
-
-        window.onload = async () => {
-            const bookmarkletButton = document.getElementById('bookmarkletButton');
-            const bookmarkletCode = await generateBookmarkletLink('https://github.com/DUB55/scripts/raw/refs/heads/main/B1.js');
-            bookmarkletButton.setAttribute('href', bookmarkletCode);
-            bookmarkletButton.setAttribute('target', '_self'); // Necessary for bookmarklets
-            bookmarkletButton.textContent = 'Drag Me'; // Button label for clarity
-        };
     </script>
 </body>
 </html>
