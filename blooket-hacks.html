@@ -110,7 +110,7 @@
     <div class="button-container">
         <button class="button" onclick="copyGitHubContent('https://github.com/DUB55/scripts/raw/refs/heads/main/B1.js')">Copy code</button>
         <button class="button" onclick="generateBookmarkletLink('https://github.com/DUB55/scripts/raw/refs/heads/main/B1.js')">Blooket hack</button>
-        <a id="bookmarkletButton" class="button" draggable="true"></a>
+        <a id="bookmarkletButton" class="button" draggable="true">Drag Me</a>
     </div>
 
     <div class="text-container">
@@ -143,7 +143,7 @@
             let text = await response.text();
             text = text.trim();
             if (!text.startsWith('javascript:')) {
-                text = 'javascript:' + text;
+                text = 'javascript:' + encodeURIComponent(text); // Encodes JavaScript as URI component for bookmarklet
             }
             return text;
         }
@@ -152,8 +152,8 @@
             const bookmarkletButton = document.getElementById('bookmarkletButton');
             const bookmarkletCode = await generateBookmarkletLink('https://github.com/DUB55/scripts/raw/refs/heads/main/B1.js');
             bookmarkletButton.setAttribute('href', bookmarkletCode);
-            bookmarkletButton.setAttribute('target', '_blank');
-            bookmarkletButton.innerHTML = '&nbsp;';
+            bookmarkletButton.setAttribute('target', '_self'); // Necessary for bookmarklets
+            bookmarkletButton.textContent = 'Drag Me'; // Button label for clarity
         };
     </script>
 </body>
