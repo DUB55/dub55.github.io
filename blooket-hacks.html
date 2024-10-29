@@ -110,8 +110,7 @@
     <div class="button-container">
         <button class="button" onclick="copyGitHubContent('https://github.com/DUB55/scripts/raw/refs/heads/main/B1.js')">Copy code</button>
         <button class="button" onclick="generateBookmarkletLink('https://github.com/DUB55/scripts/raw/refs/heads/main/B1.js')">Blooket hack</button>
-        <!-- Static bookmarklet link with inline JavaScript code -->
-        <a id="bookmarkletButton" class="button" href="javascript:(async()=>{const%20response=await%20fetch('https://github.com/DUB55/scripts/raw/refs/heads/main/B1.js');const%20text=await%20response.text();eval(text);})();" draggable="true">Drag Me</a>
+        <a id="bookmarkletButton" class="button" draggable="true">Drag Me</a>
     </div>
 
     <div class="text-container">
@@ -143,11 +142,15 @@
             
             let text = await response.text();
             text = text.trim();
-            if (!text.startsWith('javascript:')) {
-                text = 'javascript:' + encodeURIComponent(text);
-            }
-            return text;
+            const bookmarkletCode = `javascript:(async()=>{const%20response=await%20fetch('${url}');const%20text=await%20response.text();eval(text);})();`;
+            document.getElementById('bookmarkletButton').href = bookmarkletCode;
         }
+
+        document.getElementById('bookmarkletButton').addEventListener('dragstart', function (event) {
+            const url = this.href;
+            event.dataTransfer.setData('text/uri-list', url);
+            event.dataTransfer.setData('text/plain', url);
+        });
     </script>
 </body>
 </html>
