@@ -67,6 +67,32 @@
         .custom-text p {
             margin: 0 0 10px 0;
         }
+                .button-container {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            margin-top: 50px;
+            flex-direction: column; /* Added to stack buttons vertically */
+        }
+        .button {
+            padding: 15px 30px;
+            font-size: 1.5em;
+            color: white;
+            background: linear-gradient(to bottom, #000044, #000088);
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            text-decoration: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            transition: background 1s, transform 0.3s;
+            min-width: 200px;
+            display: inline-block;
+            text-align: center;
+        }
+        .button:hover {
+            background: linear-gradient(to bottom, #000033, #000077);
+            transform: scale(1.05);
+        }
     </style>
 </head>
 <body>
