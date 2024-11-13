@@ -67,12 +67,13 @@
         .custom-text p {
             margin: 0 0 10px 0;
         }
-                .button-container {
+        .button-container {
             display: flex;
             gap: 20px;
+            justify-content: center; /* Center buttons horizontally */
             align-items: center;
             margin-top: 50px;
-            flex-direction: column; /* Added to stack buttons vertically */
+            flex-direction: row; /* Ensure buttons are aligned horizontally */
         }
         .button {
             padding: 15px 30px;
@@ -112,9 +113,9 @@
         <p class="custom-text">Feel free to navigate through the sections above.</p>
     </div>
     
-<div class="button-container">
-    <a class="button" href="https://cdn.memes.com/up/39729641681080422/i/1681081043875.jpg">kys</a>
-    <button class="button kys-button">kys</button>
-</div>
+    <div class="button-container">
+        <a class="button" href="https://cdn.memes.com/up/39729641681080422/i/1681081043875.jpg">kys</a>
+        <button class="button kys-button">kys</button>
+    </div>
 </body>
 </html>
