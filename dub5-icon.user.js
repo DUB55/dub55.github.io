@@ -4,7 +4,7 @@
 // @version      2024-11-21
 // @description  nobody cares
 // @author       You
-// @match        https://github.com/DUB55/dub55.github.io/new/main
+// @match        https://play.blooket.com/
 // @icon         https://github.com/DUB55/dub55.github.io/blob/main/dub5.png?raw=true
 // @grant        none
 // ==/UserScript==
