@@ -7,6 +7,7 @@
 // @match        https://play.blooket.com/
 // @match        https://blooket.com
 // @match        https://play.blooket.com/play
+// @run-at       document-idle
 // @icon         https://github.com/DUB55/dub55.github.io/blob/main/dub5.png?raw=true
 // @grant        none
 // ==/UserScript==
