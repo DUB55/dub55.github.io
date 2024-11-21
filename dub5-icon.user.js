@@ -5,6 +5,8 @@
 // @description  nobody cares
 // @author       You
 // @match        https://play.blooket.com/
+// @match        https://blooket.com
+// @match        https://play.blooket.com/play
 // @icon         https://github.com/DUB55/dub55.github.io/blob/main/dub5.png?raw=true
 // @grant        none
 // ==/UserScript==
