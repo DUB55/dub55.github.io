@@ -1,0 +1,262 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Quiz</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: linear-gradient(to bottom, #000066, #000033); /* Smooth gradient */
+            color: white;
+            font-family: Arial, sans-serif;
+            overflow: auto;
+        }
+
+        h1 {
+            font-size: 3em;
+            font-weight: bold;
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        label {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 10px;
+            resize: none;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            background: #000044;
+            color: white;
+            font-size: 1em;
+        }
+
+        button {
+            display: block;
+            font-size: 1em;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 10px;
+            transition: background 0.3s, transform 0.3s;
+            background: linear-gradient(to bottom, #000044, #000077); /* Gradient button style */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            margin: 20px auto;
+        }
+
+        button:hover {
+            background: linear-gradient(to bottom, #000033, #000055); /* Darker hover effect */
+            transform: translateY(-5px);
+        }
+
+        .container {
+            width: 90%;
+            max-width: 600px;
+            text-align: center;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        #options button {
+            margin: 10px;
+            width: calc(100% - 20px);
+        }
+
+        #result-section ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            text-align: left;
+        }
+
+        #result-section ul li {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Interactive Quiz</h1>
+        <div id="input-section" class="mb-6">
+            <label for="terms-input">Enter terms and definitions:</label>
+            <textarea id="terms-input" rows="4" placeholder="e.g., this-that, here-there, hat-tah"></textarea>
+            <button id="start-quiz">Start Quiz</button>
+            <p id="error-message" class="hidden" style="color: #FF6666; font-weight: bold;"></p>
+        </div>
+        <div id="quiz-section" class="hidden">
+            <div>
+                <span id="progress"></span>
+            </div>
+            <div id="question-section">
+                <p id="question" style="font-size: 1.5em; font-weight: bold;"></p>
+                <div id="options"></div>
+            </div>
+            <button id="next-question" class="hidden">Next Question</button>
+        </div>
+        <div id="result-section" class="hidden">
+            <h2>Quiz Results</h2>
+            <p id="score"></p>
+            <div id="incorrect-answers"></div>
+            <button id="reset-quiz">Reset Quiz</button>
+        </div>
+    </div>
+
+    <script>
+        // Original script logic here (unchanged).
+        const inputSection = document.getElementById('input-section');
+        const quizSection = document.getElementById('quiz-section');
+        const resultSection = document.getElementById('result-section');
+        const termsInput = document.getElementById('terms-input');
+        const startQuizButton = document.getElementById('start-quiz');
+        const errorMessage = document.getElementById('error-message');
+        const progress = document.getElementById('progress');
+        const questionElement = document.getElementById('question');
+        const optionsElement = document.getElementById('options');
+        const nextQuestionButton = document.getElementById('next-question');
+        const scoreElement = document.getElementById('score');
+        const incorrectAnswersElement = document.getElementById('incorrect-answers');
+        const resetQuizButton = document.getElementById('reset-quiz');
+
+        let terms = [];
+        let currentQuestionIndex = 0;
+        let correctAnswers = 0;
+        let incorrectAnswers = [];
+
+        startQuizButton.addEventListener('click', () => {
+            const input = termsInput.value.trim();
+            if (!input) {
+                showError('Please enter terms and definitions.');
+                return;
+            }
+
+            terms = parseInput(input);
+            if (terms.length < 4) {
+                showError('Please enter at least 4 terms and definitions.');
+                return;
+            }
+
+            hideError();
+            startQuiz();
+        });
+
+        nextQuestionButton.addEventListener('click', () => {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < terms.length) {
+                showQuestion();
+            } else {
+                showResults();
+            }
+        });
+
+        resetQuizButton.addEventListener('click', resetQuiz);
+
+        function parseInput(input) {
+            const pairs = input.split(',').map(pair => pair.trim());
+            const parsedTerms = pairs.map(pair => {
+                const [term, definition] = pair.split('-').map(item => item.trim());
+                return { term, definition };
+            });
+            return parsedTerms;
+        }
+
+        function showError(message) {
+            errorMessage.textContent = message;
+            errorMessage.classList.remove('hidden');
+        }
+
+        function hideError() {
+            errorMessage.classList.add('hidden');
+        }
+
+        function startQuiz() {
+            inputSection.classList.add('hidden');
+            quizSection.classList.remove('hidden');
+            currentQuestionIndex = 0;
+            correctAnswers = 0;
+            incorrectAnswers = [];
+            showQuestion();
+        }
+
+        function showQuestion() {
+            const currentTerm = terms[currentQuestionIndex];
+            questionElement.textContent = `What is the definition of "${currentTerm.term}"?`;
+            const options = generateOptions(currentTerm.definition);
+            optionsElement.innerHTML = '';
+            options.forEach(option => {
+                const button = document.createElement('button');
+                button.textContent = option;
+                button.addEventListener('click', () => handleAnswer(option, currentTerm.definition));
+                optionsElement.appendChild(button);
+            });
+            progress.textContent = `Question ${currentQuestionIndex + 1} of ${terms.length}`;
+            nextQuestionButton.classList.add('hidden');
+        }
+
+        function generateOptions(correctDefinition) {
+            const options = [correctDefinition];
+            while (options.length < 4) {
+                const randomTerm = terms[Math.floor(Math.random() * terms.length)];
+                if (!options.includes(randomTerm.definition)) {
+                    options.push(randomTerm.definition);
+                }
+            }
+            return options.sort(() => Math.random() - 0.5);
+        }
+
+        function handleAnswer(selectedDefinition, correctDefinition) {
+            if (selectedDefinition === correctDefinition) {
+                correctAnswers++;
+            } else {
+                incorrectAnswers.push({
+                    term: terms[currentQuestionIndex].term,
+                    correctDefinition,
+                    selectedDefinition
+                });
+            }
+            nextQuestionButton.classList.remove('hidden');
+        }
+
+        function showResults() {
+            quizSection.classList.add('hidden');
+            resultSection.classList.remove('hidden');
+            scoreElement.textContent = `You got ${correctAnswers} out of ${terms.length} correct.`;
+            incorrectAnswersElement.innerHTML = '';
+            if (incorrectAnswers.length > 0) {
+                const incorrectList = document.createElement('ul');
+                incorrectAnswers.forEach(item => {
+                    const listItem = document.createElement('li');
+                    listItem.textContent = `Term: ${item.term}, Your Answer: ${item.selectedDefinition}, Correct Answer: ${item.correctDefinition}`;
+                    incorrectList.appendChild(listItem);
+                });
+                incorrectAnswersElement.appendChild(incorrectList);
+            }
+        }
+
+        function resetQuiz() {
+            inputSection.classList.remove('hidden');
+            quizSection.classList.add('hidden');
+            resultSection.classList.add('hidden');
+            termsInput.value = '';
+            terms = [];
+            currentQuestionIndex = 0;
+            correctAnswers = 0;
+            incorrectAnswers = [];
+        }
+    </script>
+</body>
+</html>
