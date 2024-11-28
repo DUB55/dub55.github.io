@@ -1,168 +1,168 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8"/>
-  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <title>Bookmarklet Testing</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
-    body {
-      font-family: 'Roboto', sans-serif;
-      background: linear-gradient(to bottom, #000022, #000066);
-    }
-    .nav {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      display: flex;
-      gap: 20px;
-      z-index: 1;
-    }
-    .nav a {
-      padding: 10px 20px;
-      font-size: 1.2em;
-      color: white;
-      background: linear-gradient(to bottom, #000044, #000088);
-      text-decoration: none;
-      border-radius: 10px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-      transition: background 0.3s, transform 0.3s;
-    }
-    .nav a:hover {
-      background: linear-gradient(to bottom, #000033, #000077);
-      transform: scale(1.05);
-    }
-    .animate-fade-in {
-      animation: fadeIn 1s ease-in-out;
-    }
-    .animate-scale {
-      animation: scale 1s infinite;
-    }
-    .animate-slide-up {
-      animation: slideUp 0.5s ease-out;
-    }
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-      }
-      to {
-        opacity: 1;
-      }
-    }
-    @keyframes scale {
-      0%, 100% {
-        transform: scale(1);
-      }
-      50% {
-        transform: scale(1.1);
-      }
-    }
-    @keyframes slideUp {
-      from {
-        transform: translateY(20px);
-        opacity: 0;
-      }
-      to {
-        transform: translateY(0);
-        opacity: 1;
-      }
-    }
-    .reviews-container {
-      overflow: hidden;
-      white-space: nowrap;
-    }
-    .reviews {
-      display: inline-block;
-      animation: scrollLeft 60s linear infinite;
-    }
-    @keyframes scrollLeft {
-      0% {
-        transform: translateX(100%);
-      }
-      100% {
-        transform: translateX(-100%);
-      }
-    }
-    .feature-card {
-      background: linear-gradient(to bottom, #000055, #000099);
-    }
-    .feature-card:hover {
-      background: linear-gradient(to bottom, #000044, #000088);
-    }
-  </style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Kahoot Hacks</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+body {
+font-family: 'Roboto', sans-serif;
+background: linear-gradient(to bottom, #000022, #000066);
+}
+.nav {
+position: absolute;
+top: 20px;
+right: 20px;
+display: flex;
+gap: 20px;
+z-index: 1;
+}
+.nav a {
+padding: 10px 20px;
+font-size: 1.2em;
+color: white;
+background: linear-gradient(to bottom, #000044, #000088);
+text-decoration: none;
+border-radius: 10px;
+box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+transition: background 0.3s, transform 0.3s;
+}
+.nav a:hover {
+background: linear-gradient(to bottom, #000033, #000077);
+transform: scale(1.05);
+}
+.animate-fade-in {
+animation: fadeIn 1s ease-in-out;
+}
+.animate-scale {
+animation: scale 1s infinite;
+}
+.animate-slide-up {
+animation: slideUp 0.5s ease-out;
+}
+@keyframes fadeIn {
+from {
+opacity: 0;
+}
+to {
+opacity: 1;
+}
+}
+@keyframes scale {
+0%, 100% {
+transform: scale(1);
+}
+50% {
+transform: scale(1.1);
+}
+}
+@keyframes slideUp {
+from {
+transform: translateY(20px);
+opacity: 0;
+}
+to {
+transform: translateY(0);
+opacity: 1;
+}
+}
+.reviews-container {
+overflow: hidden;
+white-space: nowrap;
+}
+.reviews {
+display: inline-block;
+animation: scrollLeft 60s linear infinite;
+}
+@keyframes scrollLeft {
+0% {
+transform: translateX(100%);
+}
+100% {
+transform: translateX(-100%);
+}
+}
+.feature-card {
+background: linear-gradient(to bottom, #000055, #000099);
+}
+.feature-card:hover {
+background: linear-gradient(to bottom, #000044, #000088);
+}
+</style>
 </head>
 <body class="text-white flex flex-col items-center justify-start min-h-screen overflow-auto">
-  <div class="nav">
-    <a href="/index.html">Home</a>
-    <a href="/secret-text">Secret Text</a>
-    <a href="/blooket.html">Blooket Hacks</a>
-    <a href="/cities-skylines-ii-download.html">Cities: Skylines II</a>
-    <a href="/to-do-list.html" target="_blank">To do list</a>
-  </div>
-  <main class="flex-grow container mx-auto px-6 py-12">
-    <section class="text-center">
-      <h1 class="text-5xl font-bold mt-12 animate-fade-in">Bookmarklet Testing</h1>
-      <p class="text-xl mt-6 animate-fade-in">Drag the button below to your bookmarks bar and click it to test.</p>
-    </section>
-    <section class="flex justify-center items-center mt-12">
-      <a
-        class="bg-gradient-to-b from-blue-800 to-blue-600 text-white py-3 px-6 rounded-lg shadow-lg transform transition-transform duration-300 hover:scale-105 animate-scale"
-        draggable="true"
-        href="#"
-        id="bookmarkletButton"
-        title="Drag me to your bookmarks bar"
-      >
-        <i class="fas fa-bookmark"></i> Drag Me
-      </a>
-    </section>
-    <section class="mt-16">
-      <h2 class="text-3xl font-bold text-center animate-slide-up">Features</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
-        <div class="p-6 rounded-lg shadow-lg animate-slide-up feature-card">
-          <i class="fas fa-code text-4xl mb-4"></i>
-          <h3 class="text-2xl font-bold mb-2">Easy to Use</h3>
-          <p>Simply drag and drop the button to your bookmarks bar and click to use.</p>
-        </div>
-        <div class="p-6 rounded-lg shadow-lg animate-slide-up feature-card">
-          <i class="fas fa-shield-alt text-4xl mb-4"></i>
-          <h3 class="text-2xl font-bold mb-2">Secure</h3>
-          <p>Our bookmarklet is secure and respects your privacy.</p>
-        </div>
-        <div class="p-6 rounded-lg shadow-lg animate-slide-up feature-card">
-          <i class="fas fa-sync-alt text-4xl mb-4"></i>
-          <h3 class="text-2xl font-bold mb-2">Always Updated</h3>
-          <p>We keep our bookmarklet updated with the latest features and improvements.</p>
-        </div>
-        <div class="p-6 rounded-lg shadow-lg animate-slide-up feature-card">
-          <i class="fas fa-cogs text-4xl mb-4"></i>
-          <h3 class="text-2xl font-bold mb-2">Customizable</h3>
-          <p>Customize the bookmarklet to suit your needs and preferences.</p>
-        </div>
-        <div class="p-6 rounded-lg shadow-lg animate-slide-up feature-card">
-          <i class="fas fa-users text-4xl mb-4"></i>
-          <h3 class="text-2xl font-bold mb-2">Community Support</h3>
-          <p>Join our community for support and to share your ideas.</p>
-        </div>
-        <div class="p-6 rounded-lg shadow-lg animate-slide-up feature-card">
-          <i class="fas fa-star text-4xl mb-4"></i>
-          <h3 class="text-2xl font-bold mb-2">Highly Rated</h3>
-          <p>Our users love the bookmarklet and rate it highly.</p>
-        </div>
-      </div>
-    </section>
-  </main>
-  <footer class="w-full py-6 mt-12">
-    <div class="container mx-auto text-center">
-      <p>© 2024 DUB5. All rights reserved.</p>
-    </div>
-  </footer>
-  <script>
-    document.getElementById('bookmarkletButton').addEventListener('dragstart', function(event) {
-      event.dataTransfer.setData('text/plain', 'javascript:(async()=>{try{const response=await fetch("https://github.com/DUB55/dub55.github.io/raw/refs/heads/main/kahoot.js");const text=await response.text();eval(text);}catch(e){console.error(e);alert("Failed to load bookmarklet script. Check the link.");}})();');
-    });
-    console.log("Bookmarklet is ready to be dragged and used!");
-  </script>
+<div class="nav">
+<a href="/index.html">Home</a>
+<a href="/secret-text">Secret Text</a>
+<a href="/blooket.html">Blooket Hacks</a>
+<a href="/cities-skylines-ii-download.html">Cities: Skylines II</a>
+<a href="/to-do-list.html" target="_blank">To do list</a>
+</div>
+<main class="flex-grow container mx-auto px-6 py-12">
+<section class="text-center">
+<h1 class="text-5xl font-bold mt-12 animate-fade-in">Kahoot Hacks</h1>
+<p class="text-xl mt-6 animate-fade-in">Drag the button below to your bookmarks bar and click it to test.</p>
+</section>
+<section class="flex justify-center items-center mt-12">
+<a
+class="bg-gradient-to-b from-blue-800 to-blue-600 text-white py-3 px-6 rounded-lg shadow-lg transform transition-transform duration-300 hover:scale-105 animate-scale"
+draggable="true"
+href="#"
+id="bookmarkletButton"
+title="Drag me to your bookmarks bar"
+>
+<i class="fas fa-bookmark"></i> Drag Me
+</a>
+</section>
+<section class="mt-16">
+<h2 class="text-3xl font-bold text-center animate-slide-up">Features</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
+<div class="p-6 rounded-lg shadow-lg animate-slide-up feature-card">
+<i class="fas fa-code text-4xl mb-4"></i>
+<h3 class="text-2xl font-bold mb-2">Easy to Use</h3>
+<p>Simply drag and drop the button to your bookmarks bar and click to use.</p>
+</div>
+<div class="p-6 rounded-lg shadow-lg animate-slide-up feature-card">
+<i class="fas fa-shield-alt text-4xl mb-4"></i>
+<h3 class="text-2xl font-bold mb-2">Secure</h3>
+<p>Our bookmarklet is secure and respects your privacy.</p>
+</div>
+<div class="p-6 rounded-lg shadow-lg animate-slide-up feature-card">
+<i class="fas fa-sync-alt text-4xl mb-4"></i>
+<h3 class="text-2xl font-bold mb-2">Always Updated</h3>
+<p>We keep our bookmarklet updated with the latest features and improvements.</p>
+</div>
+<div class="p-6 rounded-lg shadow-lg animate-slide-up feature-card">
+<i class="fas fa-cogs text-4xl mb-4"></i>
+<h3 class="text-2xl font-bold mb-2">Customizable</h3>
+<p>Customize the bookmarklet to suit your needs and preferences.</p>
+</div>
+<div class="p-6 rounded-lg shadow-lg animate-slide-up feature-card">
+<i class="fas fa-users text-4xl mb-4"></i>
+<h3 class="text-2xl font-bold mb-2">Community Support</h3>
+<p>Join our community for support and to share your ideas.</p>
+</div>
+<div class="p-6 rounded-lg shadow-lg animate-slide-up feature-card">
+<i class="fas fa-star text-4xl mb-4"></i>
+<h3 class="text-2xl font-bold mb-2">Highly Rated</h3>
+<p>Our users love the bookmarklet and rate it highly.</p>
+</div>
+</div>
+</section>
+</main>
+<footer class="w-full py-6 mt-12">
+<div class="container mx-auto text-center">
+<p>© 2024 DUB5. All rights reserved.</p>
+</div>
+</footer>
+<script>
+document.getElementById('bookmarkletButton').addEventListener('dragstart', function(event) {
+event.dataTransfer.setData('text/plain', 'javascript:(async()=>{try{const response=await fetch("https://github.com/DUB55/dub55.github.io/raw/refs/heads/main/kahoot.js");const text=await response.text();eval(text);}catch(e){console.error(e);alert("Failed to load bookmarklet script. Check the link.");}})();');
+});
+console.log("Bookmarklet is ready to be dragged and used!");
+</script>
 </body>
 </html>
