@@ -12,87 +12,97 @@
             flex-direction: column;
             justify-content: flex-start;
             align-items: center;
-            background: linear-gradient(to bottom, #000022, #000066);
+            background: linear-gradient(to bottom, #000066, #000033); /* Smooth gradient: top to bottom */
             color: white;
             font-family: Arial, sans-serif;
             overflow: hidden;
         }
+
         h1 {
             font-size: 5em;
             font-weight: bold;
             margin-bottom: 10px;
             margin-top: 50px;
         }
+
         h2 {
-            font-size: 2em;
+            font-size: 2.5em;
             font-weight: bold;
             margin-bottom: 20px;
         }
+
+        /* Navigation Bar */
         .nav {
             display: flex;
-            gap: 20px;
-            margin-top: 20px;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            padding: 0;
+            margin: 20px 0;
         }
+
         .nav a {
-            padding: 10px 20px;
             font-size: 1.2em;
+            font-weight: bold;
             color: white;
-            background: linear-gradient(to bottom, #000044, #000088);
             text-decoration: none;
+            padding: 10px 20px;
+            border: none;
             border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
             transition: background 0.3s, transform 0.3s;
+            background: linear-gradient(to bottom, #000044, #000077); /* Gradient button style */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         }
+
         .nav a:hover {
-            background: linear-gradient(to bottom, #000033, #000077);
-            transform: scale(1.05);
+            background: linear-gradient(to bottom, #000033, #000055); /* Darker hover effect */
+            transform: translateY(-5px); /* Slide upward on hover */
         }
+
         .text-container {
             max-width: 600px;
             padding: 20px;
             margin-top: 20px;
-            border: 5px solid;
-            border-image: linear-gradient(to bottom, #000044, #000088);
-            border-image-slice: 1;
             border-radius: 20px;
             text-align: left;
-            overflow: hidden;
-        }
-        .custom-text {
-            font-size: 1.2em;
+            background: #000044; /* Solid dark blue tone */
             color: white;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Shadow for depth */
+        }
+
+        .custom-text {
+            font-size: 1.3em;
             font-weight: bold;
             margin: 0;
         }
+
         .custom-text p {
             margin: 0 0 10px 0;
         }
-        .button-container {
-            display: flex;
-            gap: 20px;
-            justify-content: center; /* Center buttons horizontally */
-            align-items: center;
-            margin-top: 50px;
-            flex-direction: row; /* Ensure buttons are aligned horizontally */
-        }
-        .button {
-            padding: 15px 30px;
-            font-size: 1.5em;
-            color: white;
-            background: linear-gradient(to bottom, #000044, #000088);
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            text-decoration: none;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-            transition: background 1s, transform 0.3s;
-            min-width: 200px;
-            display: inline-block;
-            text-align: center;
-        }
-        .button:hover {
-            background: linear-gradient(to bottom, #000033, #000077);
-            transform: scale(1.05);
+
+        /* Media Query for Mobile Responsiveness */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 4em;
+            }
+
+            h2 {
+                font-size: 2em;
+            }
+
+            .nav {
+                flex-direction: column; /* Stacks items vertically for smaller screens */
+                gap: 15px;
+            }
+
+            .nav a {
+                font-size: 1em;
+                padding: 10px 15px;
+            }
+
+            .text-container {
+                padding: 15px;
+            }
         }
     </style>
 </head>
@@ -100,23 +110,21 @@
     <h1>DUB5</h1>
     <h2>Welcome to DUB5</h2>
     
+    <!-- Navigation Bar -->
     <div class="nav">
-        <a href="/secret-text">Secret Text</a>                          <!-- Link for Secret Text -->
-        <a href="/blooket-hacks.html" target="_blank">BLOOKET HACKS</a>                <!-- Link for Blooket Hacks -->
-        <a href="cities-skylines-ii-download">Cities: Skylines II</a>   <!-- Link for Cities: Skylines II -->
-        <a href="https://dub55.github.io/dub05/" target="_blank">DUB05</a> <!-- Link to DUB05 -->
-        <a href="/to-do-list.html" target="_blank">To do list</a>
+        <a href="/secret-text">Secret Text</a>
+        <a href="/blooket.html">Blooket Hacks</a>
+        <a href="cities-skylines-ii-download">Cities: Skylines II</a>
+        <a href="https://dub55.github.io/dub05/" target="_blank">DUB05</a>
+        <a href="/to-do-list.html" target="_blank">To Do List</a>
+        <a href="/blooket-hacks.html" target="_blank">Blooket Hacks</a>
     </div>
 
+    <!-- Text Section -->
     <div class="text-container">
         <p class="custom-text">Welcome to the DUB5 website!</p>
         <p class="custom-text">Explore our content and enjoy your stay.</p>
         <p class="custom-text">Feel free to navigate through the sections above.</p>
-    </div>
-    
-    <div class="button-container">
-        
-        <button class="button kys-button">add it here</button>
     </div>
 </body>
 </html>
