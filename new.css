@@ -61,6 +61,7 @@ h2 {
     transition: background 0.3s, transform 0.3s;
     background: linear-gradient(to bottom, #000044, #000077); /* Gradient button style */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    color: white; /* Ensures text is white and visible */
     display: inline-block;
 }
 
