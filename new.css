@@ -1,0 +1,113 @@
+/* Base Body Style */
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    background: linear-gradient(to bottom, #000066, #000033); /* Smooth gradient: top to bottom */
+    color: white;
+    font-family: Arial, sans-serif;
+    overflow: hidden;
+}
+
+/* Gradient Text Style */
+.gradient-text {
+    background: -webkit-linear-gradient(45deg, #4774ea, #00fffb 80%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Headings */
+h1 {
+    font-size: 5em;
+    font-weight: bold;
+    margin-bottom: 10px;
+    margin-top: 50px;
+    text-align: center;
+    font-family: Roboto, Arial, sans-serif;
+}
+
+h2 {
+    font-size: 2.5em;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Stars */
+.stars {
+    font-size: 3em; /* Adjust this value to change the size of the stars */
+}
+
+/* Navigation Bar */
+.nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    padding: 0;
+    margin: 20px 0;
+}
+
+.nav a {
+    font-size: 1.2em;
+    font-weight: bold;
+    text-decoration: none;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    transition: background 0.3s, transform 0.3s;
+    background: linear-gradient(to bottom, #000044, #000077); /* Gradient button style */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    display: inline-block;
+}
+
+.nav a:hover {
+    background: linear-gradient(to bottom, #000033, #000055); /* Darker hover effect */
+    transform: translateY(-5px); /* Slide upward on hover */
+}
+
+/* Text Container */
+.text-container {
+    max-width: 600px;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 20px;
+    text-align: left;
+    background: #000044; /* Solid dark blue tone */
+    color: white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Shadow for depth */
+}
+
+.custom-text {
+    font-size: 1.3em;
+    font-weight: bold;
+    margin: 0;
+}
+
+/* Media Query for Mobile Responsiveness */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 4em;
+    }
+
+    h2 {
+        font-size: 2em;
+    }
+
+    .nav {
+        flex-direction: column; /* Stacks items vertically for smaller screens */
+        gap: 15px;
+    }
+
+    .nav a {
+        font-size: 1em;
+        padding: 10px 15px;
+    }
+
+    .text-container {
+        padding: 15px;
+    }
+}
