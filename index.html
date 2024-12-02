@@ -12,7 +12,7 @@
             flex-direction: column;
             justify-content: flex-start;
             align-items: center;
-            background: linear-gradient(to bottom, #000066, #000033);
+            background: linear-gradient(to bottom, #000066, #000033); /* Smooth gradient: top to bottom */
             color: white;
             font-family: Arial, sans-serif;
             overflow: hidden;
@@ -34,9 +34,10 @@
         /* Stars CSS */
         .stars {
             color: white;
-            font-size: 3em;
+            font-size: 3em; /* Adjust this value to change the size of the stars */
+        }
 
-        /* NAVIGATION BAR */
+        /* Navigation Bar */
         .nav {
             display: flex;
             justify-content: center;
@@ -70,9 +71,9 @@
             margin-top: 20px;
             border-radius: 20px;
             text-align: left;
-            background: #000044;
+            background: #000044; /* Solid dark blue tone */
             color: white;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Shadow for depth */
         }
 
         .custom-text {
@@ -85,7 +86,7 @@
             margin: 0 0 10px 0;
         }
 
-        /* for mobile */
+        /* Media Query for Mobile Responsiveness */
         @media (max-width: 768px) {
             h1 {
                 font-size: 4em;
@@ -96,7 +97,7 @@
             }
 
             .nav {
-                flex-direction: column; /* stacking elemtns vertically for mobile / smaller screens */
+                flex-direction: column; /* Stacks items vertically for smaller screens */
                 gap: 15px;
             }
 
@@ -114,17 +115,19 @@
 <body>
     <h1>DUB5</h1>
     <span class="stars">&#x2605;&#x2605;&#x2605;&#x2605;&#x2605;</span>
+    <h2>Welcome to DUB5</h2>
     
-    <!-- NAVIGATION BAR-->
+    <!-- Navigation Bar -->
     <div class="nav">
-        <a href="/blooket-hacks.html" target="_blank">Blooket Hacks</a>
         <a href="/secret-text">Secret Text</a>
+        <a href="/blooket.html">Blooket Hacks</a>
         <a href="cities-skylines-ii-download">Cities: Skylines II</a>
         <a href="https://dub55.github.io/dub05/" target="_blank">DUB05</a>
         <a href="/to-do-list.html" target="_blank">To Do List</a>
+        <a href="/blooket-hacks.html" target="_blank">Blooket Hacks</a>
     </div>
 
-    <!-- yapping introduction -->
+    <!-- Text Section -->
     <div class="text-container">
         <p class="custom-text">Welcome to the DUB5 website!</p>
         <p class="custom-text">Explore our content and enjoy your stay.</p>
