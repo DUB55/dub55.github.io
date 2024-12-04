@@ -8,10 +8,42 @@ function addTask(taskText) {
     const task = document.createElement('div');
     task.className = 'task';
     task.innerHTML = `
-        <span>${taskText}</span>
+        <span class="task-text">${taskText}</span>
         <button class="light-blue" onclick="changeButtonColor(this)"></button>
         <img src="trashcan.png" class="trashcan" onclick="deleteTask(this)" alt="Trashcan" />
     `;
+    
+    // Add click event listener to the task text
+    const taskTextSpan = task.querySelector('.task-text');
+    taskTextSpan.addEventListener('click', function() {
+        const currentText = this.textContent;
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.value = currentText;
+        input.className = 'edit-input';
+        
+        // Replace span with input
+        this.replaceWith(input);
+        input.focus();
+        
+        // Handle input blur and enter key
+        input.addEventListener('blur', finishEditing);
+        input.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                finishEditing.call(this);
+            }
+        });
+        
+        function finishEditing() {
+            const newText = this.value.trim();
+            const span = document.createElement('span');
+            span.className = 'task-text';
+            span.textContent = newText || currentText; // Use old text if new text is empty
+            this.replaceWith(span);
+            saveTasks();
+        }
+    });
+    
     taskList.appendChild(task);
     saveTasks(); // Save tasks to localStorage after adding
 }
@@ -21,10 +53,10 @@ function saveTasks() {
     const tasks = [];
     const taskElements = taskList.getElementsByClassName('task');
     for (let task of taskElements) {
-        const taskText = task.querySelector('span').innerText;
+        const taskText = task.querySelector('.task-text').textContent;
         tasks.push(taskText);
     }
-    localStorage.setItem('tasks', JSON.stringify(tasks)); // Store tasks as a JSON string
+    localStorage.setItem('tasks', JSON.stringify(tasks));
 }
 
 // Function to load tasks from localStorage
