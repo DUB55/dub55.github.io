@@ -12,7 +12,7 @@
             flex-direction: column;
             justify-content: flex-start;
             align-items: center;
-            background: linear-gradient(to bottom, #000066, #000033); /* Smooth gradient: top to bottom */
+            background: linear-gradient(to bottom, #000066, #000033);
             color: white;
             font-family: Arial, sans-serif;
             overflow: hidden;
@@ -31,13 +31,11 @@
             margin-bottom: 20px;
         }
 
-        /* Stars CSS */
         .stars {
             color: white;
-            font-size: 3em; /* Adjust this value to change the size of the stars */
+            font-size: 3em;
         }
 
-        /* Navigation Bar */
         .nav {
             display: flex;
             justify-content: center;
@@ -56,37 +54,73 @@
             border: none;
             border-radius: 10px;
             transition: background 0.3s, transform 0.3s;
-            background: linear-gradient(to bottom, #000044, #000077); /* style for gradient for buttons */
+            background: linear-gradient(to bottom, #000044, #000077);
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         }
 
         .nav a:hover {
-            background: linear-gradient(to bottom, #000033, #000055); /* on hover the butotn will have a darker color */
-            transform: translateY(-5px); /* the butotn will go upwards on hover */
+            background: linear-gradient(to bottom, #000033, #000055);
+            transform: translateY(-5px);
         }
 
-        .text-container {
-            max-width: 600px;
+        .message-box {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: fixed;
+            bottom: -100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #000044;
             padding: 20px;
-            margin-top: 20px;
-            border-radius: 20px;
-            text-align: left;
-            background: #000044; /* dark blue tone */
-            color: white;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* shadow  */
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            transition: bottom 1s ease;
         }
 
-        .custom-text {
+        .message-box.visible {
+            bottom: 20px;
+        }
+
+        .message-box p {
             font-size: 1.3em;
+            margin-bottom: 20px;
+        }
+
+        .message-box .buttons {
+            display: flex;
+            gap: 20px;
+        }
+
+        .message-box button {
+            font-size: 1em;
             font-weight: bold;
-            margin: 0;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(to bottom, #000055, #000077);
+            cursor: pointer;
+            transition: background 0.3s, transform 0.3s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         }
 
-        .custom-text p {
-            margin: 0 0 10px 0;
+        .message-box button:hover {
+            background: linear-gradient(to bottom, #000033, #000055);
+            transform: translateY(-5px);
         }
 
-        /* mobile responsiveness */
+        .terms-link {
+            color: blue;
+            text-decoration: underline;
+        }
+
+        .terms-link:visited {
+            color: blue;
+        }
+
         @media (max-width: 768px) {
             h1 {
                 font-size: 4em;
@@ -97,17 +131,13 @@
             }
 
             .nav {
-                flex-direction: column; /* stack elements vertically for small displays */
+                flex-direction: column;
                 gap: 15px;
             }
 
             .nav a {
                 font-size: 1em;
                 padding: 10px 15px;
-            }
-
-            .text-container {
-                padding: 15px;
             }
         }
     </style>
@@ -116,26 +146,42 @@
     <h1>DUB5</h1>
     <span class="stars">&#x2605;&#x2605;&#x2605;&#x2605;&#x2605;</span>
     <h2>Welcome to DUB5</h2>
-    
-    <!-- navigation bar -->
+
     <div class="nav">
         <a href="https://dub55.github.io/snake" target="_blank">Snake Hacks🐍</a>
         <a href="/blooket-hacks.html" target="_blank">Blooket Hacks</a>
         <a href="/kahoot-hacks.html" target="_blank">Kahoot Hacks</a>
-        <!-- <a href="/to-do-list.html">To Do List</a> -->
-
     </div>
 
-    <div class="text-container">
-    <p class="custom-text">This website is made by DUB5</p>
-    <p class="custom-text">By visiting this website you agree to the <a href="https://dub55.github.io/terms-of-service" class="terms-link">terms of service</a>.</p>
-    <p class="custom-text">The content of this website should be used for legal purposes only!</p>
+    <div class="message-box" id="termsBox">
+        <p>Do you accept the <a href="https://dub55.github.io/terms-and-conditions" class="terms-link">Terms and Conditions</a>?</p>
+        <div class="buttons">
+            <button onclick="hideMessageBox()">Yes</button>
+            <button onclick="hideMessageBox()">No</button>
+        </div>
     </div>
 
     <footer class="w-full py-6 mt-12">
         <div class="container mx-auto text-center">
-            <p>
-            © 2024 DUB5. All rights reserved.
-            </p>
+            <p>© 2024 DUB5. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const termsBox = document.getElementById("termsBox");
+            setTimeout(() => {
+                termsBox.classList.add("visible");
+            }, 500); // Delay to show the message box smoothly
+        });
+
+        function hideMessageBox() {
+            const termsBox = document.getElementById("termsBox");
+            termsBox.classList.remove("visible");
+            setTimeout(() => {
+                termsBox.style.display = "none";
+            }, 1000); // Matches the transition duration
+        }
+    </script>
 </body>
 </html>
