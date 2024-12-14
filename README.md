@@ -2,7 +2,7 @@
 
 ###
 
-<p align="left">I'm DUB5 </p>
+<p align="left">I'm DUB5, the developer and owner of this website </p>
 
 ###
 
