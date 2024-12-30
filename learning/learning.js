@@ -514,4 +514,3 @@ elements.shuffleButton.addEventListener('click', function() {
         this.classList.remove('toggle-on');
     }, 500);
 });
-

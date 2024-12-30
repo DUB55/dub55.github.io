@@ -770,4 +770,3 @@ backToHome.addEventListener('click', () => {
     window.location.href = 'index.html';
 });
 document.querySelector('.container').prepend(backToHome);
-
