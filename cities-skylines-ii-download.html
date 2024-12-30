@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cities: Skylines II</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* Centering the input */
+            align-items: center;
+            background: linear-gradient(to bottom, #000022, #000066); /* Updated background gradient */
+            color: white;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+            position: relative; /* For positioning the nav bar */
+        }
+        .nav {
+            position: absolute; /* Positioning the nav bar */
+            top: 20px; /* Distance from the top */
+            right: 20px; /* Distance from the right */
+            display: flex;
+            gap: 20px;
+            z-index: 1; /* Ensure the nav is on top */
+        }
+        .nav a {
+            padding: 10px 20px;
+            font-size: 1.2em;
+            color: white;
+            background: linear-gradient(to bottom, #000044, #000088);
+            text-decoration: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            transition: background 0.3s, transform 0.3s;
+        }
+        .nav a:hover {
+            background: linear-gradient(to bottom, #000033, #000077);
+            transform: scale(1.05);
+        }
+        h1 {
+            font-size: 3em;
+            margin-top: 80px; /* Add margin above the header */
+            color: #ffffff;
+            z-index: 1; /* Ensure the header is on top */
+            position: relative; /* For z-index */
+        }
+        .input-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 1; /* Ensure it's on top */
+        }
+        .password-input {
+            padding: 10px;
+            font-size: 1.2em;
+            border-radius: 5px;
+            border: none;
+            margin-bottom: 10px;
+            background: linear-gradient(to bottom, #000044, #000088); /* Same gradient as the button */
+            color: white; /* Text color */
+        }
+        .password-input::placeholder {
+            color: white; /* Placeholder text color */
+        }
+        .password-input:focus {
+            outline: none; /* Remove default focus outline */
+            border: 2px solid white; /* White border on focus */
+        }
+        .submit-button {
+            padding: 10px 20px;
+            font-size: 1.2em;
+            color: white;
+            background: linear-gradient(to bottom, #000044, #000088);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.3s;
+        }
+        .submit-button:hover {
+            background: linear-gradient(to bottom, #000033, #000077);
+            transform: scale(1.05);
+        }
+        .error-message {
+            color: red; /* Red color for error message */
+            margin-top: 10px; /* Space above the error message */
+            display: none; /* Initially hidden */
+        }
+        .button {
+            padding: 15px 30px;
+            font-size: 1.5em;
+            color: white;
+            background: linear-gradient(to bottom, #000044, #000088);
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            transition: background 1s, transform 0.3s;
+            margin-bottom: 20px;
+            text-decoration: none;
+        }
+        .button:hover {
+            background: linear-gradient(to bottom, #000033, #000077);
+            transform: scale(1.05);
+        }
+        .content {
+            display: none; /* Hide content initially */
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            padding-top: 60px; /* Add padding to prevent overlap */
+            height: 100%;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="nav">
+        <a href="/index.html">Home</a> <!-- Link to Home -->
+        <a href="/secret-text">Secret Text</a> <!-- Link for Secret Text -->
+        <a href="/blooket.html">Blooket Hacks</a> <!-- Updated link for Blooket Hacks -->
+        <a href="#" class="active">Cities: Skylines II</a> <!-- Current page, no link -->
+    </div>
+
+    <div class="input-container">
+        <input type="password" id="password" class="password-input" placeholder="Enter Password" />
+        <button class="submit-button" onclick="checkPassword()">Submit</button>
+        <div class="error-message" id="error-message">Incorrect password. Please try again.</div> <!-- Error message -->
+    </div>
+
+    <div class="content" id="content">
+        <h1>Cities: Skylines II download:</h1>
+        <a href="https://download131.uploadhaven.com/1/application/zip/yyrhgKcXm09t7dlpzmik9OE0aydd81WY3jIYeiYl.zip?key=-CXG-vREI4pHjR4xUrKWAA&expire=1729447260&filename=Cities.Skylines.II.Ultimate.Edition.v1.1.8f1.zip" class="button">Download</a>
+    </div>
+
+    <script>
+        const correctPassword = '!Q2z@8wT^k4Lx$9j'; // Set the correct password
+
+        function checkPassword() {
+            const passwordInput = document.getElementById('password').value;
+            const errorMessage = document.getElementById('error-message');
+            const inputContainer = document.querySelector('.input-container');
+            const content = document.getElementById('content');
+
+            if (passwordInput === correctPassword) {
+                document.body.style.backgroundColor = '#000066'; // Change background color when access granted
+                inputContainer.style.display = 'none'; // Hide the password input
+                content.style.display = 'flex'; // Show download content
+            } else {
+                errorMessage.style.display = 'block'; // Show error message
+                document.getElementById('password').value = ''; // Clear the input
+            }
+        }
+
+        // Add event listener for Enter key
+        document.getElementById('password').addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                checkPassword(); // Call the function on Enter key
+            }
+        });
+    </script>
+</body>
+</html>

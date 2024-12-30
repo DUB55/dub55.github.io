@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<<<<<<< HEAD
     <title>Learning Sets</title>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -109,3 +110,188 @@
     <script src="framer.js"></script>
 </body>
 </html> 
+=======
+    <title>DUB5</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            background: linear-gradient(to bottom, #000066, #000033);
+            color: white;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+
+        h1 {
+            font-size: 5em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            margin-top: 50px;
+        }
+
+        h2 {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .stars {
+            color: white;
+            font-size: 3em;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            padding: 0;
+            margin: 20px 0;
+        }
+
+        .nav a {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 10px;
+            transition: background 0.3s, transform 0.3s;
+            background: linear-gradient(to bottom, #000044, #000077);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav a:hover {
+            background: linear-gradient(to bottom, #000033, #000055);
+            transform: translateY(-5px);
+        }
+
+        .message-box {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: fixed;
+            bottom: -100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #000044;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            transition: bottom 1s ease;
+        }
+
+        .message-box.visible {
+            bottom: 20px;
+        }
+
+        .message-box p {
+            font-size: 1.3em;
+            margin-bottom: 20px;
+        }
+
+        .message-box .buttons {
+            display: flex;
+            gap: 20px;
+        }
+
+        .message-box button {
+            font-size: 1em;
+            font-weight: bold;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(to bottom, #000055, #000077);
+            cursor: pointer;
+            transition: background 0.3s, transform 0.3s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .message-box button:hover {
+            background: linear-gradient(to bottom, #000033, #000055);
+            transform: translateY(-5px);
+        }
+
+        .terms-link {
+            color: blue;
+            text-decoration: underline;
+        }
+
+        .terms-link:visited {
+            color: blue;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 4em;
+            }
+
+            h2 {
+                font-size: 2em;
+            }
+
+            .nav {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .nav a {
+                font-size: 1em;
+                padding: 10px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>DUB5</h1>
+    <span class="stars">&#x2605;&#x2605;&#x2605;&#x2605;&#x2605;</span>
+    <h2>Welcome to DUB5</h2>
+
+    <div class="nav">
+        <a href="https://dub55.github.io/snake" target="_blank">Snake Hacks🐍</a>
+        <a href="/blooket-hacks.html" target="_blank">Blooket Hacks</a>
+        <a href="/kahoot-hacks.html" target="_blank">Kahoot Hacks</a>
+    
+    </div>
+
+    <div class="message-box" id="termsBox">
+        <p>Do you accept the <a href="https://dub55.github.io/terms-and-conditions" class="terms-link">Terms and Conditions</a>?</p>
+        <div class="buttons">
+            <button onclick="hideMessageBox()">Yes</button>
+            <button onclick="hideMessageBox()">No</button>
+        </div>
+    </div>
+
+    <footer class="w-full py-6 mt-12">
+        <div class="container mx-auto text-center">
+            <p>© 2024 DUB5. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const termsBox = document.getElementById("termsBox");
+            setTimeout(() => {
+                termsBox.classList.add("visible");
+            }, 500); // Delay to show the message box smoothly
+        });
+
+        function hideMessageBox() {
+            const termsBox = document.getElementById("termsBox");
+            termsBox.classList.remove("visible");
+            setTimeout(() => {
+                termsBox.style.display = "none";
+            }, 1000); // Matches the transition duration
+        }
+    </script>
+</body>
+</html>
+>>>>>>> f90ca91b6a8fa27d464ef7a146c337b4b6547ddb
