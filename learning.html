@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Quiz</title>
+    <link rel="stylesheet" href="learning.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Interactive Quiz</h1>
+        
+        <!-- Input Section -->
+        <div id="input-section">
+            <label for="terms-input">Enter terms and definitions:</label>
+            <textarea id="terms-input" rows="4" placeholder="e.g., this-that, here-there, hat-tah"></textarea>
+            <button id="start-quiz">Start Quiz</button>
+            <p id="error-message" class="hidden"></p>
+        </div>
+
+        <!-- Settings Menu -->
+        <div id="settings-menu" class="settings-menu hidden">
+            <div class="settings-header">
+                <h3>Settings</h3>
+                <button class="close-button">×</button>
+            </div>
+            <!-- Timer Settings -->
+            <div class="settings-group">
+                <h4>Timer</h4>
+                <button id="toggle-timer" class="settings-button">Hide Timer</button>
+            </div>
+            
+            <!-- Question Settings -->
+            <div class="settings-group">
+                <h4>Questions</h4>
+                <button id="shuffle-button" class="settings-button">Shuffle Questions</button>
+                <button id="switch-terms-definitions" class="settings-button">Switch Terms & Definitions</button>
+            </div>
+            
+            <!-- Validation Settings (only shown in write mode) -->
+            <div id="validation-settings" class="settings-group">
+                <h4>Validation</h4>
+                <button id="toggle-capitalization" class="settings-button">Check Capitalization</button>
+                <button id="toggle-punctuation" class="settings-button">Check Punctuation</button>
+                <button id="toggle-grammar" class="settings-button">Check Grammar</button>
+            </div>
+        </div>
+
+        <!-- Quiz Section -->
+        <div id="quiz-section" class="hidden">
+            <div class="quiz-header">
+                <span id="progress"></span>
+                <span id="timer"></span>
+                <button id="toggle-mode">Write</button>
+                <button class="settings-icon">⚙️</button>
+            </div>
+            <div id="question-section">
+                <p id="question"></p>
+                <div id="options" class="options-grid"></div>
+                <div id="write-answer-section" class="hidden">
+                    <input type="text" id="write-answer" placeholder="Type your answer here">
+                    <button id="submit-answer">Submit Answer</button>
+                </div>
+            </div>
+            <button id="next-question" class="hidden">Next Question</button>
+        </div>
+
+        <!-- Result Section -->
+        <div id="result-section" class="hidden">
+            <h2>Quiz Results</h2>
+            <p id="score"></p>
+            <div id="incorrect-answers"></div>
+            <button id="reset-quiz">Retake Quiz</button>
+        </div>
+    </div>
+    <script src="learning.js"></script>
+</body>
+</html>
