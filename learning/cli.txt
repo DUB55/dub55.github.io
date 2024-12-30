@@ -1,0 +1,107 @@
+import socket
+import os
+
+
+def display_commands():
+print("\nAvailable Commands:")
+print("1. Shutdown the remote PC")
+print("2. Restart the remote PC")
+print("3. Log off the remote user")
+print("4. Put the remote PC to sleep")
+print("5. Lock the remote PC")
+print("6. Turn off the remote display")
+print("7. Get system info from the remote PC")
+print("8. Check disk usage of the remote PC")
+print("9. List running processes on the remote PC")
+print("10. Get IP configuration of the remote PC")
+print("11. Perform a ping test on the remote PC")
+print("12. Check the internet speed on the remote PC")
+print("13. List files in a directory on the remote PC")
+print("14. Create a file on the remote PC")
+print("15. Delete a file on the remote PC")
+print("16. Copy a file on the remote PC")
+print("17. Move a file on the remote PC")
+print("18. Delete a directory on the remote PC")
+print("19. Check CPU usage of the remote PC")
+print("20. Check memory usage of the remote PC")
+print("21. Get battery status (if applicable)")
+print("22. Open a website on the remote PC")
+print("23. Take a screenshot of the remote PC")
+print("24. Display a message on the remote PC")
+print("25. List users on the remote PC")
+print("26. List services on the remote PC")
+print("27. Check firewall status on the remote PC")
+print("28. Reverse Shell (CMD)")
+print("29. Reverse Shell (PowerShell)")
+print("Enter a number to execute the corresponding command.")
+print("Type 'exit' to quit.")
+
+
+def send_command(command, host='remote_pc_ip', port=9999):
+try:
+with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as client_socket:
+client_socket.connect((host, port))
+client_socket.sendall(command.encode('utf-8'))
+
+
+        if command == "23":
+            screenshot_data = client_socket.recv(1024)
+            downloads_folder = os.path.expanduser("~/Downloads")
+            with open(os.path.join(downloads_folder, "remote_screenshot.png"), "wb") as file:
+                file.write(screenshot_data)
+            print("\nScreenshot saved in the Downloads folder.")
+        
+        elif command == "28":
+            while True:
+                cmd_command = input("\nEnter a command for CMD (type 'exit' to quit): ")
+                if cmd_command.lower() == "exit":
+                    client_socket.sendall(cmd_command.encode('utf-8'))
+                    break
+                
+                client_socket.sendall(cmd_command.encode('utf-8'))
+                response = client_socket.recv(1024).decode('utf-8')
+                print("\nResponse from remote PC:")
+                print(response)
+        
+        elif command == "29":
+            while True:
+                ps_command = input("\nEnter a command for PowerShell (type 'exit' to quit): ")
+                if ps_command.lower() == "exit":
+                    client_socket.sendall(ps_command.encode('utf-8'))
+                    break
+                
+                client_socket.sendall(ps_command.encode('utf-8'))
+                response = client_socket.recv(1024).decode('utf-8')
+                print("\nResponse from remote PC:")
+                print(response)
+        
+        else:
+            response = client_socket.recv(1024).decode('utf-8')
+            print("\nResponse from remote PC:")
+            print(response)
+
+except Exception as e:
+    print(f"Error: {str(e)}")
+
+def main():
+controlled_pc_ip = input("Enter the IP address of the controlled PC: ")
+
+
+while True:
+    os.system('cls' if os.name == 'nt' else 'clear')
+    display_commands()
+    choice = input("Enter the number of the command: ")
+    
+    if choice.lower() == 'exit':
+        print("Exiting...")
+        break
+    
+    if choice in [str(i) for i in range(1, 30)]:
+        send_command(choice, controlled_pc_ip)
+    else:
+        print("Invalid choice. Please enter a number between 1 and 29.")
+    
+    input("\nPress Enter to continue...")
+
+if name == "main":
+main()

