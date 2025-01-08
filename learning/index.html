@@ -77,6 +77,36 @@
         </div>
     </div>
     <script src="home.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const data = urlParams.get('data');
+        
+        if (data) {
+            try {
+                const pairs = JSON.parse(decodeURIComponent(data));
+                document.querySelector('#create-set').click();
+                
+                setTimeout(() => {
+                    const termsContainer = document.querySelector('#terms-container');
+                    pairs.forEach((pair, index) => {
+                        if (index > 0) {
+                            document.querySelector('#add-term-btn').click();
+                        }
+                        const termInput = termsContainer.querySelector(`div:nth-child(${index + 1}) .term-input`);
+                        const definitionInput = termsContainer.querySelector(`div:nth-child(${index + 1}) .definition-input`);
+                        if (termInput && definitionInput) {
+                            termInput.value = pair.term;
+                            definitionInput.value = pair.definition;
+                        }
+                    });
+                }, 1000);
+            } catch (error) {
+                console.error('Error parsing data:', error);
+            }
+        }
+    });
+</script>
     <script src="themes.js"></script>
     <button id="theme-switcher" class="theme-switcher" aria-label="Switch theme">
         <span class="theme-icon">🎨</span>
