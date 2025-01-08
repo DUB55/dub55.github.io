@@ -85,13 +85,19 @@
         if (data) {
             try {
                 const pairs = JSON.parse(decodeURIComponent(data));
-                document.querySelector('#create-set').click();
+                const createSetButton = document.querySelector('#create-set');
+                if (createSetButton) {
+                    createSetButton.click();
+                }
                 
                 setTimeout(() => {
                     const termsContainer = document.querySelector('#terms-container');
                     pairs.forEach((pair, index) => {
                         if (index > 0) {
-                            document.querySelector('#add-term-btn').click();
+                            const addTermButton = document.querySelector('#add-term-btn');
+                            if (addTermButton) {
+                                addTermButton.click();
+                            }
                         }
                         const termInput = termsContainer.querySelector(`div:nth-child(${index + 1}) .term-input`);
                         const definitionInput = termsContainer.querySelector(`div:nth-child(${index + 1}) .definition-input`);
@@ -100,7 +106,7 @@
                             definitionInput.value = pair.definition;
                         }
                     });
-                }, 1000);
+                }, 1000); // Adjust the timeout as needed
             } catch (error) {
                 console.error('Error parsing data:', error);
             }
