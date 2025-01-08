@@ -91,20 +91,11 @@
                 }
                 
                 setTimeout(() => {
-                    const termsContainer = document.querySelector('#terms-container');
+                    const termsContainer = document.getElementById('terms-container');
+                    termsContainer.innerHTML = ''; // Clear existing content
+
                     pairs.forEach((pair, index) => {
-                        if (index > 0) {
-                            const addTermButton = document.querySelector('#add-term-btn');
-                            if (addTermButton) {
-                                addTermButton.click();
-                            }
-                        }
-                        const termInput = termsContainer.querySelector(`div:nth-child(${index + 1}) .term-input`);
-                        const definitionInput = termsContainer.querySelector(`div:nth-child(${index + 1}) .definition-input`);
-                        if (termInput && definitionInput) {
-                            termInput.value = pair.term;
-                            definitionInput.value = pair.definition;
-                        }
+                        addTermPair(index + 1, pair.term, pair.definition);
                     });
                 }, 1000); // Adjust the timeout as needed
             } catch (error) {
@@ -112,6 +103,34 @@
             }
         }
     });
+
+    function addTermPair(number, term = '', definition = '') {
+        const termPair = document.createElement('div');
+        termPair.className = 'term-pair';
+        termPair.innerHTML = `
+            <div class="term-number">${number}</div>
+            <div class="term-inputs">
+                <input type="text" class="term-input" placeholder="Enter term" value="${term}">
+                <input type="text" class="definition-input" placeholder="Enter definition" value="${definition}">
+                <button class="remove-term">×</button>
+            </div>
+        `;
+
+        // Add remove button functionality
+        termPair.querySelector('.remove-term').addEventListener('click', () => {
+            termPair.remove();
+            updateTermNumbers();
+        });
+
+        document.getElementById('terms-container').appendChild(termPair);
+    }
+
+    function updateTermNumbers() {
+        const termPairs = document.querySelectorAll('.term-pair');
+        termPairs.forEach((pair, index) => {
+            pair.querySelector('.term-number').textContent = index + 1;
+        });
+    }
 </script>
     <script src="themes.js"></script>
     <button id="theme-switcher" class="theme-switcher" aria-label="Switch theme">
