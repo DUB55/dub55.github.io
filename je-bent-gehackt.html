@@ -1,0 +1,39 @@
+<!DOCTYPE html><html lang="en"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>Rotating Image with Overlay Text</title> <style> body { margin: 0; padding: 0; background: linear-gradient(to bottom, #000066, #000033); display: flex; justify-content: center; align-items: center; height: 100vh; overflow: hidden; }    .container {
+        position: relative;
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #rotating-image {
+        max-width: 100%;
+        max-height: 100%;
+        animation: rotate360 2s linear infinite;
+    }
+
+    .hacked-header {
+        position: absolute;
+        font-family: sans-serif;
+        font-weight: bold;
+        color: red;
+        font-size: 150px;
+        text-align: center;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .skull-emoji {
+        height: 150px;
+        margin-top: 20px;
+    }
+
+    @keyframes rotate360 {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+    }
+</style>
+</head> <body> <div class="container"> <img id="rotating-image" src="https://preview.redd.it/gunnar-whenever-he-sees-a-mid-white-girl-from-the-2000s-v0-00m1yn9w44gc1.png?auto=webp&s=fb3173e8266ae73fbb8b6d9e9f76e2b11f93c197" alt="Rotating Image"> <h1 class="hacked-header"> JE BENT<br> GEHACKT <img class="skull-emoji" src="https://em-content.zobj.net/source/apple/237/skull_1f480.png" alt="Skull Emoji"> </h1> </div> </body> </html>
