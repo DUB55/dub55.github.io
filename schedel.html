@@ -1,0 +1,337 @@
+<?xml version="1.0"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="nl">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <title>Botten schedel oefenen</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script type="text/javascript">
+        function Client() {
+            this.min = false; if (document.getElementById) { this.min = true; }
+            this.ua = navigator.userAgent;
+            this.name = navigator.appName;
+            this.ver = navigator.appVersion;
+            this.mac = (this.ver.indexOf('Mac') != -1);
+            this.win = (this.ver.indexOf('Windows') != -1);
+            this.gecko = (this.ua.indexOf('Gecko') > 1);
+            if (this.gecko) {
+                this.geckoVer = parseInt(this.ua.substring(this.ua.indexOf('Gecko') + 6, this.ua.length));
+                if (this.geckoVer < 20020000) { this.min = false; }
+            }
+            this.ie = (this.ua.indexOf('MSIE') > 0);
+            if (this.ie) {
+                this.ieVer = parseFloat(this.ua.substring(this.ua.indexOf('MSIE') + 5, this.ua.length));
+                if (this.ieVer < 5.5) { this.min = false; }
+            }
+            if (this.min == false) {
+                alert('Your browser may not be able to handle this page.');
+            }
+        }
+        var C = new Client();
+        var Finished = false;
+        var Score = 0;
+        var TotalUnfixedLeftItems = 0;
+        var Status = new Array();
+
+        function StartUp() {
+            console.log("Starting up...");
+            PreloadImages('https://github.com/DUB55/dub55.github.io/blob/main/biologie/botten-leren/images/schedel.png?raw=true');
+            SetUpItems(false, 12);
+            TotalUnfixedLeftItems = document.getElementById('MatchDiv').getElementsByTagName('select').length;
+            console.log("Total Unfixed Left Items: ", TotalUnfixedLeftItems);
+            CreateStatusArrays();
+        }
+
+        function SetUpItems(ShuffleQs, ReduceTo) {
+            console.log("Setting up items...");
+            // Logic to set up items goes here
+            // This function should populate the quiz items and handle shuffling if needed
+        }
+
+        function PreloadImages() {
+            var a = PreloadImages.arguments;
+            console.log("Preloading images: ", a);
+            for (var i = 0; i < a.length; i++) {
+                var img = new Image();
+                img.src = a[i];
+            }
+        }
+
+        function CreateStatusArrays() {
+            console.log("Creating status arrays...");
+            var Selects = document.getElementById('Questions').getElementsByTagName('select');
+            for (var x = 0; x < Selects.length; x++) {
+                Status[x] = new Array();
+                Status[x][0] = 0; // Item not matched correctly yet
+                Status[x][1] = 0; // Tries at this item so far
+                Status[x][2] = Selects[x].id; // Store a ref to the original drop-down
+                console.log("Status for item " + x + ": ", Status[x]);
+            }
+        }
+
+        function CheckAnswers() {
+            console.log("Checking answers...");
+            var Select = null;
+            var Key = -1;
+            var Parent = null;
+            var AnsText = '';
+            var TotCorrectChoices = 0;
+
+            for (var i = 0; i < Status.length; i++) {
+                Status[i][1]++; // Increment tries
+                Select = document.getElementById(Status[i][2]);
+                Key = GetKeyFromSelect(Select);
+                console.log("Checking item " + i + ": ", Select, "Key: ", Key);
+                
+                if (Select.selectedIndex === 0) {
+                    // If default option is selected, treat as incorrect
+                    Parent = Select.parentNode;
+                    Parent.innerHTML += '<i class="fas fa-times-circle text-red-500"></i>'; // Cross for incorrect answer
+                } else if (Select.options[Select.selectedIndex].value == Key) {
+                    Status[i][0] = 1; // Mark as correct
+                    AnsText = Select.options[Select.selectedIndex].innerHTML;
+                    Parent = Select.parentNode;
+                    Parent.innerHTML = AnsText; // Replace dropdown with correct answer
+                    Parent.innerHTML += '<i class="fas fa-check-circle text-green-500"></i>'; // Add checkmark for correct answer
+                    TotCorrectChoices++;
+                } else {
+                    Parent = Select.parentNode;
+                    Parent.innerHTML += '<i class="fas fa-times-circle text-red-500"></i>'; // Cross for incorrect answer
+                }
+            }
+            Score = Math.floor((TotCorrectChoices / TotalUnfixedLeftItems) * 100);
+            if (TotalUnfixedLeftItems === 0) {
+                Score = 0;
+            }
+            var Feedback = 'Je score is: ' + Score + '%';
+            ShowMessage(Feedback); // Show feedback without icons
+        }
+
+        function ShowAnswers() {
+            console.log("Showing answers...");
+            var Select = null;
+            var Key = -1;
+            var Parent = null;
+            var AnsText = '';
+
+            // Clear all entered answers
+            for (var i = 0; i < Status.length; i++) {
+                Select = document.getElementById(Status[i][2]);
+                Key = GetKeyFromSelect(Select);
+                // Automatically select the correct answer
+                for (var j = 0; j < Select.options.length; j++) {
+                    if (Select.options[j].value == Key) {
+                        Select.selectedIndex = j; // Set the correct answer
+                        AnsText = Select.options[j].innerHTML;
+                        Parent = Select.parentNode;
+
+                        // Remove the select element
+                        Parent.removeChild(Select);
+                        
+                        // Replace with the answer text
+                        Parent.innerHTML = AnsText; // Replace dropdown with correct answer
+                        
+                        // Create a span for the checkmark icon
+                        var iconSpan = document.createElement('span');
+                        iconSpan.style.marginLeft = '10px'; // Add some space between the answer and the icon
+                        iconSpan.innerHTML = '<i class="fas fa-check-circle text-blue-500"></i>'; // Use the same icon as in index.html
+                        Parent.appendChild(iconSpan); // Append the icon to the parent
+                        break;
+                    }
+                }
+            }
+            Locked = true; // Lock further interactions
+        }
+
+        function GetKeyFromSelect(Select) {
+            var Result = -1;
+            if (Select != null) {
+                Result = parseInt(Select.id.substring(1, Select.id.length));
+            }
+            console.log("Getting key from select: ", Select.id, "Result: ", Result);
+            return Result;
+        }
+
+        function ShowMessage(Feedback) {
+            console.log("Showing message: ", Feedback);
+            document.getElementById('FeedbackContent').innerHTML = Feedback; // Only show score
+            document.getElementById('FeedbackModal').classList.remove('hidden');
+            setTimeout(() => document.getElementById('FeedbackOKButton').focus(), 50);
+        }
+
+        function HideFeedback() {
+            console.log("Hiding feedback...");
+            document.getElementById('FeedbackModal').classList.add('hidden');
+        }
+
+        function ReloadPage() {
+            console.log("Reloading page...");
+            location.reload();
+        }
+    </script>
+</head>
+<body onload="StartUp();" id="TheBody" class="bg-blue-50 text-blue-900 font-sans">
+    <div class="Titles text-center py-4">
+        <h2 class="ExerciseTitle text-2xl font-bold text-blue-900">Bouw schedel oefenen</h2>
+    </div>
+    <div class="flex justify-center items-start">
+        <div id="InstructionsDiv" class="StdDiv bg-blue-50 text-center p-4 mb-4">
+            <img src="https://github.com/DUB55/dub55.github.io/blob/main/biologie/botten-leren/images/schedel.png?raw=true" alt="schedel oefenen biologie" title="schedel mens biologie oefenen" class="w-full max-w-md mx-auto">
+        </div>
+        <div class="ml-4">
+            <div id="MainDiv" class="StdDiv bg-blue-50 text-center p-4">
+                <div id="MatchDiv" class="text-center">
+                    <form id="QForm" method="post" action="" onsubmit="return false;">
+                        <table class="table-auto mx-auto my-4">
+                            <tbody id="Questions">
+                                <tr><td class="LeftItem">1</td><td class="RightItem"><select id="s0_0"><option value="x">???</option>
+                                    <option value="7">Achterhoofdsbeen</option>
+                                    <option value="3">Onderkaak</option>
+                                    <option value="11">Neusbeen</option>
+                                    <option value="5">Bovenkaak</option>
+                                    <option value="2">Jukbeen</option>
+                                    <option value="8">Wiggenbeen</option>
+                                    <option value="0">Voorhoofdsbeen</option>
+                                    <option value="1">Slaapbeen</option>
+                                    <option value="9">Wandbeen</option>
+                                </select></td><td></td></tr>
+                                <tr><td class="LeftItem">2</td><td class="RightItem"><select id="s1_1"><option value="x">???</option>
+                                    <option value="7">Achterhoofdsbeen</option>
+                                    <option value="3">Onderkaak</option>
+                                    <option value="11">Neusbeen</option>
+                                    <option value="5">Bovenkaak</option>
+                                    <option value="2">Jukbeen</option>
+                                    <option value="8">Wiggenbeen</option>
+                                    <option value="0">Voorhoofdsbeen</option>
+                                    <option value="1">Slaapbeen</option>
+                                    <option value="9">Wandbeen</option>
+                                </select></td><td></td></tr>
+                                <tr><td class="LeftItem">3</td><td class="RightItem"><select id="s2_2"><option value="x">???</option>
+                                    <option value="7">Achterhoofdsbeen</option>
+                                    <option value="3">Onderkaak</option>
+                                    <option value="11">Neusbeen</option>
+                                    <option value="5">Bovenkaak</option>
+                                    <option value="2">Jukbeen</option>
+                                    <option value="8">Wiggenbeen</option>
+                                    <option value="0">Voorhoofdsbeen</option>
+                                    <option value="1">Slaapbeen</option>
+                                    <option value="9">Wandbeen</option>
+                                </select></td><td></td></tr>
+                                <tr><td class="LeftItem">4</td><td class="RightItem"><select id="s3_3"><option value="x">???</option>
+                                    <option value="7">Achterhoofdsbeen</option>
+                                    <option value="3">Onderkaak</option>
+                                    <option value="11">Neusbeen</option>
+                                    <option value="5">Bovenkaak</option>
+                                    <option value="2">Jukbeen</option>
+                                    <option value="8">Wiggenbeen</option>
+                                    <option value="0">Voorhoofdsbeen</option>
+                                    <option value="1">Slaapbeen</option>
+                                    <option value="9">Wandbeen</option>
+                                </select></td><td></td></tr>
+                                <tr><td class="LeftItem">5</td><td class="RightItem"><select id="s4_4"><option value="x">???</option>
+                                    <option value="7">Achterhoofdsbeen</option>
+                                    <option value="3">Onderkaak</option>
+                                    <option value="11">Neusbeen</option>
+                                    <option value="5">Bovenkaak</option>
+                                    <option value="2">Jukbeen</option>
+                                    <option value="8">Wiggenbeen</option>
+                                    <option value="0">Voorhoofdsbeen</option>
+                                    <option value="1">Slaapbeen</option>
+                                    <option value="9">Wandbeen</option>
+                                </select></td><td></td></tr>
+                                <tr><td class="LeftItem">6</td><td class="RightItem"><select id="s5_5"><option value="x">???</option>
+                                    <option value="7">Achterhoofdsbeen</option>
+                                    <option value="3">Onderkaak</option>
+                                    <option value="11">Neusbeen</option>
+                                    <option value="5">Bovenkaak</option>
+                                    <option value="2">Jukbeen</option>
+                                    <option value="8">Wiggenbeen</option>
+                                    <option value="0">Voorhoofdsbeen</option>
+                                    <option value="1">Slaapbeen</option>
+                                    <option value="9">Wandbeen</option>
+                                </select></td><td></td></tr>
+                                <tr><td class="LeftItem">7</td><td class="RightItem"><select id="s6_6"><option value="x">???</option>
+                                    <option value="7">Achterhoofdsbeen</option>
+                                    <option value="3">Onderkaak</option>
+                                    <option value="11">Neusbeen</option>
+                                    <option value="5">Bovenkaak</option>
+                                    <option value="2">Jukbeen</option>
+                                    <option value="8">Wiggenbeen</option>
+                                    <option value="0">Voorhoofdsbeen</option>
+                                    <option value="1">Slaapbeen</option>
+                                    <option value="9">Wandbeen</option>
+                                </select></td><td></td></tr>
+                                <tr><td class="LeftItem">8</td><td class="RightItem"><select id="s7_7"><option value="x">???</option>
+                                    <option value="7">Achterhoofdsbeen</option>
+                                    <option value="3">Onderkaak</option>
+                                    <option value="11">Neusbeen</option>
+                                    <option value="5">Bovenkaak</option>
+                                    <option value="2">Jukbeen</option>
+                                    <option value="8">Wiggenbeen</option>
+                                    <option value="0">Voorhoofdsbeen</option>
+                                    <option value="1">Slaapbeen</option>
+                                    <option value="9">Wandbeen</option>
+                                </select></td><td></td></tr>
+                                <tr><td class="LeftItem">9</td><td class="RightItem"><select id="s8_8"><option value="x">???</option>
+                                    <option value="7">Achterhoofdsbeen</option>
+                                    <option value="3">Onderkaak</option>
+                                    <option value="11">Neusbeen</option>
+                                    <option value="5">Bovenkaak</option>
+                                    <option value="2">Jukbeen</option>
+                                    <option value="8">Wiggenbeen</option>
+                                    <option value="0">Voorhoofdsbeen</option>
+                                    <option value="1">Slaapbeen</option>
+                                    <option value="9">Wandbeen</option>
+                                </select></td><td></td></tr>
+                                <tr><td class="LeftItem">10</td><td class="RightItem"><select id="s9_9"><option value="x">???</option>
+                                    <option value="7">Achterhoofdsbeen</option>
+                                    <option value="3">Onderkaak</option>
+                                    <option value="11">Neusbeen</option>
+                                    <option value="5">Bovenkaak</option>
+                                    <option value="2">Jukbeen</option>
+                                    <option value="8">Wiggenbeen</option>
+                                    <option value="0">Voorhoofdsbeen</option>
+                                    <option value="1">Slaapbeen</option>
+                                    <option value="9">Wandbeen</option>
+                                </select></td><td></td></tr>
+                                <tr><td class="LeftItem">11</td><td class="RightItem"><select id="s10_10"><option value="x">???</option>
+                                    <option value="7">Achterhoofdsbeen</option>
+                                    <option value="3">Onderkaak</option>
+                                    <option value="11">Neusbeen</option>
+                                    <option value="5">Bovenkaak</option>
+                                    <option value="2">Jukbeen</option>
+                                    <option value="8">Wiggenbeen</option>
+                                    <option value="0">Voorhoofdsbeen</option>
+                                    <option value="1">Slaapbeen</option>
+                                    <option value="9">Wandbeen</option>
+                                </select></td><td></td></tr>
+                                <tr><td class="LeftItem">12</td><td class="RightItem"><select id="s11_11"><option value="x">???</option>
+                                    <option value="7">Achterhoofdsbeen</option>
+                                    <option value="3">Onderkaak</option>
+                                    <option value="11">Neusbeen</option>
+                                    <option value="5">Bovenkaak</option>
+                                    <option value="2">Jukbeen</option>
+                                    <option value="8">Wiggenbeen</option>
+                                    <option value="0">Voorhoofdsbeen</option>
+                                    <option value="1">Slaapbeen</option>
+                                    <option value="9">Wandbeen</option>
+                                </select></td><td></td></tr>
+                            </tbody>
+                        </table>
+                    </form>
+                </div>
+                <button id="CheckButton" class="FuncButton bg-blue-900 text-blue-50 px-4 py-2 rounded hover:bg-blue-700 focus:outline-none" onclick="CheckAnswers()">&nbsp;Controleer&nbsp;</button>
+                <button id="ShowAnswersButton" class="FuncButton bg-blue-900 text-blue-50 px-4 py-2 rounded hover:bg-blue-700 focus:outline-none" onclick="ShowAnswers()">&nbsp;Laat antwoorden zien&nbsp;</button>
+                <button id="RetakeButton" class="FuncButton bg-blue-900 text-blue-50 px-4 py-2 rounded hover:bg-blue-700 focus:outline-none" onclick="ReloadPage()">&nbsp;Opnieuw&nbsp;</button>
+                <div id="FeedbackModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
+                    <div class="bg-white p-6 rounded-lg shadow-lg text-center">
+                        <div id="FeedbackContent" class="text-blue-900 mb-4"></div>
+                        <button id="FeedbackOKButton" class="FuncButton bg-blue-900 text-blue-50 px-4 py-2 rounded hover:bg-blue-700 focus:outline-none" onclick="HideFeedback(); return false;">&nbsp;OK&nbsp;</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 
