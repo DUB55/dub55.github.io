@@ -6,6 +6,19 @@
     <title>Botten schedel oefenen</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        @keyframes scaleAnimation {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+        .animate-scale {
+            animation: scaleAnimation 1s infinite;
+        }
+    </style>
     <script type="text/javascript">
         function Client() {
             this.min = false; if (document.getElementById) { this.min = true; }
@@ -333,5 +346,10 @@
             </div>
         </div>
     </div>
+
+    <!-- New button to link to skelet.html -->
+    <a href="https://dub55.github.io/skelet.html" class="fixed right-4 top-1/2 transform -translate-y-1/2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300 animate-scale">
+        Skelet leren
+    </a>
 </body>
 </html> 
