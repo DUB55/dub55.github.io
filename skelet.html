@@ -1,0 +1,1080 @@
+<?xml version="1.0"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+    <meta property="og:type" content="website"/>
+    <meta property="og:locale" content="nl_NL" />
+    <meta property="og:image" content="https://github.com/DUB55/Biologie-Leren/blob/main/skelet.png?raw=true"/>             
+    <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:title" content="Oefentoets Onderdelen Skelet"/>
+    <meta name="twitter:image" content="https://github.com/DUB55/Biologie-Leren/blob/main/skelet.png?raw=true"/>
+    <meta name="twitter:image:alt" content="Oefentoets Onderdelen Skelet"/> 
+    <meta name="DC:Creator" content="DUB5" />
+    <meta name="DC:Title" content="Biologie skelet oefenen / botten oefenen" />
+    <meta name="Description" content="Biologiepagina, voor het oefenen van biologie op vmbo, havo en vwo ?? Oefentoets Onderdelen Skelet ?? Namen botten menselijk lichaam">
+    <meta name="Keywords" content="oefenen, biologie, biologie leren, skelet, stevigheid en beweging, oefenen botten, mens, biologie voor jou, geraamte, botten, school, studie, scholier, oefentoets, ict, havo, vwo, vmbo">
+    <meta http-equiv="language" content="NL">
+    <meta name="robots" content="index, follow, noopd, noydir" />
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /> 
+    <title>Biologie Botten leren</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style type="text/css">
+    body {
+        font-family: Geneva, Arial, sans-serif;
+        background-color: #EBF8FF;
+        color: #1E3A8A;
+        margin-right: 5%;
+        margin-left: 5%;
+        font-size: medium;
+    }
+    div.StdDiv {
+        background-color: #EBF8FF;
+        text-align: center;
+        font-size: 100%;
+        color: #1E3A8A;
+        padding: 0.5em;
+        border-style: solid;
+        border-width: 0px 0px 0px 0px;
+        border-color: #1E3A8A;
+        margin-bottom: 1px;
+    }
+    </style>
+    <script type="text/javascript">
+    function Client(){
+        this.min = false; if (document.getElementById){this.min = true;};
+        this.ua = navigator.userAgent;
+        this.name = navigator.appName;
+        this.ver = navigator.appVersion;  
+        this.mac = (this.ver.indexOf('Mac') != -1);
+        this.win = (this.ver.indexOf('Windows') != -1);
+        this.gecko = (this.ua.indexOf('Gecko') > 1);
+        if (this.gecko){
+            this.geckoVer = parseInt(this.ua.substring(this.ua.indexOf('Gecko')+6, this.ua.length));
+            if (this.geckoVer < 20020000){this.min = false;}
+        }
+        this.firebird = (this.ua.indexOf('Firebird') > 1);
+        this.safari = (this.ua.indexOf('Safari') > 1);
+        if (this.safari){
+            this.gecko = false;
+        }
+        this.ie = (this.ua.indexOf('MSIE') > 0);
+        if (this.ie){
+            this.ieVer = parseFloat(this.ua.substring(this.ua.indexOf('MSIE')+5, this.ua.length));
+            if (this.ieVer < 5.5){this.min = false;}
+        }
+        this.opera = (this.ua.indexOf('Opera') > 0);
+        if (this.opera){
+            this.operaVer = parseFloat(this.ua.substring(this.ua.indexOf('Opera')+6, this.ua.length));
+            if (this.operaVer < 7.04){this.min = false;}
+        }
+        if (this.min == false){
+            alert('Your browser may not be able to handle this page.');
+        }
+        this.ie5mac = (this.ie&&this.mac&&(this.ieVer<6));
+    }
+    var C = new Client();
+    function NavBtnOver(Btn){
+        if (Btn.className != 'NavButtonDown'){Btn.className = 'NavButtonUp';}
+    }
+    function NavBtnOut(Btn){
+        Btn.className = 'NavButton';
+    }
+    function NavBtnDown(Btn){
+        Btn.className = 'NavButtonDown';
+    }
+    function FuncBtnOver(Btn){
+        if (Btn.className != 'FuncButtonDown'){Btn.className = 'FuncButtonUp';}
+    }
+    function FuncBtnOut(Btn){
+        Btn.className = 'FuncButton';
+    }
+    function FuncBtnDown(Btn){
+        Btn.className = 'FuncButtonDown';
+    }
+    function FocusAButton(){
+        if (document.getElementById('CheckButton1') != null){
+            document.getElementById('CheckButton1').focus();
+        }
+        else{
+            if (document.getElementById('CheckButton2') != null){
+                document.getElementById('CheckButton2').focus();
+            }
+            else{
+                document.getElementsByTagName('button')[0].focus();
+            }
+        }
+    }
+    var topZ = 1000;
+    function ShowMessage(Feedback) {
+        document.getElementById('FeedbackContent').innerHTML = Feedback;
+        document.getElementById('FeedbackModal').classList.remove('hidden');
+        setTimeout(() => document.getElementById('FeedbackOKButton').focus(), 50);
+    }
+    function HideFeedback() {
+        document.getElementById('FeedbackModal').classList.add('hidden');
+        if (Finished == true) {
+            Finish();
+        }
+    }
+    function ShowElements(Show, TagName){
+        if ((C.ie)||(TagName == 'object')){
+            var Els = document.getElementsByTagName(TagName);
+            for (var i=0; i<Els.length; i++){
+                if (Show == true){
+                    Els[i].style.visibility = 'visible';
+                }
+                else{
+                    Els[i].style.visibility = 'hidden';
+                }
+            }
+        } 
+    }
+    function PageDim(){
+        this.W = 600;
+        this.H = 400;
+        this.W = document.getElementsByTagName('body')[0].clientWidth;
+        this.H = document.getElementsByTagName('body')[0].clientHeight;
+    }
+    var pg = null;
+    function GetPageXY(El) {
+        var XY = {x: 0, y: 0};
+        while(El){
+            XY.x += El.offsetLeft;
+            XY.y += El.offsetTop;
+            El = El.offsetParent;
+        }
+        return XY;
+    }
+    function GetScrollTop(){
+        if (document.documentElement && document.documentElement.scrollTop){
+            return document.documentElement.scrollTop;
+        }
+        else{
+            if (document.body){
+                return document.body.scrollTop;
+            }
+            else{
+                return window.pageYOffset;
+            }
+        }
+    }
+    function GetViewportHeight(){
+        if (window.innerHeight){
+            return window.innerHeight;
+        }
+        else{
+            return document.getElementsByTagName('body')[0].clientHeight;
+        }
+    }
+    function TopSettingWithScrollOffset(TopPercent){
+        var T = Math.floor(GetViewportHeight() * (TopPercent/100));
+        return GetScrollTop() + T; 
+    }
+    var InTextBox = false;
+    function SuppressBackspace(e){ 
+        if (InTextBox == true){return;}
+        if (C.ie) {
+            thisKey = window.event.keyCode;
+        }
+        else {
+            thisKey = e.keyCode;
+        }
+        var Suppress = false;
+        if (thisKey == 8) {
+            Suppress = true;
+        }
+        if (Suppress == true){
+            if (C.ie){
+                window.event.returnValue = false;    
+                window.event.cancelBubble = true;
+            }
+            else{
+                e.preventDefault();
+            }
+        }
+    }
+    if (C.ie){
+        document.attachEvent('onkeydown',SuppressBackspace);
+        window.attachEvent('onkeydown',SuppressBackspace);
+    }
+    else{
+        if (window.addEventListener){
+            window.addEventListener('keypress',SuppressBackspace,false);
+        }
+    }
+    function ReduceItems(InArray, ReduceToSize){
+        var ItemToDump=0;
+        var j=0;
+        while (InArray.length > ReduceToSize){
+            ItemToDump = Math.floor(InArray.length*Math.random());
+            InArray.splice(ItemToDump, 1);
+        }
+    }
+    function Shuffle(InArray){
+        var Num;
+        var Temp = new Array();
+        var Len = InArray.length;
+        var j = Len;
+        for (var i=0; i<Len; i++){
+            Temp[i] = InArray[i];
+        }
+        for (i=0; i<Len; i++){
+            Num = Math.floor(j  *  Math.random());
+            InArray[i] = Temp[Num];
+            for (var k=Num; k < (j-1); k++) {
+                Temp[k] = Temp[k+1];
+            }
+            j--;
+        }
+        return InArray;
+    }
+    function WriteToInstructions(Feedback) {
+        document.getElementById('InstructionsDiv').innerHTML = Feedback;
+        RefreshImages();
+    }
+    Imgs = new Array();
+    function PreloadImages(){
+        var a = PreloadImages.arguments;
+        for (var i=0; i<a.length; i++){
+            Imgs[i] = new Image();
+            Imgs[i].src = a[i];
+        }
+    }
+    function RefreshImages(){
+        for (var i=0; i<document.images.length; i++){
+            if (document.images[i].name.substring(0,6) != 'NavBar'){
+                document.images[i].src = document.images[i].src;
+            }
+        }
+    }
+    function EscapeDoubleQuotes(InString){
+        return InString.replace(/"/g, '&quot;')
+    }
+    function TrimString(InString){
+        var x = 0;
+        if (InString.length != 0) {
+            while ((InString.charAt(InString.length - 1) == '\u0020') || (InString.charAt(InString.length - 1) == '\u000A') || (InString.charAt(InString.length - 1) == '\u000D')){
+                InString = InString.substring(0, InString.length - 1)
+            }
+            while ((InString.charAt(0) == '\u0020') || (InString.charAt(0) == '\u000A') || (InString.charAt(0) == '\u000D')){
+                InString = InString.substring(1, InString.length)
+            }
+            while (InString.indexOf('  ') != -1) {
+                x = InString.indexOf('  ')
+                InString = InString.substring(0, x) + InString.substring(x+1, InString.length)
+             }
+            return InString;
+        }
+        else {
+            return '';
+        }
+    }
+    function FindLongest(InArray){
+        if (InArray.length < 1){return -1;}
+        var Longest = 0;
+        for (var i=1; i<InArray.length; i++){
+            if (InArray[i].length > InArray[Longest].length){
+                Longest = i;
+            }
+        }
+        return Longest;
+    }
+    function IsCombiningDiacritic(CharNum){
+        var Result = (((CharNum >= 0x0300)&&(CharNum <= 0x370))||((CharNum >= 0x20d0)&&(CharNum <= 0x20ff)));
+        Result = Result || (((CharNum >= 0x3099)&&(CharNum <= 0x309a))||((CharNum >= 0xfe20)&&(CharNum <= 0xfe23)));
+        return Result;
+    }
+    function IsCJK(CharNum){
+        return ((CharNum >= 0x3000)&&(CharNum < 0xd800));
+    }
+    function ClearTextBoxes(){
+        var NList = document.getElementsByTagName('input');
+        for (var i=0; i<NList.length; i++){
+            if ((NList[i].id.indexOf('Guess') > -1)||(NList[i].id.indexOf('Gap') > -1)){
+                NList[i].value = '';
+            }
+            if (NList[i].id.indexOf('Chk') > -1){
+                NList[i].checked = '';
+            }
+        }
+    }
+    function Array_IndexOf(Input){
+        var Result = -1;
+        for (var i=0; i<this.length; i++){
+            if (this[i] == Input){
+                Result = i;
+            }
+        }
+        return Result;
+    }
+    Array.prototype.indexOf = Array_IndexOf;
+    function RemoveBottomNavBarForIE(){
+        if ((C.ie)&&(document.getElementById('Reading') != null)){
+            if (document.getElementById('BottomNavBar') != null){
+                document.getElementById('TheBody').removeChild(document.getElementById('BottomNavBar'));
+            }
+        }
+    }
+    var HPNStartTime = (new Date()).getTime();
+    var SubmissionTimeout = 30000;
+    var Detail = '';
+    function Finish(){
+        if (document.store != null){
+            Frm = document.store;
+            Frm.starttime.value = HPNStartTime;
+            Frm.endtime.value = (new Date()).getTime();
+            Frm.mark.value = Score;
+            Frm.detail.value = Detail;
+            Frm.submit();
+        }
+    }
+    var CorrectIndicator = '<i class="fas fa-check-circle text-blue-500" style="font-size: 25px; display: block; margin-left: auto; margin-right: auto; text-align: center;"></i>';
+    var IncorrectIndicator = '<i class="fas fa-times-circle text-red-500" style="font-size: 25px; display: block; margin-left: auto; margin-right: auto; text-align: center;"></i>';
+    var YourScoreIs = 'Je score is';
+    var CorrectResponse = 'Correct! ';
+    var IncorrectResponse = 'Sorry! Probeer het opnieuw';
+    var TotalUnfixedLeftItems = 0;
+    var TotCorrectChoices = 0;
+    var Penalties = 0;
+    var Finished = false;
+    var TimeOver = false;
+    var Score = 0;
+    var Locked = false;
+    var ShuffleQs = false;
+    var QsToShow = 21;
+    function StartUp(){
+        RemoveBottomNavBarForIE();
+        SetUpItems(ShuffleQs, QsToShow);
+        TotalUnfixedLeftItems = document.getElementById('MatchDiv').getElementsByTagName('select').length;
+        CreateStatusArrays();
+    }
+    Status = new Array();
+    function CreateStatusArrays(){
+        var Selects = document.getElementById('Questions').getElementsByTagName('select');
+        for (var x=0; x<Selects.length; x++){
+            Status[x] = new Array();
+            Status[x][0] = 0;
+            Status[x][1] = 0;
+            Status[x][2] = Selects[x].id;
+        }
+    }
+    function GetKeyFromSelectContainer(Container){
+        var Result = -1;
+        if (Container.getElementsByTagName('select').length > 0){
+            var Select = Container.getElementsByTagName('select')[0];
+            if (Select != null){
+                Result = parseInt(Select.id.substring(1, Select.id.length));
+            }
+        }
+        return Result;
+    }
+    function GetKeyFromSelect(Select){
+        var Result = -1;
+        if (Select != null){
+            Result = parseInt(Select.id.substring(1, Select.id.length));
+        }
+        return Result;
+    }
+    var OriginalKeys = new Array();
+    var ReducedKeys = new Array();
+    function GetUniqueKeys(Container, TargetArray){
+        TargetArray.length = 0;
+        var x = -1;
+        var SList = Container.getElementsByTagName('select');
+        if (SList.length > 0){
+            for (var i=0; i<SList.length; i++){
+                x = GetKeyFromSelect(SList[i]);
+                if (TargetArray.indexOf(x) < 0){
+                    TargetArray.push(x);
+                }
+            }
+        }
+    }
+    function SetUpItems(ShuffleQs, ReduceTo){
+        var QList = new Array();
+        var i, j, k, Selects, Options;
+        var Qs = document.getElementById('Questions');
+        GetUniqueKeys(Qs, OriginalKeys);
+        while (Qs.getElementsByTagName('tr').length > 0){
+            QList.push(Qs.removeChild(Qs.getElementsByTagName('tr')[0]));
+        }
+        var Reducing = (QList.length > ReduceTo);
+        if (Reducing == true){
+            var DumpItem = 0;
+            while (ReduceTo < QList.length){
+                DumpItem = Math.floor(QList.length*Math.random());
+                for (i=DumpItem; i<(QList.length-1); i++){
+                    QList[i] = QList[i+1];
+                }
+                QList.length = QList.length-1;
+            }
+        }
+        if (ShuffleQs == true){
+            QList = Shuffle(QList);
+        }
+        TotalUnfixedLeftItems = QList.length;
+        for (i=0; i<QList.length; i++){
+            Qs.appendChild(QList[i]);
+        }
+        if (Reducing == true){
+            GetUniqueKeys(Qs, ReducedKeys);
+            Selects = Qs.getElementsByTagName('select');
+            for (i=0; i<Selects.length; i++){
+                Options = Selects[i].getElementsByTagName('option');
+                for (j=Options.length-1; j>=0; j--){
+                    if (OptionRequired(Options[j].value) == false){
+                        Selects[i].removeChild(Options[j]);
+                    }
+                }
+            }
+        }
+    }
+    function OptionRequired(Key){
+        if (ReducedKeys.indexOf(Key) > -1){
+            return true;
+        }
+        else{
+            if (OriginalKeys.indexOf(Key) > -1){
+                return false;
+            }
+            else{
+                return true;
+            }
+        }
+    }
+    function CheckAnswers(){
+        if (Locked == true){return;}
+        var Select = null;
+        var Key = -1;
+        var Parent = null;
+        var Answer = null;
+        var AnsText = '';
+        var AllDone = true;
+        TotCorrectChoices = 0;
+        for (var i=0; i<Status.length; i++){
+            if (Status[i][0] < 1){
+                Status[i][1]++;
+                Select = document.getElementById(Status[i][2]);
+                Key = GetKeyFromSelect(Select);
+                if (Select.options[Select.selectedIndex].value == Key){
+                        Status[i][0] = 1;
+                        AnsText = Select.options[Select.selectedIndex].innerHTML;
+                        Parent = Select.parentNode;
+                        Parent.removeChild(Select);
+                        Parent.innerHTML = AnsText;
+                        Parent.nextSibling.innerHTML = CorrectIndicator;
+                } 
+                else{
+                    AllDone = false;
+                    Parent = Select.parentNode;
+                    Parent.nextSibling.innerHTML = IncorrectIndicator;
+                }
+            }
+            if (Status[i][0] == 1){
+                TotCorrectChoices++;
+            }
+        }
+        Score = Math.floor(((TotCorrectChoices-Penalties)/TotalUnfixedLeftItems)*100);
+        if (Score<0){Score = 0;}
+        var Feedback = '';
+        if (AllDone == true){
+            Feedback = CorrectResponse + '<br />' + YourScoreIs + ': ' + Score + '%.';
+        }
+        else{
+            Feedback = IncorrectResponse + '<br />' + YourScoreIs + ': ' + Score + '%.';
+            Penalties++;
+        }
+        if ((AllDone == true)||(TimeOver == true)){
+            TimeOver = true;
+            Locked = true;
+            Finished = true;
+            setTimeout('Finish()', SubmissionTimeout);
+            WriteToInstructions(Feedback);
+        }
+        ShowMessage(Feedback);
+    }
+    function MM_swapImgRestore() {
+      var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.oSrc;
+    }
+    function MM_preloadImages() {
+      var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+        var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+        if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+    }
+    function MM_swapImgRestore() {
+      var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.oSrc;
+    }
+    function MM_findObj(n, d) {
+      var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+        d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+      if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+      for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+      if(!x && d.getElementById) x=d.getElementById(n); return x;
+    }
+    function MM_swapImage() {
+      var i,j=0,x,a=MM_swapImage.arguments; document.MM_sr=new Array; for(i=0;i<(a.length-2);i+=3)
+       if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}
+    }
+    function ShowAnswers() {
+        var Select = null;
+        var Key = -1;
+        var Parent = null;
+        var AnsText = '';
+        for (var i = 0; i < Status.length; i++) {
+            if (Status[i][0] < 1) {
+                Select = document.getElementById(Status[i][2]);
+                Key = GetKeyFromSelect(Select);
+                for (var j = 0; j < Select.options.length; j++) {
+                    if (Select.options[j].value == Key) {
+                        Select.selectedIndex = j;
+                        AnsText = Select.options[j].innerHTML;
+                        Parent = Select.parentNode;
+                        Parent.removeChild(Select);
+                        Parent.innerHTML = AnsText;
+                        Parent.nextSibling.innerHTML = CorrectIndicator;
+                        break;
+                    }
+                }
+            }
+        }
+        Locked = true; // Lock further interactions
+    }
+    function RetakeQuiz() {
+        // Reset the status array
+        for (var i = 0; i < Status.length; i++) {
+            Status[i][0] = 0; // Reset the correct status
+            Status[i][1] = 0; // Reset the attempt count
+        }
+
+        // Reset all selections to default
+        var Selects = document.getElementById('Questions').getElementsByTagName('select');
+        for (var i = 0; i < Selects.length; i++) {
+            Selects[i].selectedIndex = 0; // Reset to default option
+            Selects[i].style.display = 'inline'; // Ensure select elements are visible
+        }
+
+        // Reset score and penalties
+        Score = 0;
+        Penalties = 0;
+        Finished = false;
+        Locked = false;
+
+        // Hide feedback modal if visible
+        HideFeedback();
+
+        // Reinitialize the status arrays
+        CreateStatusArrays();
+
+        // Ensure all rows are visible
+        var Rows = document.getElementById('Questions').getElementsByTagName('tr');
+        for (var i = 0; i < Rows.length; i++) {
+            Rows[i].style.display = ''; // Ensure all rows are visible
+        }
+
+        // Re-setup items if necessary
+        SetUpItems(ShuffleQs, QsToShow);
+    }
+    function ReloadPage() {
+        location.reload();
+    }
+    document.addEventListener('DOMContentLoaded', (event) => {
+        // Remove any theme-related code
+    });
+    </script>
+</head>
+<body onload="StartUp();" id="TheBody" class="bg-blue-50 text-blue-900 font-sans">
+<div class="Titles text-center py-4">
+    <h2 class="ExerciseTitle text-2xl font-bold text-blue-900">Biologie oefenen: skelet mens & namen van botten</h2>
+</div>
+<div class="flex justify-center items-start">
+    <div id="InstructionsDiv" class="StdDiv bg-blue-50 text-center p-4 border border-blue-900 mb-4">
+        <img src="https://github.com/DUB55/Biologie-Leren/blob/main/skelet.png?raw=true" alt="skelet oefenen biologie" title="skelet mens biologie oefenen" class="w-full max-w-md mx-auto">
+    </div>
+    <div class="ml-4">
+        <div id="MainDiv" class="StdDiv bg-blue-50 text-center p-4 border border-blue-900">
+            <div id="MatchDiv" class="text-center">
+                <form id="QForm" method="post" action="" onsubmit="return false;">
+                    <table class="table-auto mx-auto my-4">
+                        <tbody id="Questions">
+                            <tr><td class="LeftItem">1</td><td class="RightItem"><select id="s0_0"><option value="x">???</option>
+<option value="4">Spaakbeen</option>
+<option value="10">Sleutelbeen</option>
+<option value="18">Vingerkootjes</option>
+<option value="0">Schedelbeenderen</option>
+<option value="2">Opperarmbeen</option>
+<option value="13">Halswervels</option>
+<option value="7">Knieschijf</option>
+<option value="12">Schouderblad</option>
+<option value="5">Heupbeen</option>
+<option value="3">Ellepijp</option>
+<option value="20">Handwortelbeentjes</option>
+<option value="17">Staartbeen</option>
+<option value="8">Scheenbeen</option>
+<option value="15">Lendewervels</option>
+<option value="9">Kuitbeen</option>
+<option value="14">Borstwervels</option>
+<option value="1">Borstbeen</option>
+<option value="19">Middenhandsbeentjes</option>
+<option value="6">Dijbeen</option>
+<option value="16">Heiligbeen</option>
+<option value="11">Ribben</option>
+</select></td><td></td></tr><tr><td class="LeftItem">10</td><td class="RightItem"><select id="s1_1"><option value="x">???</option>
+<option value="4">Spaakbeen</option>
+<option value="10">Sleutelbeen</option>
+<option value="18">Vingerkootjes</option>
+<option value="0">Schedelbeenderen</option>
+<option value="2">Opperarmbeen</option>
+<option value="13">Halswervels</option>
+<option value="7">Knieschijf</option>
+<option value="12">Schouderblad</option>
+<option value="5">Heupbeen</option>
+<option value="3">Ellepijp</option>
+<option value="20">Handwortelbeentjes</option>
+<option value="17">Staartbeen</option>
+<option value="8">Scheenbeen</option>
+<option value="15">Lendewervels</option>
+<option value="9">Kuitbeen</option>
+<option value="14">Borstwervels</option>
+<option value="1">Borstbeen</option>
+<option value="19">Middenhandsbeentjes</option>
+<option value="6">Dijbeen</option>
+<option value="16">Heiligbeen</option>
+<option value="11">Ribben</option>
+</select></td><td></td></tr><tr><td class="LeftItem">11</td><td class="RightItem"><select id="s2_2"><option value="x">???</option>
+<option value="4">Spaakbeen</option>
+<option value="10">Sleutelbeen</option>
+<option value="18">Vingerkootjes</option>
+<option value="0">Schedelbeenderen</option>
+<option value="2">Opperarmbeen</option>
+<option value="13">Halswervels</option>
+<option value="7">Knieschijf</option>
+<option value="12">Schouderblad</option>
+<option value="5">Heupbeen</option>
+<option value="3">Ellepijp</option>
+<option value="20">Handwortelbeentjes</option>
+<option value="17">Staartbeen</option>
+<option value="8">Scheenbeen</option>
+<option value="15">Lendewervels</option>
+<option value="9">Kuitbeen</option>
+<option value="14">Borstwervels</option>
+<option value="1">Borstbeen</option>
+<option value="19">Middenhandsbeentjes</option>
+<option value="6">Dijbeen</option>
+<option value="16">Heiligbeen</option>
+<option value="11">Ribben</option>
+</select></td><td></td></tr><tr><td class="LeftItem">12</td><td class="RightItem"><select id="s3_3"><option value="x">???</option>
+<option value="4">Spaakbeen</option>
+<option value="10">Sleutelbeen</option>
+<option value="18">Vingerkootjes</option>
+<option value="0">Schedelbeenderen</option>
+<option value="2">Opperarmbeen</option>
+<option value="13">Halswervels</option>
+<option value="7">Knieschijf</option>
+<option value="12">Schouderblad</option>
+<option value="5">Heupbeen</option>
+<option value="3">Ellepijp</option>
+<option value="20">Handwortelbeentjes</option>
+<option value="17">Staartbeen</option>
+<option value="8">Scheenbeen</option>
+<option value="15">Lendewervels</option>
+<option value="9">Kuitbeen</option>
+<option value="14">Borstwervels</option>
+<option value="1">Borstbeen</option>
+<option value="19">Middenhandsbeentjes</option>
+<option value="6">Dijbeen</option>
+<option value="16">Heiligbeen</option>
+<option value="11">Ribben</option>
+</select></td><td></td></tr><tr><td class="LeftItem">13</td><td class="RightItem"><select id="s4_4"><option value="x">???</option>
+<option value="4">Spaakbeen</option>
+<option value="10">Sleutelbeen</option>
+<option value="18">Vingerkootjes</option>
+<option value="0">Schedelbeenderen</option>
+<option value="2">Opperarmbeen</option>
+<option value="13">Halswervels</option>
+<option value="7">Knieschijf</option>
+<option value="12">Schouderblad</option>
+<option value="5">Heupbeen</option>
+<option value="3">Ellepijp</option>
+<option value="20">Handwortelbeentjes</option>
+<option value="17">Staartbeen</option>
+<option value="8">Scheenbeen</option>
+<option value="15">Lendewervels</option>
+<option value="9">Kuitbeen</option>
+<option value="14">Borstwervels</option>
+<option value="1">Borstbeen</option>
+<option value="19">Middenhandsbeentjes</option>
+<option value="6">Dijbeen</option>
+<option value="16">Heiligbeen</option>
+<option value="11">Ribben</option>
+</select></td><td></td></tr><tr><td class="LeftItem">15</td><td class="RightItem"><select id="s5_5"><option value="x">???</option>
+<option value="4">Spaakbeen</option>
+<option value="10">Sleutelbeen</option>
+<option value="18">Vingerkootjes</option>
+<option value="0">Schedelbeenderen</option>
+<option value="2">Opperarmbeen</option>
+<option value="13">Halswervels</option>
+<option value="7">Knieschijf</option>
+<option value="12">Schouderblad</option>
+<option value="5">Heupbeen</option>
+<option value="3">Ellepijp</option>
+<option value="20">Handwortelbeentjes</option>
+<option value="17">Staartbeen</option>
+<option value="8">Scheenbeen</option>
+<option value="15">Lendewervels</option>
+<option value="9">Kuitbeen</option>
+<option value="14">Borstwervels</option>
+<option value="1">Borstbeen</option>
+<option value="19">Middenhandsbeentjes</option>
+<option value="6">Dijbeen</option>
+<option value="16">Heiligbeen</option>
+<option value="11">Ribben</option>
+</select></td><td></td></tr><tr><td class="LeftItem">18</td><td class="RightItem"><select id="s6_6"><option value="x">???</option>
+<option value="4">Spaakbeen</option>
+<option value="10">Sleutelbeen</option>
+<option value="18">Vingerkootjes</option>
+<option value="0">Schedelbeenderen</option>
+<option value="2">Opperarmbeen</option>
+<option value="13">Halswervels</option>
+<option value="7">Knieschijf</option>
+<option value="12">Schouderblad</option>
+<option value="5">Heupbeen</option>
+<option value="3">Ellepijp</option>
+<option value="20">Handwortelbeentjes</option>
+<option value="17">Staartbeen</option>
+<option value="8">Scheenbeen</option>
+<option value="15">Lendewervels</option>
+<option value="9">Kuitbeen</option>
+<option value="14">Borstwervels</option>
+<option value="1">Borstbeen</option>
+<option value="19">Middenhandsbeentjes</option>
+<option value="6">Dijbeen</option>
+<option value="16">Heiligbeen</option>
+<option value="11">Ribben</option>
+</select></td><td></td></tr><tr><td class="LeftItem">19</td><td class="RightItem"><select id="s7_7"><option value="x">???</option>
+<option value="4">Spaakbeen</option>
+<option value="10">Sleutelbeen</option>
+<option value="18">Vingerkootjes</option>
+<option value="0">Schedelbeenderen</option>
+<option value="2">Opperarmbeen</option>
+<option value="13">Halswervels</option>
+<option value="7">Knieschijf</option>
+<option value="12">Schouderblad</option>
+<option value="5">Heupbeen</option>
+<option value="3">Ellepijp</option>
+<option value="20">Handwortelbeentjes</option>
+<option value="17">Staartbeen</option>
+<option value="8">Scheenbeen</option>
+<option value="15">Lendewervels</option>
+<option value="9">Kuitbeen</option>
+<option value="14">Borstwervels</option>
+<option value="1">Borstbeen</option>
+<option value="19">Middenhandsbeentjes</option>
+<option value="6">Dijbeen</option>
+<option value="16">Heiligbeen</option>
+<option value="11">Ribben</option>
+</select></td><td></td></tr><tr><td class="LeftItem">20</td><td class="RightItem"><select id="s8_8"><option value="x">???</option>
+<option value="4">Spaakbeen</option>
+<option value="10">Sleutelbeen</option>
+<option value="18">Vingerkootjes</option>
+<option value="0">Schedelbeenderen</option>
+<option value="2">Opperarmbeen</option>
+<option value="13">Halswervels</option>
+<option value="7">Knieschijf</option>
+<option value="12">Schouderblad</option>
+<option value="5">Heupbeen</option>
+<option value="3">Ellepijp</option>
+<option value="20">Handwortelbeentjes</option>
+<option value="17">Staartbeen</option>
+<option value="8">Scheenbeen</option>
+<option value="15">Lendewervels</option>
+<option value="9">Kuitbeen</option>
+<option value="14">Borstwervels</option>
+<option value="1">Borstbeen</option>
+<option value="19">Middenhandsbeentjes</option>
+<option value="6">Dijbeen</option>
+<option value="16">Heiligbeen</option>
+<option value="11">Ribben</option>
+</select></td><td></td></tr><tr><td class="LeftItem">21</td><td class="RightItem"><select id="s9_9"><option value="x">???</option>
+<option value="4">Spaakbeen</option>
+<option value="10">Sleutelbeen</option>
+<option value="18">Vingerkootjes</option>
+<option value="0">Schedelbeenderen</option>
+<option value="2">Opperarmbeen</option>
+<option value="13">Halswervels</option>
+<option value="7">Knieschijf</option>
+<option value="12">Schouderblad</option>
+<option value="5">Heupbeen</option>
+<option value="3">Ellepijp</option>
+<option value="20">Handwortelbeentjes</option>
+<option value="17">Staartbeen</option>
+<option value="8">Scheenbeen</option>
+<option value="15">Lendewervels</option>
+<option value="9">Kuitbeen</option>
+<option value="14">Borstwervels</option>
+<option value="1">Borstbeen</option>
+<option value="19">Middenhandsbeentjes</option>
+<option value="6">Dijbeen</option>
+<option value="16">Heiligbeen</option>
+<option value="11">Ribben</option>
+</select></td><td></td></tr><tr><td class="LeftItem">25</td><td class="RightItem"><select id="s10_10"><option value="x">???</option>
+<option value="4">Spaakbeen</option>
+<option value="10">Sleutelbeen</option>
+<option value="18">Vingerkootjes</option>
+<option value="0">Schedelbeenderen</option>
+<option value="2">Opperarmbeen</option>
+<option value="13">Halswervels</option>
+<option value="7">Knieschijf</option>
+<option value="12">Schouderblad</option>
+<option value="5">Heupbeen</option>
+<option value="3">Ellepijp</option>
+<option value="20">Handwortelbeentjes</option>
+<option value="17">Staartbeen</option>
+<option value="8">Scheenbeen</option>
+<option value="15">Lendewervels</option>
+<option value="9">Kuitbeen</option>
+<option value="14">Borstwervels</option>
+<option value="1">Borstbeen</option>
+<option value="19">Middenhandsbeentjes</option>
+<option value="6">Dijbeen</option>
+<option value="16">Heiligbeen</option>
+<option value="11">Ribben</option>
+</select></td><td></td></tr><tr><td class="LeftItem">28</td><td class="RightItem"><select id="s11_11"><option value="x">???</option>
+<option value="4">Spaakbeen</option>
+<option value="10">Sleutelbeen</option>
+<option value="18">Vingerkootjes</option>
+<option value="0">Schedelbeenderen</option>
+<option value="2">Opperarmbeen</option>
+<option value="13">Halswervels</option>
+<option value="7">Knieschijf</option>
+<option value="12">Schouderblad</option>
+<option value="5">Heupbeen</option>
+<option value="3">Ellepijp</option>
+<option value="20">Handwortelbeentjes</option>
+<option value="17">Staartbeen</option>
+<option value="8">Scheenbeen</option>
+<option value="15">Lendewervels</option>
+<option value="9">Kuitbeen</option>
+<option value="14">Borstwervels</option>
+<option value="1">Borstbeen</option>
+<option value="19">Middenhandsbeentjes</option>
+<option value="6">Dijbeen</option>
+<option value="16">Heiligbeen</option>
+<option value="11">Ribben</option>
+</select></td><td></td></tr><tr><td class="LeftItem">29</td><td class="RightItem"><select id="s12_12"><option value="x">???</option>
+<option value="4">Spaakbeen</option>
+<option value="10">Sleutelbeen</option>
+<option value="18">Vingerkootjes</option>
+<option value="0">Schedelbeenderen</option>
+<option value="2">Opperarmbeen</option>
+<option value="13">Halswervels</option>
+<option value="7">Knieschijf</option>
+<option value="12">Schouderblad</option>
+<option value="5">Heupbeen</option>
+<option value="3">Ellepijp</option>
+<option value="20">Handwortelbeentjes</option>
+<option value="17">Staartbeen</option>
+<option value="8">Scheenbeen</option>
+<option value="15">Lendewervels</option>
+<option value="9">Kuitbeen</option>
+<option value="14">Borstwervels</option>
+<option value="1">Borstbeen</option>
+<option value="19">Middenhandsbeentjes</option>
+<option value="6">Dijbeen</option>
+<option value="16">Heiligbeen</option>
+<option value="11">Ribben</option>
+</select></td><td></td></tr><tr><td class="LeftItem">A</td><td class="RightItem"><select id="s13_13"><option value="x">???</option>
+<option value="4">Spaakbeen</option>
+<option value="10">Sleutelbeen</option>
+<option value="18">Vingerkootjes</option>
+<option value="0">Schedelbeenderen</option>
+<option value="2">Opperarmbeen</option>
+<option value="13">Halswervels</option>
+<option value="7">Knieschijf</option>
+<option value="12">Schouderblad</option>
+<option value="5">Heupbeen</option>
+<option value="3">Ellepijp</option>
+<option value="20">Handwortelbeentjes</option>
+<option value="17">Staartbeen</option>
+<option value="8">Scheenbeen</option>
+<option value="15">Lendewervels</option>
+<option value="9">Kuitbeen</option>
+<option value="14">Borstwervels</option>
+<option value="1">Borstbeen</option>
+<option value="19">Middenhandsbeentjes</option>
+<option value="6">Dijbeen</option>
+<option value="16">Heiligbeen</option>
+<option value="11">Ribben</option>
+</select></td><td></td></tr><tr><td class="LeftItem">B</td><td class="RightItem"><select id="s14_14"><option value="x">???</option>
+<option value="4">Spaakbeen</option>
+<option value="10">Sleutelbeen</option>
+<option value="18">Vingerkootjes</option>
+<option value="0">Schedelbeenderen</option>
+<option value="2">Opperarmbeen</option>
+<option value="13">Halswervels</option>
+<option value="7">Knieschijf</option>
+<option value="12">Schouderblad</option>
+<option value="5">Heupbeen</option>
+<option value="3">Ellepijp</option>
+<option value="20">Handwortelbeentjes</option>
+<option value="17">Staartbeen</option>
+<option value="8">Scheenbeen</option>
+<option value="15">Lendewervels</option>
+<option value="9">Kuitbeen</option>
+<option value="14">Borstwervels</option>
+<option value="1">Borstbeen</option>
+<option value="19">Middenhandsbeentjes</option>
+<option value="6">Dijbeen</option>
+<option value="16">Heiligbeen</option>
+<option value="11">Ribben</option>
+</select></td><td></td></tr><tr><td class="LeftItem">C</td><td class="RightItem"><select id="s15_15"><option value="x">???</option>
+<option value="4">Spaakbeen</option>
+<option value="10">Sleutelbeen</option>
+<option value="18">Vingerkootjes</option>
+<option value="0">Schedelbeenderen</option>
+<option value="2">Opperarmbeen</option>
+<option value="13">Halswervels</option>
+<option value="7">Knieschijf</option>
+<option value="12">Schouderblad</option>
+<option value="5">Heupbeen</option>
+<option value="3">Ellepijp</option>
+<option value="20">Handwortelbeentjes</option>
+<option value="17">Staartbeen</option>
+<option value="8">Scheenbeen</option>
+<option value="15">Lendewervels</option>
+<option value="9">Kuitbeen</option>
+<option value="14">Borstwervels</option>
+<option value="1">Borstbeen</option>
+<option value="19">Middenhandsbeentjes</option>
+<option value="6">Dijbeen</option>
+<option value="16">Heiligbeen</option>
+<option value="11">Ribben</option>
+</select></td><td></td></tr><tr><td class="LeftItem">D</td><td class="RightItem"><select id="s16_16"><option value="x">???</option>
+<option value="4">Spaakbeen</option>
+<option value="10">Sleutelbeen</option>
+<option value="18">Vingerkootjes</option>
+<option value="0">Schedelbeenderen</option>
+<option value="2">Opperarmbeen</option>
+<option value="13">Halswervels</option>
+<option value="7">Knieschijf</option>
+<option value="12">Schouderblad</option>
+<option value="5">Heupbeen</option>
+<option value="3">Ellepijp</option>
+<option value="20">Handwortelbeentjes</option>
+<option value="17">Staartbeen</option>
+<option value="8">Scheenbeen</option>
+<option value="15">Lendewervels</option>
+<option value="9">Kuitbeen</option>
+<option value="14">Borstwervels</option>
+<option value="1">Borstbeen</option>
+<option value="19">Middenhandsbeentjes</option>
+<option value="6">Dijbeen</option>
+<option value="16">Heiligbeen</option>
+<option value="11">Ribben</option>
+</select></td><td></td></tr><tr><td class="LeftItem">E</td><td class="RightItem"><select id="s17_17"><option value="x">???</option>
+<option value="4">Spaakbeen</option>
+<option value="10">Sleutelbeen</option>
+<option value="18">Vingerkootjes</option>
+<option value="0">Schedelbeenderen</option>
+<option value="2">Opperarmbeen</option>
+<option value="13">Halswervels</option>
+<option value="7">Knieschijf</option>
+<option value="12">Schouderblad</option>
+<option value="5">Heupbeen</option>
+<option value="3">Ellepijp</option>
+<option value="20">Handwortelbeentjes</option>
+<option value="17">Staartbeen</option>
+<option value="8">Scheenbeen</option>
+<option value="15">Lendewervels</option>
+<option value="9">Kuitbeen</option>
+<option value="14">Borstwervels</option>
+<option value="1">Borstbeen</option>
+<option value="19">Middenhandsbeentjes</option>
+<option value="6">Dijbeen</option>
+<option value="16">Heiligbeen</option>
+<option value="11">Ribben</option>
+</select></td><td></td></tr><tr><td class="LeftItem">F</td><td class="RightItem"><select id="s18_18"><option value="x">???</option>
+<option value="4">Spaakbeen</option>
+<option value="10">Sleutelbeen</option>
+<option value="18">Vingerkootjes</option>
+<option value="0">Schedelbeenderen</option>
+<option value="2">Opperarmbeen</option>
+<option value="13">Halswervels</option>
+<option value="7">Knieschijf</option>
+<option value="12">Schouderblad</option>
+<option value="5">Heupbeen</option>
+<option value="3">Ellepijp</option>
+<option value="20">Handwortelbeentjes</option>
+<option value="17">Staartbeen</option>
+<option value="8">Scheenbeen</option>
+<option value="15">Lendewervels</option>
+<option value="9">Kuitbeen</option>
+<option value="14">Borstwervels</option>
+<option value="1">Borstbeen</option>
+<option value="19">Middenhandsbeentjes</option>
+<option value="6">Dijbeen</option>
+<option value="16">Heiligbeen</option>
+<option value="11">Ribben</option>
+</select></td><td></td></tr><tr><td class="LeftItem">G</td><td class="RightItem"><select id="s19_19"><option value="x">???</option>
+<option value="4">Spaakbeen</option>
+<option value="10">Sleutelbeen</option>
+<option value="18">Vingerkootjes</option>
+<option value="0">Schedelbeenderen</option>
+<option value="2">Opperarmbeen</option>
+<option value="13">Halswervels</option>
+<option value="7">Knieschijf</option>
+<option value="12">Schouderblad</option>
+<option value="5">Heupbeen</option>
+<option value="3">Ellepijp</option>
+<option value="20">Handwortelbeentjes</option>
+<option value="17">Staartbeen</option>
+<option value="8">Scheenbeen</option>
+<option value="15">Lendewervels</option>
+<option value="9">Kuitbeen</option>
+<option value="14">Borstwervels</option>
+<option value="1">Borstbeen</option>
+<option value="19">Middenhandsbeentjes</option>
+<option value="6">Dijbeen</option>
+<option value="16">Heiligbeen</option>
+<option value="11">Ribben</option>
+</select></td><td></td></tr><tr><td class="LeftItem">H</td><td class="RightItem"><select id="s20_20"><option value="x">???</option>
+<option value="4">Spaakbeen</option>
+<option value="10">Sleutelbeen</option>
+<option value="18">Vingerkootjes</option>
+<option value="0">Schedelbeenderen</option>
+<option value="2">Opperarmbeen</option>
+<option value="13">Halswervels</option>
+<option value="7">Knieschijf</option>
+<option value="12">Schouderblad</option>
+<option value="5">Heupbeen</option>
+<option value="3">Ellepijp</option>
+<option value="20">Handwortelbeentjes</option>
+<option value="17">Staartbeen</option>
+<option value="8">Scheenbeen</option>
+<option value="15">Lendewervels</option>
+<option value="9">Kuitbeen</option>
+<option value="14">Borstwervels</option>
+<option value="1">Borstbeen</option>
+<option value="19">Middenhandsbeentjes</option>
+<option value="6">Dijbeen</option>
+<option value="16">Heiligbeen</option>
+<option value="11">Ribben</option>
+</select></td><td></td></tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+            <button id="CheckButton" class="FuncButton bg-blue-900 text-blue-50 px-4 py-2 rounded hover:bg-blue-700 focus:outline-none" onclick="CheckAnswers()">&nbsp;Controleer&nbsp;</button>
+            <button id="ShowAnswersButton" class="FuncButton bg-blue-900 text-blue-50 px-4 py-2 rounded hover:bg-blue-700 focus:outline-none" onclick="ShowAnswers()">&nbsp;Laat antwoorden zien&nbsp;</button>
+            <button id="RetakeButton" class="FuncButton bg-blue-900 text-blue-50 px-4 py-2 rounded hover:bg-blue-700 focus:outline-none" onclick="ReloadPage()">&nbsp;Opnieuw&nbsp;</button>
+        </div>
+    </div>
+</div>
+<div id="FeedbackModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
+    <div class="bg-white p-6 rounded-lg shadow-lg text-center">
+        <div id="FeedbackContent" class="text-blue-900 mb-4"></div>
+        <button id="FeedbackOKButton" class="FuncButton bg-blue-900 text-blue-50 px-4 py-2 rounded hover:bg-blue-700 focus:outline-none" onclick="HideFeedback(); return false;">&nbsp;OK&nbsp;</button>
+    </div>
+</div>
+</body>
+</html>
