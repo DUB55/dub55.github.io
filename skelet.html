@@ -39,6 +39,17 @@
         border-color: #1E3A8A;
         margin-bottom: 1px;
     }
+    @keyframes scaleAnimation {
+        0%, 100% {
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(1.05);
+        }
+    }
+    .animate-scale {
+        animation: scaleAnimation 1s infinite;
+    }
     </style>
     <script type="text/javascript">
     function Client(){
@@ -1070,6 +1081,12 @@
         </div>
     </div>
 </div>
+
+<!-- New button to link to schedel.html -->
+<a href="https://dub55.github.io/schedel.html" class="fixed right-4 top-1/2 transform -translate-y-1/2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300 animate-scale">
+    Schedel leren
+</a>
+
 <div id="FeedbackModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
     <div class="bg-white p-6 rounded-lg shadow-lg text-center">
         <div id="FeedbackContent" class="text-blue-900 mb-4"></div>
