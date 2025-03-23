@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OBAMA</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-color: #ffffff;
+      --text-color: #37352f;
+      --secondary-text: #6b7280;
+      --border-color: #e5e7eb;
+      --hover-bg: #f5f5f5;
+      --bullet-color: #37352f80;
+      --accent-color: #0284c7;
+    }
+    [data-theme="dark"] {
+      --bg-color: #1f1f1f;
+      --text-color: #e6e6e6;
+      --secondary-text: #a0a0a0;
+      --border-color: #333333;
+      --hover-bg: #2a2a2a;
+      --accent-color: #38bdf8;
+      --logo-color: white;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+      transition: background-color 0.3s;
+    }
+    .container {
+      max-width: 900px;
+      padding: 3rem 2rem 4rem;
+      margin: 0 auto;
+    }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.5rem 2rem;
+      background: var(--bg-color);
+      border-bottom: 1px solid var(--border-color);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      transition: background-color 0.3s;
+    }
+    .header .logo {
+      display: flex;
+      align-items: center;
+      margin-right: 15px;
+    }
+    .header .logo svg {
+      fill: var(--logo-color);
+      width: 24px;
+      height: 24px;
+    }
+    .header .save-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .undo-redo {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+      transition: opacity 0.2s;
+    }
+    .undo-redo img {
+      width: 20px;
+      height: 20px;
+      filter: var(--icon-filter, none);
+    }
+    [data-theme="dark"] .undo-redo img {
+      filter: invert(100%);
+    }
+    .save-indicator {
+      margin-left: 20px;
+      font-size: 0.875rem;
+      color: var(--secondary-text);
+      transition: color 0.3s;
+    }
+    .theme-toggle {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+      transition: background-color 0.2s;
+      margin-right: 12px;
+    }
+    .theme-toggle:hover {
+      background: var(--hover-bg);
+    }
+    .theme-toggle svg {
+      width: 20px;
+      height: 20px;
+    }
+    .content-block {
+      margin-bottom: 0.5rem;
+      position: relative;
+      display: flex;
+    }
+    .content-block:before {
+      content: "-";
+      position: absolute;
+      left: -1.5rem;
+      color: var(--bullet-color);
+      font-size: 1.2rem;
+    }
+    .script-text {
+      white-space: pre-wrap;
+      -webkit-user-select: text;
+      -moz-user-select: text;
+      -ms-user-select: text;
+      user-select: text;
+    }
+    ::selection {
+      background: transparent;
+    }
+    .links-section a {
+      color: var(--accent-color);
+      text-decoration: none;
+    }
+    .links-section a:hover,
+    .links-section a:visited {
+      color: var(--accent-color);
+    }
+    .checklist-section {
+      margin: 2rem 0;
+      padding: 1rem;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      display: var(--checklist-display, block);
+    }
+    .checklist-item {
+      margin: 5px 0;
+      padding: 4px;
+      background: var(--hover-bg);
+      border-radius: 4px;
+    }
+    .tutorial-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .tutorial-content {
+      background: var(--bg-color);
+      padding: 2rem;
+      border-radius: 12px;
+      max-width: 500px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.2);
+    }
+    .tutorial-button {
+      padding: 0.6rem 1.8rem;
+      border: none;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--accent-color), var(--accent-color) 50%, #00c6ff);
+      color: white;
+      cursor: pointer;
+      transition: transform 0.2s;
+      font-weight: 500;
+    }
+    .tutorial-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    .links-section .link-item svg {
+      width: 16px;
+      height: 16px;
+      margin-right: 8px;
+    }
+    .header-left {
+      gap: 10px;
+      margin-right: 20px;
+    }
+    @media (max-width: 768px) {
+      .container { padding: 2rem 1rem; }
+      .header { padding: 0.3rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="logo">
+      <svg width="24" height="24" viewBox="0 0 24 24">
+        <path d="M4 5.5h16v-1H4v1zm0 14h16v-1H4v1zm15-7.75H5v1h14v-1z" fill="currentColor"/>
+      </svg>
+    </div>
+    <div class="header-left">
+      <button class="theme-toggle" id="themeToggle">
+        <svg id="lightModeIcon" style="display: none;">
+          <path d="M12 17C14.7614 17 17 14.7614 17 12C17 9.23858 14.7614 7 12 7C9.23858 7 7 9.23858 7 12C7 14.7614 9.23858 17 12 17Z" stroke="currentColor" stroke-width="2"/>
+          <path d="M12 1V3" stroke="currentColor" stroke-width="2"/>
+          <path d="M12 21V23" stroke="currentColor" stroke-width="2"/>
+        </svg>
+        <svg id="darkModeIcon" style="display: block;">
+          <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" stroke="currentColor" stroke-width="2"/>
+        </svg>
+      </button>
+    </div>
+    <div class="save-controls">
+      <button class="undo-redo" id="undoButton">
+        <img src="https://cdn-icons-png.flaticon.com/128/2349/2349854.png" alt="Undo">
+      </button>
+      <button class="undo-redo" id="redoButton">
+        <img src="https://cdn-icons-png.flaticon.com/128/2349/2349829.png" alt="Redo">
+      </button>
+      <div class="save-indicator" id="saveIndicator">Alle wijzigingen zijn opgeslagen</div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="page-content">
+      <h1 class="title" contenteditable="true" spellcheck="false">Barack Obama </h1>
+      <div class="image-container">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/President_Barack_Obama.jpg/1200px-President_Barack_Obama.jpg" alt="Barack Obama">
+        
+      </div>
+      
+      <center>
+<div>
+<h3>--------------------BARACK OBAMA--------------------</h3>
+</div>
+</center>
+      <div class="links-section">
+          
+          <div style="white-space: pre-wrap;">
+Handige links:&#10;
+</div>
+        
+        <div class="link-item">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- PowerPoint icon -->
+          </svg>
+          <a href="#script-anchor">Ga naar het script</a>
+        </div>
+        <div class="link-item">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- PowerPoint icon -->
+          </svg>
+          <a href="https://stmichaelcollege-my.sharepoint.com/:p:/g/personal/205039_stmichaelcollege_nl/EQxOZHCRwI1PhD36KdJmPHABLVYLcedE6-R2pCi-Vtzq6A?e=7TKvNN" target="_blank">PowerPoint-presentatie</a>
+        </div>
+        <div class="link-item">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Video icon -->
+          </svg>
+          <a href="https://dub5.zapto.org/frans-mo-obama.html" target="_blank">Video-presentatie</a>
+        </div>
+        <div class="link-item">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Classroom icon -->
+          </svg>
+          <a href="https://classroom.google.com/u/0/c/nze5otyxmtqxotkx/a/nzu2nzy0mjm1nzc0/details" target="_blank">Klasopdracht informatie</a>
+        </div>
+      </div>
+      <div class="checklist-section" id="checklistSection">
+        <div class="checklist-header">
+          <div class="checklist-title">Checklijst voor presentatievoorbereiding</div>
+          <label class="toggle-switch">
+            <input type="checkbox" id="checklistToggle" checked>
+            <span class="slider"></span>
+          </label>
+        </div>
+      <div class="checklist-section" id="checklistSection">
+        <div class="checklist-header">
+          <div class="checklist-title">Checklijst</div>
+          <label class="toggle-switch">
+            <input type="checkbox" id="checklistToggle">
+            <span class="slider"></span>
+          </label>
+        </div>
+        <ul class="checklist-items">
+          <li class="checklist-item">
+            <input type="checkbox" id="check1">
+            <label for="check1">Script afschrijven</label>
+          </li>
+          <li class="checklist-item">
+            <input type="checkbox" id="check2">
+            <label for="check2">Frans inspreken</label>
+          </li>
+          <li class="checklist-item">
+            <input type="checkbox" id="check3">
+            <label for="check3">Oefenen</label>
+          </li>
+          <li class="checklist-item">
+            <input type="checkbox" id="check4">
+            <label for="check4">PowerPoint maken</label>
+          </li>
+          <li class="checklist-item">
+            <input type="checkbox" id="check5">
+            <label for="check5">Uitspraak controleren</label>
+          </li>
+        </ul>
+      </div>
+
+      <div class="script-block" contenteditable="true">Script:</div>
+      <div class="script-text" contenteditable="true" spellcheck="false">
+        <h2>Teije (deel 1):</h2>
+        - Barack Obama né le 4 (quatre) août 1961 (mille neuf cent soixante et un).<br>
+        - Il a soixante-trois ans.<br>
+        - Son nom est: Barack Hussein Obama II (le deuxième).<br>
+        - Il était avocat des droits civiques, sénateur et président pendant huit ans.<br>
+        - Obama était un démocrate dans la politique Américaine.<br>
+        - Son père est Kenyan, sa mère est Américaine et Obama est Américaine aussi.<br>
+        - maak script langer …. –<br>
+        Schrijf hier waarom je hem bewondert: …<br>
+        Zijn grootste prestatie: 8 jaar lang President van Amerika zijn.
+
+        <h2>Mohammed (deel 2):</h2>
+        - Le talent et les réalisations d'Obama<br>
+        - Obama était special en raison de réalisations et de l'influence qu'il a eue sur le monde<br>
+        - Les réalisations d'Obama sont :<br>
+          - Il est devenu président des États-Unis en 2009 (deux mille neuf).<br>
+            - Il a permis à des millions d'Américains d'avoir des soins de santé moins chers.<br>
+            - Il a mis fin à la guerre en Irak en 2011 (deux mille onze) et les troupes américaines sont revenues.<br>
+            - Il a été réélu président en 2012 (deux mille douze).<br>
+            - En 2015 (deux mille quinze), il a aidé à créer l'Accord de Paris sur le climat.<br>
+        - Son talent est de faire des discours forts.<br>
+        - Obama a eu une grande influence sur le monde. Il a pris des décisions importantes sur le climat et a aidé des millions d'Américains avec des soins de santé moins chers.
+      </div>
+
+      <div class="tutorial-overlay" id="tutorialOverlay">
+        <div class="tutorial-content">
+          <div class="tutorial-title">Hallo👋</div>
+          <div class="tutorial-steps">
+            <div class="tutorial-step">Je kan op tekst klikken om het te bewerken 💀</div>
+            <div class="tutorial-step">Gebruik de checklijst voor voorbreiding✅ </div>
+            <div class="tutorial-step">Klik op de handige links! 😁</div>
+          </div>
+          <button class="tutorial-button" id="tutorialClose">Begrepen</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Undo/Redo functionality
+    const undoStack = [];
+    const redoStack = [];
+    const contentElements = document.querySelectorAll('[contenteditable]');
+    
+    function saveState() {
+      undoStack.push(Array.from(contentElements).map(el => el.innerHTML));
+      redoStack.length = 0;
+    }
+    document.addEventListener('input', saveState);
+
+    document.getElementById('undoButton').addEventListener('click', () => {
+      if(undoStack.length > 1) {
+        redoStack.push(undoStack.pop());
+        undoStack[undoStack.length-1].forEach((html, i) => {
+          contentElements[i].innerHTML = html;
+        });
+      }
+    });
+
+    document.getElementById('redoButton').addEventListener('click', () => {
+      if(redoStack.length) {
+        undoStack.push(redoStack.pop());
+        undoStack[undoStack.length-1].forEach((html, i) => {
+          contentElements[i].innerHTML = html;
+        });
+      }
+    });
+
+    // Theme toggle
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+    function toggleTheme() {
+      document.body.dataset.theme = document.body.dataset.theme === 'dark' ? '' : 'dark';
+      const theme = document.body.dataset.theme || (prefersDark.matches ? 'dark' : '');
+      sessionStorage.setItem('theme', theme);
+      updateLogoColor();
+    }
+    function updateLogoColor() {
+      document.querySelector('.logo svg').style.fill = 
+        document.body.dataset.theme === 'dark' ? 'white' : 'black';
+    }
+    document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+    document.body.dataset.theme = sessionStorage.getItem('theme') || (prefersDark.matches ? 'dark' : '');
+
+    // Checklist visibility
+    const checklist = document.getElementById('checklistSection');
+    const toggle = document.getElementById('checklistToggle');
+    toggle.addEventListener('change', () => {
+      checklist.style.display = toggle.checked ? 'block' : 'none';
+    });
+
+    // Save indicator delay
+    let saveTimeout;
+    document.addEventListener('input', () => {
+      clearTimeout(saveTimeout);
+      document.getElementById('saveIndicator').textContent = 'Opslaan...';
+      saveTimeout = setTimeout(() => {
+        saveIndicator.textContent = 'Alle wijzigingen zijn opgeslagen';
+      }, 300);
+    });
+
+    // Tutorial
+    window.onload = () => {
+      const tutorial = document.getElementById('tutorialOverlay');
+      tutorial.style.display = 'flex';
+      document.getElementById('tutorialClose').addEventListener('click', () => tutorial.style.display = 'none');
+    };
+  </script>
+</body>
+</html>
