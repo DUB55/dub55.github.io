@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html prefix="og: https://ogp.me/ns#" lang="en">
+<head>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:400,700|Titan+One|Creepster|Satisfy|Eczar:700">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+    <link rel="icon" href="https://github.com/Githubman6996/05konz-blooket-site/blob/main/icon.png?raw=true">
+    <meta name="google-site-verification" content="UCESNa27VYtuffW-_CapVrfDLOYPhwcyZXGAFe3rp9w" />
+    <meta name="description" content="blooket hacking/cheating bot Need to crash a blooket game, or spam the teachers screen with text? Try out blooketbot today!">
+    <meta property="og:title" content="Blooket Bot">
+    <meta property="og:description" content="The best blooket hacks available, just a click away! Try out blooketbot today!">
+    <meta property="og:image" content="https://cdn.glitch.global/50648a61-8fe9-4ce0-a01c-baff9438bbf2/bblogo.png">
+    <meta property="og:url" content="https://bb.doyle31.com">
+    <meta property="og:type" content="website">
+    <title>Blooket Bot</title>
+    <style>
+      :root {
+        --nav-hover-transition-duration: 300ms;
+        --nav-hover-transition-timing: ease-in-out;
+      }
+        body {
+            min-height: 100vh;
+            background: linear-gradient(to bottom, #000044, #000033, #000066);
+            color: white;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            overflow-x: hidden;
+            position: relative;
+            margin: 0;
+            padding: 0;
+        }
+
+        .stars {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% {
+                opacity: 0.2;
+                transform: scale(0.5);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        ._checkers_l90pt_12 {
+            z-index: -1;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(15deg);
+            opacity: .08;
+            background-image: url('https://cdn.glitch.global/50648a61-8fe9-4ce0-a01c-baff9438bbf2/checker.png');
+            background-size: 550px;
+            width: 200%;
+            height: 200%;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .header h1 {
+            font-size: 4rem;
+            font-weight: normal;
+            margin-bottom: 1rem;
+            font-family: 'DM Serif Display', serif;
+            color: white;
+        }
+
+        .header h2 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            color: rgb(224, 242, 254);
+            font-family: 'DM Serif Display', serif;
+        }
+
+        .errorBar {
+            width: 100%;
+            padding: 10px;
+            background: rgba(255, 0, 0, 0.2);
+            border-radius: 5px;
+            color: white;
+            text-align: center;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            transform: translateY(100%);
+            transition: .1s;
+            z-index: 10;
+            opacity: 0;
+        }
+
+        .inputcontainer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            margin: 20px auto;
+            max-width: 300px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+
+        .nameInput, .idInput {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 16px;
+            text-align: center;
+            outline: none;
+        }
+
+        .nameInput::placeholder, .idInput::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .joinButton {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .joinButton:hover {
+            background: rgba(9, 23, 148, 0.8);
+            transform: scale(.95);
+        }
+
+        .discordButton {
+            background: #7289DA;
+            height: 40px;
+            width: 130px;
+            cursor: pointer;
+            border-radius: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: .2s;
+            font-size: 20px;
+            float: left;    
+            margin-top: 3px;
+            color: white;
+        }
+
+        .discordButton:hover {
+            background: #677bc4;
+            transform: scale(.9);
+        }
+
+        #ctrlpanel {
+            margin: 20px auto;
+            max-width: 400px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 70px;
+            height: 40px;
+        }
+
+        .switch input[type="checkbox"] {
+            -webkit-appearance: none;
+        }
+
+        .switch input:checked + .knob {
+            background-color: #4BD663;
+        }
+
+        .switch input + .knob {
+            transition: all .3s ease-in;
+        }
+
+        .switch input + .knob:before {
+            transition: all .3s ease-in;
+        }
+
+        .switch input:checked + .knob:before {
+            transform: translateX(30.4px);
+            box-shadow: -10px 0px 44px 0px;
+        }
+
+        .knob {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            border-radius: 40px;
+        }
+
+        .knob:before {
+            position: absolute;
+            background-color: white;
+            content: "";
+            left: 4px;
+            top: 4px;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+        }
+
+        .chat {
+            position: fixed;
+            margin: 10px;
+            background-color: rgba(9, 23, 148, 0.9);
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .chatcontainer {
+            width: 500px;
+            height: 200px;
+            background-color: rgba(32, 32, 32, 0.6);
+            margin: 10px;
+            flex-direction: column-reverse;
+            display: flex;
+            overflow-y: auto;
+            border-radius: 8px;
+        }
+
+        .chatmsg {
+            color: white;
+            font-size: 22px;
+            margin: 8px;
+            padding: 8px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+
+        .chatinpcontainer {
+            margin: 10px;
+        }
+
+        #chat {
+            width: 100%;
+            padding: 8px;
+            font-size: 16px;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            border-radius: 4px;
+            color: white;
+        }
+
+        #chat::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .dragcontainer {
+            background-color: rgba(9, 23, 148, 0.8);
+            padding: 8px;
+            border-radius: 8px;
+            cursor: move;
+        }
+
+        #drag {
+            color: white;
+            font-weight: bold;
+            user-select: none;
+        }
+
+        .normtext {
+            color: white;
+            font-family: 'Nunito', sans-serif;
+            font-size: 18px;
+            margin: 8px 0;
+        }
+
+        .btext {
+            font-size: 140%;
+            color: white;
+            user-select: none;
+        }
+
+        #globalmsg {
+            font-size: 100px;
+            background-color: #cd0000;
+            color: #B6ECFF;
+            font-family: 'Titan One', sans-serif;
+            z-index: -0.5;
+        }
+        
+        /* Custom checkbox toggle styles */
+        checkbox {
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+            background-color: grey;
+            border-radius: 34px;
+            position: relative;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            /* off */
+        }
+
+        checkbox::before {
+            content: "";
+            position: absolute;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            background-color: white;
+            top: 4px;
+            left: 4px;
+            transition: transform 0.3s;
+            /* the circle part of the slider (off) */
+        }
+
+        checkbox[checked] {
+            background-color: #df9000;
+            /* on */
+        }
+
+        checkbox[checked]::before {
+            transform: translateX(26px);
+            background-color: white;
+            /* the circle part of the slider (on) */
+        }
+
+        .switch-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        .switch {
+    position: relative;
+    display: inline-block;
+    width: 70px;
+    height: 40px;
+}
+
+.switch input[type="checkbox"] {
+    -webkit-appearance: none;
+}
+
+.switch input:checked + .knob {
+    background-color: #4BD663;
+}
+
+.switch input + .knob {
+    transition: all .3s ease-in;
+}
+
+.switch input + .knob:before {
+    transition: all .3s ease-in;
+}
+
+.switch input:checked + .knob:before {
+    transform: translateX(30.4px);
+    box-shadow: -10px 0px 44px 0px;
+}
+
+.knob {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    border-radius: 40px;
+}
+
+.knob:before {
+    position: absolute;
+    background-color: white;
+    content: "";
+    left: 4px;
+    top: 4px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+}
+.stars {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: white;
+    border-radius: 50%;
+    animation: twinkle 3s infinite;
+}
+
+@keyframes twinkle {
+    0%, 100% {
+        opacity: 0.2;
+        transform: scale(0.5);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+    </style>
+</head>
+<body>
+    <div class="stars" id="starsContainer"></div>
+    
+    <div class="header">
+        <h1>Blooket Hacks</h1>
+        <h2> DUB5 DUB5 DUB5<img src="https://em-content.zobj.net/source/apple/81/heavy-black-heart_2764.png" alt="❤️" style="height:1em;vertical-align:middle;"> <img src="https://em-content.zobj.net/source/apple/81/heavy-black-heart_2764.png" alt="❤️" style="height:1em;vertical-align:middle;"> <img src="https://em-content.zobj.net/source/apple/81/heavy-black-heart_2764.png" alt="❤️" style="height:1em;vertical-align:middle;"></h2>
+    </div>
+
+    <div class="chat" style="top:350px;left:200px;display:none;">
+        <div class="chatcontainer">
+            <div class="chatmsg"></div>
+        </div>
+        <div class="chatinpcontainer">
+            <input id="chat" placeholder="Type a message...">
+        </div>
+        <div class="dragcontainer">
+            <div id="drag">Drag</div>
+        </div>
+    </div>
+
+    <div class="inputcontainer">
+        <div class="errorBar" id="error"></div>
+        <div class="idInputContainer">
+            <input id="gcode" class="idInput" placeholder="Game ID">
+        </div>
+        <div class="nameInputContainer">
+            <input id="gname" class="nameInput" placeholder="Nickname">
+        </div>
+        <div class="joinButton" onclick="join();" role="button">
+            <div class="btext">Join</div>
+        </div>
+    </div>
+
+    <div id="ctrlpanel">
+        
+        <div class="switch-container">
+            <text class="normtext">Incognito Mode:</text>
+            <label class="switch">
+                <input type="checkbox" id="icogmode" checked>
+                <span class="knob"></span>
+            </label>
+        </div>
+        <div class="switch-container">
+            <text class="normtext">Bypass Filter:</text>
+            <label class="switch">
+                <input type="checkbox" id="bcf">
+                <span class="knob"></span>
+            </label>
+        </div>
+        
+        <div class="switch-container">
+            <text class="normtext">First Place Switch:</text>
+            <label class="switch">
+                <input type="checkbox" id="fpswitch" checked>
+                <span class="knob"></span>
+            </label>
+        </div>
+    </div>
+
+    <div style="margin-left:20px">
+    </div>
+
+    <script src="firebase-appcheck-fix.js"></script>
+    <script type="module">
+        //copied from google cause i'm lazy
+        import {
+            initializeApp,
+            deleteApp
+        } from 'https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js'
+        import {
+            getAuth,
+            signInWithCustomToken,
+            setPersistence
+        } from 'https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js'
+        import {
+            getDatabase,
+            ref,
+            set,
+            get,
+            onValue
+        } from 'https://www.gstatic.com/firebasejs/10.10.0/firebase-database.js'
+        window.initializeApp = initializeApp;
+        window.getAuth = getAuth;
+        window.deleteApp = deleteApp;
+        window.getDatabase = getDatabase;
+        window.ref = ref;
+        //window.onAuthStateChanged = onAuthStateChanged;
+        window.set = set;
+        window.get = get;
+        window.onValue = onValue;
+        window.signInWithCustomToken = signInWithCustomToken;
+        window.setPersistence = setPersistence;
+        const urlcode = (new URLSearchParams(window.location.search)).get("code");
+        if (urlcode) {
+            document.querySelector("#gcode").value = urlcode;
+        }
+
+        document.querySelectorAll("checkbox").forEach((e) => {
+  e.addEventListener("click", function () {
+    if (e.getAttribute("checked")) {
+      e.removeAttribute("checked");
+    } else {
+      e.setAttribute("checked", "true");
+    }
+  });
+});
+
+    </script>
+    <script src="https://zalgo.org/lunicode.js"></script><!---not mine just check the source you'll see its author-->
+    <script>
+        function join() {
+            var cin = document.getElementById("gcode");
+            var name = document.getElementById("gname");
+            
+            // Store game ID and username in localStorage
+            localStorage.setItem("blooketGameId", cin.value);
+            localStorage.setItem("blooketUsername", name.value);
+            
+            // Redirect to the specified URL with parameters
+            window.location.href = "https://blk-rho.vercel.app/newquest.html?code=" + encodeURIComponent(cin.value) + "&name=" + encodeURIComponent(name.value);
+        }
+
+        function errorBar(error) {
+            var e = document.getElementById("error");
+            e.innerText = error;
+            e.style.opacity = "1";
+            e.style.transform = "translateY(-100%)";
+            setTimeout(function() {
+                e.style.transform = "translateY(100%)";
+                e.style.opacity = "0";
+            }, 4000);
+        }
+        function generateStars() {
+    const starsContainer = document.getElementById('starsContainer');
+    const numberOfStars = 100; // Adjust the number of stars as needed
+
+    for (let i = 0; i < numberOfStars; i++) {
+        const star = document.createElement('div');
+        star.className = 'star';
+        star.style.top = Math.random() * 100 + 'vh';
+        star.style.left = Math.random() * 100 + 'vw';
+        star.style.animationDelay = Math.random() * 3 + 's';
+        starsContainer.appendChild(star);
+    }
+}
+
+window.onload = function() {
+    generateStars();
+    
+    // Load saved values if they exist
+    var savedGameId = localStorage.getItem("blooketGameId");
+    var savedUsername = localStorage.getItem("blooketUsername");
+    
+    if (savedGameId) {
+        document.getElementById("gcode").value = savedGameId;
+    }
+    
+    if (savedUsername) {
+        document.getElementById("gname").value = savedUsername;
+    }
+    
+    // Check for URL parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    const codeParam = urlParams.get("code");
+    const nameParam = urlParams.get("name");
+    
+    if (codeParam) {
+        document.getElementById("gcode").value = codeParam;
+    }
+    
+    if (nameParam) {
+        document.getElementById("gname").value = nameParam;
+    }
+};
+
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>
