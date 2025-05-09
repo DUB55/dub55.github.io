@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blooket Hacks - DUB5</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="Blooket-hacks-styles.css">
+</head>
+<body>
+    <div class="stars" id="stars"></div>
+
+    <main class="container">
+        <header class="header">
+            <h1>Blooket Hacks</h1>
+            <div class="rating-stars">★★★★★</div>
+            <h2>Klik op Kopiëren, en plak dan op je bookmarks bar</h2>
+        </header>
+
+        <div class="code-container">
+            <div class="code-header">
+                <h3>Code</h3>
+                <button id="copyButton" class="copy-button" aria-label="Copy code to clipboard" style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background-color: #1e40af; color: white; border: none; border-radius: 0.375rem; cursor: pointer; font-size: 0.875rem; transition: background-color 0.3s ease;"> 
+                  <!-- Copy Icon (clipboard) --> 
+                  <svg class="copy-icon" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"> 
+                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect> 
+                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path> 
+                  </svg> 
+                  Copy Code 
+                  <!-- Checkmark Icon (hidden initially) --> 
+                  <svg class="check-icon" style="display:none;" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"> 
+                    <polyline points="20 6 9 17 4 12"></polyline> 
+                  </svg> 
+                </button>
+            </div>
+            <pre id="codeDisplay" class="code-display">const complexCode = 'var Version = "1.0.25"';</pre>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2025 DUB5. All rights reserved.</p>
+    </footer>
+
+    <script src="Blooket-hacks-script.js"></script>
+    <script>
+
+    
+        // Star field configuration
+        const starConfig = {
+            count: 400,
+            minSize: 0.1,
+            maxSize: 0.4,
+            minDelay: 0,
+            maxDelay: 3,
+            animationDuration: 3
+        };
+
+        // Generate stars
+        function generateStars() {
+            const starsContainer = document.getElementById('stars');
+            starsContainer.innerHTML = '';
+
+            for (let i = 0; i < starConfig.count; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                
+                // Random position
+                star.style.left = `${Math.random() * 150 - 25}%`;
+                star.style.top = `${Math.random() * 150 - 25}%`;
+                
+                // Random size
+                const size = Math.random() * (starConfig.maxSize - starConfig.minSize) + starConfig.minSize;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                
+                // Random animation delay
+                const delay = Math.random() * (starConfig.maxDelay - starConfig.minDelay) + starConfig.minDelay;
+                star.style.animationDelay = `${delay}s`;
+                
+                // Animation duration
+                star.style.animationDuration = `${starConfig.animationDuration}s`;
+                
+                starsContainer.appendChild(star);
+            }
+        }
+
+        // Initialize stars
+        generateStars();
+
+        // Regenerate stars on window resize
+        window.addEventListener('resize', generateStars);
+    </script>
+</body>
+</html>
