@@ -281,6 +281,43 @@ Remove-WindowsFeature Windows-Defender, Windows-Defender-GUI
 
 Or this Powershell Command to remove defender completely:
 Get-Service WinDefend | Stop-Service -PassThru | Set-Service -StartupType Disabled
+
+
+BSOD:
+
+
+Add-Type -TypeDefinition @"
+using System;
+using System.Runtime.InteropServices;
+
+public class NativeMethods {
+    [DllImport("ntdll.dll", SetLastError = true)]
+    public static extern uint NtRaiseHardError(
+        uint ErrorStatus,
+        uint NumberOfParameters,
+        IntPtr UnicodeStringParameterMask,
+        IntPtr Parameters,
+        uint ValidResponseOption,
+        out uint Response
+    );
+
+    [DllImport("ntdll.dll")]
+    public static extern uint RtlAdjustPrivilege(
+        int Privilege,
+        bool Enable,
+        bool CurrentThread,
+        out bool Enabled
+    );
+}
+"@
+
+# Enable SeShutdownPrivilege (privilege 19)
+[bool]$enabled = $false
+[NativeMethods]::RtlAdjustPrivilege(19, $true, $false, [ref]$enabled) | Out-Null
+
+# Trigger the BSOD with STATUS_ASSERTION_FAILURE (unsigned 3221225728)
+$response = 0
+[NativeMethods]::NtRaiseHardError(3221225728, 0, [IntPtr]::Zero, [IntPtr]::Zero, 6, [ref]$response)
     </pre>
 </div>
 
