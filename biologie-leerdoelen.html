@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Biologie Leerdoelen</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DR2WXMGWR6"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DR2WXMGWR6');
+  </script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      min-height: 100vh;
+      background: linear-gradient(to bottom, #000044, #000033, #000066);
+      color: white;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Stars Background */
+    .stars {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .star {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: white;
+      border-radius: 50%;
+      animation: twinkle 3s infinite;
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.2; transform: scale(0.5); }
+      50% { opacity: 1; transform: scale(1); }
+    }
+
+    /* Image Animation */
+    .fullscreen-image {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      max-width: 100%;
+      max-height: 100%;
+      z-index: 999;
+      animation: rotateImage 1s cubic-bezier(0.4, 0, 0.2, 1) forwards, fadeOut 0.5s ease-out 1s forwards;
+    }
+
+    @keyframes rotateImage {
+      0% { transform: translate(-50%, -50%) rotate(0deg); }
+      100% { transform: translate(-50%, -50%) rotate(1080deg); }
+    }
+
+    @keyframes fadeOut {
+      to { opacity: 0; }
+    }
+
+    /* Message Box */
+    .message-box {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.8);
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 2rem 4rem;
+      font-size: 5vw;
+      color: white;
+      font-family: 'DM Serif Display', serif;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+      opacity: 0;
+      z-index: 1000;
+      text-align: center;
+      transition: opacity 0.5s ease, transform 0.5s ease;
+      max-width: 80%;
+      word-wrap: break-word;
+    }
+
+    .message-box.show {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Star field -->
+  <div class="stars" id="stars"></div>
+
+  <!-- Rotating image -->
+  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQfOnsJg-lM58PA5XJHtFCxVG-7GbR7FIX7A&s" alt="Rotating Image" class="fullscreen-image" id="rotatingImage">
+
+  <!-- Message box -->
+  <div class="message-box" id="messageBox">WACHT EVEN,<br>Ik had geen zin om alle leerdoelen te sturen... 😭🐔</div>
+
+  <script>
+    // Generate stars
+    const starConfig = { count: 400, minSize: 0.1, maxSize: 0.4, minDelay: 0, maxDelay: 3, animationDuration: 3 };
+    function generateStars() {
+      const starsContainer = document.getElementById('stars');
+      starsContainer.innerHTML = '';
+      for (let i = 0; i < starConfig.count; i++) {
+        const star = document.createElement('div');
+        star.className = 'star';
+        star.style.left = `${Math.random() * 150 - 25}%`;
+        star.style.top = `${Math.random() * 150 - 25}%`;
+        const size = Math.random() * (starConfig.maxSize - starConfig.minSize) + starConfig.minSize;
+        star.style.width = `${size}px`;
+        star.style.height = `${size}px`;
+        const delay = Math.random() * (starConfig.maxDelay - starConfig.minDelay) + starConfig.minDelay;
+        star.style.animationDelay = `${delay}s`;
+        star.style.animationDuration = `${starConfig.animationDuration}s`;
+        starsContainer.appendChild(star);
+      }
+    }
+    generateStars();
+    window.addEventListener('resize', generateStars);
+
+    // Animation sequence
+    setTimeout(() => {
+      document.getElementById("rotatingImage").style.display = "none";
+      const message = document.getElementById("messageBox");
+      message.classList.add("show");
+
+      setTimeout(() => {
+        message.classList.remove("show");
+        setTimeout(() => {
+          window.location.href = "https://bvj.secure.malmberg.nl/material-chapter/es:28EBF25B-EFCC-4F30-A6F2-0D748797EB1C/material-paragraph/es:CCFDE763-8A48-4CD6-BE8B-7469550DBEF0/lesson/es:75CEEC7B-91FA-4A76-8AB2-77EE48B8F4EC?streamId=2_vwo_gymnasium_2020";
+        }, 500);
+      }, 3000);
+    }, 1500);
+  </script>
+
+</body>
+</html>
