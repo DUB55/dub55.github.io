@@ -1,0 +1,1543 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Begrippen Leren – Overheid & Financiën</title>
+<style>
+  :root{
+    --bg:#0f172a; --panel:#111827; --text:#e5e7eb; --muted:#9ca3af;
+    --brand:#22c55e; --brand-2:#16a34a; --warn:#f59e0b; --danger:#ef4444; --info:#60a5fa;
+    --card:#0b1224; --shadow: 0 10px 30px rgba(0,0,0,.25); --mark: rgba(255, 235, 59, .35);
+    --select-bg:#0b1430; --select-opt:#0e1a38; --focus:#60a5fa;
+  }
+  html,body{height:100%;}
+  body{
+    margin:0; background:linear-gradient(180deg,#0b1022 0%, #0f172a 100%);
+    color:var(--text); font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial, "Noto Sans";
+    color-scheme: dark; /* betere native UI in dark */
+  }
+  a{ color:inherit; }
+  .app{
+    display:grid; grid-template-columns: 320px 1fr; gap:20px; padding:20px; max-width:1400px; margin:0 auto;
+  }
+  header{
+    grid-column:1/-1; display:flex; align-items:center; justify-content:space-between;
+    padding:14px 18px; background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.08);
+    border-radius:14px; backdrop-filter: blur(8px);
+  }
+  header h1{margin:0; font-size:20px; letter-spacing:.3px;}
+  header .sub{color:var(--muted); font-size:13px; display:flex; align-items:center; gap:12px; flex-wrap:wrap;}
+  .chip{display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border-radius:999px; border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.03);}
+  .panel{ background: rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.08); border-radius:14px; box-shadow: var(--shadow); overflow: visible; }
+  .sidebar{padding:16px; position:sticky; top:20px; align-self:start;}
+  .set{ padding:12px; border-radius:10px; background: rgba(255,255,255,.02); border:1px solid rgba(255,255,255,.06); margin-bottom:10px; }
+  .set h3{margin:0 0 6px; font-size:15px;}
+  .set small{color:var(--muted);}
+  .set label{ display:flex; align-items:center; gap:10px; cursor:pointer; user-select:none; padding:6px 0;}
+  .controls{display:flex; gap:8px; flex-wrap:wrap; margin-top:12px;}
+  button{
+    background: var(--brand); color:#00130a; border:none; border-radius:999px; padding:10px 14px; font-weight:700; cursor:pointer;
+  }
+  button.secondary{ background:transparent; color:var(--text); border:1px solid rgba(255,255,255,.12); }
+  button.warn{ background: var(--warn); color:#1b1200;}
+  button:disabled{opacity:.5; cursor:not-allowed;}
+  .main{padding:16px;}
+  .tabs{display:flex; gap:8px; margin-bottom:14px; flex-wrap:wrap;}
+  .tab{
+    padding:10px 14px; border-radius:999px; border:1px solid rgba(255,255,255,.12); background:transparent; color:var(--text); cursor:pointer;
+  }
+  .tab.active{ background:var(--info); color:#001028; border-color:transparent; font-weight:700;}
+  .tools{display:flex; gap:12px; align-items:center; flex-wrap:wrap; margin-bottom:12px;}
+  .progress-wrap{ display:flex; align-items:center; gap:10px; margin:8px 0 14px;}
+  .progress{ flex:1; height:10px; background:rgba(255,255,255,.08); border-radius:999px; overflow:hidden; }
+  .progress > div{ height:100%; background:linear-gradient(90deg, var(--brand), #22c5c5); width:0%; transition: width .25s ease;}
+  .stats{ color:var(--muted); font-size:13px;}
+  .card{
+    background: radial-gradient(1200px 600px at 10% 10%, rgba(34,197,94,.15), transparent 40%),
+                radial-gradient(800px 400px at 100% 0%, rgba(96,165,250,.15), transparent 50%),
+                var(--card);
+    border:1px solid rgba(255,255,255,.08); border-radius:18px; padding:28px; min-height:220px;
+    display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center;
+    box-shadow: var(--shadow); position:relative; overflow: visible; /* belangrijk: select dropdowns niet clippen */
+  }
+  .pill{position:absolute; top:14px; right:14px; font-size:12px; color:var(--muted); display:flex; gap:10px; align-items:center;}
+  .term{ font-size:28px; font-weight:800; letter-spacing:.3px; margin:10px 0; text-align:center;}
+  .definition{ font-size:18px; color:#dbeafe; line-height:1.6; text-align:left; width:100%; max-width:900px; }
+  .hint{ color:var(--muted); font-size:13px; margin-top:10px; text-align:center;}
+  .actions{display:flex; gap:10px; margin-top:14px; flex-wrap:wrap; justify-content:center;}
+  .actions button.red{ background: var(--danger); color:#2b0003;}
+  .actions button.green{ background: var(--brand-2); color:#00130a;}
+  .muted{ color:var(--muted); }
+  .kbd{ font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Courier New", monospace;
+        background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.15); padding:2px 6px; border-radius:6px; }
+
+  /* Form elementen (donker & bovenaan tonen) */
+  input[type="text"], input[type="number"], input[type="date"], select{
+    width:100%; max-width:380px; padding:10px 12px; border-radius:10px; border:1px solid rgba(255,255,255,.12);
+    background:var(--select-bg); color:var(--text); position:relative; z-index:2;
+  }
+  select:focus{ outline:2px solid var(--focus); outline-offset:2px; }
+  option{ background:var(--select-opt); color:var(--text); }
+  .elevate{ position:relative; z-index:3; } /* zorgt dat dropdowns boven siblings komen */
+  ::-webkit-calendar-picker-indicator { filter: invert(1); }
+
+  .options{ display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-top:10px; width:100%; max-width:900px;}
+  .opt{ border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.03); padding:12px; border-radius:12px; cursor:pointer; text-align:left;}
+  .opt.selected{ border-color:var(--info); background:rgba(96,165,250,.12); }
+  .opt.correct{ border-color: var(--brand); background: rgba(34,197,94,.15);}
+  .opt.wrong{ border-color: var(--danger); background: rgba(239,68,68,.15);}
+
+  .landing{
+    max-width: 980px; margin: 40px auto; padding: 28px;
+    background: rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.08); border-radius: 16px;
+    text-align: center; box-shadow: var(--shadow);
+  }
+  .landing h1{ margin: 0 0 8px; }
+  .landing p{ color: var(--muted); }
+  .landing .cta{ display:flex; gap:10px; justify-content:center; margin-top:16px; flex-wrap:wrap; }
+
+  .modal-backdrop{ position: fixed; inset: 0; background: rgba(0,0,0,.45); display:none; align-items:center; justify-content:center; z-index: 50; }
+  .modal{ background: #0c142a; border:1px solid rgba(255,255,255,.12); border-radius: 16px; padding: 16px; width: min(940px, 92vw); max-height: 88vh; overflow:auto; }
+  .grid-2{ display:grid; grid-template-columns: 1fr 1fr; gap:12px; }
+  .setting{ padding:12px; border:1px solid rgba(255,255,255,.08); border-radius:12px; background: rgba(255,255,255,.02); }
+
+  .toast{
+    position: fixed; left: 50%; transform: translateX(-50%);
+    bottom: 30px; z-index: 60; padding: 14px 16px; border-radius: 12px;
+    border: 1px solid rgba(255,255,255,.12); background: #0b1224; color: var(--text);
+    box-shadow: var(--shadow); min-width: 280px; text-align: left; display:none;
+  }
+  .toast.good{ border-color: rgba(34,197,94,.35); }
+  .toast.bad{ border-color: rgba(239,68,68,.35); }
+  .toast .title{ font-weight: 800; margin-bottom: 6px; }
+  .toast .ans{ color: #dbeafe; }
+
+  .qitem{ padding:12px; border:1px solid rgba(255,255,255,.12); border-radius:12px; background:rgba(255,255,255,.03); margin-bottom:8px; text-align:left; }
+  .qitem .qhead{ display:flex; justify-content:space-between; gap:10px; align-items:center; }
+  .qitem .qtext{ font-weight:700; }
+  .qitem .ans{ color:#dbeafe; margin-top:8px; white-space:pre-wrap; display:none; }
+
+  @media (max-width: 980px){
+    .app{ grid-template-columns: 1fr; }
+    .sidebar{ position:static; }
+    .options{ grid-template-columns: 1fr; }
+    .grid-2{ grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- LANDING -->
+  <section id="landing" class="landing">
+    <h1>Begrippen Leren – Overheid & Financiën</h1>
+    <p>Flashcards, quiz, schrijfmodus, toetsvoorbereiding, formulekaarten, oefentoets, favorieten, streaks & doelen – alles in één plek.</p>
+    <div class="cta">
+      <button id="startAppBtn">Aan de slag</button>
+      <button class="secondary" id="openSettingsFromLanding">Instellingen</button>
+    </div>
+
+    <!-- Doelen -->
+    <div style="text-align:left; margin-top:24px;">
+      <h3>✅ Doelen voor vandaag</h3>
+      <div class="chip">
+        <input id="goalTitle" type="text" placeholder="Nieuw doel, bv. ‘Paragraaf 2 herhalen (10 kaarten)’" style="min-width:220px;">
+        <label>Datum: <input id="goalDate" type="date"></label>
+        <button id="addGoal">Toevoegen</button>
+      </div>
+      <div id="goalsList"></div>
+    </div>
+
+    <div style="margin-top:14px; font-size:12px; color:var(--muted); text-align:center;">
+      Sneltoetsen: <span class="kbd">1</span> = weet ik niet, <span class="kbd">2</span> = weet ik, <span class="kbd">Spatie</span> = draai, <span class="kbd">Enter</span> = nakijken (schrijfmodus)
+    </div>
+  </section>
+
+  <!-- APP -->
+  <div id="app" class="app" style="display:none;">
+    <header class="panel">
+      <div>
+        <h1>Begrippen Leren – Overheid & Financiën</h1>
+        <div class="sub">
+          <span><span class="kbd">1</span> = niet</span>
+          <span><span class="kbd">2</span> = wel</span>
+          <span><span class="kbd">Spatie</span> draaien</span>
+          <span><span class="kbd">Enter</span> nakijken</span>
+        </div>
+      </div>
+      <div class="sub" style="gap:10px;">
+        <div class="chip">🔥 Streak: <strong id="streakCount">0</strong> · Beste: <strong id="streakBest">0</strong></div>
+        <div class="chip" id="timerChip">⏱️ <span id="timerLabel">00:00</span>
+          <span class="timer-controls" style="display:flex; gap:6px; margin-left:8px;">
+            <button class="secondary" id="timerStart">Start</button>
+            <button class="secondary" id="timerPause">Pauze</button>
+            <button class="secondary" id="timerReset">Reset</button>
+          </span>
+        </div>
+        <button class="secondary" id="btnSettings">Instellingen</button>
+      </div>
+    </header>
+
+    <!-- Sidebar -->
+    <aside class="panel sidebar">
+      <h2 style="margin:4px 0 12px; font-size:18px;">Learning sets</h2>
+      <div id="sets"><div class="muted">Bezig met laden…</div></div>
+
+      <div class="controls">
+        <button class="secondary" id="selectAllBtn">Selecteer alles</button>
+        <button class="secondary" id="clearAllBtn">Wis selectie</button>
+      </div>
+      <div class="controls">
+        <button id="startFlashBtn" title="Start flashcards">Start leren</button>
+        <button class="secondary" id="startQuizBtn" title="Start meerkeuzequiz">Start quiz</button>
+      </div>
+      <div class="controls">
+        <button class="secondary" id="startWriteBtn" title="Start schrijfmodus">Start schrijfmodus</button>
+      </div>
+      <div class="controls">
+        <button class="warn" id="resetBtn" title="Wis alle voortgang (lokaal)">Reset voortgang</button>
+      </div>
+      <p class="muted" style="margin-top:8px; font-size:12px;">Tip: combineer sets om grotere decks te bouwen.</p>
+    </aside>
+
+    <!-- Main -->
+    <main class="panel main">
+      <div class="tabs">
+        <button class="tab active" data-tab="flash">Flashcards</button>
+        <button class="tab" data-tab="quiz">Quiz</button>
+        <button class="tab" data-tab="write">Schrijfmodus</button>
+        <button class="tab" data-tab="summary">Samenvattingen</button>
+        <button class="tab" data-tab="prep">Toetsvoorbereiding</button>
+        <button class="tab" data-tab="formula">Formulekaarten</button>
+        <button class="tab" data-tab="test">Oefentoets</button>
+        <button class="tab" data-tab="stats">Statistieken</button>
+      </div>
+
+      <!-- Tools -->
+      <div class="tools">
+        <div class="chip"><strong>Geselecteerd:</strong> <span id="selectedCount">0</span> begrippen</div>
+        <label class="chip" style="gap:10px;">
+          <input type="checkbox" id="onlyMistakes"> Alleen fouten herhalen
+        </label>
+        <label class="chip" style="gap:10px;">
+          <input type="checkbox" id="onlyFavs"> ⭐ Alleen favorieten
+        </label>
+        <div class="chip" id="roundChip" title="Voortgang binnen deze leer-ronde">🔁 Ronde: <strong id="roundDone">0</strong>/<strong id="roundTotal">0</strong></div>
+        <div class="search" style="flex:1; min-width:240px;"><input type="text" id="searchBox" placeholder="Zoek in geselecteerde begrippen (term/definitie) …"></div>
+      </div>
+
+      <div class="progress-wrap">
+        <div class="progress"><div id="progressBar"></div></div>
+        <div class="stats">
+          <span>Gedaan: <strong id="doneCount">0</strong></span> ·
+          <span>Open: <strong id="leftCount">0</strong></span> ·
+          <span>Goed: <strong id="correctCount">0</strong></span> ·
+          <span>Fout: <strong id="wrongCount">0</strong></span>
+        </div>
+      </div>
+
+      <!-- Flashcards -->
+      <section id="view-flash">
+        <div class="card" id="card">
+          <div class="pill">
+            <button class="secondary" id="btnFav" title="Markeer als favoriet">☆ Favoriet</button>
+          </div>
+          <div class="term" id="term">Selecteer sets en klik op “Start leren”.</div>
+          <div class="definition" id="definition" style="display:none;"></div>
+          <div class="hint" style="margin-top:12px;">Sneltoetsen: <span class="kbd">1</span> niet · <span class="kbd">2</span> wel · <span class="kbd">Spatie</span> draaien</div>
+        </div>
+        <div class="actions">
+          <button class="red" id="btnWrong">Nog oefenen (1)</button>
+          <button class="secondary" id="btnFlip">Draai (Spatie)</button>
+          <button class="green" id="btnRight">Weet ik (2)</button>
+          <button class="secondary" id="btnNext">Volgende</button>
+        </div>
+      </section>
+
+      <!-- Quiz -->
+      <section id="view-quiz" style="display:none;">
+        <div class="card">
+          <div class="pill" id="quizMeta">Quiz</div>
+          <div class="definition" id="quizQ">Selecteer sets en klik op “Start quiz”.</div>
+          <div class="options" id="quizOptions"></div>
+          <div class="hint">Richting instellen via <em>Instellingen</em>. Klik op het juiste antwoord.</div>
+        </div>
+        <div class="actions">
+          <button id="quizCheck" class="secondary">Controleer</button>
+          <button id="quizNext" class="green" disabled>Volgende</button>
+          <span class="muted">Score: <span class="score" id="quizScore">0</span></span>
+        </div>
+      </section>
+
+      <!-- Schrijfmodus -->
+      <section id="view-write" style="display:none;">
+        <div class="card" id="writeCard">
+          <div class="pill" id="writeMeta">Schrijfmodus</div>
+          <div class="term" id="writePrompt">Selecteer sets en klik op “Start schrijfmodus”.</div>
+          <div class="write-input" style="margin-top:12px;">
+            <input id="writeInput" type="text" placeholder="Typ je antwoord en druk op Enter…" disabled />
+          </div>
+          <div class="hint">Richting & strengheid via <em>Instellingen</em>. <span class="kbd">Enter</span> = nakijken.</div>
+        </div>
+      </section>
+
+      <!-- Samenvattingen -->
+      <section id="view-summary" style="display:none;">
+        <div class="card" style="align-items:stretch; text-align:left;">
+          <div class="elevate" style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:8px;">
+            <select id="summaryPara" title="Kies paragraaf" style="max-width:380px;"></select>
+            <select id="summaryType" title="Kies type" style="max-width:240px;">
+              <option value="kort">Korte samenvatting</option>
+              <option value="lang">Uitgebreide samenvatting</option>
+            </select>
+          </div>
+          <div id="summaryContent" class="definition" style="white-space:pre-wrap;"></div>
+        </div>
+      </section>
+
+      <!-- Toetsvoorbereiding -->
+      <section id="view-prep" style="display:none;">
+        <div class="card" style="align-items:stretch; text-align:left;">
+          <div class="elevate" style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:8px;">
+            <select id="prepPara" title="Kies paragraaf" style="max-width:380px;"></select>
+          </div>
+          <div id="prepContent" class="definition" style="white-space:pre-wrap;"></div>
+        </div>
+      </section>
+
+      <!-- Formulekaarten -->
+      <section id="view-formula" style="display:none;">
+        <div class="card" style="align-items:stretch; text-align:left;">
+          <div class="elevate" style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:8px;">
+            <select id="formulaType" title="Kies versie" style="max-width:320px;">
+              <option value="kort">🔹 Korte versie</option>
+              <option value="lang">🔹 Uitgebreide versie</option>
+            </select>
+            <button class="secondary" id="copyFormula">Kopieer</button>
+          </div>
+          <div id="formulaContent" class="definition" style="white-space:pre-wrap;"></div>
+        </div>
+      </section>
+
+      <!-- Oefentoets -->
+      <section id="view-test" style="display:none;">
+        <div class="card" id="testCard" style="align-items:stretch;">
+          <div class="pill" id="testMeta">Oefentoets</div>
+          <div id="testIntro" class="definition">
+            <p><strong>Oefentoets – Hoofdstuk Overheid (Economie vwo)</strong><br>12 open vragen met uitwerkingen.</p>
+            <div style="display:flex; gap:8px; flex-wrap:wrap;">
+              <button id="startTest">Start oefentoets (volgorde)</button>
+              <button class="secondary" id="reviewAll">Bekijk alle vragen + uitwerkingen</button>
+            </div>
+          </div>
+          <div id="testFlow" style="display:none;">
+            <div class="definition" id="testQuestion" style="white-space:pre-wrap;"></div>
+            <div class="controls" style="margin-top:10px;">
+              <button id="testShow" class="secondary">Toon antwoord (Spatie)</button>
+              <button id="testWrong" class="red">Fout (1)</button>
+              <button id="testRight" class="green">Goed (2)</button>
+              <button id="testNext" class="secondary">Volgende</button>
+              <button id="testEnd" class="secondary">Eindigen</button>
+            </div>
+            <div class="definition" id="testAnswer" style="display:none; margin-top:8px;"></div>
+          </div>
+          <div id="testList" style="display:none; margin-top:10px;"></div>
+        </div>
+      </section>
+
+      <!-- Statistieken -->
+      <section id="view-stats" style="display:none;">
+        <div class="card" style="align-items:stretch;">
+          <div class="definition" style="margin-bottom:10px;">Statistieken worden lokaal opgebouwd tijdens het leren.</div>
+          <div class="grid-2">
+            <div style="padding:10px;">
+              <canvas id="chartPara" style="width:100%; height:320px;"></canvas>
+            </div>
+            <div style="padding:10px;">
+              <canvas id="chartParaAcc" style="width:100%; height:320px;"></canvas>
+            </div>
+          </div>
+          <div class="grid-2" style="margin-top:12px;">
+            <div style="padding:10px;">
+              <canvas id="chartTopCorrect" style="width:100%; height:320px;"></canvas>
+            </div>
+            <div style="padding:10px;">
+              <canvas id="chartTopWrong" style="width:100%; height:320px;"></canvas>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- INSTELLINGEN -->
+  <div id="settingsModal" class="modal-backdrop" aria-hidden="true">
+    <div class="modal">
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <h3>Instellingen</h3>
+        <div style="display:flex; gap:8px;">
+          <button class="secondary" id="btnExport">Export</button>
+          <label class="secondary" for="importFile" style="display:inline-flex; align-items:center; gap:6px; padding:10px 14px; border-radius:999px; cursor:pointer;">
+            Import <input id="importFile" type="file" accept="application/json" style="display:none;" />
+          </label>
+          <button class="secondary" id="btnCloseSettings">Sluiten</button>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="setting">
+          <h4>Algemeen</h4>
+          <label><input type="checkbox" id="stgAutoAdvance"> Automatisch door naar volgende bij goed/fout</label><br/>
+          <label><input type="checkbox" id="stgFoutenDirect"> Fouten meteen herhalen</label><br/>
+          <div class="row">
+            <label style="min-width:160px;">Richting flashcards</label>
+            <select id="stgFlashDir">
+              <option value="term2def">Term → Definitie</option>
+              <option value="def2term">Definitie → Term</option>
+              <option value="mix">Mix</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="setting">
+          <h4>Schrijfmodus</h4>
+          <div class="row">
+            <label style="min-width:160px;">Richting</label>
+            <select id="stgWriteDir">
+              <option value="term2def">Term → Definitie</option>
+              <option value="def2term">Definitie → Term</option>
+              <option value="mix">Mix</option>
+            </select>
+          </div>
+          <div class="row">
+            <label style="min-width:160px;">Match‑modus</label>
+            <select id="stgMatchMode">
+              <option value="contains">Bevat (minder streng)</option>
+              <option value="allwords">Alle woorden aanwezig</option>
+              <option value="exact">Exact (zeer streng)</option>
+            </select>
+          </div>
+          <label><input type="checkbox" id="stgStrictCase"> Streng op hoofdletters</label><br/>
+          <label><input type="checkbox" id="stgStrictPunct"> Streng op leestekens</label><br/>
+          <label><input type="checkbox" id="stgStrictDia"> Streng op accenten/trema’s</label>
+        </div>
+
+        <div class="setting">
+          <h4>Quiz</h4>
+          <div class="row">
+            <label style="min-width:160px;">Opties per vraag</label>
+            <input type="number" id="stgQuizOpts" min="2" max="6" step="1" value="4" style="max-width:100px;">
+          </div>
+          <div class="row">
+            <label style="min-width:160px;">Richting quiz</label>
+            <select id="stgQuizDir">
+              <option value="def2term">Definitie → Term (standaard)</option>
+              <option value="term2def">Term → Definitie</option>
+              <option value="mix">Mix</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="setting">
+          <h4>Timer</h4>
+          <label><input type="checkbox" id="stgTimerEnabled"> Timer actief</label><br/>
+          <div class="row">
+            <label style="min-width:160px;">Modus</label>
+            <select id="stgTimerMode">
+              <option value="stopwatch">Stopwatch (omhoog)</option>
+              <option value="countdown">Countdown (omlaag)</option>
+            </select>
+          </div>
+          <div class="row">
+            <label style="min-width:160px;">Seconden (bij countdown)</label>
+            <input type="number" id="stgTimerSeconds" min="5" max="600" step="5" value="60" style="max-width:120px;">
+          </div>
+          <label><input type="checkbox" id="stgTimerAutoNext"> Automatisch door bij tijd op</label><br/>
+          <div class="row" style="gap:16px;">
+            <label><input type="checkbox" id="stgTimerFlash"> Timer bij Flashcards</label>
+            <label><input type="checkbox" id="stgTimerQuiz"> Timer bij Quiz</label>
+            <label><input type="checkbox" id="stgTimerWrite"> Timer bij Schrijfmodus</label>
+          </div>
+        </div>
+
+        <div class="setting">
+          <h4>Weergave</h4>
+          <label><input type="checkbox" id="stgSeenLanding"> Landing overslaan bij volgende keer</label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div id="toast" class="toast">
+    <div class="title" id="toastTitle">Goed</div>
+    <div class="ans" id="toastAns"></div>
+  </div>
+
+<script>
+/* =======================
+   DATA (begrippen)
+   ======================= */
+const DATA = {
+  "Paragraaf 1 – Inkomsten van de overheid": [
+    {term:"het rijk", definition:"alle ministeries die beleid uitvoeren, inclusief belastingdienst en onderwijsinspectie"},
+    {term:"provincies en waterschappen", definition:"bestuurslaag die provinciale wegen en waterbeheer regelt"},
+    {term:"gemeente", definition:"lokale bestuurslaag die zelfstandig beslist over zaken binnen gemeentegrenzen"},
+    {term:"collectieve sector", definition:"overheid + instellingen voor sociale zekerheid zoals UWV en SVB"},
+    {term:"directe belastingen", definition:"belastingen die direct van de belastingbetaler naar de overheid gaan (bijv. loonbelasting, vennootschapsbelasting)"},
+    {term:"indirecte belastingen", definition:"belastingen die via een tussenpersoon naar de overheid gaan (bijv. BTW, accijns)"},
+    {term:"negatief extern effect", definition:"kosten van schadelijke producten voor mens/milieu die niet in de prijs zijn verwerkt"},
+    {term:"niet-belastingmiddelen", definition:"inkomsten van de overheid die geen belasting zijn (bijv. boetes, aardgasopbrengsten)"},
+  ],
+  "Paragraaf 2 – Loon- en inkomstenbelasting": [
+    {term:"progressief belastingstelsel", definition:"belastingpercentage stijgt als het inkomen stijgt"},
+    {term:"proportioneel belastingstelsel", definition:"belastingpercentage blijft gelijk bij stijgend inkomen"},
+    {term:"degressief belastingstelsel", definition:"belastingpercentage daalt als het inkomen stijgt"},
+    {term:"belastbaar inkomen", definition:"bruto-inkomen + bijtellingen – aftrekposten"},
+    {term:"bijtelling", definition:"bedrag dat bij het inkomen wordt opgeteld (bijv. bijtelling auto)"},
+    {term:"aftrekpost", definition:"bedrag dat van het inkomen wordt afgetrokken (bijv. hypotheekrente)"},
+    {term:"heffingskortingen", definition:"kortingen op de te betalen belasting (bijv. algemene heffingskorting, arbeidskorting)"},
+  ],
+  "Paragraaf 3 – Uitgaven van de overheid": [
+    {term:"structurele uitgaven", definition:"uitgaven die jaarlijks terugkomen en voorspelbaar zijn (bijv. onderwijs, uitkeringen)"},
+    {term:"incidentele uitgaven", definition:"uitgaven die niet jaarlijks voorkomen en moeilijk te voorspellen zijn (bijv. coronasteun)"},
+    {term:"sociale premies", definition:"verplichte bijdragen van werknemers en werkgevers voor sociale zekerheid"},
+    {term:"omslagstelsel", definition:"systeem waarbij binnenkomende premies direct worden gebruikt voor uitkeringen"},
+    {term:"volksverzekering", definition:"sociale verzekering voor alle Nederlanders (bijv. AOW, AKW, ANW, WLZ)"},
+    {term:"werknemersverzekering", definition:"sociale verzekering voor mensen in loondienst (bijv. WW, WIA, Ziektewet)"},
+    {term:"solidariteit", definition:"principe waarbij werkenden bijdragen aan uitkeringen voor mensen die niet kunnen werken"},
+    {term:"collectieve goederen", definition:"goederen waarvan niemand uitgesloten kan worden en die niet opgaan bij gebruik (bijv. straatverlichting)"},
+    {term:"quasi-collectieve goederen", definition:"individueel leverbare goederen die door de overheid worden aangeboden vanwege maatschappelijk belang (bijv. onderwijs)"},
+  ],
+  "Paragraaf 4 – Overheidsfinanciën": [
+    {term:"miljoenennota", definition:"jaarlijkse begroting van verwachte inkomsten en uitgaven van de overheid"},
+    {term:"staatsobligaties", definition:"leningen van particulieren aan de overheid met vaste rente en terugbetaling"},
+    {term:"begrotingssaldo", definition:"verschil tussen inkomsten en uitgaven van de overheid"},
+    {term:"financieringssaldo", definition:"begrotingssaldo + aflossingen op de staatsschuld"},
+    {term:"staatsschuldquote", definition:"verhouding tussen staatsschuld en BBP, uitgedrukt in procenten"},
+    {term:"EMU-saldo", definition:"verhouding tussen financieringssaldo en BBP, uitgedrukt in procenten"},
+  ],
+};
+
+/* Samenvattingen (kort & uitgebreid) */
+const SUMMARIES = {
+  "Paragraaf 1 – Inkomsten van de overheid": {
+    kort:
+`📘 Paragraaf 1 – Inkomsten van de overheid
+De overheid bestaat uit het rijk, provincies, waterschappen en gemeenten. Ze regelt zaken in het algemeen belang. De collectieve sector omvat de overheid én instellingen voor sociale zekerheid. De overheid krijgt inkomsten uit directe belastingen (zoals loonbelasting), indirecte belastingen (zoals BTW en accijnzen), en niet-belastingmiddelen (zoals boetes en aardgasopbrengsten). Accijnzen worden geheven op producten met negatieve externe effecten.`,
+    lang:
+`📘 Paragraaf 1 – Inkomsten van de overheid
+Deze paragraaf legt uit wat de overheid is en hoe zij haar inkomsten verkrijgt.
+
+Overheid: Alle instellingen die burgers verplichtingen kunnen opleggen in het algemeen belang. Bestaat uit drie bestuurslagen:
+
+Het rijk: Ministeries, belastingdienst, inspecties.
+Provincies: Regelen o.a. provinciale wegen.
+Waterschappen: Beheren water, dijken, afvalwater.
+Gemeenten: Lokale zaken zoals fietspaden, bibliotheken, woningbouw.
+
+Collectieve sector: Breder dan de overheid; omvat ook instellingen voor sociale zekerheid zoals UWV en SVB.
+
+Inkomstenbronnen van de overheid:
+- Directe belastingen: Rechtstreeks van burger naar overheid (bijv. loonbelasting, vennootschapsbelasting).
+- Indirecte belastingen: Via tussenpersonen (bijv. BTW, accijnzen).
+- Niet-belastingmiddelen: Boetes, aardgasopbrengsten.
+
+Negatief extern effect: Kosten van schadelijke producten voor mens/milieu die niet in de prijs zijn verwerkt (bijv. accijns op sigaretten).
+
+Miljoenennota: Jaarlijkse begroting van verwachte inkomsten en uitgaven, gepresenteerd op Prinsjesdag.`
+  },
+  "Paragraaf 2 – Loon- en inkomstenbelasting": {
+    kort:
+`📘 Paragraaf 2 – Loon- en inkomstenbelasting
+In Nederland geldt een progressief belastingstelsel: hoe meer je verdient, hoe hoger het belastingpercentage. Het belastbaar inkomen wordt berekend door bijtellingen op te tellen en aftrekposten af te trekken van het bruto-inkomen. Belasting wordt geheven via schijven. Heffingskortingen zoals de algemene heffingskorting en arbeidskorting verlagen het uiteindelijke belastingbedrag.`,
+    lang:
+`📘 Paragraaf 2 – Loon- en inkomstenbelasting
+Deze paragraaf gaat dieper in op hoe burgers belasting betalen over hun inkomen.
+
+Belastingstelsels:
+- Progressief: Hoe meer je verdient, hoe hoger het belastingpercentage.
+- Proportioneel: Vast percentage, ongeacht inkomen.
+- Degressief: Hoe meer je verdient, hoe lager het percentage.
+
+Belastbaar inkomen = Bruto-inkomen + bijtellingen – aftrekposten
+
+Bijtelling: Extra inkomen (bijv. auto van de zaak).
+Aftrekpost: Vermindering van inkomen (bijv. hypotheekrente).
+
+Belastingschijven: Verschillende tarieven voor verschillende inkomensniveaus.
+
+Heffingskortingen:
+- Algemene heffingskorting: Voor iedereen, daalt bij hoger inkomen.
+- Arbeidskorting: Voor werkenden, afhankelijk van inkomen.
+
+Stappenplan belastingberekening:
+1. Bruto-inkomen bepalen
+2. Bijtellingen optellen, aftrekposten aftrekken → belastbaar inkomen
+3. Belasting berekenen per schijf
+4. Heffingskortingen aftrekken → netto belasting`
+  },
+  "Paragraaf 3 – Uitgaven van de overheid": {
+    kort:
+`📘 Paragraaf 3 – Uitgaven van de overheid
+De overheid doet structurele uitgaven (zoals onderwijs) en incidentele uitgaven (zoals coronasteun). Sociale premies worden via het omslagstelsel direct gebruikt voor uitkeringen. Er zijn volksverzekeringen (voor iedereen) en werknemersverzekeringen (voor mensen in loondienst). Solidariteit is belangrijk: werkenden betalen mee aan uitkeringen. De overheid biedt collectieve goederen (zoals straatverlichting) en quasi-collectieve goederen (zoals onderwijs) aan.`,
+    lang:
+`📘 Paragraaf 3 – Uitgaven van de overheid
+Deze paragraaf behandelt waar de overheid geld aan uitgeeft.
+
+Structurele uitgaven: Terugkerende, voorspelbare uitgaven (bijv. onderwijs, uitkeringen).
+Incidentele uitgaven: Eenmalige of onvoorspelbare uitgaven (bijv. coronasteun).
+Sociale premies: Verplichte bijdragen van werknemers en werkgevers voor sociale zekerheid.
+Omslagstelsel: Premies worden direct gebruikt voor uitkeringen, er wordt niet gespaard.
+
+Verzekeringen:
+- Volksverzekeringen: Voor alle Nederlanders (AOW, AKW, ANW, WLZ).
+- Werknemersverzekeringen: Voor mensen in loondienst (WW, WIA, Ziektewet).
+
+Solidariteit: Werkenden dragen bij aan uitkeringen voor mensen die niet kunnen werken.
+
+Goederen:
+- Collectieve goederen: Voor iedereen beschikbaar, niet op te maken (bijv. straatverlichting).
+- Quasi-collectieve goederen: Individueel leverbaar, maar door overheid geregeld (bijv. onderwijs, zorg).`
+  },
+  "Paragraaf 4 – Overheidsfinanciën": {
+    kort:
+`📘 Paragraaf 4 – Overheidsfinanciën
+De miljoenennota is de jaarlijkse begroting van de overheid. Bij een tekort leent de overheid geld via staatsobligaties. Het begrotingssaldo is het verschil tussen inkomsten en uitgaven. Het financieringssaldo houdt ook rekening met aflossingen. De staatsschuldquote en het EMU-saldo geven aan hoe gezond de overheidsfinanciën zijn. De EMU stelt normen: max. 60% staatsschuldquote en max. –3% EMU-saldo.`,
+    lang:
+`📘 Paragraaf 4 – Overheidsfinanciën
+Deze paragraaf gaat over hoe de overheid haar financiën beheert.
+
+Miljoenennota: Begroting van inkomsten en uitgaven, gepresenteerd op Prinsjesdag.
+Staatsobligaties: Leningen van burgers aan de overheid, met rente.
+Begrotingssaldo = Ontvangsten – Uitgaven
+Financieringssaldo = Begrotingssaldo + Aflossingen
+Nieuwe staatsschuld = Oude staatsschuld – Financieringssaldo
+Staatsschuldquote = Staatsschuld / BBP × 100% → EMU-norm: max. 60%
+EMU-saldo = Financieringssaldo / BBP × 100% → EMU-norm: max. –3%
+
+Gevolgen van hoge staatsschuld:
+- Meer rentekosten
+- Minder ruimte voor andere uitgaven
+- Lasten voor toekomstige generaties`
+  }
+};
+
+/* Toetsvoorbereiding */
+const PREP = {
+"Paragraaf 1 – Inkomsten van de overheid":
+`✅ Toetsvoorbereiding – Paragraaf 1
+Leerdoelen:
+• Weten uit welke lagen de overheid bestaat.
+• Weten uit welke onderdelen de overheidsinkomsten bestaan en voorbeelden kunnen geven.
+
+Belangrijkste onderdelen:
+• Bestuurslagen: rijk, provincies, waterschappen, gemeenten.
+• Collectieve sector = overheid + sociale zekerheidsinstellingen.
+• Inkomsten:
+  - Directe belastingen (loonbelasting, vennootschapsbelasting)
+  - Indirecte belastingen (BTW, accijnzen)
+  - Niet-belastingmiddelen (boetes, aardgas)
+
+Toepassing:
+• Herkennen welke bestuurslaag verantwoordelijk is voor een taak.
+• Begrijpen wat een negatief extern effect is.`,
+
+"Paragraaf 2 – Loon- en inkomstenbelasting":
+`✅ Toetsvoorbereiding – Paragraaf 2
+Leerdoelen:
+• Kunnen rekenen met loon- en inkomstenbelasting.
+
+Belangrijkste onderdelen:
+• Progressief belastingstelsel: hoger inkomen → hoger percentage.
+• Berekening belastbaar inkomen: Bruto inkomen + bijtellingen – aftrekposten
+• Heffingskortingen: algemene heffingskorting, arbeidskorting.
+
+Stappenplan:
+1) Bereken belastbaar inkomen.
+2) Belasting per schijf.
+3) Som schijven.
+4) Heffingskortingen aftrekken.
+5) Netto inkomen.
+6) % belasting = (betaalde belasting / bruto inkomen) × 100%.`,
+
+"Paragraaf 3 – Uitgaven van de overheid":
+`✅ Toetsvoorbereiding – Paragraaf 3
+Leerdoelen:
+• Weten hoe uitgaven zijn opgebouwd.
+• Kunnen onderscheiden tussen collectieve en quasi-collectieve goederen.
+
+Belangrijkste onderdelen:
+• Structurele uitgaven: jaarlijks terugkerend (onderwijs).
+• Incidentele uitgaven: eenmalig/onvoorspelbaar (coronasteun).
+• Omslagstelsel: premies direct → uitkeringen.
+• Solidariteit: werkenden betalen voor niet-werkenden.
+• Collectieve goederen: niemand kan uitgesloten worden.
+• Quasi-collectieve goederen: overheid biedt ze aan, uitsluiting is mogelijk.`,
+
+"Paragraaf 4 – Overheidsfinanciën":
+`✅ Toetsvoorbereiding – Paragraaf 4
+Leerdoelen:
+• Kunnen rekenen met begrotingssaldo, financieringssaldo, EMU-saldo en staatsschuldquote.
+
+Belangrijkste onderdelen:
+• Begrotingssaldo = Inkomsten – Uitgaven
+• Financieringssaldo = Begrotingssaldo + Aflossingen
+• EMU-saldo = Financieringssaldo / BBP × 100%
+• Staatsschuldquote = Staatsschuld / BBP × 100%
+
+Normen:
+• EMU-saldo ≥ –3%
+• Staatsschuldquote ≤ 60%`
+};
+
+/* Formulekaarten */
+const FORMULAS = {
+  lang:
+`🧮 Formulekaart – Uitgebreid
+Onderdeel                Formule                                   Uitleg
+Belastbaar inkomen       Bruto inkomen + bijtellingen – aftrekposten  Inkomen waarover belasting wordt berekend
+Belasting per schijf     Percentage × bedrag binnen schijf            Gebruik juiste tarief per inkomensdeel
+Totale belasting         Som van schijven – heffingskortingen         Heffingskortingen verlagen belasting
+Netto inkomen            Bruto inkomen – totale belasting             Wat je overhoudt
+Belastingpercentage      (Betaalde belasting / Bruto inkomen) × 100%  Hoeveel % van je inkomen je afstaat
+
+Begrotingssaldo          Inkomsten – Uitgaven                         Positief = overschot, negatief = tekort
+Financieringssaldo       Begrotingssaldo + Aflossingen                Verandering in staatsschuld
+EMU-saldo                Financieringssaldo / BBP × 100%              Europese norm: max –3%
+Staatsschuldquote        Staatsschuld / BBP × 100%                    Europese norm: max 60%`,
+  kort:
+`🧮 Formulekaart – Kort
+BI = Bruto + bijtelling – aftrekpost
+Belasting = som per schijf – heffingskorting
+Netto = Bruto – belasting
+% belasting = belasting / bruto × 100%
+Begrotingssaldo = inkomsten – uitgaven
+Financieringssaldo = begrotingssaldo + aflossingen
+EMU-saldo = financieringssaldo / BBP × 100%
+Staatsschuldquote = staatsschuld / BBP × 100%`
+};
+
+/* Oefentoets */
+const TEST = [
+  {para:"Paragraaf 1 – Inkomsten van de overheid", q:"1. Noem de vier bestuurslagen van de overheid en geef bij elke laag een voorbeeld van een taak.", a:"Rijk – landelijke wetgeving en belastinginning; Provincie – aanleg provinciale wegen; Waterschap – waterbeheer; Gemeente – afvalinzameling."},
+  {para:"Paragraaf 1 – Inkomsten van de overheid", q:"2. Wat is het verschil tussen directe en indirecte belastingen? Geef van beide een voorbeeld.", a:"Directe belastingen worden rechtstreeks geheven bij de burger (bijv. loonbelasting). Indirecte belastingen worden via een tussenpersoon geheven (bijv. BTW)."},
+  {para:"Paragraaf 1 – Inkomsten van de overheid", q:"3. Wat is een negatief extern effect? Waarom heft de overheid accijnzen op bepaalde producten?", a:"Een negatief extern effect is schade aan mens of milieu die niet in de prijs zit. Accijnzen ontmoedigen gebruik van schadelijke producten."},
+  {para:"Paragraaf 2 – Loon- en inkomstenbelasting", q:"4. Leg het verschil uit tussen een progressief, proportioneel en degressief belastingstelsel.", a:"Progressief – percentage stijgt bij hoger inkomen; Proportioneel – vast percentage; Degressief – percentage daalt bij hoger inkomen."},
+  {para:"Paragraaf 2 – Loon- en inkomstenbelasting", q:"5. Bereken het belastbaar inkomen: bruto-inkomen €40.000, bijtelling €2.000, aftrekposten €3.000.", a:"€40.000 + €2.000 – €3.000 = €39.000 belastbaar inkomen."},
+  {para:"Paragraaf 2 – Loon- en inkomstenbelasting", q:"6. Wat zijn heffingskortingen? Noem twee soorten.", a:"Heffingskortingen zijn kortingen op de te betalen belasting. Voorbeelden: algemene heffingskorting, arbeidskorting."},
+  {para:"Paragraaf 3 – Uitgaven van de overheid", q:"7. Wat is het verschil tussen structurele en incidentele uitgaven? Geef van beide een voorbeeld.", a:"Structureel – jaarlijks terugkerend (bijv. onderwijs). Incidenteel – eenmalig/onvoorspelbaar (bijv. coronasteun)."},
+  {para:"Paragraaf 3 – Uitgaven van de overheid", q:"8. Leg uit wat het omslagstelsel is en hoe het werkt.", a:"Premies die binnenkomen worden direct gebruikt voor uitkeringen; er wordt niet gespaard."},
+  {para:"Paragraaf 3 – Uitgaven van de overheid", q:"9. Wat is het verschil tussen volksverzekeringen en werknemersverzekeringen?", a:"Volksverzekeringen zijn voor alle Nederlanders (bijv. AOW); Werknemersverzekeringen zijn voor mensen in loondienst (bijv. WW)."},
+  {para:"Paragraaf 4 – Overheidsfinanciën", q:"10. Wat is de miljoenennota en wanneer wordt deze gepresenteerd?", a:"De miljoenennota is de jaarlijkse begroting van de overheid en wordt gepresenteerd op Prinsjesdag."},
+  {para:"Paragraaf 4 – Overheidsfinanciën", q:"11. Bereken het begrotingssaldo: inkomsten €280 miljard, uitgaven €290 miljard.", a:"€280 miljard – €290 miljard = –€10 miljard (tekort)."},
+  {para:"Paragraaf 4 – Overheidsfinanciën", q:"12. Wat is de staatsschuldquote en hoe bereken je die?", a:"Staatsschuld gedeeld door BBP × 100%. Geeft aan hoe groot de schuld is t.o.v. de economie."},
+];
+
+/* =======================
+   STORAGE / STATE
+   ======================= */
+const STORE = {
+  PROG:"begrippen-progress-v7",
+  SETS:"begrippen-selected-sets-v3",
+  SETT:"begrippen-settings-v7",
+  FAV :"begrippen-favs-v3",
+  GOAL:"begrippen-goals-v3",
+  STRK:"begrippen-streak-v3"
+};
+function load(key, fallback){ try{ return JSON.parse(localStorage.getItem(key) || JSON.stringify(fallback)); }catch(e){ return fallback; } }
+function save(key, value){ localStorage.setItem(key, JSON.stringify(value)); }
+
+let progress = load(STORE.PROG, {});
+let settings = load(STORE.SETT, defaultSettings());
+let favorites = load(STORE.FAV, {});
+let goals = load(STORE.GOAL, []);
+let streak = load(STORE.STRK, {count:0, best:0, last:""});
+let selectedSets = load(STORE.SETS, []); // persistent selectie
+
+function defaultSettings(){
+  return {
+    autoAdvance: true,
+    foutenDirect: false,
+    flashDir: "term2def",
+    writeDir: "term2def",
+    matchMode: "contains",
+    strictCase: false,
+    strictPunct: false,
+    strictDia: false,
+    quizOpts: 4,
+    quizDir: "def2term",
+    timerEnabled: false,
+    timerMode: "stopwatch",
+    timerSeconds: 60,
+    timerAutoNext: false,
+    timerFlash: true,
+    timerQuiz: true,
+    timerWrite: true,
+    seenLanding: false
+  };
+}
+
+/* =======================
+   UTILITIES
+   ======================= */
+function keyFor(item){ return item.term + "｜" + item.definition; }
+function shuffle(arr){ for(let i=arr.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [arr[i],arr[j]]=[arr[j],arr[i]]; } return arr; }
+function sampleN(arr, n, excludeIndex){
+  const pool = arr.map((x,i)=>({x,i})).filter(o=>o.i!==excludeIndex);
+  shuffle(pool);
+  return pool.slice(0, Math.max(0, Math.min(n, pool.length))).map(o=>o.x);
+}
+function flatSelection(names){
+  const items = [];
+  names.forEach(name=> (DATA[name]||[]).forEach(d=> items.push({...d, set:name})));
+  return items;
+}
+function filterSearch(items, q){
+  if(!q) return items;
+  const s=q.toLowerCase().trim();
+  return items.filter(it=> it.term.toLowerCase().includes(s) || it.definition.toLowerCase().includes(s));
+}
+function isMistake(item){ const rec = progress[keyFor(item)]; return rec?.lastResult==='wrong'; }
+function isFav(item){ return !!favorites[keyFor(item)]; }
+function todayStr(){ const d = new Date(); return d.toISOString().slice(0,10); }
+function recordActivity(){
+  const t = todayStr();
+  if(streak.last !== t){
+    if(!streak.last) streak.count=1;
+    else {
+      const diff = Math.round((new Date(t)-new Date(streak.last))/(1000*60*60*24));
+      streak.count = (diff===1) ? (streak.count+1) : 1;
+    }
+    streak.last = t;
+    if(streak.count > (streak.best||0)) streak.best = streak.count;
+    save(STORE.STRK, streak); renderStreak();
+  }
+}
+function escapeHtml(s){ return String(s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+/* =======================
+   LANDING / GOALS
+   ======================= */
+const landing = document.getElementById('landing');
+const appRoot = document.getElementById('app');
+document.getElementById('startAppBtn').addEventListener('click', ()=>{ settings.seenLanding=true; save(STORE.SETT, settings); showApp(); });
+document.getElementById('openSettingsFromLanding').addEventListener('click', ()=> openSettings());
+function showLanding(){ landing.style.display=''; appRoot.style.display='none'; renderGoals(); }
+function showApp(){ landing.style.display='none'; appRoot.style.display=''; renderStreak(); }
+settings.seenLanding ? showApp() : showLanding();
+
+const goalTitle = document.getElementById('goalTitle');
+const goalDate  = document.getElementById('goalDate');
+const addGoalBtn= document.getElementById('addGoal');
+const goalsList = document.getElementById('goalsList');
+goalDate.value = todayStr();
+addGoalBtn.addEventListener('click', ()=>{
+  const title=(goalTitle.value||"").trim(); const date=goalDate.value||todayStr();
+  if(!title) return;
+  goals.push({id:crypto?.randomUUID?.() || ('id-'+Math.random().toString(36).slice(2)+Date.now()), title, date, done:false});
+  save(STORE.GOAL, goals); goalTitle.value=""; goalDate.value=todayStr(); renderGoals();
+});
+function renderGoals(){
+  const t = todayStr();
+  const today = goals.filter(g=>g.date===t);
+  const future= goals.filter(g=>g.date>t);
+  const past  = goals.filter(g=>g.date<t && !g.done);
+  goalsList.innerHTML="";
+  [["Vandaag",today],["Gepland",future],["Achterstallig",past]].forEach(([label,arr])=>{
+    if(!arr.length) return;
+    const block=document.createElement('div'); block.innerHTML=`<h4>${label}</h4>`;
+    arr.forEach(g=>{
+      const row=document.createElement('div'); row.className='chip'; row.style.marginBottom='6px';
+      row.innerHTML=`
+        <label style="display:flex; align-items:center; gap:8px; flex:1;">
+          <input type="checkbox" ${g.done?'checked':''}>
+          <input type="text" value="${escapeHtml(g.title)}" style="flex:1;">
+          <small class="muted">${g.date}</small>
+        </label>
+        <button class="secondary save">Opslaan</button>
+        <button class="secondary del">Verwijderen</button>
+      `;
+      const chk=row.querySelector('input[type=checkbox]'); const txt=row.querySelector('input[type=text]');
+      chk.addEventListener('change', ()=>{ g.done=chk.checked; save(STORE.GOAL, goals); renderGoals(); });
+      row.querySelector('.save').addEventListener('click', ()=>{ g.title=txt.value.trim(); save(STORE.GOAL, goals); renderGoals(); });
+      row.querySelector('.del').addEventListener('click', ()=>{ goals=goals.filter(x=>x.id!==g.id); save(STORE.GOAL, goals); renderGoals(); });
+      block.appendChild(row);
+    });
+    goalsList.appendChild(block);
+  });
+}
+
+/* =======================
+   RENDER SETS (persistent selectie)
+   ======================= */
+const setsEl = document.getElementById('sets');
+const selectAllBtn = document.getElementById('selectAllBtn');
+const clearAllBtn  = document.getElementById('clearAllBtn');
+const selectedCountEl = document.getElementById('selectedCount');
+
+function renderSets(){
+  setsEl.innerHTML = '';
+  const names = Object.keys(DATA);
+  if(names.length===0){ setsEl.innerHTML = '<div class="muted">Geen sets gevonden.</div>'; return; }
+  if(!selectedSets || selectedSets.length===0){
+    selectedSets = names.slice();
+    save(STORE.SETS, selectedSets);
+  }
+  names.forEach(name=>{
+    const wrap = document.createElement('div');
+    wrap.className='set';
+    wrap.innerHTML = `
+      <h3>${name}</h3>
+      <small>${DATA[name].length} begrippen</small>
+      <label><input type="checkbox" class="setChk" data-set="${name}"> <span>In deze set opnemen</span></label>
+    `;
+    const chk = wrap.querySelector('.setChk');
+    chk.checked = selectedSets.includes(name);
+    chk.addEventListener('change', ()=>{
+      if(chk.checked){ if(!selectedSets.includes(name)) selectedSets.push(name); }
+      else { selectedSets = selectedSets.filter(n=>n!==name); }
+      save(STORE.SETS, selectedSets);
+      updateSelectedCount();
+    });
+    setsEl.appendChild(wrap);
+  });
+  updateSelectedCount();
+}
+selectAllBtn.addEventListener('click', ()=>{
+  selectedSets = Object.keys(DATA);
+  save(STORE.SETS, selectedSets);
+  document.querySelectorAll('.setChk').forEach(chk=> chk.checked=true);
+  updateSelectedCount();
+});
+clearAllBtn.addEventListener('click', ()=>{
+  selectedSets = [];
+  save(STORE.SETS, selectedSets);
+  document.querySelectorAll('.setChk').forEach(chk=> chk.checked=false);
+  updateSelectedCount();
+});
+function updateSelectedCount(){
+  const cnt = flatSelection(selectedSets).length;
+  selectedCountEl.textContent = cnt;
+}
+
+/* =======================
+   TABS
+   ======================= */
+const tabs = document.querySelectorAll('.tab');
+const viewFlash   = document.getElementById('view-flash');
+const viewQuiz    = document.getElementById('view-quiz');
+const viewWrite   = document.getElementById('view-write');
+const viewSummary = document.getElementById('view-summary');
+const viewPrep    = document.getElementById('view-prep');
+const viewFormula = document.getElementById('view-formula');
+const viewTest    = document.getElementById('view-test');
+const viewStats   = document.getElementById('view-stats');
+
+tabs.forEach(tab=>{
+  tab.addEventListener('click', ()=>{
+    tabs.forEach(t=>t.classList.remove('active'));
+    tab.classList.add('active');
+    const t = tab.dataset.tab;
+    viewFlash.style.display   = t==='flash' ? '' : 'none';
+    viewQuiz.style.display    = t==='quiz'  ? '' : 'none';
+    viewWrite.style.display   = t==='write' ? '' : 'none';
+    viewSummary.style.display = t==='summary' ? '' : 'none';
+    viewPrep.style.display    = t==='prep' ? '' : 'none';
+    viewFormula.style.display = t==='formula' ? '' : 'none';
+    viewTest.style.display    = t==='test' ? '' : 'none';
+    viewStats.style.display   = t==='stats' ? '' : 'none';
+    if(t==='stats') drawAllCharts();
+  });
+});
+function switchTab(name){
+  tabs.forEach(t=>t.classList.toggle('active', t.dataset.tab===name));
+  viewFlash.style.display   = name==='flash' ? '' : 'none';
+  viewQuiz.style.display    = name==='quiz'  ? '' : 'none';
+  viewWrite.style.display   = name==='write' ? '' : 'none';
+  viewSummary.style.display = name==='summary' ? '' : 'none';
+  viewPrep.style.display    = name==='prep' ? '' : 'none';
+  viewFormula.style.display = name==='formula' ? '' : 'none';
+  viewTest.style.display    = name==='test' ? '' : 'none';
+  viewStats.style.display   = name==='stats' ? '' : 'none';
+  if(name==='stats') drawAllCharts();
+}
+
+/* =======================
+   FILTERS & STATS
+   ======================= */
+const onlyMistakesChk = document.getElementById('onlyMistakes');
+const onlyFavsChk     = document.getElementById('onlyFavs');
+const searchBox       = document.getElementById('searchBox');
+const progressBar     = document.getElementById('progressBar');
+const doneCountEl     = document.getElementById('doneCount');
+const leftCountEl     = document.getElementById('leftCount');
+const correctCountEl  = document.getElementById('correctCount');
+const wrongCountEl    = document.getElementById('wrongCount');
+
+let deckAll=[], deck=[], idx=-1;
+
+/* Flashcard ronde-tracking */
+let roundSeen = new Set();
+const roundDoneEl = document.getElementById('roundDone');
+const roundTotalEl = document.getElementById('roundTotal');
+function updateRoundChip(){
+  roundDoneEl.textContent = String(roundSeen.size || 0);
+  roundTotalEl.textContent = String(deck.length || 0);
+}
+function resetRound(){
+  roundSeen = new Set();
+  updateRoundChip();
+}
+function checkRoundCompleteAndReset(){
+  if(deck.length>0 && roundSeen.size >= deck.length){
+    showToast(false, "<em>Ronde voltooid! Opnieuw begonnen.</em>");
+    deck = shuffle(deck.slice());
+    idx = 0;
+    resetRound();
+    renderCurrentCard();
+  }
+}
+
+function rebuildDeck(){
+  deckAll = flatSelection(selectedSets);
+  let filtered = filterSearch(deckAll, searchBox.value);
+  if(onlyMistakesChk.checked) filtered = filtered.filter(isMistake);
+  if(onlyFavsChk.checked)     filtered = filtered.filter(isFav);
+  deck = shuffle(filtered.slice());
+  idx = deck.length ? 0 : -1;
+  resetRound();
+  updateSelectedCount();
+  updateStats();
+}
+function updateStats(){
+  const total = deckAll.length;
+  const done  = Object.keys(progress).filter(k=>{
+    const [t,d]=k.split("｜");
+    return deckAll.some(it=>it.term===t && it.definition===d) && progress[k].lastSeen;
+  }).length;
+  let c=0,w=0;
+  deckAll.forEach(it=>{ const rec=progress[keyFor(it)]; if(rec){ c+=(rec.correct||0); w+=(rec.wrong||0); } });
+  const left = Math.max(0, total-done);
+  doneCountEl.textContent=done; leftCountEl.textContent=left; correctCountEl.textContent=c; wrongCountEl.textContent=w;
+  progressBar.style.width = (total? Math.round(100*done/total):0) + '%';
+  updateRoundChip();
+}
+onlyMistakesChk.addEventListener('change', ()=>{ rebuildDeck(); renderCurrentCard(); });
+onlyFavsChk.addEventListener('change', ()=>{ rebuildDeck(); renderCurrentCard(); });
+searchBox.addEventListener('input', ()=>{ rebuildDeck(); renderCurrentCard(); });
+
+/* =======================
+   FLASHCARDS
+   ======================= */
+const termEl = document.getElementById('term');
+const defEl  = document.getElementById('definition');
+const btnFlip= document.getElementById('btnFlip');
+const btnWrong=document.getElementById('btnWrong');
+const btnRight=document.getElementById('btnRight');
+const btnNext=document.getElementById('btnNext');
+const btnFav = document.getElementById('btnFav');
+let showingFront=true;
+
+function dirForFlash(item){
+  const d = (settings.flashDir==='mix') ? (Math.random()<.5?'term2def':'def2term') : settings.flashDir;
+  return (d==='term2def')
+    ? {front:item.term, back:item.definition, label:'Term → Definitie'}
+    : {front:item.definition, back:item.term,  label:'Definitie → Term'};
+}
+function renderCurrentCard(){
+  if(idx<0 || idx>=deck.length){
+    termEl.textContent = selectedSets.length===0 ? "Geen sets geselecteerd." : "Geen kaarten (controleer filters/zoekterm).";
+    defEl.textContent=""; defEl.style.display='none';
+    btnFav.textContent="☆ Favoriet";
+    updateRoundChip();
+    return;
+  }
+  const item=deck[idx]; const fb=dirForFlash(item);
+  termEl.textContent=fb.front; defEl.textContent=fb.back; defEl.style.display='none'; showingFront=true;
+  btnFav.textContent = isFav(item) ? "⭐ Favoriet" : "☆ Favoriet";
+  updateRoundChip();
+  timerAutoStart('flash');
+}
+btnFlip.addEventListener('click', ()=>{ showingFront=!showingFront; defEl.style.display = showingFront?'none':''; });
+btnWrong.addEventListener('click', ()=>{ if(idx<0) return; defEl.style.display=''; mark('wrong'); nextCard(); });
+btnRight.addEventListener('click', ()=>{ if(idx<0) return; defEl.style.display=''; mark('correct'); nextCard(); });
+btnNext.addEventListener('click', ()=> nextCard());
+btnFav.addEventListener('click', ()=>{
+  if(idx<0) return;
+  const item=deck[idx]; const k=keyFor(item);
+  if(favorites[k]) delete favorites[k]; else favorites[k]=true;
+  save(STORE.FAV,favorites);
+  btnFav.textContent = favorites[k] ? "⭐ Favoriet" : "☆ Favoriet";
+});
+
+function mark(result){
+  const item=deck[idx]; const k=keyFor(item);
+  const rec=progress[k]||{correct:0,wrong:0};
+  if(result==='correct') rec.correct=(rec.correct||0)+1;
+  if(result==='wrong')   rec.wrong  =(rec.wrong  ||0)+1;
+  rec.lastResult=result; rec.lastSeen=Date.now();
+  progress[k]=rec; save(STORE.PROG,progress); updateStats();
+  if(settings.foutenDirect && result==='wrong' && deck.length>1){
+    const cur=deck[idx]; deck.splice(idx,1); const pos=Math.min(idx+1, deck.length); deck.splice(pos,0,cur); idx = (pos-1+deck.length)%deck.length;
+  }
+  recordActivity();
+  roundSeen.add(k); updateRoundChip();
+}
+function nextCard(){
+  if(deck.length===0){ renderCurrentCard(); return; }
+  idx = (idx + 1) % deck.length;
+  renderCurrentCard();
+  checkRoundCompleteAndReset();
+}
+
+/* =======================
+   QUIZ
+   ======================= */
+const startFlashBtn=document.getElementById('startFlashBtn');
+const startQuizBtn =document.getElementById('startQuizBtn');
+const startWriteBtn=document.getElementById('startWriteBtn');
+
+const quizQEl=document.getElementById('quizQ');
+const quizOptionsEl=document.getElementById('quizOptions');
+const quizMetaEl=document.getElementById('quizMeta');
+const quizCheckBtn=document.getElementById('quizCheck');
+const quizNextBtn=document.getElementById('quizNext');
+const quizScoreEl=document.getElementById('quizScore');
+
+let quizDeck=[],quizIndex=-1,quizAnswer=null,quizSelected=null,quizScore=0;
+function quizDir(){ return (settings.quizDir==='mix') ? (Math.random()<.5?'def2term':'term2def') : settings.quizDir; }
+
+function startQuiz(){
+  if (selectedSets.length===0){ alert("Selecteer ten minste één set."); return; }
+  let src = flatSelection(selectedSets);
+  src = filterSearch(src, searchBox.value);
+  if(onlyMistakesChk.checked) src=src.filter(isMistake);
+  if(onlyFavsChk.checked)     src=src.filter(isFav);
+  quizDeck=shuffle(src.slice()); quizIndex=-1; quizScore=0; quizScoreEl.textContent="0";
+  nextQuizQ();
+}
+function nextQuizQ(){
+  if(quizDeck.length===0){ quizQEl.textContent="Geen vragen (controleer selectie/filters)."; quizOptionsEl.innerHTML=""; quizCheckBtn.disabled=true; quizNextBtn.disabled=true; return; }
+  quizSelected=null;
+  quizIndex=(quizIndex+1)%quizDeck.length;
+  const item=quizDeck[quizIndex];
+  const d=quizDir(); const n=Math.max(2,Math.min(6,Number(settings.quizOpts||4)));
+  const others=sampleN(quizDeck, n-1, quizIndex);
+  let options,question,answer,label;
+  if(d==='def2term'){ question=item.definition; answer=item.term; options=shuffle([item,...others].slice(0,n)).map(o=>o.term); label='Definitie → Term'; }
+  else { question=item.term; answer=item.definition; options=shuffle([item,...others].slice(0,n)).map(o=>o.definition); label='Term → Definitie'; }
+  quizAnswer=answer; quizMetaEl.textContent = `Vraag ${quizIndex+1}/${quizDeck.length} • ${item.set} • ${label}`;
+  quizQEl.textContent = question;
+  quizOptionsEl.innerHTML="";
+  options.forEach(text=>{
+    const div=document.createElement('div'); div.className='opt'; div.textContent=text;
+    div.addEventListener('click', ()=>{ Array.from(quizOptionsEl.children).forEach(c=>c.classList.remove('selected')); div.classList.add('selected'); quizSelected=div; });
+    quizOptionsEl.appendChild(div);
+  });
+  quizCheckBtn.disabled=false; quizNextBtn.disabled=true; timerAutoStart('quiz');
+}
+quizCheckBtn.addEventListener('click', ()=>{
+  if(!quizSelected) return;
+  const chosen=quizSelected.textContent;
+  Array.from(quizOptionsEl.children).forEach(div=>{ if(div.textContent===quizAnswer) div.classList.add('correct'); });
+  if(chosen===quizAnswer){ quizSelected.classList.add('correct'); quizScore++; quizScoreEl.textContent=String(quizScore); mark('correct'); }
+  else { quizSelected.classList.add('wrong'); mark('wrong'); }
+  quizCheckBtn.disabled=true; quizNextBtn.disabled=false;
+});
+quizNextBtn.addEventListener('click', ()=> nextQuizQ());
+
+/* =======================
+   WRITE MODE
+   ======================= */
+const writeCard   = document.getElementById('writeCard');
+const writePrompt = document.getElementById('writePrompt');
+const writeInput  = document.getElementById('writeInput');
+const writeMeta   = document.getElementById('writeMeta');
+
+let writeDeck=[], writeIdx=-1, writeCurrent=null;
+function pickDir(item, set){
+  const d=(set==='mix')?(Math.random()<.5?'term2def':'def2term'):set;
+  return (d==='term2def') ? {prompt:item.term, answer:item.definition, label:'Term → Definitie'} : {prompt:item.definition, answer:item.term, label:'Definitie → Term'};
+}
+function startWrite(){
+  if (selectedSets.length===0){ alert("Selecteer ten minste één set."); return; }
+  let src=flatSelection(selectedSets); src=filterSearch(src, searchBox.value);
+  if(onlyMistakesChk.checked) src=src.filter(isMistake);
+  if(onlyFavsChk.checked)     src=src.filter(isFav);
+  writeDeck=shuffle(src.slice()); writeIdx=-1; nextWriteQ();
+}
+function nextWriteQ(){
+  if(writeDeck.length===0){ writePrompt.textContent="Geen kaarten (controleer selectie/filters)."; writeInput.value=""; writeInput.disabled=true; writeMeta.textContent="Schrijfmodus"; return; }
+  writeIdx=(writeIdx+1)%writeDeck.length;
+  const item=writeDeck[writeIdx]; const d=pickDir(item, settings.writeDir);
+  writeCurrent={...d,item};
+  writePrompt.textContent=d.prompt; writeMeta.textContent=`Vraag ${writeIdx+1}/${writeDeck.length} • ${item.set} • ${d.label}`;
+  writeInput.disabled=false; writeInput.value=""; writeInput.focus();
+  timerAutoStart('write');
+}
+function normalize(s, {caseSensitive, keepPunct, keepDia}){
+  let t=s||"";
+  if(!keepDia){ t=t.normalize('NFD').replace(/[\u0300-\u036f]/g,''); }
+  if(!keepPunct){ t=t.replace(/[.,/#!$%^&*;:{}=\-_`~()"'?<>[\]\\|+]/g,' '); }
+  if(!caseSensitive){ t=t.toLowerCase(); }
+  return t.replace(/\s+/g,' ').trim();
+}
+function tokenize(s){ return s.split(/\s+/).filter(Boolean); }
+function diffMissing(correctOriginal, userOriginal, opts){
+  const userSet=new Set(tokenize(normalize(userOriginal,opts)));
+  return correctOriginal.split(/(\s+)/).map(part=>{
+    if(part.trim()==="") return part;
+    const tokens=tokenize(normalize(part,opts));
+    const present=tokens.every(t=>userSet.has(t));
+    return present?part:`<mark class="miss">${escapeHtml(part)}</mark>`;
+  }).join('');
+}
+function checkWrite(user, correct){
+  const opts={caseSensitive:settings.strictCase, keepPunct:settings.strictPunct, keepDia:settings.strictDia};
+  const u=normalize(user,opts), c=normalize(correct,opts);
+  if(settings.matchMode==='exact') return {ok:u===c, missing:diffMissing(correct,user,opts)};
+  const uSet=new Set(tokenize(u)), cTok=tokenize(c);
+  if(settings.matchMode==='allwords') return {ok:cTok.every(w=>uSet.has(w)), missing:diffMissing(correct,user,opts)};
+  const overlap=cTok.filter(w=>uSet.has(w)).length;
+  const ok=overlap>0 && overlap>=Math.ceil(Math.min(3, cTok.length*0.4));
+  return {ok, missing:diffMissing(correct,user,opts)};
+}
+const toast=document.getElementById('toast'), toastTitle=document.getElementById('toastTitle'), toastAns=document.getElementById('toastAns'); let toastTimer=null;
+function showToast(ok, html){ toastTitle.textContent=ok?"Goed":"Fout"; toast.classList.toggle('good',ok); toast.classList.toggle('bad',!ok); toastAns.innerHTML=html; toast.style.display='block'; clearTimeout(toastTimer); toastTimer=setTimeout(()=>{ toast.style.display='none'; if(settings.autoAdvance) nextWriteQ(); }, 1000); }
+writeInput.addEventListener('keydown',(e)=>{
+  if(e.key==='Enter' && !e.shiftKey){
+    e.preventDefault(); if(!writeCurrent) return;
+    const {ok,missing}=checkWrite(writeInput.value, writeCurrent.answer);
+    mark(ok?'correct':'wrong'); showToast(ok, missing); recordActivity();
+  }
+});
+
+/* =======================
+   KEYBOARD SHORTCUTS
+   ======================= */
+document.addEventListener('keydown',(e)=>{
+  if(document.activeElement===searchBox) return;
+  if(document.activeElement===writeInput) return;
+  if(e.key===' '){
+    if(viewFlash.style.display!=='none'){ e.preventDefault(); btnFlip.click(); }
+    if(viewTest .style.display!=='none'){ e.preventDefault(); document.getElementById('testShow').click(); }
+    return;
+  }
+  if(e.key==='ArrowLeft'){ if(viewFlash.style.display!=='none'){ e.preventDefault(); btnWrong.click(); } }
+  if(e.key==='ArrowRight'){ if(viewFlash.style.display!=='none'){ e.preventDefault(); btnRight.click(); } }
+  if(e.key==='1'){
+    if(viewFlash.style.display!=='none'){ e.preventDefault(); defEl.style.display=''; mark('wrong'); nextCard(); }
+    if(viewTest .style.display!=='none'){ e.preventDefault(); testMark(false); }
+  }
+  if(e.key==='2'){
+    if(viewFlash.style.display!=='none'){ e.preventDefault(); defEl.style.display=''; mark('correct'); nextCard(); }
+    if(viewTest .style.display!=='none'){ e.preventDefault(); testMark(true); }
+  }
+});
+
+/* =======================
+   INSTELLINGEN MODAL
+   ======================= */
+const settingsModal=document.getElementById('settingsModal');
+const btnSettings=document.getElementById('btnSettings');
+const btnCloseSettings=document.getElementById('btnCloseSettings');
+const stgAutoAdvance=document.getElementById('stgAutoAdvance');
+const stgFoutenDirect=document.getElementById('stgFoutenDirect');
+const stgFlashDir=document.getElementById('stgFlashDir');
+const stgWriteDir=document.getElementById('stgWriteDir');
+const stgMatchMode=document.getElementById('stgMatchMode');
+const stgStrictCase=document.getElementById('stgStrictCase');
+const stgStrictPunct=document.getElementById('stgStrictPunct');
+const stgStrictDia=document.getElementById('stgStrictDia');
+const stgQuizOpts=document.getElementById('stgQuizOpts');
+const stgQuizDir=document.getElementById('stgQuizDir');
+
+btnSettings.addEventListener('click', ()=>{ settingsModal.style.display='flex'; fillSettings(); });
+btnCloseSettings.addEventListener('click', ()=> settingsModal.style.display='none');
+settingsModal.addEventListener('click', (e)=>{ if(e.target===settingsModal) settingsModal.style.display='none'; });
+
+function fillSettings(){
+  stgAutoAdvance.checked=settings.autoAdvance;
+  stgFoutenDirect.checked=settings.foutenDirect;
+  stgFlashDir.value=settings.flashDir;
+  stgWriteDir.value=settings.writeDir;
+  stgMatchMode.value=settings.matchMode;
+  stgStrictCase.checked=settings.strictCase;
+  stgStrictPunct.checked=settings.strictPunct;
+  stgStrictDia.checked=settings.strictDia;
+  stgQuizOpts.value=settings.quizOpts;
+  stgQuizDir.value=settings.quizDir;
+}
+function readSettings(){
+  settings.autoAdvance=!!stgAutoAdvance.checked;
+  settings.foutenDirect=!!stgFoutenDirect.checked;
+  settings.flashDir=stgFlashDir.value;
+  settings.writeDir=stgWriteDir.value;
+  settings.matchMode=stgMatchMode.value;
+  settings.strictCase=!!stgStrictCase.checked;
+  settings.strictPunct=!!stgStrictPunct.checked;
+  settings.strictDia=!!stgStrictDia.checked;
+  settings.quizOpts=Math.max(2, Math.min(6, Number(stgQuizOpts.value||4)));
+  settings.quizDir=stgQuizDir.value;
+  save(STORE.SETT, settings);
+  rebuildDeck(); renderCurrentCard();
+}
+document.querySelectorAll('#settingsModal input, #settingsModal select').forEach(el=> el.addEventListener('change', readSettings));
+
+/* Export/Import */
+const btnExport=document.getElementById('btnExport');
+const importFile=document.getElementById('importFile');
+btnExport.addEventListener('click', ()=>{
+  const payload = { exportedAt:new Date().toISOString(), settings, progress, favorites, goals, streak, selectedSets };
+  const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});
+  const url=URL.createObjectURL(blob); const a=document.createElement('a');
+  a.href=url; a.download='begrippen-export.json'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+});
+importFile.addEventListener('change',(e)=>{
+  const file=e.target.files?.[0]; if(!file) return;
+  const reader=new FileReader();
+  reader.onload=()=>{
+    try{
+      const data=JSON.parse(String(reader.result||'{}'));
+      if(data.settings) settings={...defaultSettings(), ...data.settings};
+      if(data.progress) progress=data.progress;
+      if(data.favorites) favorites=data.favorites;
+      if(data.goals) goals=data.goals;
+      if(data.streak) streak=data.streak;
+      if(data.selectedSets) selectedSets=data.selectedSets;
+      save(STORE.SETT,settings); save(STORE.PROG,progress); save(STORE.FAV,favorites); save(STORE.GOAL,goals); save(STORE.STRK,streak); save(STORE.SETS,selectedSets);
+      renderSets(); rebuildDeck(); renderCurrentCard(); renderGoals(); renderStreak(); drawAllCharts();
+      alert('Import voltooid.');
+    }catch(err){ alert('Kon het bestand niet importeren.'); }
+  };
+  reader.readAsText(file);
+});
+
+/* =======================
+   START Buttons
+   ======================= */
+startFlashBtn.addEventListener('click', ()=>{
+  if(selectedSets.length===0){ alert("Selecteer ten minste één set."); return; }
+  switchTab('flash'); rebuildDeck(); renderCurrentCard();
+});
+startQuizBtn.addEventListener('click', ()=>{
+  if(selectedSets.length===0){ alert("Selecteer ten minste één set."); return; }
+  switchTab('quiz'); startQuiz();
+});
+startWriteBtn.addEventListener('click', ()=>{
+  if(selectedSets.length===0){ alert("Selecteer ten minste één set."); return; }
+  switchTab('write'); startWrite();
+});
+
+/* =======================
+   TIMER
+   ======================= */
+const timerLabel=document.getElementById('timerLabel');
+const timerStartBtn=document.getElementById('timerStart');
+const timerPauseBtn=document.getElementById('timerPause');
+const timerResetBtn=document.getElementById('timerReset');
+let timerInterval=null, timerRunning=false, timerElapsed=0, timerRemaining=0;
+function fmtTime(s){ const m=Math.floor(s/60), r=s%60; return (m<10?'0':'')+m+':'+(r<10?'0':'')+r; }
+function timerUpdate(){ timerLabel.textContent = (settings.timerMode==='stopwatch') ? fmtTime(timerElapsed) : fmtTime(Math.max(0,timerRemaining)); }
+function timerStart(){ if(!settings.timerEnabled||timerRunning) return; timerRunning=true; timerInterval=setInterval(()=>{ if(settings.timerMode==='stopwatch') timerElapsed++; else { timerRemaining--; if(timerRemaining<=0){ timerRemaining=0; timerStop(); onTimeout(); } } timerUpdate(); },1000); }
+function timerStop(){ timerRunning=false; clearInterval(timerInterval); timerInterval=null; }
+function timerReset(){ timerStop(); timerElapsed=0; timerRemaining=settings.timerSeconds; timerUpdate(); }
+timerStartBtn.addEventListener('click', timerStart);
+timerPauseBtn.addEventListener('click', timerStop);
+timerResetBtn.addEventListener('click', ()=> timerReset());
+function timerAutoStart(ctx){
+  if(!settings.timerEnabled) return;
+  const on = (ctx==='flash' && settings.timerFlash) || (ctx==='quiz' && settings.timerQuiz) || (ctx==='write' && settings.timerWrite);
+  if(!on) return; timerReset(); timerStart();
+}
+function onTimeout(){
+  showToast(false, '<em>Tijd om!</em>');
+  if(settings.timerAutoNext){
+    if(viewFlash.style.display!=='none') nextCard();
+    if(viewQuiz .style.display!=='none') nextQuizQ();
+    if(viewWrite.style.display!=='none') nextWriteQ();
+  }
+}
+
+/* =======================
+   OEFENTOETS
+   ======================= */
+const testIntro=document.getElementById('testIntro');
+const testFlow =document.getElementById('testFlow');
+const testList =document.getElementById('testList');
+const startTestBtn=document.getElementById('startTest');
+const reviewAllBtn=document.getElementById('reviewAll');
+const testQuestionEl=document.getElementById('testQuestion');
+const testAnswerEl  =document.getElementById('testAnswer');
+const testShowBtn   =document.getElementById('testShow');
+const testWrongBtn  =document.getElementById('testWrong');
+const testRightBtn  =document.getElementById('testRight');
+const testNextBtn   =document.getElementById('testNext');
+const testEndBtn    =document.getElementById('testEnd');
+const testMeta      =document.getElementById('testMeta');
+let testOrder=[], testIndex=-1, testScore=0;
+
+function startTest(){ testOrder=TEST.map((_,i)=>i); shuffle(testOrder); testIndex=-1; testScore=0; testIntro.style.display='none'; testList.style.display='none'; testFlow.style.display=''; nextTestQ(); }
+function nextTestQ(){
+  testIndex++; if(testIndex>=testOrder.length){ endTest(); return; }
+  const i=testOrder[testIndex], item=TEST[i];
+  testMeta.textContent=`Vraag ${testIndex+1}/${testOrder.length} • ${item.para}`;
+  testQuestionEl.textContent=item.q; testAnswerEl.textContent="Antwoord: "+item.a; testAnswerEl.style.display='none';
+}
+function testMark(ok){ if(ok) testScore++; recordActivity(); nextTestQ(); }
+function endTest(){ testFlow.style.display='none'; testIntro.style.display=''; const pct=Math.round(100*testScore/TEST.length); testIntro.querySelector('p').innerHTML = `<strong>Resultaat:</strong> ${testScore}/${TEST.length} (${pct}%). Je kunt de toets opnieuw doen of alle uitwerkingen bekijken.`; }
+function reviewAll(){
+  testIntro.style.display='none'; testFlow.style.display='none'; testList.style.display='';
+  testList.innerHTML=""; TEST.forEach(item=>{
+    const div=document.createElement('div'); div.className='qitem';
+    div.innerHTML=`
+      <div class="qhead">
+        <div><strong>${item.para}</strong></div>
+        <button class="secondary toggle">Toon antwoord</button>
+      </div>
+      <div class="qtext">${escapeHtml(item.q)}</div>
+      <div class="ans">Antwoord: ${escapeHtml(item.a)}</div>`;
+    const tog=div.querySelector('.toggle'), ans=div.querySelector('.ans');
+    tog.addEventListener('click', ()=>{ const vis=ans.style.display!=='none'; ans.style.display=vis?'none':'block'; tog.textContent=vis?'Toon antwoord':'Verberg antwoord'; });
+    testList.appendChild(div);
+  });
+}
+document.getElementById('startTest').addEventListener('click', startTest);
+document.getElementById('reviewAll').addEventListener('click', reviewAll);
+document.getElementById('testShow').addEventListener('click', ()=> testAnswerEl.style.display='');
+document.getElementById('testWrong').addEventListener('click', ()=> testMark(false));
+document.getElementById('testRight').addEventListener('click', ()=> testMark(true));
+document.getElementById('testNext').addEventListener('click', ()=> nextTestQ());
+document.getElementById('testEnd').addEventListener('click', ()=> endTest());
+
+/* =======================
+   STATISTIEKEN (canvas)
+   ======================= */
+const chartPara=document.getElementById('chartPara');
+const chartParaAcc=document.getElementById('chartParaAcc');
+const chartTopCorrect=document.getElementById('chartTopCorrect');
+const chartTopWrong=document.getElementById('chartTopWrong');
+
+function getParaStats(){
+  return Object.keys(DATA).map(para=>{
+    let c=0,w=0; DATA[para].forEach(item=>{ const rec=progress[keyFor(item)]||{}; c+=(rec.correct||0); w+=(rec.wrong||0); });
+    const total=c+w, acc= total? Math.round(100*c/total):0;
+    return {para, correct:c, wrong:w, total, acc};
+  });
+}
+function getItemStats(){
+  const res=[]; Object.keys(DATA).forEach(para=> DATA[para].forEach(item=>{ const rec=progress[keyFor(item)]||{}; res.push({label:item.term, correct:rec.correct||0, wrong:rec.wrong||0, set:para}); }));
+  return res;
+}
+function drawBarChart(canvas, series, {title="", color="#22c55e", maxBars=8, valueKey="value", labelKey="label", secondary=null}={}){
+  if(!canvas) return;
+  const dpr=window.devicePixelRatio||1, cw=canvas.clientWidth, ch=canvas.clientHeight;
+  canvas.width=cw*dpr; canvas.height=ch*dpr; const ctx=canvas.getContext('2d'); ctx.scale(dpr,dpr);
+  ctx.clearRect(0,0,cw,ch);
+  const pad={t:28,r:16,b:40,l:60};
+  ctx.fillStyle="#e5e7eb"; ctx.font="14px system-ui"; ctx.fillText(title,14,20);
+  const data=series.slice(0, maxBars);
+  const maxVal=Math.max(1, ...data.map(d=>d[valueKey]));
+  const x0=pad.l, y0=pad.t, w=cw-pad.l-pad.r, h=ch-pad.t-pad.b;
+  ctx.strokeStyle="rgba(255,255,255,.15)"; ctx.beginPath(); ctx.moveTo(x0,y0); ctx.lineTo(x0,y0+h); ctx.lineTo(x0+w,y0+h); ctx.stroke();
+  const barH=Math.min(36, h/data.length - 8);
+  data.forEach((d,i)=>{
+    const y=y0+i*(barH+8);
+    const barW=(d[valueKey]/maxVal)*(w-50);
+    ctx.fillStyle="rgba(255,255,255,.06)"; ctx.fillRect(x0+90,y,w-50,barH);
+    ctx.fillStyle=color; ctx.fillRect(x0+90,y,barW,barH);
+    ctx.fillStyle="#9ca3af"; ctx.font="12px system-ui";
+    const label=d[labelKey].length>28? d[labelKey].slice(0,27)+"…" : d[labelKey];
+    ctx.fillText(label, x0+2, y + barH*0.75);
+    ctx.fillStyle="#e5e7eb";
+    const val=String(d[valueKey]); const sec=secondary? " · "+secondary(d):"";
+    ctx.fillText(val+sec, x0+95+barW+8, y + barH*0.75);
+  });
+}
+function drawParaCharts(){
+  const s=getParaStats();
+  const byTotal=[...s].sort((a,b)=>b.total-a.total).map(x=>({label:x.para, value:x.total, acc:x.acc}));
+  drawBarChart(chartPara, byTotal, {title:"⛳ Antwoorden per paragraaf (goed+fout)", color:"#60a5fa", valueKey:"value", labelKey:"label", secondary:d=>d.acc+"%"});
+  const byAcc=[...s].sort((a,b)=>b.acc-a.acc).map(x=>({label:x.para, value:x.acc}));
+  drawBarChart(chartParaAcc, byAcc, {title:"🎯 Accuratesse per paragraaf (%)", color:"#22c55e"});
+}
+function drawTopCharts(){
+  const items=getItemStats();
+  const topC=[...items].sort((a,b)=>b.correct-a.correct).slice(0,10).map(d=>({label:`${d.label} (${d.set.replace('Paragraaf ','P')})`, value:d.correct}));
+  const topW=[...items].sort((a,b)=>b.wrong-a.wrong).slice(0,10).map(d=>({label:`${d.label} (${d.set.replace('Paragraaf ','P')})`, value:d.wrong}));
+  drawBarChart(chartTopCorrect, topC, {title:"🏆 Meest goed beantwoorde begrippen", color:"#22c55e"});
+  drawBarChart(chartTopWrong,   topW, {title:"🚧 Meest fout beantwoorde begrippen", color:"#ef4444"});
+}
+function drawAllCharts(){ drawParaCharts(); drawTopCharts(); }
+
+/* =======================
+   RESET
+   ======================= */
+document.getElementById('resetBtn').addEventListener('click', ()=>{
+  if(confirm("Weet je zeker dat je ALLE voortgang en favorieten wilt wissen?")) {
+    progress={}; favorites={};
+    save(STORE.PROG,progress); save(STORE.FAV,favorites);
+    rebuildDeck(); renderCurrentCard(); drawAllCharts(); resetRound();
+    alert("Voortgang gewist.");
+  }
+});
+
+/* =======================
+   SETTINGS helpers
+   ======================= */
+function openSettings(){ settingsModal.style.display='flex'; fillSettings(); }
+function renderStreak(){
+  document.getElementById('streakCount').textContent = String(streak.count||0);
+  document.getElementById('streakBest').textContent  = String(streak.best||0);
+}
+function showToast(ok, html){
+  const toast=document.getElementById('toast'), title=document.getElementById('toastTitle'), ans=document.getElementById('toastAns');
+  title.textContent=ok?"Goed":"Fout"; toast.classList.toggle('good',ok); toast.classList.toggle('bad',!ok);
+  ans.innerHTML=html; toast.style.display='block';
+  clearTimeout(window.__toastTimer);
+  window.__toastTimer=setTimeout(()=>{ toast.style.display='none'; }, 1000);
+}
+
+/* =======================
+   INIT
+   ======================= */
+function init(){
+  renderSets();
+  rebuildDeck();
+  renderCurrentCard();
+  renderGoals();
+  renderStreak();
+  // Summary select vullen
+  const summaryPara = document.getElementById('summaryPara');
+  const summaryType = document.getElementById('summaryType');
+  const summaryContent = document.getElementById('summaryContent');
+  Object.keys(SUMMARIES).forEach(name=>{ const o=document.createElement('option'); o.value=name; o.textContent=name; summaryPara.appendChild(o); });
+  function renderSummary(){ summaryContent.textContent = (SUMMARIES[summaryPara.value]||{})[summaryType.value] || ''; }
+  summaryPara.addEventListener('change', renderSummary);
+  summaryType.addEventListener('change', renderSummary);
+  summaryPara.value = Object.keys(SUMMARIES)[0]; renderSummary();
+
+  // Prep select vullen
+  const prepPara = document.getElementById('prepPara');
+  const prepContent = document.getElementById('prepContent');
+  Object.keys(PREP).forEach(name=>{ const o=document.createElement('option'); o.value=name; o.textContent=name; prepPara.appendChild(o); });
+  function renderPrep(){ prepContent.textContent = PREP[prepPara.value] || ''; }
+  prepPara.addEventListener('change', renderPrep);
+  prepPara.value = Object.keys(PREP)[0]; renderPrep();
+
+  // Formulekaart weergave
+  const formulaType = document.getElementById('formulaType');
+  const formulaContent = document.getElementById('formulaContent');
+  const copyFormula = document.getElementById('copyFormula');
+  function renderFormula(){ formulaContent.textContent = FORMULAS[formulaType.value] || ''; }
+  formulaType.addEventListener('change', renderFormula);
+  copyFormula.addEventListener('click', ()=> navigator.clipboard.writeText(FORMULAS[formulaType.value]||'').then(()=> alert('Formulekaart gekopieerd.')));
+  renderFormula();
+
+  drawAllCharts();
+}
+init();
+</script>
+</body>
+</html>
