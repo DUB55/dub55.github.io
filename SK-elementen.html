@@ -1,0 +1,1660 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elementen Memoreren</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        
+        body.dark-mode {
+            background-color: #1a1a2e;
+            color: #e6e6e6;
+        }
+        
+        body.modal-open {
+            overflow: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .description {
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .section {
+            flex: 1;
+            min-width: 300px;
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+        
+        .dark-mode .section {
+            background: #16213e;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+        
+        h2 {
+            color: #2575fc;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f0f0;
+            transition: color 0.3s, border-color 0.3s;
+        }
+        
+        .dark-mode h2 {
+            color: #4cc9f0;
+            border-bottom-color: #2d3748;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+            transition: border-color 0.3s;
+        }
+        
+        .dark-mode th, .dark-mode td {
+            border-bottom: 1px solid #2d3748;
+        }
+        
+        th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+            color: #495057;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        
+        .dark-mode th {
+            background-color: #1f2a40;
+            color: #e6e6e6;
+        }
+        
+        tr:hover {
+            background-color: #f8f9fa;
+            transition: background-color 0.3s;
+        }
+        
+        .dark-mode tr:hover {
+            background-color: #1f2a40;
+        }
+        
+        .metal {
+            color: #e74c3c;
+            font-weight: 600;
+        }
+        
+        .non-metal {
+            color: #3498db;
+            font-weight: 600;
+        }
+        
+        .quiz-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .quiz-question {
+            font-size: 1.5rem;
+            font-weight: 600;
+            text-align: center;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            transition: background-color 0.3s;
+        }
+        
+        .dark-mode .quiz-question {
+            background-color: #1f2a40;
+        }
+        
+        .quiz-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .quiz-option {
+            padding: 15px;
+            background-color: #e8f4fd;
+            border: 2px solid #2575fc;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #2575fc;
+        }
+        
+        .dark-mode .quiz-option {
+            background-color: #1f2a40;
+            border-color: #4cc9f0;
+            color: #4cc9f0;
+        }
+        
+        .quiz-option:hover {
+            background-color: #2575fc;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .dark-mode .quiz-option:hover {
+            background-color: #4cc9f0;
+            color: #1a1a2e;
+        }
+        
+        .quiz-option.correct {
+            background-color: #2ecc71;
+            border-color: #27ae60;
+            color: white;
+        }
+        
+        .quiz-option.incorrect {
+            background-color: #e74c3c;
+            border-color: #c0392b;
+            color: white;
+        }
+        
+        .quiz-controls {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+        
+        button {
+            padding: 10px 20px;
+            background-color: #2575fc;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-size: 1rem;
+            flex: 1;
+        }
+        
+        button:hover {
+            background-color: #1a68e8;
+        }
+        
+        .dark-mode button {
+            background-color: #4cc9f0;
+            color: #1a1a2e;
+        }
+        
+        .dark-mode button:hover {
+            background-color: #3aa8d8;
+        }
+        
+        .score {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #2575fc;
+            transition: color 0.3s;
+        }
+        
+        .dark-mode .score {
+            color: #4cc9f0;
+        }
+        
+        .progress-bar {
+            height: 8px;
+            background-color: #e0e0e0;
+            border-radius: 4px;
+            margin-top: 10px;
+            overflow: hidden;
+            transition: background-color 0.3s;
+        }
+        
+        .dark-mode .progress-bar {
+            background-color: #2d3748;
+        }
+        
+        .progress {
+            height: 100%;
+            background-color: #2575fc;
+            width: 0%;
+            transition: width 0.3s;
+        }
+        
+        .dark-mode .progress {
+            background-color: #4cc9f0;
+        }
+        
+        /* Settings panel */
+        .settings-panel {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+        
+        .settings-btn {
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .settings-btn:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+        
+        .settings-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        
+        .settings-content {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            width: 90%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s;
+        }
+        
+        .dark-mode .settings-content {
+            background-color: #16213e;
+        }
+        
+        .settings-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .settings-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #2575fc;
+        }
+        
+        .dark-mode .settings-title {
+            color: #4cc9f0;
+        }
+        
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: #666;
+            transition: color 0.3s;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+        }
+        
+        .dark-mode .close-btn {
+            color: #e6e6e6;
+        }
+        
+        .close-btn:hover {
+            color: #333;
+        }
+        
+        .dark-mode .close-btn:hover {
+            color: #fff;
+        }
+        
+        .setting-group {
+            margin-bottom: 20px;
+        }
+        
+        .setting-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 30px;
+        }
+        
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 30px;
+        }
+        
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 22px;
+            width: 22px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        
+        input:checked + .toggle-slider {
+            background-color: #2575fc;
+        }
+        
+        input:checked + .toggle-slider:before {
+            transform: translateX(30px);
+        }
+        
+        .dark-mode input:checked + .toggle-slider {
+            background-color: #4cc9f0;
+        }
+        
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .write-mode-container {
+            display: none;
+            margin-top: 15px;
+            text-align: center;
+        }
+        
+        .write-input {
+            padding: 12px;
+            font-size: 1.1rem;
+            width: 100%;
+            max-width: 300px;
+            border: 2px solid #2575fc;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            transition: border-color 0.3s, background-color 0.3s, color 0.3s;
+        }
+        
+        .dark-mode .write-input {
+            background-color: #1f2a40;
+            border-color: #4cc9f0;
+            color: #e6e6e6;
+        }
+        
+        .write-feedback {
+            margin-top: 10px;
+            font-weight: 600;
+            min-height: 24px;
+        }
+        
+        .correct-answer {
+            color: #2ecc71;
+        }
+        
+        .incorrect-answer {
+            color: #e74c3c;
+        }
+        
+        /* Flashcard styles */
+        .flashcard-container {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .flashcard {
+            width: 300px;
+            height: 200px;
+            perspective: 1000px;
+            cursor: pointer;
+        }
+        
+        .flashcard-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+        
+        .flashcard.flipped .flashcard-inner {
+            transform: rotateY(180deg);
+        }
+        
+        .flashcard-front, .flashcard-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .flashcard-front {
+            background-color: #2575fc;
+            color: white;
+        }
+        
+        .flashcard-back {
+            background-color: #4cc9f0;
+            color: #1a1a2e;
+            transform: rotateY(180deg);
+        }
+        
+        .dark-mode .flashcard-front {
+            background-color: #4cc9f0;
+            color: #1a1a2e;
+        }
+        
+        .dark-mode .flashcard-back {
+            background-color: #2575fc;
+            color: white;
+        }
+        
+        .flashcard-question {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .flashcard-answer {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        
+        .flashcard-controls {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .flashcard-btn {
+            padding: 10px 20px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        
+        .flashcard-correct {
+            background-color: #2ecc71;
+            color: white;
+        }
+        
+        .flashcard-incorrect {
+            background-color: #e74c3c;
+            color: white;
+        }
+        
+        .flashcard-back-btn {
+            background-color: #95a5a6;
+            color: white;
+        }
+        
+        .flashcard-progress {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+        
+        /* Animations for flashcards */
+        .flashcard.flip-animation .flashcard-inner {
+            transition: transform 0.6s;
+        }
+        
+        .flashcard.fade-animation .flashcard-inner {
+            transition: transform 0.5s, opacity 0.5s;
+        }
+        
+        .flashcard.fade-animation.flipped .flashcard-front {
+            opacity: 0;
+        }
+        
+        .flashcard.slide-animation .flashcard-inner {
+            transition: transform 0.6s ease-in-out;
+        }
+        
+        .flashcard.zoom-animation .flashcard-inner {
+            transition: transform 0.5s, scale 0.5s;
+        }
+        
+        .flashcard.zoom-animation.flipped .flashcard-inner {
+            transform: rotateY(180deg) scale(1.05);
+        }
+        
+        .flashcard.rotate-animation .flashcard-inner {
+            transition: transform 0.8s;
+        }
+        
+        .flashcard.rotate-animation.flipped .flashcard-inner {
+            transform: rotateY(180deg) rotateZ(5deg);
+        }
+        
+        .flashcard.no-animation .flashcard-inner {
+            transition: none;
+        }
+        
+        /* Checkbox column */
+        .checkbox-cell {
+            width: 40px;
+            text-align: center;
+        }
+        
+        .element-checkbox {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+        
+        .select-all-container {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        @media (max-width: 768px) {
+            .content {
+                flex-direction: column;
+            }
+            
+            .quiz-options {
+                grid-template-columns: 1fr;
+            }
+            
+            .settings-panel {
+                position: static;
+                margin-bottom: 20px;
+                display: flex;
+                justify-content: center;
+            }
+            
+            .flashcard {
+                width: 250px;
+                height: 170px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Elementen Memoreren</h1>
+            <p class="description">Leer de symbolen en namen van de belangrijkste chemische elementen. Oefen met de interactieve quiz!</p>
+            
+            <div class="settings-panel">
+                <div class="settings-btn" id="settings-btn">
+                    <!-- Gear Icon -->
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M19.4 15C19.2669 15.3031 19.1998 15.6344 19.2 16C19.2 16.3656 19.2671 16.6969 19.4 17C19.5331 17.3031 19.6002 17.6344 19.6 18C19.6 18.3656 19.5329 18.6969 19.4 19" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M4.6 15C4.73314 15.3031 4.80021 15.6344 4.8 16C4.8 16.3656 4.73293 16.6969 4.6 17C4.46686 17.3031 4.39979 17.6344 4.4 18C4.4 18.3656 4.46707 18.6969 4.6 19" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M17 19.4C16.6969 19.5331 16.3656 19.6002 16 19.6C15.6344 19.6 15.3031 19.5329 15 19.4C14.6969 19.2669 14.3656 19.1998 14 19.2C13.6344 19.2 13.3031 19.2671 13 19.4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M7 4.6C7.30314 4.46686 7.63443 4.39979 8 4.4C8.36557 4.4 8.69686 4.46707 9 4.6C9.30314 4.73314 9.63443 4.80021 10 4.8C10.3656 4.8 10.6969 4.73293 11 4.6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M17 4.6C16.6969 4.46686 16.3656 4.39979 16 4.4C15.6344 4.4 15.3031 4.46707 15 4.6C14.6969 4.73314 14.3656 4.80021 14 4.8C13.6344 4.8 13.3031 4.73293 13 4.6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M7 19.4C7.30314 19.5331 7.63443 19.6002 8 19.6C8.36557 19.6 8.69686 19.5329 9 19.4C9.30314 19.2669 9.63443 19.1998 10 19.2C10.3656 19.2 10.6969 19.2671 11 19.4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+            </div>
+        </header>
+        
+        <div class="content">
+            <div class="section">
+                <h2>Referentietabel</h2>
+                <div class="select-all-container">
+                    <input type="checkbox" id="select-all-checkbox" class="element-checkbox">
+                    <label for="select-all-checkbox">Selecteer alles</label>
+                </div>
+                <p>Bekijk alle elementen die je moet leren:</p>
+                <div class="table-container">
+                    <table id="elements-table">
+                        <thead>
+                            <tr>
+                                <th class="checkbox-cell">Selecteer</th>
+                                <th>Symbool</th>
+                                <th>Naam</th>
+                                <th>Metaal/Niet-metaal</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Table rows will be populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>Oefenen</h2>
+                <p>Test je kennis met deze interactieve quiz:</p>
+                
+                <div class="quiz-container">
+                    <div class="quiz-header">
+                        <div class="score">Score: <span id="score">0</span></div>
+                        <div>Vraag: <span id="current-question">1</span>/<span id="total-questions">10</span></div>
+                    </div>
+                    
+                    <div class="progress-bar">
+                        <div class="progress" id="progress"></div>
+                    </div>
+                    
+                    <div class="quiz-question" id="question">
+                        Wat is de naam van het element met symbool Al?
+                    </div>
+                    
+                    <div class="quiz-options" id="options">
+                        <!-- Options will be populated by JavaScript -->
+                    </div>
+                    
+                    <div class="write-mode-container" id="write-mode-container">
+                        <input type="text" class="write-input" id="write-input" placeholder="Typ je antwoord hier...">
+                        <div class="write-feedback" id="write-feedback"></div>
+                    </div>
+                    
+                    <div class="flashcard-container" id="flashcard-container">
+                        <div class="flashcard" id="flashcard">
+                            <div class="flashcard-inner">
+                                <div class="flashcard-front">
+                                    <div class="flashcard-question" id="flashcard-question">Vraag</div>
+                                    <p>Klik of druk op spatie om te draaien</p>
+                                </div>
+                                <div class="flashcard-back">
+                                    <div class="flashcard-answer" id="flashcard-answer">Antwoord</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flashcard-controls" id="flashcard-controls">
+                            <button class="flashcard-btn flashcard-back-btn" id="flashcard-back">← Terug</button>
+                            <button class="flashcard-btn flashcard-incorrect" id="flashcard-incorrect">Fout ✗</button>
+                            <button class="flashcard-btn flashcard-correct" id="flashcard-correct">Goed ✓</button>
+                        </div>
+                        <div class="flashcard-progress" id="flashcard-progress">1/10</div>
+                    </div>
+                    
+                    <div class="quiz-controls">
+                        <button id="hint-btn">Hint</button>
+                        <button id="check-btn" style="display: none;">Controleer</button>
+                        <button id="next-btn">Volgende</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div class="settings-modal" id="settings-modal">
+        <div class="settings-content">
+            <div class="settings-header">
+                <h3 class="settings-title">Instellingen</h3>
+                <button class="close-btn" id="close-settings">&times;</button>
+            </div>
+            
+            <div class="setting-group">
+                <label class="setting-label">Donkere modus</label>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="dark-mode-toggle">
+                    <span class="toggle-slider"></span>
+                </label>
+            </div>
+            
+            <div class="setting-group">
+                <label class="setting-label">Quiz modus</label>
+                <div class="radio-group">
+                    <label class="radio-option">
+                        <input type="radio" name="quiz-mode" value="mcq" checked>
+                        <span>Multiple Choice</span>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="quiz-mode" value="write">
+                        <span>Schrijfmodus</span>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="quiz-mode" value="flashcard">
+                        <span>Flashcardmodus</span>
+                    </label>
+                </div>
+            </div>
+            
+            <div class="setting-group">
+                <label class="setting-label">Automatisch doorgaan na antwoord</label>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="auto-next-toggle">
+                    <span class="toggle-slider"></span>
+                </label>
+                <div style="margin-top: 10px;">
+                    <label class="setting-label">Wachttijd (seconden):</label>
+                    <input type="number" id="auto-next-delay" min="1" max="10" value="1" style="width: 60px; padding: 5px; border-radius: 4px; border: 1px solid #ccc;">
+                </div>
+            </div>
+            
+            <div class="setting-group">
+                <label class="setting-label">Alleen geselecteerde elementen gebruiken</label>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="selected-only-toggle">
+                    <span class="toggle-slider"></span>
+                </label>
+            </div>
+            
+            <div class="setting-group">
+                <label class="setting-label">Vraagtype</label>
+                <div class="radio-group">
+                    <label class="radio-option">
+                        <input type="radio" name="question-type" value="all" checked>
+                        <span>Alle typen</span>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="question-type" value="metal">
+                        <span>Alleen metaal/niet-metaal</span>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="question-type" value="symbol">
+                        <span>Alleen symbolen</span>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="question-type" value="name">
+                        <span>Alleen namen</span>
+                    </label>
+                </div>
+            </div>
+            
+            <div class="setting-group">
+                <label class="setting-label">Aantal vragen</label>
+                <select id="question-count">
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="30">30</option>
+                    <option value="40">Alle elementen</option>
+                </select>
+            </div>
+            
+            <div class="setting-group" id="flashcard-settings">
+                <label class="setting-label">Flashcard animatie</label>
+                <select id="flashcard-animation">
+                    <option value="flip">Draaien (standaard)</option>
+                    <option value="fade">Vervagen</option>
+                    <option value="slide">Schuiven</option>
+                    <option value="zoom">Inzoomen</option>
+                    <option value="rotate">Roteren</option>
+                    <option value="no-animation">Geen animatie</option>
+                </select>
+                
+                <div style="margin-top: 10px;">
+                    <label class="setting-label">Selectieknoppen weergeven</label>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="flashcard-buttons-toggle" checked>
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Elementen data
+        const elements = [
+            { symbol: "Al", name: "Aluminium", type: "M" },
+            { symbol: "Ba", name: "Barium", type: "M" },
+            { symbol: "Ca", name: "Calcium", type: "M" },
+            { symbol: "Cr", name: "Chroom", type: "M" },
+            { symbol: "Au", name: "Goud", type: "M" },
+            { symbol: "K", name: "Kalium", type: "M" },
+            { symbol: "Co", name: "Kobalt", type: "M" },
+            { symbol: "Cu", name: "Koper", type: "M" },
+            { symbol: "Hg", name: "Kwik", type: "M" },
+            { symbol: "Pb", name: "Lood", type: "M" },
+            { symbol: "Mg", name: "Magnesium", type: "M" },
+            { symbol: "Mn", name: "Mangaan", type: "M" },
+            { symbol: "Na", name: "Natrium", type: "M" },
+            { symbol: "Ni", name: "Nikkel", type: "M" },
+            { symbol: "Pt", name: "Platina", type: "M" },
+            { symbol: "Ra", name: "Radium", type: "M" },
+            { symbol: "Sn", name: "Tin", type: "M" },
+            { symbol: "Ti", name: "Titaan", type: "M" },
+            { symbol: "U", name: "Uraan", type: "M" },
+            { symbol: "W", name: "Wolfraam", type: "M" },
+            { symbol: "Fe", name: "IJzer", type: "M" },
+            { symbol: "Ag", name: "Zilver", type: "M" },
+            { symbol: "Zn", name: "Zink", type: "M" },
+            { symbol: "Be", name: "Beryllium", type: "M" },
+            { symbol: "Li", name: "Lithium", type: "M" },
+            { symbol: "Cd", name: "Cadmium", type: "M" },
+            { symbol: "Ar", name: "Argon", type: "NM" },
+            { symbol: "Br", name: "Broom", type: "NM" },
+            { symbol: "Cl", name: "Chloor", type: "NM" },
+            { symbol: "F", name: "Fluor", type: "NM" },
+            { symbol: "I", name: "Jood", type: "NM" },
+            { symbol: "P", name: "Fosfor", type: "NM" },
+            { symbol: "He", name: "Helium", type: "NM" },
+            { symbol: "Ne", name: "Neon", type: "NM" },
+            { symbol: "Si", name: "Silicium", type: "NM" },
+            { symbol: "B", name: "Boor", type: "NM" },
+            { symbol: "Xe", name: "Xenon", type: "NM" },
+            { symbol: "N", name: "Stikstof", type: "NM" },
+            { symbol: "H", name: "Waterstof", type: "NM" },
+            { symbol: "O", name: "Zuurstof", type: "NM" },
+            { symbol: "S", name: "Zwavel", type: "NM" },
+            { symbol: "Kr", name: "Krypton", type: "NM" },
+            { symbol: "C", name: "Koolstof", type: "NM" }
+        ];
+
+        // Settings
+        let settings = {
+            darkMode: false,
+            quizMode: 'mcq',
+            autoNext: false,
+            autoNextDelay: 1,
+            selectedOnly: false,
+            questionType: 'all',
+            questionCount: 10,
+            flashcardAnimation: 'flip',
+            flashcardButtons: true
+        };
+
+        // Selected elements
+        let selectedElements = [];
+
+        // Quiz state
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let questions = [];
+        let totalQuestions = 10;
+        let autoNextTimeout = null;
+
+        // Flashcard state
+        let flashcardIndex = 0;
+        let flashcardHistory = [];
+        let incorrectFlashcards = [];
+
+        // DOM elements
+        const tableBody = document.querySelector('#elements-table tbody');
+        const selectAllCheckbox = document.getElementById('select-all-checkbox');
+        const questionElement = document.getElementById('question');
+        const optionsElement = document.getElementById('options');
+        const scoreElement = document.getElementById('score');
+        const currentQuestionElement = document.getElementById('current-question');
+        const totalQuestionsElement = document.getElementById('total-questions');
+        const progressElement = document.getElementById('progress');
+        const nextButton = document.getElementById('next-btn');
+        const hintButton = document.getElementById('hint-btn');
+        const checkButton = document.getElementById('check-btn');
+        const writeModeContainer = document.getElementById('write-mode-container');
+        const writeInput = document.getElementById('write-input');
+        const writeFeedback = document.getElementById('write-feedback');
+        const flashcardContainer = document.getElementById('flashcard-container');
+        const flashcard = document.getElementById('flashcard');
+        const flashcardQuestion = document.getElementById('flashcard-question');
+        const flashcardAnswer = document.getElementById('flashcard-answer');
+        const flashcardControls = document.getElementById('flashcard-controls');
+        const flashcardBackBtn = document.getElementById('flashcard-back');
+        const flashcardCorrectBtn = document.getElementById('flashcard-correct');
+        const flashcardIncorrectBtn = document.getElementById('flashcard-incorrect');
+        const flashcardProgress = document.getElementById('flashcard-progress');
+        
+        // Settings elements
+        const settingsBtn = document.getElementById('settings-btn');
+        const settingsModal = document.getElementById('settings-modal');
+        const closeSettings = document.getElementById('close-settings');
+        const darkModeToggle = document.getElementById('dark-mode-toggle');
+        const quizModeRadios = document.querySelectorAll('input[name="quiz-mode"]');
+        const autoNextToggle = document.getElementById('auto-next-toggle');
+        const autoNextDelayInput = document.getElementById('auto-next-delay');
+        const selectedOnlyToggle = document.getElementById('selected-only-toggle');
+        const questionTypeRadios = document.querySelectorAll('input[name="question-type"]');
+        const questionCountSelect = document.getElementById('question-count');
+        const flashcardAnimationSelect = document.getElementById('flashcard-animation');
+        const flashcardButtonsToggle = document.getElementById('flashcard-buttons-toggle');
+
+        // Initialize the page
+        function initPage() {
+            loadSelectedElements();
+            loadSettings();
+            populateTable();
+            initQuiz();
+            setupEventListeners();
+        }
+
+        // Load selected elements from localStorage
+        function loadSelectedElements() {
+            const savedSelectedElements = localStorage.getItem('selectedElements');
+            if (savedSelectedElements) {
+                selectedElements = JSON.parse(savedSelectedElements);
+            } else {
+                // Initially select all elements
+                selectedElements = elements.map((_, index) => index);
+                saveSelectedElements();
+            }
+        }
+
+        // Save selected elements to localStorage
+        function saveSelectedElements() {
+            localStorage.setItem('selectedElements', JSON.stringify(selectedElements));
+        }
+
+        // Load settings from localStorage
+        function loadSettings() {
+            const savedSettings = localStorage.getItem('elementQuizSettings');
+            if (savedSettings) {
+                settings = JSON.parse(savedSettings);
+                
+                // Apply settings to UI
+                darkModeToggle.checked = settings.darkMode;
+                autoNextToggle.checked = settings.autoNext;
+                autoNextDelayInput.value = settings.autoNextDelay;
+                selectedOnlyToggle.checked = settings.selectedOnly;
+                flashcardAnimationSelect.value = settings.flashcardAnimation;
+                flashcardButtonsToggle.checked = settings.flashcardButtons;
+                
+                for (const radio of quizModeRadios) {
+                    if (radio.value === settings.quizMode) {
+                        radio.checked = true;
+                        break;
+                    }
+                }
+                
+                for (const radio of questionTypeRadios) {
+                    if (radio.value === settings.questionType) {
+                        radio.checked = true;
+                        break;
+                    }
+                }
+                
+                questionCountSelect.value = settings.questionCount;
+                
+                // Apply settings
+                applySettings();
+            }
+        }
+
+        // Save settings to localStorage
+        function saveSettings() {
+            // Update settings object
+            settings.darkMode = darkModeToggle.checked;
+            settings.autoNext = autoNextToggle.checked;
+            settings.autoNextDelay = parseInt(autoNextDelayInput.value);
+            settings.selectedOnly = selectedOnlyToggle.checked;
+            settings.flashcardAnimation = flashcardAnimationSelect.value;
+            settings.flashcardButtons = flashcardButtonsToggle.checked;
+            
+            for (const radio of quizModeRadios) {
+                if (radio.checked) {
+                    settings.quizMode = radio.value;
+                    break;
+                }
+            }
+            
+            for (const radio of questionTypeRadios) {
+                if (radio.checked) {
+                    settings.questionType = radio.value;
+                    break;
+                }
+            }
+            
+            settings.questionCount = parseInt(questionCountSelect.value);
+            
+            // Save to localStorage
+            localStorage.setItem('elementQuizSettings', JSON.stringify(settings));
+            
+            // Apply settings
+            applySettings();
+        }
+
+        // Apply settings to the UI
+        function applySettings() {
+            // Apply dark mode
+            if (settings.darkMode) {
+                document.body.classList.add('dark-mode');
+            } else {
+                document.body.classList.remove('dark-mode');
+            }
+            
+            // Apply quiz mode
+            if (settings.quizMode === 'write') {
+                writeModeContainer.style.display = 'block';
+                optionsElement.style.display = 'none';
+                flashcardContainer.style.display = 'none';
+                checkButton.style.display = 'block';
+                nextButton.style.display = 'block';
+            } else if (settings.quizMode === 'flashcard') {
+                writeModeContainer.style.display = 'none';
+                optionsElement.style.display = 'none';
+                flashcardContainer.style.display = 'flex';
+                checkButton.style.display = 'none';
+                nextButton.style.display = 'block';
+                initFlashcards();
+            } else {
+                writeModeContainer.style.display = 'none';
+                optionsElement.style.display = 'grid';
+                flashcardContainer.style.display = 'none';
+                checkButton.style.display = 'none';
+                nextButton.style.display = 'block';
+            }
+            
+            // Apply flashcard animation
+            flashcard.className = 'flashcard';
+            flashcard.classList.add(`${settings.flashcardAnimation}-animation`);
+            
+            // Apply flashcard buttons visibility
+            if (settings.flashcardButtons) {
+                flashcardControls.style.display = 'flex';
+            } else {
+                flashcardControls.style.display = 'none';
+            }
+            
+            // Restart quiz with new settings
+            initQuiz();
+        }
+
+        // Populate the table with checkboxes
+        function populateTable() {
+            tableBody.innerHTML = '';
+            
+            elements.forEach((element, index) => {
+                const row = document.createElement('tr');
+                
+                const checkboxCell = document.createElement('td');
+                checkboxCell.className = 'checkbox-cell';
+                
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.className = 'element-checkbox';
+                checkbox.checked = selectedElements.includes(index);
+                checkbox.addEventListener('change', () => {
+                    if (checkbox.checked) {
+                        if (!selectedElements.includes(index)) {
+                            selectedElements.push(index);
+                        }
+                    } else {
+                        const elementIndex = selectedElements.indexOf(index);
+                        if (elementIndex !== -1) {
+                            selectedElements.splice(elementIndex, 1);
+                        }
+                    }
+                    saveSelectedElements();
+                    updateSelectAllCheckbox();
+                });
+                
+                checkboxCell.appendChild(checkbox);
+                
+                const symbolCell = document.createElement('td');
+                symbolCell.textContent = element.symbol;
+                
+                const nameCell = document.createElement('td');
+                nameCell.textContent = element.name;
+                
+                const typeCell = document.createElement('td');
+                typeCell.textContent = element.type === 'M' ? 'Metaal' : 'Niet-metaal';
+                typeCell.className = element.type === 'M' ? 'metal' : 'non-metal';
+                
+                row.appendChild(checkboxCell);
+                row.appendChild(symbolCell);
+                row.appendChild(nameCell);
+                row.appendChild(typeCell);
+                
+                tableBody.appendChild(row);
+            });
+            
+            updateSelectAllCheckbox();
+        }
+
+        // Update select all checkbox state
+        function updateSelectAllCheckbox() {
+            const allSelected = selectedElements.length === elements.length;
+            const someSelected = selectedElements.length > 0 && selectedElements.length < elements.length;
+            
+            selectAllCheckbox.checked = allSelected;
+            selectAllCheckbox.indeterminate = someSelected;
+        }
+
+        // Setup event listeners
+        function setupEventListeners() {
+            // Select all checkbox
+            selectAllCheckbox.addEventListener('change', () => {
+                const checkboxes = document.querySelectorAll('.element-checkbox');
+                if (selectAllCheckbox.checked) {
+                    // Select all
+                    selectedElements = elements.map((_, index) => index);
+                    checkboxes.forEach(checkbox => {
+                        checkbox.checked = true;
+                    });
+                } else {
+                    // Deselect all
+                    selectedElements = [];
+                    checkboxes.forEach(checkbox => {
+                        checkbox.checked = false;
+                    });
+                }
+                saveSelectedElements();
+            });
+            
+            // Settings modal
+            settingsBtn.addEventListener('click', openSettingsModal);
+            
+            closeSettings.addEventListener('click', closeSettingsModal);
+            
+            // Save settings automatically when changed
+            darkModeToggle.addEventListener('change', saveSettings);
+            autoNextToggle.addEventListener('change', saveSettings);
+            autoNextDelayInput.addEventListener('change', saveSettings);
+            selectedOnlyToggle.addEventListener('change', saveSettings);
+            flashcardAnimationSelect.addEventListener('change', saveSettings);
+            flashcardButtonsToggle.addEventListener('change', saveSettings);
+            
+            for (const radio of quizModeRadios) {
+                radio.addEventListener('change', saveSettings);
+            }
+            
+            for (const radio of questionTypeRadios) {
+                radio.addEventListener('change', saveSettings);
+            }
+            
+            questionCountSelect.addEventListener('change', saveSettings);
+            
+            // Close modal when clicking outside
+            window.addEventListener('click', (e) => {
+                if (e.target === settingsModal) {
+                    closeSettingsModal();
+                }
+            });
+            
+            // Quiz controls
+            hintButton.addEventListener('click', showHint);
+            checkButton.addEventListener('click', checkWriteAnswer);
+            nextButton.addEventListener('click', nextQuestion);
+            
+            // Enter key for write mode
+            writeInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    checkWriteAnswer();
+                }
+            });
+            
+            // Flashcard controls
+            flashcard.addEventListener('click', flipFlashcard);
+            document.addEventListener('keydown', (e) => {
+                if (e.code === 'Space' && settings.quizMode === 'flashcard') {
+                    e.preventDefault();
+                    flipFlashcard();
+                }
+            });
+            
+            flashcardBackBtn.addEventListener('click', goBackFlashcard);
+            flashcardCorrectBtn.addEventListener('click', () => markFlashcard(true));
+            flashcardIncorrectBtn.addEventListener('click', () => markFlashcard(false));
+        }
+
+        // Open settings modal
+        function openSettingsModal() {
+            settingsModal.style.display = 'flex';
+            document.body.classList.add('modal-open');
+        }
+
+        // Close settings modal
+        function closeSettingsModal() {
+            settingsModal.style.display = 'none';
+            document.body.classList.remove('modal-open');
+            saveSettings();
+        }
+
+        // Initialize quiz
+        function initQuiz() {
+            // Reset state
+            currentQuestionIndex = 0;
+            score = 0;
+            scoreElement.textContent = score;
+            totalQuestions = settings.questionCount === 40 ? elements.length : settings.questionCount;
+            totalQuestionsElement.textContent = totalQuestions;
+            progressElement.style.width = '0%';
+            
+            // Generate questions
+            questions = generateQuestions(totalQuestions);
+            
+            // Display first question
+            displayQuestion();
+        }
+
+        // Initialize flashcards
+        function initFlashcards() {
+            flashcardIndex = 0;
+            flashcardHistory = [];
+            incorrectFlashcards = [];
+            updateFlashcard();
+        }
+
+        // Update flashcard display
+        function updateFlashcard() {
+            if (flashcardIndex >= questions.length) {
+                endFlashcardSession();
+                return;
+            }
+            
+            const currentQuestion = questions[flashcardIndex];
+            flashcardQuestion.textContent = currentQuestion.question;
+            
+            // Set answer based on question type
+            if (currentQuestion.type === 'metal') {
+                flashcardAnswer.textContent = currentQuestion.correctAnswer;
+            } else if (currentQuestion.type === 'symbol') {
+                flashcardAnswer.textContent = currentQuestion.correctAnswer;
+            } else {
+                flashcardAnswer.textContent = currentQuestion.correctAnswer;
+            }
+            
+            // Reset flashcard to front
+            flashcard.classList.remove('flipped');
+            
+            // Update progress
+            flashcardProgress.textContent = `${flashcardIndex + 1}/${questions.length}`;
+            
+            // Update back button state
+            flashcardBackBtn.disabled = flashcardHistory.length === 0;
+        }
+
+        // Flip flashcard
+        function flipFlashcard() {
+            flashcard.classList.toggle('flipped');
+        }
+
+        // Go back to previous flashcard
+        function goBackFlashcard() {
+            if (flashcardHistory.length > 0) {
+                flashcardIndex = flashcardHistory.pop();
+                updateFlashcard();
+            }
+        }
+
+        // Mark flashcard as correct or incorrect
+        function markFlashcard(isCorrect) {
+            // Record answer
+            if (!isCorrect) {
+                incorrectFlashcards.push(flashcardIndex);
+            }
+            
+            // Store current index in history
+            flashcardHistory.push(flashcardIndex);
+            
+            // Move to next flashcard
+            flashcardIndex++;
+            updateFlashcard();
+        }
+
+        // End flashcard session
+        function endFlashcardSession() {
+            flashcardContainer.innerHTML = `
+                <h3>Flashcard sessie voltooid!</h3>
+                <p>Je hebt ${incorrectFlashcards.length} fout beantwoord.</p>
+                ${incorrectFlashcards.length > 0 ? 
+                    '<button id="practice-incorrect">Oefen foute antwoorden</button>' : 
+                    ''}
+                <button id="restart-flashcards">Opnieuw beginnen</button>
+            `;
+            
+            document.getElementById('practice-incorrect')?.addEventListener('click', () => {
+                // Only practice incorrect flashcards
+                questions = incorrectFlashcards.map(index => questions[index]);
+                initFlashcards();
+            });
+            
+            document.getElementById('restart-flashcards').addEventListener('click', initFlashcards);
+        }
+
+        // Generate random questions based on settings
+        function generateQuestions(count) {
+            const generatedQuestions = [];
+            const usedIndices = new Set();
+            
+            // Determine which elements to use
+            const elementsToUse = settings.selectedOnly ? 
+                selectedElements.map(index => elements[index]) : 
+                elements;
+            
+            // If no elements are selected, use all elements
+            if (elementsToUse.length === 0) {
+                elementsToUse = elements;
+            }
+            
+            while (generatedQuestions.length < count && generatedQuestions.length < elementsToUse.length) {
+                const randomIndex = Math.floor(Math.random() * elementsToUse.length);
+                
+                if (!usedIndices.has(randomIndex)) {
+                    usedIndices.add(randomIndex);
+                    
+                    const element = elementsToUse[randomIndex];
+                    let question, correctAnswer, options;
+                    
+                    // Determine question type based on settings
+                    let questionType;
+                    if (settings.questionType === 'all') {
+                        // Randomly select question type
+                        const types = ['metal', 'symbol', 'name'];
+                        questionType = types[Math.floor(Math.random() * types.length)];
+                    } else {
+                        questionType = settings.questionType;
+                    }
+                    
+                    if (questionType === 'metal') {
+                        question = `Is ${element.name} een metaal of niet-metaal?`;
+                        correctAnswer = element.type === 'M' ? 'Metaal' : 'Niet-metaal';
+                        options = ['Metaal', 'Niet-metaal'];
+                    } else if (questionType === 'symbol') {
+                        question = `Wat is het symbool van ${element.name}?`;
+                        correctAnswer = element.symbol;
+                        options = generateOptions(correctAnswer, 'symbol', elementsToUse);
+                    } else {
+                        question = `Wat is de naam van het element met symbool ${element.symbol}?`;
+                        correctAnswer = element.name;
+                        options = generateOptions(correctAnswer, 'name', elementsToUse);
+                    }
+                    
+                    generatedQuestions.push({
+                        question,
+                        correctAnswer,
+                        options,
+                        element,
+                        type: questionType
+                    });
+                }
+            }
+            
+            return generatedQuestions;
+        }
+
+        // Generate answer options
+        function generateOptions(correctAnswer, type, elementsToUse) {
+            const options = [correctAnswer];
+            const usedIndices = new Set();
+            
+            // Add the correct answer index to used indices
+            const correctIndex = elementsToUse.findIndex(el => 
+                type === 'name' ? el.name === correctAnswer : el.symbol === correctAnswer
+            );
+            usedIndices.add(correctIndex);
+            
+            // Add three random wrong answers
+            while (options.length < 4 && options.length <= elementsToUse.length) {
+                const randomIndex = Math.floor(Math.random() * elementsToUse.length);
+                
+                if (!usedIndices.has(randomIndex)) {
+                    usedIndices.add(randomIndex);
+                    const wrongAnswer = type === 'name' 
+                        ? elementsToUse[randomIndex].name 
+                        : elementsToUse[randomIndex].symbol;
+                    options.push(wrongAnswer);
+                }
+            }
+            
+            // Shuffle options
+            return shuffleArray(options);
+        }
+
+        // Shuffle array
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        // Display current question
+        function displayQuestion() {
+            if (currentQuestionIndex >= questions.length) {
+                endQuiz();
+                return;
+            }
+            
+            const currentQuestion = questions[currentQuestionIndex];
+            questionElement.textContent = currentQuestion.question;
+            
+            // Clear previous options and feedback
+            optionsElement.innerHTML = '';
+            writeFeedback.textContent = '';
+            writeInput.value = '';
+            
+            // Create new options for MCQ mode
+            if (settings.quizMode === 'mcq') {
+                currentQuestion.options.forEach(option => {
+                    const button = document.createElement('button');
+                    button.className = 'quiz-option';
+                    button.textContent = option;
+                    button.addEventListener('click', () => selectAnswer(option, currentQuestion.correctAnswer));
+                    optionsElement.appendChild(button);
+                });
+            }
+            
+            // Update progress
+            const progress = ((currentQuestionIndex) / totalQuestions) * 100;
+            progressElement.style.width = `${progress}%`;
+            
+            // Update question counter
+            currentQuestionElement.textContent = currentQuestionIndex + 1;
+            
+            // Enable next button
+            nextButton.disabled = false;
+            checkButton.disabled = false;
+        }
+
+        // Handle answer selection in MCQ mode
+        function selectAnswer(selectedAnswer, correctAnswer) {
+            const options = document.querySelectorAll('.quiz-option');
+            
+            // Disable all options
+            options.forEach(option => {
+                option.disabled = true;
+                
+                // Highlight correct and incorrect answers
+                if (option.textContent === correctAnswer) {
+                    option.classList.add('correct');
+                } else if (option.textContent === selectedAnswer && selectedAnswer !== correctAnswer) {
+                    option.classList.add('incorrect');
+                }
+            });
+            
+            // Update score if correct
+            if (selectedAnswer === correctAnswer) {
+                score++;
+                scoreElement.textContent = score;
+            }
+            
+            // Auto next if enabled
+            if (settings.autoNext) {
+                clearTimeout(autoNextTimeout);
+                autoNextTimeout = setTimeout(() => {
+                    nextQuestion();
+                }, settings.autoNextDelay * 1000);
+            }
+        }
+
+        // Check answer in write mode
+        function checkWriteAnswer() {
+            const currentQuestion = questions[currentQuestionIndex];
+            const userAnswer = writeInput.value.trim();
+            const correctAnswer = currentQuestion.correctAnswer;
+            
+            // Normalize answers for comparison
+            const normalizedUserAnswer = userAnswer.toLowerCase();
+            const normalizedCorrectAnswer = correctAnswer.toLowerCase();
+            
+            if (normalizedUserAnswer === normalizedCorrectAnswer) {
+                writeFeedback.textContent = "Correct!";
+                writeFeedback.className = "write-feedback correct-answer";
+                score++;
+                scoreElement.textContent = score;
+            } else {
+                writeFeedback.textContent = `Fout. Het juiste antwoord is: ${correctAnswer}`;
+                writeFeedback.className = "write-feedback incorrect-answer";
+            }
+            
+            // Disable check button
+            checkButton.disabled = true;
+            
+            // Auto next if enabled
+            if (settings.autoNext) {
+                clearTimeout(autoNextTimeout);
+                autoNextTimeout = setTimeout(() => {
+                    nextQuestion();
+                }, settings.autoNextDelay * 1000);
+            }
+        }
+
+        // Show hint
+        function showHint() {
+            if (currentQuestionIndex < questions.length) {
+                const currentQuestion = questions[currentQuestionIndex];
+                
+                if (currentQuestion.type === 'metal') {
+                    alert(`Hint: Het element heeft symbool ${currentQuestion.element.symbol}`);
+                } else if (currentQuestion.type === 'symbol') {
+                    alert(`Hint: Dit element is een ${currentQuestion.element.type === 'M' ? 'metaal' : 'niet-metaal'}`);
+                } else {
+                    alert(`Hint: Dit element is een ${currentQuestion.element.type === 'M' ? 'metaal' : 'niet-metaal'}`);
+                }
+            }
+        }
+
+        // Move to next question
+        function nextQuestion() {
+            currentQuestionIndex++;
+            displayQuestion();
+        }
+
+        // End quiz
+        function endQuiz() {
+            questionElement.textContent = `Quiz voltooid! Je score is ${score}/${totalQuestions}`;
+            optionsElement.innerHTML = '';
+            writeModeContainer.style.display = 'none';
+            
+            // Show performance message
+            let performanceMessage = '';
+            if (score === totalQuestions) {
+                performanceMessage = 'Uitstekend! Je kent alle elementen perfect!';
+            } else if (score >= totalQuestions * 0.7) {
+                performanceMessage = 'Goed gedaan! Je kent de meeste elementen.';
+            } else if (score >= totalQuestions * 0.5) {
+                performanceMessage = 'Redelijk, maar je kunt nog wat meer oefenen.';
+            } else {
+                performanceMessage = 'Je moet nog veel leren. Blijf oefenen!';
+            }
+            
+            const messageElement = document.createElement('div');
+            messageElement.textContent = performanceMessage;
+            messageElement.style.textAlign = 'center';
+            messageElement.style.marginTop = '15px';
+            messageElement.style.fontWeight = '600';
+            optionsElement.appendChild(messageElement);
+            
+            // Add restart button
+            const restartButton = document.createElement('button');
+            restartButton.textContent = 'Opnieuw beginnen';
+            restartButton.style.marginTop = '15px';
+            restartButton.style.width = '100%';
+            restartButton.addEventListener('click', initQuiz);
+            optionsElement.appendChild(restartButton);
+            
+            // Hide next button
+            nextButton.style.display = 'none';
+            hintButton.style.display = 'none';
+            checkButton.style.display = 'none';
+        }
+
+        // Start the page when loaded
+        window.addEventListener('DOMContentLoaded', initPage);
+    </script>
+</body>
+</html>
