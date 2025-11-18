@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Whisky Guide voor Apple Silicon Mac</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+    <style>
+      :root {
+        --nav-hover-transition-duration: 300ms;
+        --nav-hover-transition-timing: ease-in-out;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        min-height: 100vh;
+        background: linear-gradient(to bottom, #000044, #000033, #000066);
+        color: white;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        overflow-x: hidden;
+        position: relative;
+      }
+
+      .container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 4rem 2rem;
+        position: relative;
+        z-index: 10;
+      }
+
+      /* Header Styles */
+      .header {
+        text-align: center;
+        margin-bottom: 3rem;
+      }
+
+      .header h1 {
+        font-size: 8rem;
+        font-weight: normal;
+        margin-bottom: 1rem;
+        color: white;
+        font-family: 'DM Serif Display', serif;
+      }
+
+      .rating-stars {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        color: white;
+      }
+
+      .header h2 {
+        font-size: 2.5rem;
+        font-weight: 600;
+        margin-bottom: 3rem;
+        color: rgb(224, 242, 254);
+      }
+
+      /* Navigation Grid */
+      .nav-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+        max-width: 1280px;
+        margin: 0 auto;
+        margin-bottom: 10rem;
+      }
+
+      .nav-button {
+        position: relative;
+        overflow: hidden;
+        border-radius: 1rem;
+        background: rgba(255, 255, 255, 0);
+        backdrop-filter: blur(8.6px);
+        -webkit-backdrop-filter: blur(8.6px);
+        transition: all 0.3s ease;
+        text-decoration: none;
+        padding: 1.5rem;
+        min-height: 80px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+      }
+
+      .nav-button:hover {
+        background: rgba(255, 255, 255, 0.22);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+      }
+
+      .nav-button-content {
+        position: relative;
+        z-index: 10;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+        color: rgba(255, 255, 255, 0.9);
+      }
+
+      .nav-button-title {
+        font-size: 1.25rem;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        transition: transform 0.3s ease;
+      }
+
+      .nav-button:hover .nav-button-title {
+        transform: scale(1.05);
+      }
+
+      .external-link-icon {
+        width: 1rem;
+        height: 1rem;
+      }
+
+      .new-badge {
+        background: rgb(239, 68, 68);
+        color: white;
+        padding: 0.25rem 0.75rem;
+        border-radius: 9999px;
+        font-size: 0.875rem;
+        font-weight: 500;
+        animation: bounce 1s infinite;
+      }
+
+      /* Content Section */
+      .content-section {
+        max-width: 1000px;
+        margin: 0 auto 4rem;
+        padding: 2rem;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border-radius: 1rem;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .content-section h3 {
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+        color: white;
+        font-family: 'DM Serif Display', serif;
+      }
+
+      .content-section h4 {
+        font-size: 1.5rem;
+        margin: 2rem 0 1rem;
+        color: rgb(224, 242, 254);
+      }
+
+      .content-section p {
+        margin-bottom: 1rem;
+        line-height: 1.6;
+      }
+
+      .content-section ul, .content-section ol {
+        margin-left: 2rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .content-section li {
+        margin-bottom: 0.5rem;
+        line-height: 1.6;
+      }
+
+      .code-block {
+        background: rgba(0, 0, 0, 0.4);
+        padding: 1.5rem;
+        border-radius: 0.5rem;
+        font-family: 'Courier New', monospace;
+        margin: 1.5rem 0;
+        overflow-x: auto;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .code-block code {
+        display: block;
+        white-space: pre;
+        color: #f8f8f2;
+      }
+
+      .warning {
+        background: rgba(239, 68, 68, 0.2);
+        border-left: 4px solid rgb(239, 68, 68);
+        padding: 1rem;
+        margin: 1.5rem 0;
+        border-radius: 0 0.5rem 0.5rem 0;
+      }
+
+      .tip {
+        background: rgba(34, 197, 94, 0.2);
+        border-left: 4px solid rgb(34, 197, 94);
+        padding: 1rem;
+        margin: 1.5rem 0;
+        border-radius: 0 0.5rem 0.5rem 0;
+      }
+
+      /* Footer */
+      .footer {
+        width: 100%;
+        padding: 1.5rem;
+        backdrop-filter: blur(8px);
+        position: relative;
+        bottom: 0;
+      }
+
+      .footer p {
+        text-align: center;
+        font-size: 0.875rem;
+        color: rgb(224, 242, 254);
+      }
+
+      /* Stars Background */
+      .stars {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+      }
+
+      .star {
+        position: absolute;
+        width: 2px;
+        height: 2px;
+        background: white;
+        border-radius: 50%;
+        animation: twinkle 3s infinite;
+      }
+
+      /* Animations */
+      @keyframes bounce {
+        0%, 100% {
+          transform: translateY(-25%);
+          animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+        }
+        50% {
+          transform: translateY(0);
+          animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+        }
+      }
+
+      @keyframes twinkle {
+        0%, 100% {
+          opacity: 0.2;
+          transform: scale(0.5);
+        }
+        50% {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      /* Responsive Design */
+      @media (max-width: 768px) {
+        .header h1 {
+          font-size: 6rem;
+        }
+
+        .header h2 {
+          font-size: 2rem;
+        }
+
+        .nav-grid {
+          grid-template-columns: 1fr;
+        }
+        
+        .content-section {
+          padding: 1.5rem;
+        }
+        
+        .content-section h3 {
+          font-size: 1.75rem;
+        }
+        
+        .content-section h4 {
+          font-size: 1.25rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="stars" id="stars"></div>
+
+    <main class="container">
+      <header class="header">
+        <h1>Whisky Guide</h1>
+        <div class="rating-stars">★★★★★</div>
+        <h2>Windows .exe op Apple Silicon Mac</h2>
+      </header>
+
+      <nav class="nav-grid">
+        <a href="#stap1" class="nav-button">
+          <div class="nav-button-content">
+            <span class="nav-button-title">
+              Stap 1: Installatie 🍷
+            </span>
+            <span class="new-badge">BELANGRIJK</span>
+          </div>
+        </a>
+
+        <a href="#stap2" class="nav-button">
+          <div class="nav-button-content">
+            <span class="nav-button-title">
+              Stap 2: Configuratie
+            </span>
+          </div>
+        </a>
+
+        <a href="#stap3" class="nav-button">
+          <div class="nav-button-content">
+            <span class="nav-button-title">
+              Stap 3: Bottle Maken
+            </span>
+          </div>
+        </a>
+
+        <a href="#stap4" class="nav-button">
+          <div class="nav-button-content">
+            <span class="nav-button-title">
+              Stap 4: .exe Installeren
+            </span>
+          </div>
+        </a>
+
+        <a href="#stap5" class="nav-button">
+          <div class="nav-button-content">
+            <span class="nav-button-title">
+              Stap 5: Geometry Dash
+            </span>
+          </div>
+        </a>
+
+        <a href="#stap6" class="nav-button">
+          <div class="nav-button-content">
+            <span class="nav-button-title">
+              Stap 6: Uitvoeren
+            </span>
+          </div>
+        </a>
+
+        <a href="#problemen" class="nav-button">
+          <div class="nav-button-content">
+            <span class="nav-button-title">
+              Probleemoplossing
+            </span>
+          </div>
+        </a>
+      </nav>
+
+      <!-- Content Sections -->
+      <section id="stap1" class="content-section">
+        <h3>Stap 1: Whisky Installeren</h3>
+        
+        <h4>Optie A: Via Homebrew (Aanbevolen)</h4>
+        <div class="code-block">
+          <code># Installeer Homebrew als je die nog niet hebt
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+# Voeg deze regel toe aan je ~/.zprofile als Homebrew dat aangeeft
+echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
+# Installeer Whisky
+brew install --cask whisky</code>
+        </div>
+
+        <h4>Optie B: Handmatige Download</h4>
+        <div class="code-block">
+          <code># Download de nieuwste Whisky release
+cd ~/Downloads
+curl -L -o Whisky.zip https://github.com/Whisky-App/Whisky/releases/latest/download/Whisky.zip
+
+# Pak uit en verplaats naar Applications
+unzip Whisky.zip
+mv Whisky.app /Applications/</code>
+        </div>
+        
+        <div class="tip">
+          <strong>Tip:</strong> Homebrew is de aanbevolen methode omdat het updates automatisch beheert.
+        </div>
+      </section>
+
+      <section id="stap2" class="content-section">
+        <h3>Stap 2: Whisky Opstarten en Configureren</h3>
+        
+        <div class="code-block">
+          <code># Open Whisky (na installatie)
+open -a Whisky</code>
+        </div>
+        
+        <p><strong>Eerste setup in Whisky:</strong></p>
+        <ol>
+          <li>Whisky zal vragen om <strong>GPTK (Game Porting Toolkit)</strong> te installeren - dit is ESSENTIEEL</li>
+          <li>Klik "Install" en volg de prompts</li>
+          <li>Dit kan even duren (ongeveer 1-2 GB download)</li>
+        </ol>
+        
+        <div class="warning">
+          <strong>Belangrijk:</strong> Zorg dat je een stabiele internetverbinding hebt voor de GPTK download.
+        </div>
+      </section>
+
+      <section id="stap3" class="content-section">
+        <h3>Stap 3: Een Nieuwe Bottle Maken</h3>
+        
+        <p><strong>In de Whisky GUI:</strong></p>
+        <ol>
+          <li>Klik op <strong>"Create New Bottle"</strong></li>
+          <li>Geef het een naam (bijv. "GeometryDash")</li>
+          <li>Kies als Windows versie: <strong>Windows 10</strong></li>
+          <li>Kies als bottle type: <strong>Gaming</strong> (aanbevolen voor games)</li>
+        </ol>
+        
+        <div class="tip">
+          <strong>Tip:</strong> De "Gaming" bottle is geoptimaliseerd voor betere game prestaties.
+        </div>
+      </section>
+
+      <section id="stap4" class="content-section">
+        <h3>Stap 4: Je .exe Bestand Installeren</h3>
+        
+        <h4>Methode 1: Slepen en Droppen</h4>
+        <ul>
+          <li>Sleep je Geometry Dash .exe bestand direct naar het Whisky venster</li>
+          <li>Whisky start de installer automatisch op</li>
+        </ul>
+
+        <h4>Methode 2: Via het Bottle Menu</h4>
+        <ol>
+          <li>Klik op je zojuist gemaakte bottle</li>
+          <li>Klik op <strong>"Run"</strong> om de bottle te openen</li>
+          <li>In het bottle venster: <strong>File > Install .exe</strong></li>
+          <li>Selecteer je Geometry Dash .exe bestand</li>
+        </ol>
+      </section>
+
+      <section id="stap5" class="content-section">
+        <h3>Stap 5: Geometry Dash Specifieke Instellingen</h3>
+        
+        <p>Voor Geometry Dash kun je deze extra stappen proberen voor betere prestaties:</p>
+        
+        <h4>DXVK Instellen (voor betere graphics):</h4>
+        <div class="code-block">
+          <code># Whisky heeft dit meestal al geconfigureerd, maar je kunt controleren:
+# In Whisky -> Selecteer je bottle -> Settings -> DXVK Backend
+# Zet dit aan als het niet standaard aan staat</code>
+        </div>
+
+        <h4>Audio Instellingen:</h4>
+        <ul>
+          <li>In bottle settings: <strong>Audio > Driver</strong> = <strong>Apple Audio</strong></li>
+        </ul>
+        
+        <h4>Prestatie Tips:</h4>
+        <ul>
+          <li>Zet graphics op "Low" in Geometry Dash zelf</li>
+          <li>Sluit andere apps tijdens het spelen</li>
+          <li>Gebruik een externe muis voor betere respons</li>
+          <li>Toetsenbord controls werken meestal beter dan touchpad</li>
+        </ul>
+      </section>
+
+      <section id="stap6" class="content-section">
+        <h3>Stap 6: Het Spel Uitvoeren</h3>
+        
+        <p>Na installatie:</p>
+        <ol>
+          <li>In het bottle venster zie je Geometry Dash in de programma lijst</li>
+          <li>Dubbelklik op <strong>GeometryDash.exe</strong> om te starten</li>
+          <li>OF gebruik het startmenu shortcut dat gecreëerd is</li>
+        </ol>
+        
+        <div class="tip">
+          <strong>Tip:</strong> Als het spel niet goed werkt, probeer dan een andere Windows versie (Windows 7) in de bottle settings.
+        </div>
+      </section>
+
+      <section id="problemen" class="content-section">
+        <h3>Probleemoplossing</h3>
+        
+        <h4>Handige Terminal Commands</h4>
+        <div class="code-block">
+          <code># Bekijk Whisky logs als er problemen zijn
+tail -f ~/Library/Logs/Whisky/*.log
+
+# Verwijder een bottle (via Finder)
+open ~/Library/Containers/com.isaacmarovitz.Whisky/Bottles
+
+# Reset Wine configuration (als er problemen zijn)
+rm -rf ~/Library/Application\ Support/Whisky/</code>
+        </div>
+
+        <h4>Troubleshooting Commands</h4>
+        <div class="code-block">
+          <code># Controleer of GPTK correct geïnstalleerd is
+ls /Library/Apple/usr/share/libexec/
+
+# Forceer herinstallatie van GPTK
+brew reinstall --cask apple-games-ported-toolkit
+
+# Als Whisky niet start:
+killall Whisky
+open -a Whisky
+
+# Als installatie faalt:
+brew uninstall --cask whisky
+brew install --cask whisky</code>
+        </div>
+
+        <h4>Veelvoorkomende Problemen</h4>
+        <ul>
+          <li><strong>Als het crasht:</strong> Probeer een andere Windows versie (Windows 7 i.p.v. 10)</li>
+          <li><strong>Als audio hapert:</strong> Zet DXVK uit in bottle settings</li>
+          <li><strong>Als prestaties slecht zijn:</strong> Zet graphics kwaliteit lager in het spel</li>
+        </ul>
+        
+        <div class="warning">
+          <strong>Waarschuwing:</strong> Geometry Dash kan via Wine niet perfect werken. Verwacht mogelijke audio-glitches of prestatieproblemen.
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>© 2025 Whisky Guide voor Apple Silicon Mac. Gebruik op eigen risico.</p>
+    </footer>
+
+    <script>
+      // Star field configuration
+      const starConfig = {
+        count: 400,
+        minSize: 0.1,
+        maxSize: 0.4,
+        minDelay: 0,
+        maxDelay: 3,
+        animationDuration: 3
+      };
+
+      // Generate stars
+      function generateStars() {
+        const starsContainer = document.getElementById('stars');
+        starsContainer.innerHTML = '';
+
+        for (let i = 0; i < starConfig.count; i++) {
+          const star = document.createElement('div');
+          star.className = 'star';
+          
+          // Random position
+          star.style.left = `${Math.random() * 150 - 25}%`;
+          star.style.top = `${Math.random() * 150 - 25}%`;
+          
+          // Random size
+          const size = Math.random() * (starConfig.maxSize - starConfig.minSize) + starConfig.minSize;
+          star.style.width = `${size}px`;
+          star.style.height = `${size}px`;
+          
+          // Random animation delay
+          const delay = Math.random() * (starConfig.maxDelay - starConfig.minDelay) + starConfig.minDelay;
+          star.style.animationDelay = `${delay}s`;
+          
+          // Animation duration
+          star.style.animationDuration = `${starConfig.animationDuration}s`;
+          
+          starsContainer.appendChild(star);
+        }
+      }
+
+      // Initialize stars
+      generateStars();
+
+      // Regenerate stars on window resize
+      window.addEventListener('resize', generateStars);
+
+      // Add hover effect for nav buttons
+      document.querySelectorAll('.nav-button').forEach(button => {
+        button.addEventListener('mousemove', (e) => {
+          const rect = button.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          
+          button.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(255,255,255,0.15) 0%, transparent 60%)`;
+        });
+
+        button.addEventListener('mouseleave', () => {
+          button.style.background = '';
+        });
+      });
+
+      // Smooth scrolling for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute('href'));
+          if (target) {
+            target.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start'
+            });
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
