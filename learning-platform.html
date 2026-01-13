@@ -1,28 +1,64 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="nl">
 <head>
   <meta charset="utf-8">
   <title>DUB5 - Learning Platform</title>
   <link rel="icon" href="/favicon.ico">
+  <meta http-equiv="refresh" content="0; URL='https://learning-platform-tau-steel.vercel.app/'" />
   <style>
     html, body {
       margin: 0;
       padding: 0;
       width: 100%;
       height: 100%;
-      overflow: hidden;
-      background: #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #000;
+      font-family: sans-serif;
+      color: #fff;
     }
 
-    iframe {
-      width: 100%;
-      height: 100%;
+    .fallback {
+      text-align: center;
+    }
+
+    .fallback button {
+      margin-top: 20px;
+      padding: 15px 30px;
+      font-size: 18px;
+      cursor: pointer;
       border: none;
-      display: block;
+      border-radius: 5px;
+      background-color: #1e90ff;
+      color: #fff;
+    }
+
+    .fallback button:hover {
+      background-color: #0d6efd;
+    }
+
+    a {
+      color: #1e90ff;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
 <body>
-  <iframe src="https://learning-platform-tau-steel.vercel.app/"></iframe>
+  <script>
+    // Directe redirect via JavaScript (extra snel)
+    window.location.replace("https://learning-platform-tau-steel.vercel.app/");
+  </script>
+
+  <div class="fallback">
+    <p>Als je niet automatisch wordt doorgestuurd, klik dan op de knop hieronder:</p>
+    <button onclick="window.location.href='https://learning-platform-tau-steel.vercel.app/'">
+      Klik hier om naar Learning Platform te gaan
+    </button>
+  </div>
 </body>
 </html>
