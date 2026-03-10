@@ -1,0 +1,1695 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hoofdstuk 4 – Energietransitie | 3 VWO Aardrijkskunde</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-blue: #3b82f6;
+            --light-blue: #60a5fa;
+            --primary-purple: #8b5cf6;
+            --light-purple: #a78bfa;
+            --primary-green: #10b981;
+            --light-green: #34d399;
+            --primary-amber: #f59e0b;
+            --light-amber: #fbbf24;
+            --primary-red: #ef4444;
+            --light-red: #f87171;
+            --primary-pink: #ec4899;
+            --light-pink: #f472b6;
+            --dark-slate: #1e293b;
+            --light-gray: #f1f5f9;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: var(--dark-slate);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+
+        header h1 {
+            color: var(--primary-blue);
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            color: #64748b;
+            font-size: 1.2em;
+        }
+
+        .nav-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+            justify-content: center;
+        }
+
+        .nav-tab {
+            background: var(--white);
+            border: none;
+            padding: 15px 25px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .nav-tab:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+
+        .nav-tab.active {
+            background: var(--primary-blue);
+            color: var(--white);
+        }
+
+        .nav-tab[data-section="p4-1"].active { background: var(--primary-blue); }
+        .nav-tab[data-section="p4-2"].active { background: var(--primary-purple); }
+        .nav-tab[data-section="p4-3"].active { background: var(--primary-green); }
+        .nav-tab[data-section="lv"].active { background: var(--primary-amber); }
+        .nav-tab[data-section="p4-4"].active { background: var(--primary-red); }
+        .nav-tab[data-section="p4-5"].active { background: var(--primary-pink); }
+        .nav-tab[data-section="exam"].active { background: var(--dark-slate); }
+        .nav-tab[data-section="mindmap"].active { background: var(--light-blue); }
+
+        .content-section {
+            display: none;
+            background: var(--white);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            animation: fadeIn 0.5s ease;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-title {
+            font-size: 2em;
+            color: var(--dark-slate);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid var(--primary-blue);
+        }
+
+        .subsection {
+            background: var(--light-gray);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .subsection h3 {
+            color: var(--primary-blue);
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+
+        .question-card {
+            background: var(--white);
+            border-left: 5px solid var(--primary-blue);
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .question-card h4 {
+            color: var(--dark-slate);
+            margin-bottom: 10px;
+        }
+
+        .question-card .points {
+            background: var(--primary-blue);
+            color: var(--white);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        .answer-card {
+            background: #ecfdf5;
+            border-left: 5px solid var(--primary-green);
+            padding: 20px;
+            margin-top: 15px;
+            border-radius: 10px;
+            display: none;
+        }
+
+        .answer-card.visible {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; max-height: 0; }
+            to { opacity: 1; max-height: 1000px; }
+        }
+
+        .toggle-btn {
+            background: var(--primary-blue);
+            color: var(--white);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.95em;
+            margin-top: 10px;
+            transition: background 0.3s ease;
+        }
+
+        .toggle-btn:hover {
+            background: #2563eb;
+        }
+
+        .key-concepts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .concept-card {
+            background: var(--white);
+            padding: 15px;
+            border-radius: 10px;
+            border: 2px solid var(--light-blue);
+        }
+
+        .concept-card strong {
+            color: var(--primary-blue);
+        }
+
+        .prediction-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .prediction-table th, .prediction-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .prediction-table th {
+            background: var(--dark-slate);
+            color: var(--white);
+        }
+
+        .certainty-very-certain { background: #dcfce7; color: #166534; }
+        .certainty-certain { background: #fef3c7; color: #92400e; }
+        .certainty-unlikely { background: #fee2e2; color: #991b1b; }
+
+        .tips-list {
+            list-style: none;
+            margin-top: 20px;
+        }
+
+        .tips-list li {
+            background: var(--white);
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            border-left: 5px solid var(--primary-amber);
+        }
+
+        .tips-list li strong {
+            color: var(--primary-amber);
+        }
+
+        .exam-section {
+            background: #fefce8;
+            border: 2px solid var(--primary-amber);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .exam-section h3 {
+            color: var(--primary-amber);
+            margin-bottom: 15px;
+        }
+
+        .mindmap-container {
+            background: var(--dark-slate);
+            color: var(--white);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        .mindmap-json {
+            background: #0f172a;
+            color: #10b981;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            overflow-x: auto;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+
+        .copy-btn {
+            background: var(--primary-green);
+            color: var(--white);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 10px;
+            font-size: 1em;
+        }
+
+        .copy-btn:hover {
+            background: #059669;
+        }
+
+        .learning-objectives {
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-purple));
+            color: var(--white);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .learning-objectives ul {
+            list-style: none;
+            margin-top: 10px;
+        }
+
+        .learning-objectives li {
+            padding: 5px 0;
+        }
+
+        .learning-objectives li:before {
+            content: "✓ ";
+            font-weight: bold;
+        }
+
+        .summary-box {
+            background: linear-gradient(135deg, #fef3c7, #fde68a);
+            border: 2px solid var(--primary-amber);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .summary-box h4 {
+            color: #92400e;
+            margin-bottom: 10px;
+        }
+
+        .format-explanation {
+            background: #f0f9ff;
+            border: 2px solid var(--primary-blue);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .format-explanation h3 {
+            color: var(--primary-blue);
+            margin-bottom: 15px;
+        }
+
+        .format-explanation code {
+            background: #1e293b;
+            color: #10b981;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: var(--white);
+            margin-top: 30px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background: #e2e8f0;
+            border-radius: 5px;
+            margin-top: 20px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-blue), var(--primary-green));
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .timer-display {
+            font-size: 2em;
+            font-weight: bold;
+            color: var(--primary-red);
+            text-align: center;
+            padding: 20px;
+            background: #fef2f2;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .nav-tabs {
+                flex-direction: column;
+            }
+            
+            .nav-tab {
+                width: 100%;
+            }
+            
+            header h1 {
+                font-size: 1.8em;
+            }
+            
+            .section-title {
+                font-size: 1.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🌍 Hoofdstuk 4 – Energietransitie</h1>
+            <p>3 VWO Aardrijkskunde | Complete Proefwerkvoorbereiding</p>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+        </header>
+
+        <nav class="nav-tabs">
+            <button class="nav-tab active" data-section="p4-1">📚 P4.1 – Aarde warmt op</button>
+            <button class="nav-tab" data-section="p4-2">⚡ P4.2 – Energiebronnen</button>
+            <button class="nav-tab" data-section="p4-3">🌱 P4.3 – Klimaat Aanpak</button>
+            <button class="nav-tab" data-section="lv">🌎 Landenvergelijking</button>
+            <button class="nav-tab" data-section="p4-4">🇪🇺 P4.4 – Europa</button>
+            <button class="nav-tab" data-section="p4-5">🇳🇱 P4.5 – Nederland</button>
+            <button class="nav-tab" data-section="exam">📝 Oefentoets</button>
+            <button class="nav-tab" data-section="mindmap">🗺️ Mindmap</button>
+        </nav>
+
+        <!-- FORMAT EXPLANATION -->
+        <div class="content-section active" id="p4-1">
+            <h2 class="section-title">📚 Paragraaf 4.1 – De aarde warmt op!</h2>
+            
+            <div class="format-explanation">
+                <h3>📦 Content Format Explanation for Web App Import</h3>
+                <p><strong>Structure Overview:</strong> Each content block follows this exact format:</p>
+                <pre style="background: #1e293b; color: #10b981; padding: 15px; border-radius: 8px; overflow-x: auto; margin: 10px 0;">
+&lt;!-- START: [CONTENT_TYPE]_[PARAGRAPH]_[OPTIONAL_DESCRIPTION] --&gt;
+[CONTENT IN PARSEABLE FORMAT]
+&lt;!-- END: [CONTENT_TYPE]_[PARAGRAPH]_[OPTIONAL_DESCRIPTION] --&gt;</pre>
+                
+                <p><strong>Content Types:</strong></p>
+                <ul style="margin: 10px 0 10px 20px;">
+                    <li><code>EXPLANATION</code> – Uitleg van de leerstof per paragraaf</li>
+                    <li><code>PRACTICE_QUESTIONS</code> – Oefenvragen per paragraaf</li>
+                    <li><code>ANSWERS</code> – Uitgebreide antwoordmodellen</li>
+                    <li><code>SUMMARY</code> – Samenvatting per paragraaf</li>
+                    <li><code>KEY_CONCEPTS</code> – Kernconcepten en begrippen</li>
+                    <li><code>TEST_PREDICTIONS</code> – Inschatting wat op de toets komt</li>
+                    <li><code>LEARNING_TIPS</code> – Specifieke leertips</li>
+                    <li><code>PRACTICE_EXAM</code> – Complete oefentoets (60 min)</li>
+                    <li><code>EXAM_ANSWERS</code> – Antwoordmodel oefentoets</li>
+                </ul>
+
+                <p><strong>Paragraph Codes:</strong> <code>P4.1</code>, <code>P4.2</code>, <code>P4.3</code>, <code>P4.4</code>, <code>P4.5</code>, <code>LV</code>, <code>ALL</code></p>
+            </div>
+
+            <div class="learning-objectives">
+                <h3>🎯 Leerdoelen</h3>
+                <ul>
+                    <li>Je kent minstens drie feiten die aantonen dat de aarde opwarmt en je weet dat al genomen klimaatmaatregelen zin hebben.</li>
+                    <li>Je begrijpt waarom de aarde opwarmt en welke gevolgen dat heeft voor het leven op aarde.</li>
+                    <li>Je kunt een aantal gebieden aanwijzen waar de klimaatverandering zichtbaar is.</li>
+                </ul>
+            </div>
+
+            <div class="subsection">
+                <h3>📖 Uitleg</h3>
+                <div class="question-card">
+                    <h4>Feiten over opwarming</h4>
+                    <ul style="margin: 10px 0 10px 20px;">
+                        <li>Aarde warmt op → gletsjers/landijs smelten → zeespiegel stijgt</li>
+                        <li>Broeikasgassen (CO₂ én lachgas) veroorzaken opwarming</li>
+                        <li>Kantelpunten: veranderingen zonder terugweg</li>
+                        <li>Opwarming zet door, zelfs bij stoppen uitstoot vandaag</li>
+                        <li>Gevolgen nu al merkbaar: lage Rijnstand (2022), hitterecords sinds 2000</li>
+                        <li>Klimaatmaatregelen helpen: opwarming vertraagt t.o.v. voorspellingen 2014</li>
+                    </ul>
+                </div>
+
+                <div class="question-card">
+                    <h4>Oorzaken opwarming</h4>
+                    <p>Versterkt broeikaseffect: +1,1°C wereldwijd, +2,1°C in Nederland (t.o.v. 140 jaar geleden). Zomer 2024: warmste zomer ooit gemeten. 97% van extra warmte door CO₂ wordt opgenomen door oceanen.</p>
+                    <p><strong>Ongelijke verantwoordelijkheid:</strong></p>
+                    <ul style="margin: 10px 0 10px 20px;">
+                        <li>100 bedrijven → 71% van CO₂-uitstoot</li>
+                        <li>Rijkste 1% = armste 50% in CO₂-uitstoot</li>
+                        <li>Rijkste 20% → >⅔ van alle CO₂-uitstoot</li>
+                    </ul>
+                </div>
+
+                <div class="question-card">
+                    <h4>Gevolgen opwarming</h4>
+                    <ul style="margin: 10px 0 10px 20px;">
+                        <li>Zeespiegelstijging (smeltend ijs + uitzettend warm water)</li>
+                        <li>Permafrost ontdooit → methaan vrij → extra broeikasgas</li>
+                        <li>Extremer weer: hittegolven, droogte, piekafvoeren, overstromingen, orkanen, bosbranden</li>
+                        <li>Landbouwopbrengst daalt in drogere gebieden</li>
+                        <li>Toename klimaatmigranten (vooral kustgebieden ontwikkelingslanden)</li>
+                        <li>Toename klimaatstress (zorgen over klimaatgevolgen)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>❓ Oefenvragen</h3>
+                
+                <div class="question-card">
+                    <h4>Vraag 1</h4>
+                    <span class="points">3 punten | Reproductie</span>
+                    <p>Noem drie feiten die aantonen dat de aarde opwarmt en leg uit waarom al genomen klimaatmaatregelen zin lijken te hebben.</p>
+                    <button class="toggle-btn" onclick="toggleAnswer('p4-1-q1-answer')">Toon Antwoord</button>
+                    <div class="answer-card" id="p4-1-q1-answer">
+                        <p><strong>Antwoord:</strong> Drie feiten die aantonen dat de aarde opwarmt: (1) gletsjers en landijs smelten waardoor de zeespiegel stijgt, (2) broeikasgassen zoals CO₂ en lachgas warmen de aarde op (wetenschappelijke consensus), (3) de gevolgen zijn nu al merkbaar, zoals de lage Rijnstand in 2022 en het breken van hitterecords sinds 2000.</p>
+                        <p>Klimaatmaatregelen lijken nut te hebben omdat de aarde niet zo snel opwarmt als in 2014 werd voorspeld, wat suggereert dat genomen maatregelen effect sorteren.</p>
+                        <p><strong>Score:</strong> 3 punten = drie correcte feiten + uitleg maatregelen | 2 punten = twee feiten + basis uitleg | 1 punt = één feit of onvolledig</p>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <h4>Vraag 2</h4>
+                    <span class="points">4 punten | Toepassing</span>
+                    <p>Leg uit waarom de aarde opwarmt en beschrijf twee gevolgen voor het leven op aarde.</p>
+                    <p><strong>Subvragen:</strong> a) Wat is het versterkte broeikaseffect en welke gassen spelen hierin een rol? b) Noem twee concrete gevolgen van de opwarming en leg het verband uit.</p>
+                    <button class="toggle-btn" onclick="toggleAnswer('p4-1-q2-answer')">Toon Antwoord</button>
+                    <div class="answer-card" id="p4-1-q2-answer">
+                        <p><strong>Antwoord:</strong> a) Het versterkte broeikaseffect ontstaat door toename van broeikasgassen (vooral CO₂ van fossiele brandstoffen, maar ook lachgas) in de atmosfeer. Deze gassen houden meer warmte vast, waardoor de gemiddelde temperatuur stijgt: wereldwijd +1,1°C, in Nederland +2,1°C t.o.v. 140 jaar geleden.</p>
+                        <p>b) Twee gevolgen: (1) Zeespiegelstijging door smeltend landijs en uitzettend zeewater, wat kustgebieden bedreigt met overstromingen. (2) Extremere weersomstandigheden zoals hittegolven en zware buien, wat leidt tot schade aan landbouw, biodiversiteit en volksgezondheid.</p>
+                        <p><strong>Score:</strong> 4 punten = complete uitleg oorzaak + twee gevolgen met verband | 3 punten = oorzaak + twee gevolgen zonder duidelijk verband | 2 punten = oorzaak OF twee gevolgen</p>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <h4>Vraag 3</h4>
+                    <span class="points">6 punten | Inzicht</span>
+                    <p>Bekijk de situatie van klimaatmigranten in dichtbevolkte kustgebieden in ontwikkelingslanden. Leg uit waarom deze groep onevenredig wordt getroffen door klimaatverandering, terwijl ze het minst heeft bijgedragen aan de CO₂-uitstoot.</p>
+                    <p><strong>Subvragen:</strong> a) Welke gevolgen van klimaatverandering dwingen mensen tot migratie? b) Hoe verhoudt de CO₂-uitstoot van rijke versus arme bevolkingsgroepen zich tot de gevolgen die zij ervaren? c) Waarom is dit een voorbeeld van klimaatstress?</p>
+                    <button class="toggle-btn" onclick="toggleAnswer('p4-1-q3-answer')">Toon Antwoord</button>
+                    <div class="answer-card" id="p4-1-q3-answer">
+                        <p><strong>Antwoord:</strong> a) Klimaatmigranten worden gedwongen te verhuizen door gevolgen zoals zeespiegelstijging (overstromingen kustgebieden), droogte (mislukte oogsten), en extremere weersomstandigheden (orkanen).</p>
+                        <p>b) De rijkste 20% van de wereldbevolking is verantwoordelijk voor ruim twee derde van alle CO₂-uitstoot, terwijl de armste helft evenveel uitstoot als de rijkste 1%. Toch treffen de gevolgen vooral arme, dichtbevolkte kustgebieden in ontwikkelingslanden.</p>
+                        <p>c) Klimaatstress verwijst naar de zorgen over klimaatgevolgen. In deze gebieden is de stress extra hoog omdat mensen niet alleen te maken hebben met directe gevolgen, maar ook met weinig middelen om zich aan te passen.</p>
+                        <p><strong>Score:</strong> 6 punten = complete uitleg a+b+c met voorbeelden | 4-5 punten = goede uitleg maar mist nuance | 2-3 punten = basisantwoord zonder diepgang</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="summary-box">
+                <h4>📋 Samenvatting P4.1</h4>
+                <p><strong>Kernboodschap:</strong> De aarde warmt op door het versterkte broeikaseffect, veroorzaakt door menselijke uitstoot van broeikasgassen. De gevolgen zijn nu al wereldwijd merkbaar en treffen onevenredig de armste bevolkingsgroepen.</p>
+                <ul style="margin: 10px 0 10px 20px;">
+                    <li>Opwarming: +1,1°C wereldwijd, +2,1°C in Nederland</li>
+                    <li>Broeikasgassen: CO₂ (fossiele brandstoffen) én lachgas</li>
+                    <li>Kantelpunten: veranderingen zonder terugweg</li>
+                    <li>Gevolgen: zeespiegelstijging, permafrost ontdooit, extreem weer, klimaatmigranten</li>
+                    <li>Ongelijkheid: 100 bedrijven → 71% uitstoot; rijkste 1% = armste 50%</li>
+                </ul>
+                <p><strong>Must Know:</strong> versterkt broeikaseffect, kantelpunten, permafrost, klimaatmigranten, klimaatstress</p>
+            </div>
+        </div>
+
+        <!-- P4.2 -->
+        <div class="content-section" id="p4-2">
+            <h2 class="section-title">⚡ Paragraaf 4.2 – Op weg naar duurzame energiebronnen</h2>
+            
+            <div class="learning-objectives">
+                <h3>🎯 Leerdoelen</h3>
+                <ul>
+                    <li>Je kent de belangrijkste traditionele energiebronnen en je weet dat het energieverbruik per inwoner en de CO2-voetafdruk jarenlang explosief toenamen.</li>
+                    <li>Je begrijpt waarom traditionele energiebronnen niet duurzaam zijn en een energietransitie nodig is.</li>
+                    <li>Je kunt aan de hand van een dwarsdoorsnede beoordelen of gas- en oliewinning er met conventionele technieken mogelijk zijn.</li>
+                </ul>
+            </div>
+
+            <div class="subsection">
+                <h3>📖 Uitleg</h3>
+                <div class="question-card">
+                    <h4>Traditionele energiebronnen</h4>
+                    <p><strong>Fossiele brandstoffen:</strong> bruinkool, steenkool, olie, gas → ontstaan uit resten planten/dieren</p>
+                    <p><strong>Nadelen:</strong> (1) eindig/uitputbaar, (2) veroorzaken broeikasgasuitstoot, (3) energieverlies bij opwekking/transport</p>
+                    <p><strong>Conventioneel vs Niet-conventioneel:</strong></p>
+                    <ul style="margin: 10px 0 10px 20px;">
+                        <li>Conventioneel: gewonnen met traditionele technieken uit reservoirgesteente</li>
+                        <li>Niet-conventioneel: complexe technieken uit moedergesteente</li>
+                        <li>Schaliegas: in sedimentgesteente uit klei; gewonnen via fracken</li>
+                        <li>Teerzand: zand/klei met olie in vaste vorm; 2 ton teerzand per vat olie</li>
+                    </ul>
+                    <p><strong>Fracken:</strong> Onder hoge druk water, zand en chemicaliën in gesteente → scheurtjes → gas vrij</p>
+                    <p><strong>Kernenergie:</strong> Krachtig (1 kg uranium = 5000 huishoudens/jaar), maar radioactiviteit</p>
+                </div>
+
+                <div class="question-card">
+                    <h4>Van traditioneel naar duurzaam</h4>
+                    <ul style="margin: 10px 0 10px 20px;">
+                        <li>Sinds industriële revolutie: explosieve groei energiegebruik per inwoner</li>
+                        <li>VN: energietransitie nodig → overstap op energiebronnen die (1) niet opraken, (2) geen CO₂ uitstoten</li>
+                        <li>Parijs 2015: 196 landen → opwarming beperken tot ruim onder 2°C</li>
+                        <li>Dubai 2023: doel 2050 geen fossiele brandstoffen meer</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>❓ Oefenvragen</h3>
+                
+                <div class="question-card">
+                    <h4>Vraag 1</h4>
+                    <span class="points">4 punten | Reproductie</span>
+                    <p>Noem de vier belangrijkste traditionele energiebronnen en leg uit waarom ze niet duurzaam zijn.</p>
+                    <p><strong>Subvragen:</strong> a) Wat is het verschil tussen conventionele en niet-conventionele olie/gas? b) Leg uit wat fracken is en waarom dit bij schaliegas nodig is.</p>
+                    <button class="toggle-btn" onclick="toggleAnswer('p4-2-q1-answer')">Toon Antwoord</button>
+                    <div class="answer-card" id="p4-2-q1-answer">
+                        <p><strong>Antwoord:</strong> De vier belangrijkste traditionele energiebronnen zijn bruinkool, steenkool, olie en gas. Ze zijn niet duurzaam omdat: (1) ze eindig/uitputbaar zijn, en (2) ze bij verbranding broeikasgassen (CO₂) uitstoten.</p>
+                        <p>a) Conventionele olie/gas zit in reservoirgesteente en kan met traditionele technieken gewonnen worden. Niet-conventionele olie/gas zit in moedergesteente en vereist complexe, dure technieken.</p>
+                        <p>b) Fracken is een techniek waarbij onder hoge druk een mengsel van water, zand en chemicaliën in het gesteente wordt geperst. Hierdoor ontstaan scheurtjes waardoor gas vrijkomt. Dit is nodig omdat schaliegas niet in een reservoir zit, maar verspreid in het moedergesteente.</p>
+                        <p><strong>Score:</strong> 4 punten = 4 bronnen + 2 redenen + correcte uitleg a+b | 3 punten = 3 bronnen + 1 reden + basis uitleg</p>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <h4>Vraag 2</h4>
+                    <span class="points">5 punten | Toepassing</span>
+                    <p>Bekijk een dwarsdoorsnede van de aardkorst met een laag schaliegasteen. Beoordeel of gaswinning met conventionele technieken mogelijk is en motiveer je antwoord.</p>
+                    <p><strong>Subvragen:</strong> a) Waar zit schaliegas opgeslagen? b) Welke techniek is nodig en waarom? c) Noem één nadeel van deze techniek voor het milieu.</p>
+                    <button class="toggle-btn" onclick="toggleAnswer('p4-2-q2-answer')">Toon Antwoord</button>
+                    <div class="answer-card" id="p4-2-q2-answer">
+                        <p><strong>Antwoord:</strong> Gaswinning met conventionele technieken is NIET mogelijk bij schaliegas.</p>
+                        <p>a) Schaliegas zit opgeslagen in moedergesteente (sedimentgesteente uit klei), niet in een reservoirgesteente.</p>
+                        <p>b) Daarom is fracken nodig: onder hoge druk wordt water+zand+chemicaliën in het gesteente geperst om scheurtjes te maken.</p>
+                        <p>c) Een nadeel: de chemicaliën kunnen het grondwater vervuilen, of het proces kan kleine aardbevingen veroorzaken.</p>
+                        <p><strong>Score:</strong> 5 punten = correcte beoordeling + uitleg a+b+c | 4 punten = correcte beoordeling + a+b, c onvolledig</p>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <h4>Vraag 3</h4>
+                    <span class="points">6 punten | Inzicht</span>
+                    <p>Leg uit waarom een energietransitie nodig is en waarom de afspraken van Dubai (2023) strenger waren dan die van Parijs (2015).</p>
+                    <p><strong>Subvragen:</strong> a) Wat zijn de twee belangrijkste eisen aan duurzame energiebronnen volgens de VN? b) Waarom bleken de Parijs-afspraken in de praktijk niet haalbaar? c) Wat is het concrete doel van de Dubai-afspraken voor 2050?</p>
+                    <button class="toggle-btn" onclick="toggleAnswer('p4-2-q3-answer')">Toon Antwoord</button>
+                    <div class="answer-card" id="p4-2-q3-answer">
+                        <p><strong>Antwoord:</strong> Energietransitie is nodig omdat fossiele brandstoffen eindig zijn én broeikasgassen uitstoten.</p>
+                        <p>a) VN-eisen: (1) niet opraken, (2) geen CO₂ uitstoten.</p>
+                        <p>b) Parijs-afspraken bleken niet haalbaar omdat veel landen zich niet aan hun beloftes hielden, waardoor uitstoot bleef stijgen.</p>
+                        <p>c) Dubai-doel: in 2050 wereldwijd helemaal geen fossiele brandstoffen meer gebruiken.</p>
+                        <p><strong>Score:</strong> 6 punten = complete uitleg + a+b+c | 4-5 punten = goede uitleg maar mist nuance</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="summary-box">
+                <h4>📋 Samenvatting P4.2</h4>
+                <p><strong>Kernboodschap:</strong> Fossiele brandstoffen zijn eindig en vervuilend, dus een energietransitie naar duurzame bronnen is noodzakelijk.</p>
+                <ul style="margin: 10px 0 10px 20px;">
+                    <li>Fossiel: bruinkool, steenkool, olie, gas → eindig + CO₂</li>
+                    <li>Conventioneel = reservoirgesteente; niet-conventioneel = moedergesteente</li>
+                    <li>Fracken: techniek voor schaliegas</li>
+                    <li>Parijs 2015: &lt;2°C opwarming; Dubai 2023: 2050 geen fossiel meer</li>
+                    <li>VN-eisen duurzaam: niet opraken + geen CO₂-uitstoot</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- P4.3 -->
+        <div class="content-section" id="p4-3">
+            <h2 class="section-title">🌱 Paragraaf 4.3 – Het tegengaan van klimaatverandering</h2>
+            
+            <div class="learning-objectives">
+                <h3>🎯 Leerdoelen</h3>
+                <ul>
+                    <li>Je kent de belangrijkste duurzame energiebronnen en je weet dat die ook nadelen hebben.</li>
+                    <li>Je begrijpt waarom een energietransitie nodig is en op welke andere manieren je de uitstoot van broeikasgassen kunt beperken.</li>
+                    <li>Je kunt in een discussie uitleggen waarom er nieuwe klimaatafspraken nodig waren en waarom voor arme landen andere klimaatafspraken gelden.</li>
+                </ul>
+            </div>
+
+            <div class="subsection">
+                <h3>📖 Uitleg</h3>
+                <div class="question-card">
+                    <h4>Duurzame energiebronnen</h4>
+                    <p><strong>Vijf belangrijkste:</strong> zonne-energie, windenergie, waterkracht, biomassa, aardwarmte/geothermische energie</p>
+                    <p><strong>Nadelen:</strong> (1) nemen veel ruimte in, (2) niet altijd even krachtig/betrouwbaar, (3) intermitterend (zon niet 's nachts, wind niet altijd)</p>
+                    <p><strong>Oplossing:</strong> onderzoek naar energieopslag</p>
+                </div>
+
+                <div class="question-card">
+                    <h4>5 Manieren om uitstoot te verkleinen</h4>
+                    <ol style="margin: 10px 0 10px 20px;">
+                        <li><strong>Energietransitie:</strong> overstap op duurzame energie</li>
+                        <li><strong>Energiebesparing:</strong> minder verbruiken (bijv. vegetarische burger i.p.v. rundvlees bespaart 7m² natuur)</li>
+                        <li><strong>Afvang en opslag:</strong> bedrijven verplicht investeren in lagere uitstoot</li>
+                        <li><strong>Geo-engineering:</strong> technische ingrepen (bijv. wolken maken om zonlicht te reflecteren)</li>
+                        <li><strong>Afremmen bevolkingsgroei:</strong> minder mensen = minder uitstoot</li>
+                    </ol>
+                </div>
+
+                <div class="question-card">
+                    <h4>Klimaatakkoorden en rechtvaardigheid</h4>
+                    <ul style="margin: 10px 0 10px 20px;">
+                        <li>Parijs 2015: doel evenwicht uitstoot/opname → bleek niet haalbaar</li>
+                        <li>Dubai 2023: nieuwe maatregelen nodig</li>
+                        <li>Rechtvaardigheid: rijke landen hebben historisch meest uitgestoten + hebben geld</li>
+                        <li>Klimaatfonds: vergoedt schade in landen met lage uitstoot</li>
+                        <li>2050: schepen geen CO₂ meer; luchtvaart nog niet in akkoord</li>
+                        <li>Investeren in transitie is goedkoper dan schade aanpakken</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>❓ Oefenvragen</h3>
+                
+                <div class="question-card">
+                    <h4>Vraag 1</h4>
+                    <span class="points">4 punten | Reproductie</span>
+                    <p>Noem de vijf belangrijkste duurzame energiebronnen en leg uit waarom ze ondanks hun voordelen ook nadelen hebben.</p>
+                    <p><strong>Subvragen:</strong> a) Waarom is opslag van duurzame energie een belangrijk onderzoeksgebied? b) Geef een concreet voorbeeld van energiebesparing en de besparing die dit oplevert.</p>
+                    <button class="toggle-btn" onclick="toggleAnswer('p4-3-q1-answer')">Toon Antwoord</button>
+                    <div class="answer-card" id="p4-3-q1-answer">
+                        <p><strong>Antwoord:</strong> Vijf duurzame bronnen: zonne-energie, windenergie, waterkracht, biomassa, aardwarmte.</p>
+                        <p>Nadelen: veel ruimte, niet altijd betrouwbaar, intermitterend.</p>
+                        <p>a) Opslag is belangrijk omdat duurzame energie niet continu beschikbaar is; overtollige energie moet bewaard worden voor momenten van tekort.</p>
+                        <p>b) Voorbeeld: vegetarische burger i.p.v. rundvlees bespaart 7 m² natuur, water voor 10min douchen, CO₂ voor 29km autorit.</p>
+                        <p><strong>Score:</strong> 4 punten = 5 bronnen + 2+ nadelen + a+b correct</p>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <h4>Vraag 2</h4>
+                    <span class="points">5 punten | Toepassing</span>
+                    <p>Leg uit waarom een energietransitie nodig is en noem twee andere manieren om broeikasgasuitstoot te beperken.</p>
+                    <p><strong>Subvragen:</strong> a) Wat is geo-engineering en waarom zijn er tegenstanders van? b) Waarom is China cruciaal in het verlagen van de wereldwijde uitstoot?</p>
+                    <button class="toggle-btn" onclick="toggleAnswer('p4-3-q2-answer')">Toon Antwoord</button>
+                    <div class="answer-card" id="p4-3-q2-answer">
+                        <p><strong>Antwoord:</strong> Energietransitie is nodig omdat fossiele brandstoffen eindig zijn en broeikasgassen uitstoten.</p>
+                        <p>Twee andere manieren: energiebesparing en afvang/opslag van broeikasgassen.</p>
+                        <p>a) Geo-engineering: technische ingrepen in klimaatsysteem (bijv. zeewater vernevelen voor wolken). Tegenstanders vrezen onbekende gevolgen.</p>
+                        <p>b) China is cruciaal omdat het land goed is voor ruim een kwart (25%+) van alle wereldwijde CO₂-uitstoot.</p>
+                        <p><strong>Score:</strong> 5 punten = uitleg transitie + 2 methoden + a+b correct</p>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <h4>Vraag 3</h4>
+                    <span class="points">6 punten | Inzicht</span>
+                    <p>In een discussie stelt iemand: 'Arme landen moeten dezelfde strenge eisen krijgen als rijke landen.' Reageer hierop met argumenten uit de leerstof.</p>
+                    <p><strong>Subvragen:</strong> a) Waarom hebben rijke landen een grotere historische verantwoordelijkheid? b) Wat is het doel van het klimaatfonds? c) Leg uit waarom stopzetten van CO₂-uitstoot op lange termijn goedkoper is.</p>
+                    <button class="toggle-btn" onclick="toggleAnswer('p4-3-q3-answer')">Toon Antwoord</button>
+                    <div class="answer-card" id="p4-3-q3-answer">
+                        <p><strong>Antwoord:</strong> De stelling is niet rechtvaardig.</p>
+                        <p>a) Rijke landen hebben historisch meest uitgestoten: rijkste 20% = ruim ⅔ van alle uitstoot. Ze hebben ook financiële middelen om over te schakelen.</p>
+                        <p>b) Klimaatfonds vergoedt schade in landen die nauwelijks uitstoten maar wel gevolgen dragen (bijv. eilanden Stille Oceaan).</p>
+                        <p>c) Investeren in transitie kost geld, maar is goedkoper dan schade aanpakken (overstromingen, oogstfalen, gezondheidsproblemen).</p>
+                        <p><strong>Score:</strong> 6 punten = complete argumentatie a+b+c | 4-5 punten = goede argumentatie maar mist nuance</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="summary-box">
+                <h4>📋 Samenvatting P4.3</h4>
+                <p><strong>Kernboodschap:</strong> Klimaatverandering tegengaan vereist energietransitie, energiebesparing, technologische oplossingen en internationale rechtvaardigheid.</p>
+                <ul style="margin: 10px 0 10px 20px;">
+                    <li>Duurzame bronnen: zon, wind, waterkracht, biomassa, aardwarmte</li>
+                    <li>5 manieren uitstoot verkleinen: transitie, besparing, afvang/opslag, geo-engineering, bevolkingsgroei</li>
+                    <li>Parijs 2015 bleek niet haalbaar → Dubai 2023: strengere afspraken</li>
+                    <li>Klimaatfonds vergoedt schade in landen met lage uitstoot</li>
+                    <li>Investeren in transitie is goedkoper dan schade aanpakken</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Landenvergelijking -->
+        <div class="content-section" id="lv">
+            <h2 class="section-title">🌎 Landenvergelijking – Bolivia & Marokko</h2>
+            
+            <div class="subsection">
+                <h3>📖 Uitleg</h3>
+                <div class="question-card">
+                    <h4>Bolivia – Lithium</h4>
+                    <ul style="margin: 10px 0 10px 20px;">
+                        <li>2023: fabriek op zoutvlakte Uyuni voor lithiumcarbonaat-productie</li>
+                        <li>Lithium zit in elektrische batterijen en consumentenelektronica</li>
+                        <li>China produceert veruit de meeste batterijen (geïntegreerde keten: winning → verwerking → productie)</li>
+                        <li>VS en EU vinden China's positie onwenselijk (strategische afhankelijkheid)</li>
+                    </ul>
+                </div>
+
+                <div class="question-card">
+                    <h4>Marokko – Zonne-energie</h4>
+                    <ul style="margin: 10px 0 10px 20px;">
+                        <li>Zonne-energiecentrale bij Ouarzazate (Noor 1)</li>
+                        <li>Spiegels concentreren zonlicht → water verdampen → stoom → turbine → elektriciteit</li>
+                        <li>Innovatie: hitte smelt zout → gesmolten zout slaat warmte op</li>
+                        <li>Voordeel: centrale kan 's nachts elektriciteit leveren via opgeslagen warmte</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>❓ Oefenvragen</h3>
+                
+                <div class="question-card">
+                    <h4>Vraag 1</h4>
+                    <span class="points">4 punten | Toepassing</span>
+                    <p>China heeft niet het grootste aandeel in lithiumwinning, maar produceert wel de meeste batterijen. Leg uit hoe China dit lukt en waarom de VS en EU deze positie niet wenselijk vinden.</p>
+                    <button class="toggle-btn" onclick="toggleAnswer('lv-q1-answer')">Toon Antwoord</button>
+                    <div class="answer-card" id="lv-q1-answer">
+                        <p><strong>Antwoord:</strong> China beheerst een geïntegreerde keten: van lithiumwinning via verwerking tot productie van batterijen en eindproducten. Door schaalvoordelen, technologie en staatssteun kan China goedkoop produceren.</p>
+                        <p>VS en EU vinden dit onwenselijk vanwege strategische afhankelijkheid: als China export beperkt, kunnen zij hun groene transitie niet realiseren.</p>
+                        <p><strong>Score:</strong> 4 punten = complete uitleg keten + reden VS/EU-zorg</p>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <h4>Vraag 2</h4>
+                    <span class="points">3 punten | Toepassing</span>
+                    <p>Leg uit hoe de energiecentrale van Ouarzazate ook 's nachts elektriciteit kan leveren.</p>
+                    <button class="toggle-btn" onclick="toggleAnswer('lv-q2-answer')">Toon Antwoord</button>
+                    <div class="answer-card" id="lv-q2-answer">
+                        <p><strong>Antwoord:</strong> De centrale gebruikt gesmolten zout als warmteopslag. Overdag wordt zonlicht geconcentreerd om water te verdampen én zout te smelten. 'S Nachts wordt de opgeslagen warmte in het gesmolten zout gebruikt om stoom te produceren voor elektriciteit.</p>
+                        <p><strong>Score:</strong> 3 punten = correcte uitleg zout-opslag + dag/nacht-proces</p>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <h4>Vraag 3</h4>
+                    <span class="points">3 punten | Inzicht</span>
+                    <p>Leg uit hoe er in Uyuni een grote zoutvlakte heeft kunnen ontstaan op een plek waar eerst grote meren lagen.</p>
+                    <button class="toggle-btn" onclick="toggleAnswer('lv-q3-answer')">Toon Antwoord</button>
+                    <div class="answer-card" id="lv-q3-answer">
+                        <p><strong>Antwoord:</strong> De zoutvlakte is ontstaan doordat grote meren verdampten door klimaatverandering/tektoniek. Toen het water verdampte, bleef het opgeloste zout achter. Omdat er geen afvoer naar zee was, hoopte het zout zich op tot een dikke laag.</p>
+                        <p><strong>Score:</strong> 3 punten = complete uitleg verdamping + zoutophoping + tijdschaal</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="summary-box">
+                <h4>📋 Samenvatting Landenvergelijking</h4>
+                <ul style="margin: 10px 0 10px 20px;">
+                    <li>Bolivia: lithiumwinning Uyuni → batterijen voor elektrische transitie</li>
+                    <li>China domineert batterijproductie via geïntegreerde keten</li>
+                    <li>Marokko: Ouarzazate gebruikt gesmolten zout voor warmteopslag</li>
+                    <li>Zoutvlakte Uyuni: ontstaan door verdamping van oude meren</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- P4.4 -->
+        <div class="content-section" id="p4-4">
+            <h2 class="section-title">🇪🇺 Paragraaf 4.4 – Klimaatverandering in Europa</h2>
+            
+            <div class="learning-objectives">
+                <h3>🎯 Leerdoelen</h3>
+                <ul>
+                    <li>Je kent de regionale gevolgen van de opwarming van de aarde voor Europa en de belangrijkste EU-afspraken over de energietransitie.</li>
+                    <li>Je kunt op een kaart aangeven welke gevolgen van de opwarming van Europa waar optreden en welke gebieden het meest kwetsbaar zijn.</li>
+                    <li>Je begrijpt de maatregelen van de EU om de energietransitie mogelijk te maken en het nut van klimaatadaptatie.</li>
+                </ul>
+            </div>
+
+            <div class="subsection">
+                <h3>📖 Uitleg</h3>
+                <div class="question-card">
+                    <h4>Bedreigingen voor Europa</h4>
+                    <ul style="margin: 10px 0 10px 20px;">
+                        <li>Europa warmt sneller op: +2,1°C vs wereldwijd +1,1°C</li>
+                        <li>Gevolgen: gletsjers smelten, minder sneeuw, meer doden door hitte</li>
+                        <li>Nieuwe insecten bedreigen landbouw/vee</li>
+                        <li>Risico op nieuwe besmettelijke ziekten</li>
+                        <li>Minder toegang tot vruchtbare grond en water → politieke spanningen</li>
+                    </ul>
+                </div>
+
+                <div class="question-card">
+                    <h4>Regionale verschillen</h4>
+                    <ul style="margin: 10px 0 10px 20px;">
+                        <li><strong>Zuid-/Centraal-Europa:</strong> meer hittegolven, droogte, bosbranden</li>
+                        <li><strong>Noord-/Noordoost-Europa:</strong> zwaardere regenbuien, erosie, overstromingen</li>
+                        <li><strong>Berggebieden:</strong> klimaatzones schuiven omhoog → ski-mogelijkheden afnemen</li>
+                        <li><strong>Meest kwetsbaar:</strong> Middellandse Zeegebied, berggebieden, rivier-/kustvlaktes, poolgebied</li>
+                    </ul>
+                </div>
+
+                <div class="question-card">
+                    <h4>European Green Deal</h4>
+                    <ul style="margin: 10px 0 10px 20px;">
+                        <li>Investeren in duurzame energie</li>
+                        <li>Energie besparen</li>
+                        <li>Duurzaam transport</li>
+                        <li>Verbeteren elektriciteitsnet: energierotondes (Noorwegen, Spanje, Noord-Afrika, Noordzee)</li>
+                        <li>Kennis delen en financiële bijstand</li>
+                        <li>Doel: klimaatneutraal in 2050</li>
+                        <li>Klimaatadaptatie: steden inrichten met rivieren/vijvers/parken voor waterberging én koeling</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>❓ Oefenvragen</h3>
+                
+                <div class="question-card">
+                    <h4>Vraag 1</h4>
+                    <span class="points">4 punten | Reproductie</span>
+                    <p>Noem drie regionale gevolgen van de opwarming voor Europa en geef aan in welke gebieden deze optreden.</p>
+                    <p><strong>Subvragen:</strong> a) Waarom warmt Europa sneller op dan het wereldgemiddelde? b) Noem de vier meest kwetsbare gebieden in Europa.</p>
+                    <button class="toggle-btn" onclick="toggleAnswer('p4-4-q1-answer')">Toon Antwoord</button>
+                    <div class="answer-card" id="p4-4-q1-answer">
+                        <p><strong>Antwoord:</strong> Drie gevolgen: (1) Meer hittegolven, droogte, bosbranden in Zuid-/Centraal-Europa. (2) Zwaardere regenbuien, overstromingen in Noord-/Noordoost-Europa. (3) Berggebieden: klimaatzones schuiven omhoog, ski-mogelijkheden afnemen.</p>
+                        <p>a) Europa warmt sneller op door regionale klimaatsensitiviteit en feedbackmechanismen (minder sneeuwbedekking).</p>
+                        <p>b) Vier kwetsbare gebieden: Middellandse Zeegebied, berggebieden, dichtbevolkte rivier-/kustvlaktes, poolgebied.</p>
+                        <p><strong>Score:</strong> 4 punten = 3 gevolgen + regio's + a+b correct</p>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <h4>Vraag 2</h4>
+                    <span class="points">4 punten | Toepassing</span>
+                    <p>Leg uit waarom Zuid-Europa vooral te maken heeft met droogte en bosbranden, terwijl Noord-Europa meer last heeft van zware regen en overstromingen.</p>
+                    <button class="toggle-btn" onclick="toggleAnswer('p4-4-q2-answer')">Toon Antwoord</button>
+                    <div class="answer-card" id="p4-4-q2-answer">
+                        <p><strong>Antwoord:</strong> Zuid-Europa wordt droger door meer hogedrukgebieden en verdamping, wat brandgevaar verhoogt. Noord-Europa krijgt te maken met meer vochtige lucht vanuit de Atlantische Oceaan en zware regenbuien; verzadigde grond kan water minder goed opnemen, wat leidt tot overstromingen.</p>
+                        <p><strong>Score:</strong> 4 punten = duidelijke uitleg mechanisme Noord/Zuid + voorbeelden</p>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <h4>Vraag 3</h4>
+                    <span class="points">6 punten | Inzicht</span>
+                    <p>Leg uit hoe de European Green Deal de energietransitie mogelijk moet maken en waarom klimaatadaptatie daarnaast ook nodig is.</p>
+                    <p><strong>Subvragen:</strong> a) Wat is het doel van energierotondes? b) Geef een voorbeeld van klimaatadaptatie in een stad.</p>
+                    <button class="toggle-btn" onclick="toggleAnswer('p4-4-q3-answer')">Toon Antwoord</button>
+                    <div class="answer-card" id="p4-4-q3-answer">
+                        <p><strong>Antwoord:</strong> Green Deal maakt transitie mogelijk door investeringen in duurzame energie, besparing, transport, en elektriciteitsnet.</p>
+                        <p>a) Energierotondes verdelen hernieuwbare energie van productielocaties naar gebieden met vraag.</p>
+                        <p>b) Klimaatadaptatie is nodig omdat al opgetreden opwarming nog decennia doorwerkt. Voorbeeld: stad richt rivieren/vijvers/parken in voor waterberging én koeling tijdens hittegolven.</p>
+                        <p><strong>Score:</strong> 6 punten = complete uitleg Green Deal + a+b met concreet voorbeeld</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="summary-box">
+                <h4>📋 Samenvatting P4.4</h4>
+                <ul style="margin: 10px 0 10px 20px;">
+                    <li>Europa: +2,1°C opwarming vs wereldwijd +1,1°C</li>
+                    <li>Zuid-Europa: droogte, hittegolven, bosbranden</li>
+                    <li>Noord-Europa: zware regen, overstromingen</li>
+                    <li>European Green Deal: duurzame energie, energienet, klimaatneutraal 2050</li>
+                    <li>Klimaatadaptatie: steden inrichten voor waterberging én koeling</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- P4.5 -->
+        <div class="content-section" id="p4-5">
+            <h2 class="section-title">🇳🇱 Paragraaf 4.5 – Naar minder CO2-uitstoot in Nederland</h2>
+            
+            <div class="learning-objectives">
+                <h3>🎯 Leerdoelen</h3>
+                <ul>
+                    <li>Je kent het bestaan van de Klimaatwet en je weet waarom Nederland Europees gezien lang een grote CO2-uitstoot/inw heeft gekend.</li>
+                    <li>Je begrijpt waarom door de energietransitie en klimaatadaptatie ruimtelijke conflicten kunnen ontstaan en waarom mede-eigenaarschap van omwonenden bij de keuze van de locatie van duurzame energiebronnen van belang is.</li>
+                    <li>Je kunt op een kaart met gebiedskenmerken aangeven welke soorten duurzame energielocaties in bepaalde gebieden meer of minder geschikt zijn.</li>
+                </ul>
+            </div>
+
+            <div class="subsection">
+                <h3>📖 Uitleg</h3>
+                <div class="question-card">
+                    <h4>Nederland en Parijs</h4>
+                    <ul style="margin: 10px 0 10px 20px;">
+                        <li>Nederland had lange tijd hoge CO₂-uitstoot per inwoner</li>
+                        <li>Oorzaken: glastuinbouw, intensieve veehouderij, chemische industrie, kolencentrales</li>
+                        <li>Klimaatwet: wetgeving die waarborgt dat de weg naar CO₂-arm Nederland wordt vervolgd</li>
+                        <li>2023: 34% minder CO₂-uitstoot t.o.v. 1990</li>
+                    </ul>
+                </div>
+
+                <div class="question-card">
+                    <h4>4 Functionaliteiten</h4>
+                    <ol style="margin: 10px 0 10px 20px;">
+                        <li><strong>Kracht en licht (elektriciteit):</strong> smart grids, zonnepanelen leveren terug, hoogste aantal zonnepanelen per inwoner</li>
+                        <li><strong>Hoge temperatuurwarmte (industrie):</strong> CO₂-arm produceren, afvang en opslag in oude aardgasvelden</li>
+                        <li><strong>Lage temperatuurwarmte (gebouwen):</strong> energiebesparing, warmtepompen, minder aardgas</li>
+                        <li><strong>Vervoer:</strong> elektrisch/waterstof, hoogste aantal laadpalen per inwoner, stadsbussen op elektriciteit/waterstof</li>
+                    </ol>
+                </div>
+
+                <div class="question-card">
+                    <h4>Ruimtelijke conflicten en mede-eigenaarschap</h4>
+                    <ul style="margin: 10px 0 10px 20px;">
+                        <li>Duurzame energie kost meer ruimte dan fossiel</li>
+                        <li>Nederland heeft ruimtegebrek → conflict met landbouw, woningen, natuur</li>
+                        <li>Mede-eigenaarschap: betrek omwonenden bij locatiekeuze → vermindert NIMBY, verhoogt draagvlak</li>
+                        <li>Waterstof: géén energiebron maar energiedrager (eerst maken, daarna gebruiken)</li>
+                        <li>Voordeel Nederland: bestaande gasinfrastructuur kan worden omgebouwd voor waterstof</li>
+                        <li>Kernenergie: overwogen voor betrouwbaarheid en onafhankelijkheid</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>❓ Oefenvragen</h3>
+                
+                <div class="question-card">
+                    <h4>Vraag 1</h4>
+                    <span class="points">5 punten | Reproductie</span>
+                    <p>Noem de vier functionaliteiten van energieverbruik in Nederland en geef per functionaliteit één maatregel om CO₂-uitstoot te verminderen.</p>
+                    <p><strong>Subvragen:</strong> a) Waarom heeft Nederland historisch een hoge CO₂-uitstoot per inwoner gehad? b) Wat is het doel van de Klimaatwet?</p>
+                    <button class="toggle-btn" onclick="toggleAnswer('p4-5-q1-answer')">Toon Antwoord</button>
+                    <div class="answer-card" id="p4-5-q1-answer">
+                        <p><strong>Antwoord:</strong> Vier functionaliteiten: (1) Kracht en licht: smart grids. (2) Hoge temperatuurwarmte: CO₂-opslag in gasvelden. (3) Lage temperatuurwarmte: warmtepompen. (4) Vervoer: elektrisch/waterstof.</p>
+                        <p>a) Hoge uitstoot door glastuinbouw, intensieve veehouderij, chemische industrie, kolencentrales.</p>
+                        <p>b) Klimaatwet waarborgt dat de weg naar CO₂-arm Nederland wordt vervolgd (invulling Parijs-akkoord).</p>
+                        <p><strong>Score:</strong> 5 punten = 4 functionaliteiten + maatregelen + a+b correct</p>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <h4>Vraag 2</h4>
+                    <span class="points">5 punten | Toepassing</span>
+                    <p>Op een kaart moet worden bepaald waar een nieuw zonnepark het meest geschikt is. Leg uit welke factoren meespelen en waarom mede-eigenaarschap belangrijk is.</p>
+                    <p><strong>Subvragen:</strong> a) Noem twee redenen waarom duurzame energie meer ruimte kost dan fossiele energie. b) Wat is het risico als omwonenden niet worden betrokken?</p>
+                    <button class="toggle-btn" onclick="toggleAnswer('p4-5-q2-answer')">Toon Antwoord</button>
+                    <div class="answer-card" id="p4-5-q2-answer">
+                        <p><strong>Antwoord:</strong> Factoren: geschiktheid grond, nabijheid stroomnet, ruimtelijke inpassing, concurrentie met andere functies.</p>
+                        <p>a) Duurzame energie kost meer ruimte omdat: (1) lagere energiedichtheid, (2) intermitterend → extra capaciteit/opslag nodig.</p>
+                        <p>b) Zonder betrokkenheid ontstaat weerstand (NIMBY), wat leidt tot vertraging en conflict. Mede-eigenaarschap verhoogt draagvlak.</p>
+                        <p><strong>Score:</strong> 5 punten = factoren + a+b met voorbeelden en inzicht in draagvlak</p>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <h4>Vraag 3</h4>
+                    <span class="points">6 punten | Inzicht</span>
+                    <p>Leg uit waarom waterstof wordt gezien als een belangrijke energiedrager voor de toekomst in Nederland, ondanks dat het maken van waterstof energie kost.</p>
+                    <p><strong>Subvragen:</strong> a) Wat is het verschil tussen een energiebron en een energiedrager? b) Welk voordeel heeft Nederland bij de overstap op waterstof? c) Waarom wordt overwogen om nieuwe kerncentrales te bouwen?</p>
+                    <button class="toggle-btn" onclick="toggleAnswer('p4-5-q3-answer')">Toon Antwoord</button>
+                    <div class="answer-card" id="p4-5-q3-answer">
+                        <p><strong>Antwoord:</strong> Waterstof is belangrijk omdat het overtollige duurzame energie kan opslaan en later inzetten, wat het intermittentie-probleem oplost.</p>
+                        <p>a) Energiebron (zon, wind) levert direct energie; energiedrager (waterstof) slaat energie op voor later gebruik.</p>
+                        <p>b) Nederland heeft voordeel omdat bestaande gasinfrastructuur kan worden omgebouwd voor waterstoftransport.</p>
+                        <p>c) Kernenergie wordt overwogen omdat het CO₂-arm is en zorgt voor energieonafhankelijkheid en betrouwbare basislast.</p>
+                        <p><strong>Score:</strong> 6 punten = complete uitleg + a+b+c</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="summary-box">
+                <h4>📋 Samenvatting P4.5</h4>
+                <ul style="margin: 10px 0 10px 20px;">
+                    <li>Klimaatwet: wettelijke borging Parijs-akkoord</li>
+                    <li>4 functionaliteiten: elektriciteit, industrie, gebouwen, vervoer</li>
+                    <li>2023: 34% minder CO₂ t.o.v. 1990</li>
+                    <li>Ruimtelijk conflict: duurzame energie kost meer ruimte</li>
+                    <li>Mede-eigenaarschap vermindert NIMBY</li>
+                    <li>Waterstof: energiedrager; bestaande gasinfra kan worden omgebouwd</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Oefentoets -->
+        <div class="content-section" id="exam">
+            <h2 class="section-title">📝 Oefentoets – 60 minuten</h2>
+            
+            <div class="exam-section">
+                <h3>⏱️ Timer</h3>
+                <div class="timer-display" id="timerDisplay">60:00</div>
+                <button class="toggle-btn" onclick="startTimer()" id="startTimerBtn">Start Timer</button>
+                <button class="toggle-btn" onclick="resetTimer()" style="background: var(--primary-red);">Reset</button>
+            </div>
+
+            <div class="exam-section">
+                <h3>Deel A: Kennisvragen (10 punten)</h3>
+                
+                <div class="question-card">
+                    <h4>Vraag 1</h4>
+                    <span class="points">3 punten</span>
+                    <p>Noem drie broeikasgassen die bijdragen aan de opwarming van de aarde.</p>
+                    <button class="toggle-btn" onclick="toggleAnswer('exam-q1-answer')">Toon Antwoord</button>
+                    <div class="answer-card" id="exam-q1-answer">
+                        <p><strong>Antwoord:</strong> CO₂ (koolstofdioxide), lachgas (N₂O), en methaan (CH₄).</p>
+                        <p><strong>Score:</strong> 1 punt per correct genoemd broeikasgas (max 3)</p>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <h4>Vraag 2</h4>
+                    <span class="points">2 punten</span>
+                    <p>Wat is het verschil tussen conventionele en niet-conventionele olie?</p>
+                    <button class="toggle-btn" onclick="toggleAnswer('exam-q2-answer')">Toon Antwoord</button>
+                    <div class="answer-card" id="exam-q2-answer">
+                        <p><strong>Antwoord:</strong> Conventionele olie zit in reservoirgesteente en kan met traditionele technieken worden gewonnen. Niet-conventionele olie zit in moedergesteente en vereist complexe technieken zoals fracken.</p>
+                        <p><strong>Score:</strong> 2 punten: beide delen correct; 1 punt: één deel correct</p>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <h4>Vraag 3</h4>
+                    <span class="points">4 punten</span>
+                    <p>Noem de vier functionaliteiten van energieverbruik in Nederland.</p>
+                    <button class="toggle-btn" onclick="toggleAnswer('exam-q3-answer')">Toon Antwoord</button>
+                    <div class="answer-card" id="exam-q3-answer">
+                        <p><strong>Antwoord:</strong> (1) Kracht en licht (elektriciteit), (2) Hoge temperatuurwarmte (industrie), (3) Lage temperatuurwarmte (gebouwen), (4) Vervoer.</p>
+                        <p><strong>Score:</strong> 1 punt per correcte functionaliteit (max 4)</p>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <h4>Vraag 4</h4>
+                    <span class="points">1 punt</span>
+                    <p>Wat is het doel van het klimaatakkoord van Parijs (2015)?</p>
+                    <button class="toggle-btn" onclick="toggleAnswer('exam-q4-answer')">Toon Antwoord</button>
+                    <div class="answer-card" id="exam-q4-answer">
+                        <p><strong>Antwoord:</strong> De mondiale opwarming van de aarde beperken tot ruim onder de 2 °C ten opzichte van het pre-industriële niveau.</p>
+                        <p><strong>Score:</strong> 1 punt voor correct doel</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="exam-section">
+                <h3>Deel B: Toepassingsvragen (25 punten)</h3>
+                
+                <div class="question-card">
+                    <h4>Vraag 5</h4>
+                    <span class="points">4 punten</span>
+                    <p>Bekijk de dwarsdoorsnede (beschrijving: laag schaliegasteen op 3000m diepte, omgeven door klei). Is gaswinning met conventionele technieken mogelijk? Leg uit waarom wel of niet.</p>
+                    <p><strong>Subvragen:</strong> a) Waar zit schaliegas opgeslagen? b) Welke techniek is nodig en waarom?</p>
+                    <button class="toggle-btn" onclick="toggleAnswer('exam-q5-answer')">Toon Antwoord</button>
+                    <div class="answer-card" id="exam-q5-answer">
+                        <p><strong>Antwoord:</strong> Gaswinning met conventionele technieken is NIET mogelijk. a) Schaliegas zit opgeslagen in moedergesteente, niet in reservoirgesteente. b) Fracken is nodig: onder hoge druk water+zand+chemicaliën in gesteente → scheurtjes → gas vrij.</p>
+                        <p><strong>Score:</strong> 4 punten: beoordeling + a+b volledig; 3 punten: beoordeling + a OF b</p>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <h4>Vraag 6</h4>
+                    <span class="points">5 punten</span>
+                    <p>Op een kaart van Europa zijn twee gebieden gemarkeerd: A (Zuid-Spanje) en B (Noord-Duitsland). Leg uit welk gebied meer last heeft van bosbranden en welk gebied meer van overstromingen, en waarom.</p>
+                    <button class="toggle-btn" onclick="toggleAnswer('exam-q6-answer')">Toon Antwoord</button>
+                    <div class="answer-card" id="exam-q6-answer">
+                        <p><strong>Antwoord:</strong> Gebied A (Zuid-Spanje) heeft meer last van bosbranden, gebied B (Noord-Duitsland) meer van overstromingen. Zuid-Europa wordt droger door meer hogedrukgebieden. Noord-Europa krijgt te maken met meer vochtige lucht en zware regenbuien; verzadigde grond kan water minder goed opnemen.</p>
+                        <p><strong>Score:</strong> 5 punten: correcte toewijzing + uitleg mechanisme</p>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <h4>Vraag 7</h4>
+                    <span class="points">4 punten</span>
+                    <p>Nederland wil in 2050 bijna alle elektriciteit duurzaam opwekken. Noem twee duurzame energiebronnen en leg per bron één nadeel uit.</p>
+                    <button class="toggle-btn" onclick="toggleAnswer('exam-q7-answer')">Toon Antwoord</button>
+                    <div class="answer-card" id="exam-q7-answer">
+                        <p><strong>Antwoord:</strong> (1) Zonne-energie: nadeel is intermittentie (geen productie 's nachts) en ruimtebeslag. (2) Windenergie: nadeel is onbetrouwbaarheid (wind waait niet altijd) en mogelijke overlast.</p>
+                        <p><strong>Score:</strong> 4 punten: twee bronnen + correct nadeel per bron</p>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <h4>Vraag 8</h4>
+                    <span class="points">4 punten</span>
+                    <p>Een gemeente wil een nieuw windpark bouwen. Omwonenden protesteren. Leg uit waarom mede-eigenaarschap van omwonenden kan helpen dit conflict op te lossen.</p>
+                    <button class="toggle-btn" onclick="toggleAnswer('exam-q8-answer')">Toon Antwoord</button>
+                    <div class="answer-card" id="exam-q8-answer">
+                        <p><strong>Antwoord:</strong> Mede-eigenaarschap betekent dat omwonenden worden betrokken bij de keuze en eventueel financieel profiteren. Dit verhoogt draagvlak omdat mensen zich gehoord en beloond voelen, wat weerstand (NIMBY) vermindert.</p>
+                        <p><strong>Score:</strong> 4 punten: complete uitleg met NIMBY/draagvlak</p>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <h4>Vraag 9</h4>
+                    <span class="points">4 punten</span>
+                    <p>Leg uit waarom de energiecentrale van Ouarzazate (Marokko) een oplossing biedt voor het probleem dat zonne-energie niet altijd beschikbaar is.</p>
+                    <button class="toggle-btn" onclick="toggleAnswer('exam-q9-answer')">Toon Antwoord</button>
+                    <div class="answer-card" id="exam-q9-answer">
+                        <p><strong>Antwoord:</strong> De centrale gebruikt gesmolten zout als warmteopslag. Overdag wordt zonlicht geconcentreerd om water te verdampen én zout te smelten. 'S Nachts wordt de opgeslagen warmte gebruikt om stoom te produceren en elektriciteit op te wekken.</p>
+                        <p><strong>Score:</strong> 4 punten: complete uitleg proces + intermittentie</p>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <h4>Vraag 10</h4>
+                    <span class="points">4 punten</span>
+                    <p>China produceert de meeste lithiumbatterijen, maar wint niet het meeste lithium. Leg uit hoe China dit lukt en noem één risico voor de EU.</p>
+                    <button class="toggle-btn" onclick="toggleAnswer('exam-q10-answer')">Toon Antwoord</button>
+                    <div class="answer-card" id="exam-q10-answer">
+                        <p><strong>Antwoord:</strong> China beheerst een geïntegreerde keten: van winning via verwerking tot productie van batterijen. Door schaalvoordelen en staatssteun kan China goedkoop produceren. Risico voor EU: strategische afhankelijkheid; als China export beperkt, kan de EU haar groene transitie niet realiseren.</p>
+                        <p><strong>Score:</strong> 4 punten: uitleg keten + risico</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="exam-section">
+                <h3>Deel C: Inzichtsvragen (15 punten)</h3>
+                
+                <div class="question-card">
+                    <h4>Vraag 11</h4>
+                    <span class="points">6 punten</span>
+                    <p>Stelling: 'Arme landen moeten dezelfde strenge klimaateisen krijgen als rijke landen.' Reageer op deze stelling met argumenten over rechtvaardigheid en historische verantwoordelijkheid.</p>
+                    <p><strong>Subvragen:</strong> a) Wie heeft historisch het meest bijgedragen aan CO₂-uitstoot? b) Waarom is het klimaatfonds opgericht? c) Leg uit waarom preventie goedkoper is dan schadeherstel.</p>
+                    <button class="toggle-btn" onclick="toggleAnswer('exam-q11-answer')">Toon Antwoord</button>
+                    <div class="answer-card" id="exam-q11-answer">
+                        <p><strong>Antwoord:</strong> De stelling is niet rechtvaardig. a) Rijke landen hebben historisch het meest bijgedragen: rijkste 20% = ruim ⅔ van alle uitstoot. b) Klimaatfonds vergoedt schade in landen die nauwelijks uitstoten maar wel gevolgen dragen. c) Preventie is goedkoper omdat kosten van overstromingen, oogstfalen, gezondheidsproblemen veel hoger zijn dan investeringen in duurzame infrastructuur.</p>
+                        <p><strong>Score:</strong> 6 punten: complete argumentatie a+b+c</p>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <h4>Vraag 12</h4>
+                    <span class="points">5 punten</span>
+                    <p>Waterstof wordt gezien als belangrijke energiedrager voor Nederland. Leg uit waarom waterstof ondanks dat het maken energie kost, toch waardevol is, en welk voordeel Nederland heeft.</p>
+                    <p><strong>Subvragen:</strong> a) Wat is het verschil tussen energiebron en energiedrager? b) Hoe kan bestaande infrastructuur helpen?</p>
+                    <button class="toggle-btn" onclick="toggleAnswer('exam-q12-answer')">Toon Antwoord</button>
+                    <div class="answer-card" id="exam-q12-answer">
+                        <p><strong>Antwoord:</strong> Waterstof is waardevol omdat het overtollige duurzame energie kan opslaan en later inzetten, wat het intermittentie-probleem oplost. a) Energiebron levert direct energie; energiedrager slaat energie op voor later. b) Nederland heeft voordeel omdat bestaande gasinfrastructuur kan worden omgebouwd voor waterstof.</p>
+                        <p><strong>Score:</strong> 5 punten: complete uitleg + a+b</p>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <h4>Vraag 13</h4>
+                    <span class="points">4 punten</span>
+                    <p>Europa warmt sneller op dan het wereldgemiddelde (+2,1°C vs +1,1°C). Leg uit hoe deze snellere opwarming kan leiden tot politieke spanningen binnen Europa.</p>
+                    <button class="toggle-btn" onclick="toggleAnswer('exam-q13-answer')">Toon Antwoord</button>
+                    <div class="answer-card" id="exam-q13-answer">
+                        <p><strong>Antwoord:</strong> Snellere opwarming leidt tot regionale verschillen: Zuid-Europa wordt droger (minder landbouwopbrengst, waterstress), Noord-Europa natter (overstromingen). Dit kan politieke spanningen veroorzaken omdat landen concurreren om schaarse hulpbronnen zoals water en vruchtbare grond. Klimaatmigranten kunnen druk zetten op opvangcapaciteit.</p>
+                        <p><strong>Score:</strong> 4 punten: complete uitleg met voorbeelden</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="summary-box">
+                <h4>📊 Toetsinschatting</h4>
+                <table class="prediction-table">
+                    <thead>
+                        <tr>
+                            <th>Zekerheid</th>
+                            <th>Onderwerp</th>
+                            <th>Reden</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="certainty-very-certain">
+                            <td>Heel zeker</td>
+                            <td>Definities kernbegrippen</td>
+                            <td>Basisvragen over versterkt broeikaseffect, energietransitie</td>
+                        </tr>
+                        <tr class="certainty-very-certain">
+                            <td>Heel zeker</td>
+                            <td>Gevolgen opwarming aarde</td>
+                            <td>Centraal thema hoofdstuk</td>
+                        </tr>
+                        <tr class="certainty-very-certain">
+                            <td>Heel zeker</td>
+                            <td>4 functionaliteiten Nederland</td>
+                            <td>Uniek aan paragraaf 4.5</td>
+                        </tr>
+                        <tr class="certainty-certain">
+                            <td>Zeker</td>
+                            <td>Parijs vs Dubai</td>
+                            <td>Belangrijk voor inzicht in beleidsontwikkeling</td>
+                        </tr>
+                        <tr class="certainty-certain">
+                            <td>Zeker</td>
+                            <td>Regionale verschillen Europa</td>
+                            <td>Kaartvaardigheid + inzicht</td>
+                        </tr>
+                        <tr class="certainty-certain">
+                            <td>Zeker</td>
+                            <td>Waterstof als energiedrager</td>
+                            <td>Nieuw concept in 4.5</td>
+                        </tr>
+                        <tr class="certainty-unlikely">
+                            <td>Onwaarschijnlijk</td>
+                            <td>Specifieke cijfers</td>
+                            <td>Details minder belangrijk dan principe</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Mindmap -->
+        <div class="content-section" id="mindmap">
+            <h2 class="section-title">🗺️ Mindmap – Energietransitie</h2>
+            
+            <div class="mindmap-container">
+                <h3>JSON Code voor AI Mind Map Generator</h3>
+                <p>Kopieer onderstaande JSON en plak deze in de AI Mind Map Generator web app:</p>
+                <button class="copy-btn" onclick="copyMindmap()">📋 Kopieer JSON</button>
+                <div class="mindmap-json" id="mindmapJson">
+{
+    "id": "root",
+    "label": "Energietransitie",
+    "children": [
+        {
+            "id": "1",
+            "label": "Opwarming Aarde",
+            "color": "#3b82f6",
+            "children": [
+                {
+                    "id": "1-1",
+                    "label": "Feiten",
+                    "color": "#60a5fa",
+                    "children": [
+                        { "id": "1-1-1", "label": "Zeespiegel stijgt", "color": "#93c5fd" },
+                        { "id": "1-1-2", "label": "Gletsjers smelten", "color": "#93c5fd" },
+                        { "id": "1-1-3", "label": "Warmterecords", "color": "#93c5fd" }
+                    ]
+                },
+                {
+                    "id": "1-2",
+                    "label": "Oorzaken",
+                    "color": "#60a5fa",
+                    "children": [
+                        { "id": "1-2-1", "label": "Versterkt broeikaseffect", "color": "#93c5fd" },
+                        { "id": "1-2-2", "label": "CO2 en lachgas", "color": "#93c5fd" },
+                        { "id": "1-2-3", "label": "Fossiele brandstoffen", "color": "#93c5fd" }
+                    ]
+                },
+                {
+                    "id": "1-3",
+                    "label": "Gevolgen",
+                    "color": "#60a5fa",
+                    "children": [
+                        { "id": "1-3-1", "label": "Extreem weer", "color": "#93c5fd" },
+                        { "id": "1-3-2", "label": "Permafrost ontdooit", "color": "#93c5fd" },
+                        { "id": "1-3-3", "label": "Klimaatmigranten", "color": "#93c5fd" },
+                        { "id": "1-3-4", "label": "Landbouw daalt", "color": "#93c5fd" }
+                    ]
+                },
+                {
+                    "id": "1-4",
+                    "label": "Onrecht",
+                    "color": "#60a5fa",
+                    "children": [
+                        { "id": "1-4-1", "label": "Rijksten stoten uit", "color": "#93c5fd" },
+                        { "id": "1-4-2", "label": "Armen dragen last", "color": "#93c5fd" }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "2",
+            "label": "Energiebronnen",
+            "color": "#8b5cf6",
+            "children": [
+                {
+                    "id": "2-1",
+                    "label": "Fossiel",
+                    "color": "#a78bfa",
+                    "children": [
+                        { "id": "2-1-1", "label": "Bruinkool, steenkool", "color": "#c4b5fd" },
+                        { "id": "2-1-2", "label": "Olie en gas", "color": "#c4b5fd" },
+                        { "id": "2-1-3", "label": "Eindig + CO2", "color": "#c4b5fd" }
+                    ]
+                },
+                {
+                    "id": "2-2",
+                    "label": "Niet-conventioneel",
+                    "color": "#a78bfa",
+                    "children": [
+                        { "id": "2-2-1", "label": "Schaliegas", "color": "#c4b5fd" },
+                        { "id": "2-2-2", "label": "Teerzand", "color": "#c4b5fd" },
+                        { "id": "2-2-3", "label": "Fracken techniek", "color": "#c4b5fd" }
+                    ]
+                },
+                {
+                    "id": "2-3",
+                    "label": "Kernenergie",
+                    "color": "#a78bfa",
+                    "children": [
+                        { "id": "2-3-1", "label": "Krachtig", "color": "#c4b5fd" },
+                        { "id": "2-3-2", "label": "Radioactief risico", "color": "#c4b5fd" }
+                    ]
+                },
+                {
+                    "id": "2-4",
+                    "label": "Duurzaam",
+                    "color": "#a78bfa",
+                    "children": [
+                        { "id": "2-4-1", "label": "Zon, wind, water", "color": "#c4b5fd" },
+                        { "id": "2-4-2", "label": "Biomassa, aardwarmte", "color": "#c4b5fd" },
+                        { "id": "2-4-3", "label": "Nadeel: ruimte", "color": "#c4b5fd" }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "3",
+            "label": "Klimaat Aanpak",
+            "color": "#10b981",
+            "children": [
+                {
+                    "id": "3-1",
+                    "label": "5 Manieren",
+                    "color": "#34d399",
+                    "children": [
+                        { "id": "3-1-1", "label": "Energietransitie", "color": "#6ee7b7" },
+                        { "id": "3-1-2", "label": "Energiebesparing", "color": "#6ee7b7" },
+                        { "id": "3-1-3", "label": "CO2 afvang", "color": "#6ee7b7" },
+                        { "id": "3-1-4", "label": "Geo-engineering", "color": "#6ee7b7" }
+                    ]
+                },
+                {
+                    "id": "3-2",
+                    "label": "Klimaatakkoorden",
+                    "color": "#34d399",
+                    "children": [
+                        { "id": "3-2-1", "label": "Parijs 2015: <2°C", "color": "#6ee7b7" },
+                        { "id": "3-2-2", "label": "Dubai 2023: 2050 fossielvrij", "color": "#6ee7b7" }
+                    ]
+                },
+                {
+                    "id": "3-3",
+                    "label": "Rechtvaardigheid",
+                    "color": "#34d399",
+                    "children": [
+                        { "id": "3-3-1", "label": "Rijk: meeste uitstoot", "color": "#6ee7b7" },
+                        { "id": "3-3-2", "label": "Klimaatfonds", "color": "#6ee7b7" },
+                        { "id": "3-3-3", "label": "Arm: recht op ontwikkeling", "color": "#6ee7b7" }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "4",
+            "label": "Landen Cases",
+            "color": "#f59e0b",
+            "children": [
+                {
+                    "id": "4-1",
+                    "label": "Bolivia",
+                    "color": "#fbbf24",
+                    "children": [
+                        { "id": "4-1-1", "label": "Lithium Uyuni", "color": "#fcd34d" },
+                        { "id": "4-1-2", "label": "Batterijen productie", "color": "#fcd34d" },
+                        { "id": "4-1-3", "label": "China keten dominantie", "color": "#fcd34d" }
+                    ]
+                },
+                {
+                    "id": "4-2",
+                    "label": "Marokko",
+                    "color": "#fbbf24",
+                    "children": [
+                        { "id": "4-2-1", "label": "Zonne-energie Ouarzazate", "color": "#fcd34d" },
+                        { "id": "4-2-2", "label": "Gesmolten zout opslag", "color": "#fcd34d" },
+                        { "id": "4-2-3", "label": "Elektriciteit ook nachts", "color": "#fcd34d" }
+                    ]
+                },
+                {
+                    "id": "4-3",
+                    "label": "Lessen",
+                    "color": "#fbbf24",
+                    "children": [
+                        { "id": "4-3-1", "label": "Hulpbronnen benutten", "color": "#fcd34d" },
+                        { "id": "4-3-2", "label": "Technologie innovatie", "color": "#fcd34d" },
+                        { "id": "4-3-3", "label": "Strategische afhankelijkheid", "color": "#fcd34d" }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "5",
+            "label": "Europa Klimaat",
+            "color": "#ef4444",
+            "children": [
+                {
+                    "id": "5-1",
+                    "label": "Sneller opwarmen",
+                    "color": "#f87171",
+                    "children": [
+                        { "id": "5-1-1", "label": "+2,1°C vs +1,1°C", "color": "#fca5a5" },
+                        { "id": "5-1-2", "label": "Gletsjers smelten", "color": "#fca5a5" },
+                        { "id": "5-1-3", "label": "Nieuwe ziektes risico", "color": "#fca5a5" }
+                    ]
+                },
+                {
+                    "id": "5-2",
+                    "label": "Regionale verschillen",
+                    "color": "#f87171",
+                    "children": [
+                        { "id": "5-2-1", "label": "Zuid: droogte, branden", "color": "#fca5a5" },
+                        { "id": "5-2-2", "label": "Noord: regen, overstromingen", "color": "#fca5a5" },
+                        { "id": "5-2-3", "label": "Bergen: zones schuiven", "color": "#fca5a5" }
+                    ]
+                },
+                {
+                    "id": "5-3",
+                    "label": "Green Deal EU",
+                    "color": "#f87171",
+                    "children": [
+                        { "id": "5-3-1", "label": "Investeren duurzaam", "color": "#fca5a5" },
+                        { "id": "5-3-2", "label": "Energienet verbeteren", "color": "#fca5a5" },
+                        { "id": "5-3-3", "label": "2050 klimaatneutraal", "color": "#fca5a5" },
+                        { "id": "5-3-4", "label": "Klimaatadaptatie", "color": "#fca5a5" }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "6",
+            "label": "Nederland Beleid",
+            "color": "#ec4899",
+            "children": [
+                {
+                    "id": "6-1",
+                    "label": "Klimaatwet",
+                    "color": "#f472b6",
+                    "children": [
+                        { "id": "6-1-1", "label": "Parijs uitvoeren", "color": "#f9a8d4" },
+                        { "id": "6-1-2", "label": "34% minder CO2 vs 1990", "color": "#f9a8d4" }
+                    ]
+                },
+                {
+                    "id": "6-2",
+                    "label": "4 Functionaliteiten",
+                    "color": "#f472b6",
+                    "children": [
+                        {
+                            "id": "6-2-1",
+                            "label": "Kracht en licht",
+                            "color": "#f9a8d4",
+                            "children": [
+                                { "id": "6-2-1-1", "label": "Smart grids", "color": "#fbcfe8" },
+                                { "id": "6-2-1-2", "label": "Zonnepanelen terug", "color": "#fbcfe8" }
+                            ]
+                        },
+                        {
+                            "id": "6-2-2",
+                            "label": "Hoge temp warmte",
+                            "color": "#f9a8d4",
+                            "children": [
+                                { "id": "6-2-2-1", "label": "Industrie CO2-arm", "color": "#fbcfe8" },
+                                { "id": "6-2-2-2", "label": "CO2 opslag gasveld", "color": "#fbcfe8" }
+                            ]
+                        },
+                        {
+                            "id": "6-2-3",
+                            "label": "Lage temp warmte",
+                            "color": "#f9a8d4",
+                            "children": [
+                                { "id": "6-2-3-1", "label": "Gebouwen besparen", "color": "#fbcfe8" },
+                                { "id": "6-2-3-2", "label": "Warmtepompen", "color": "#fbcfe8" }
+                            ]
+                        },
+                        {
+                            "id": "6-2-4",
+                            "label": "Vervoer",
+                            "color": "#f9a8d4",
+                            "children": [
+                                { "id": "6-2-4-1", "label": "Elektrisch/waterstof", "color": "#fbcfe8" },
+                                { "id": "6-2-4-2", "label": "Laadpalen uitbreiden", "color": "#fbcfe8" }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "id": "6-3",
+                    "label": "Ruimte en Draagvlak",
+                    "color": "#f472b6",
+                    "children": [
+                        { "id": "6-3-1", "label": "Duurzaam kost ruimte", "color": "#f9a8d4" },
+                        { "id": "6-3-2", "label": "Conflict: landbouw/wonen", "color": "#f9a8d4" },
+                        { "id": "6-3-3", "label": "Mede-eigenaarschap", "color": "#f9a8d4" }
+                    ]
+                },
+                {
+                    "id": "6-4",
+                    "label": "Waterstof en Kern",
+                    "color": "#f472b6",
+                    "children": [
+                        { "id": "6-4-1", "label": "Waterstof: energiedrager", "color": "#f9a8d4" },
+                        { "id": "6-4-2", "label": "Bestaande gasinfra", "color": "#f9a8d4" },
+                        { "id": "6-4-3", "label": "Kern: betrouwbaar + CO2-arm", "color": "#f9a8d4" }
+                    ]
+                }
+            ]
+        }
+    ]
+}
+                </div>
+            </div>
+
+            <div class="summary-box">
+                <h4>💡 Leertips voor dit hoofdstuk</h4>
+                <ul class="tips-list">
+                    <li><strong>Maak een begrippenkaart:</strong> Dit hoofdstuk heeft veel kernbegrippen. Gebruik flitskaarten: voorzijde term, achterzijde definitie + voorbeeld.</li>
+                    <li><strong>Teken oorzaken-gevolgen ketens:</strong> Begin met 'Fossiele brandstoffen verbranden' en werk uit tot 'klimaatmigranten'. Gebruik pijlen en kleuren.</li>
+                    <li><strong>Oefen met kaarten en dwarsdoorsnedes:</strong> Teken op een blanke kaart van Europa waar welke klimaateffecten optreden.</li>
+                    <li><strong>Gebruik de 4-functionaliteiten:</strong> Maak een tabel: Functionaliteit | Doel | Maatregel | Voorbeeld. Herhaal hardop.</li>
+                    <li><strong>Bereid inzichtsvragen voor:</strong> Neem een feit en vraag jezelf af: 'Waarom is dit een probleem?' Schrijf je antwoord op.</li>
+                    <li><strong>Link actuele voorbeelden:</strong> Lees een kort nieuwsartikel over klimaat. Vraag: 'Welke paragraaf legt dit uit?'</li>
+                    <li><strong>Oefen met tijd:</strong> Deel de tijd in: 5 min lezen, 40 min maken, 15 min controleren. Begin met vragen die je zeker weet.</li>
+                </ul>
+            </div>
+        </div>
+
+        <footer>
+            <p>© 2026 | Hoofdstuk 4 – Energietransitie | 3 VWO Aardrijkskunde</p>
+            <p>Alle content gebaseerd op de aangeleverde leerstof | RTTI-model toegepast</p>
+        </footer>
+    </div>
+
+    <script>
+        // Tab Navigation
+        const tabs = document.querySelectorAll('.nav-tab');
+        const sections = document.querySelectorAll('.content-section');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const targetSection = tab.getAttribute('data-section');
+                
+                tabs.forEach(t => t.classList.remove('active'));
+                sections.forEach(s => s.classList.remove('active'));
+                
+                tab.classList.add('active');
+                document.getElementById(targetSection).classList.add('active');
+                
+                updateProgress();
+            });
+        });
+
+        // Toggle Answer
+        function toggleAnswer(answerId) {
+            const answer = document.getElementById(answerId);
+            answer.classList.toggle('visible');
+        }
+
+        // Timer
+        let timerInterval;
+        let timeLeft = 3600; // 60 minutes in seconds
+        let timerRunning = false;
+
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            document.getElementById('timerDisplay').textContent = 
+                `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        function startTimer() {
+            if (timerRunning) return;
+            timerRunning = true;
+            document.getElementById('startTimerBtn').textContent = 'Pauzeer';
+            
+            timerInterval = setInterval(() => {
+                if (timeLeft > 0) {
+                    timeLeft--;
+                    updateTimerDisplay();
+                } else {
+                    clearInterval(timerInterval);
+                    timerRunning = false;
+                    alert('Tijd is om!');
+                }
+            }, 1000);
+        }
+
+        function resetTimer() {
+            clearInterval(timerInterval);
+            timerRunning = false;
+            timeLeft = 3600;
+            updateTimerDisplay();
+            document.getElementById('startTimerBtn').textContent = 'Start Timer';
+        }
+
+        // Copy Mindmap
+        function copyMindmap() {
+            const jsonText = document.getElementById('mindmapJson').textContent;
+            navigator.clipboard.writeText(jsonText).then(() => {
+                alert('JSON gekopieerd naar klembord!');
+            }).catch(err => {
+                alert('Fout bij kopiëren: ' + err);
+            });
+        }
+
+        // Progress Bar
+        function updateProgress() {
+            const activeSection = document.querySelector('.content-section.active');
+            const totalSections = sections.length;
+            const currentIndex = Array.from(sections).indexOf(activeSection);
+            const progress = ((currentIndex + 1) / totalSections) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+        }
+
+        // Initialize
+        updateTimerDisplay();
+        updateProgress();
+    </script>
+</body>
+</html>
