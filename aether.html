@@ -3,25 +3,43 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>DUB5 - Build with AI</title>
+  <title>DUB5 — Build with AI</title>
+  <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
+
   <style>
+    /* =========================
+       TOKENS
+    ========================== */
     :root{
       --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Inter,Helvetica,Arial,sans-serif;
       --mono:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
       --ease:cubic-bezier(.4,0,.2,1);
       --g1:#ec4899;--g2:#8b5cf6;--g3:#3b82f6;
+
       --bg:#0c0c0e;--bg2:#141416;--bg3:#1a1a1d;
-      --t:#fff;--t2:rgba(255,255,255,.78);--t3:rgba(255,255,255,.45);
+      --t:#fff;--t2:rgba(255,255,255,.78);--t3:rgba(255,255,255,.45);--t4:rgba(255,255,255,.26);
       --bdr:rgba(255,255,255,.10);--bdr2:rgba(255,255,255,.18);
-      --ed-surface:#0a0a0c;--ed-border:#1a1a1a;
+
+      --ed-bg:#000;--ed-surface:#0a0a0c;--ed-border:#1a1a1a;
+
       --shadow:0 20px 60px rgba(0,0,0,.55);
+      --r:14px;--r-sm:10px;
     }
+
     html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--bg);color:var(--t)}
     *{box-sizing:border-box;scrollbar-width:thin;scrollbar-color:var(--t3) transparent}
     a{color:inherit}
+
+    /* =========================
+       SCREEN SWITCH
+    ========================== */
     .screen{position:fixed;inset:0;display:none;opacity:0;transition:opacity .22s var(--ease)}
     .screen.visible{display:flex;opacity:1}
+
+    /* =========================
+       LANDING
+    ========================== */
     #s-landing{z-index:50;flex-direction:column}
     .land-bg{
       position:absolute;inset:0;
@@ -34,35 +52,45 @@
       animation:bgshift 14s ease-in-out infinite alternate;
     }
     @keyframes bgshift{0%{filter:hue-rotate(0)}50%{filter:hue-rotate(12deg)}100%{filter:hue-rotate(-8deg)}}
-    .land-nav,.proj-hdr,.app-hdr{position:relative;z-index:2;display:flex;align-items:center;gap:10px;padding:0 16px}
-    .land-nav{height:56px}
-    .proj-hdr{height:56px;background:var(--bg2);border-bottom:1px solid var(--bdr)}
-    .app-hdr{height:50px;background:#000;border-bottom:1px solid var(--ed-border)}
-    .brand{display:flex;align-items:center;gap:10px;color:#fff;text-decoration:none;user-select:none}
-    .logo{width:26px;height:26px;border-radius:7px;background:linear-gradient(135deg,var(--g1),var(--g2),var(--g3));display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800}
-    .brand-name{font-size:15px;font-weight:700}
-    .nav-btn,.btn,.ghost,.file-btn,.proj-act,.icon-btn,.send-btn,.file-mini{
-      border:1px solid rgba(255,255,255,.15);background:#0a0a0a;color:#fff;cursor:pointer
+
+    .land-nav{
+      position:relative;z-index:2;height:56px;display:flex;align-items:center;gap:10px;
+      padding:0 16px;background:transparent;
     }
-    .nav-btn,.btn,.ghost,.file-btn,.proj-act{border-radius:9px;font-size:12px;padding:7px 10px;display:flex;align-items:center;gap:6px}
-    .nav-btn{background:transparent}
-    .nav-btn:hover,.btn:hover,.ghost:hover,.file-btn:hover,.proj-act:hover,.icon-btn:hover,.send-btn:hover,.file-mini:hover{border-color:var(--bdr2)}
-    .land-hero{position:relative;z-index:2;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px 16px 84px;text-align:center}
-    .land-pill{display:inline-flex;gap:8px;align-items:center;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.14);border-radius:999px;padding:4px 10px;font-size:12px;color:rgba(255,255,255,.88);margin-bottom:22px}
+    .brand{display:flex;align-items:center;gap:10px;color:#fff;text-decoration:none;user-select:none}
+    .logo{width:26px;height:26px;border-radius:7px;background:linear-gradient(135deg,var(--g1),var(--g2),var(--g3));
+      display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800}
+    .brand-name{font-size:15px;font-weight:700}
+    .nav-btn{
+      background:transparent;border:1px solid rgba(255,255,255,.22);color:#fff;padding:6px 10px;border-radius:9px;
+      cursor:pointer;font-size:12px;display:flex;align-items:center;gap:6px
+    }
+    .nav-btn:hover{background:rgba(255,255,255,.12)}
+
+    .land-hero{
+      position:relative;z-index:2;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+      padding:24px 16px 84px;text-align:center
+    }
+    .land-pill{display:inline-flex;gap:8px;align-items:center;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.14);
+      border-radius:999px;padding:4px 10px;font-size:12px;color:rgba(255,255,255,.88);margin-bottom:22px}
     .pill-tag{background:linear-gradient(135deg,var(--g2),var(--g3));color:#fff;font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px}
     .land-h1{font-size:clamp(40px,6.5vw,68px);font-weight:700;line-height:1.05;letter-spacing:-.05em;margin-bottom:12px;max-width:720px}
-    .land-sub{font-size:16px;color:rgba(255,255,255,.72);margin-bottom:28px;max-width:720px}
+    .land-sub{font-size:16px;color:rgba(255,255,255,.72);margin-bottom:28px}
     .land-box{width:100%;max-width:720px;background:rgba(18,18,22,.97);border:1px solid rgba(255,255,255,.1);border-radius:18px;overflow:hidden;box-shadow:var(--shadow)}
     .land-ta{width:100%;min-height:70px;max-height:170px;background:transparent;border:none;outline:none;color:#fff;font-size:15px;line-height:1.6;padding:18px 18px 10px;resize:none}
-    .land-ta::placeholder,.pinput::placeholder{color:var(--t3)}
-    .land-box-foot,.pfoot{display:flex;justify-content:flex-end;padding:8px 12px 12px}
-    .land-send{width:36px;height:36px;border-radius:10px;border:none;background:rgba(255,255,255,.4);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer}
-    .land-acts,.btn-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
-    .land-acts{margin-top:14px}
-    .land-chips,.recent-strip{margin-top:16px;display:flex;flex-wrap:wrap;gap:8px;justify-content:center;max-width:860px}
-    .chip,.recent-pill{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.11);color:#fff;font-size:12.5px;padding:6px 12px;border-radius:999px;cursor:pointer}
-    .chip:hover,.recent-pill:hover{background:rgba(255,255,255,.16)}
+    .land-ta::placeholder{color:var(--t3)}
+    .land-box-foot{display:flex;justify-content:flex-end;padding:8px 12px 12px}
+    .land-send{width:36px;height:36px;border-radius:10px;border:none;background:rgba(255,255,255,.45);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer}
+    .land-send:hover{opacity:.9}
+    .land-chips{margin-top:16px;display:flex;flex-wrap:wrap;gap:8px;justify-content:center;max-width:720px}
+    .chip{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.11);color:#fff;font-size:12.5px;padding:6px 12px;border-radius:999px;cursor:pointer}
+    .chip:hover{background:rgba(255,255,255,.16)}
+
+    /* =========================
+       PROJECTS
+    ========================== */
     #s-projects{z-index:40;background:var(--bg);flex-direction:column}
+    .proj-hdr{height:56px;display:flex;align-items:center;gap:12px;padding:0 16px;background:var(--bg2);border-bottom:1px solid var(--bdr)}
     .proj-title{flex:1;font-size:15px;font-weight:600}
     .proj-body{flex:1;overflow:auto;padding:20px}
     .proj-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
@@ -72,17 +100,25 @@
     .proj-thumb iframe{width:100%;height:100%;border:0;pointer-events:none;background:#fff}
     .proj-meta{padding:12px;display:flex;flex-direction:column;gap:6px}
     .proj-name{font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-    .proj-sub,.proj-stats{font-family:var(--mono);font-size:11.5px;color:var(--t3)}
-    .proj-stats{display:flex;gap:10px;flex-wrap:wrap}
-    .proj-actions{display:flex;gap:6px;margin-top:4px;flex-wrap:wrap}
-    .proj-act{flex:1;justify-content:center}
+    .proj-sub{font-family:var(--mono);font-size:11.5px;color:var(--t3)}
+    .proj-actions{display:flex;gap:6px;margin-top:4px}
+    .proj-act{flex:1;background:#0a0a0a;border:1px solid var(--bdr);color:#fff;font-size:12px;border-radius:10px;padding:7px 10px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px}
+    .proj-act:hover{border-color:var(--bdr2)}
     .proj-act.danger{border-color:rgba(239,68,68,.35);color:#fecaca}
     .proj-empty{display:none;align-items:center;justify-content:center;flex-direction:column;gap:10px;color:var(--t3);padding:60px 0}
+
+    /* =========================
+       EDITOR
+    ========================== */
     #s-app{z-index:30;flex-direction:column;background:var(--ed-surface)}
+    .app-hdr{height:50px;background:#000;border-bottom:1px solid var(--ed-border);display:flex;align-items:center;gap:8px;padding:0 12px}
     .app-right{margin-left:auto;display:flex;gap:6px}
-    .icon-btn,.send-btn,.file-mini{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center}
+    .icon-btn{width:30px;height:30px;border-radius:8px;border:1px solid var(--ed-border);background:#0a0a0a;color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer}
+    .icon-btn:hover{border-color:#2a2a2a}
     .proj-input{max-width:240px;width:240px;background:#0a0a0a;border:1px solid var(--ed-border);border-radius:8px;color:#fff;font-size:12.5px;padding:6px 10px;outline:none}
+
     .workspace{flex:1;display:flex;min-height:0;overflow:hidden}
+    /* Chat (prompt font matches messages) */
     .chat{width:340px;min-width:300px;background:#000;border-right:1px solid var(--ed-border);display:flex;flex-direction:column}
     .msgs{flex:1;overflow:auto;padding:12px;display:flex;flex-direction:column;gap:12px}
     .msg{display:flex;flex-direction:column;gap:6px}
@@ -92,62 +128,86 @@
     .dot{width:5px;height:5px;border-radius:50%;background:var(--t3);animation:td 1.2s ease-in-out infinite}
     .dot:nth-child(2){animation-delay:.16s}.dot:nth-child(3){animation-delay:.32s}
     @keyframes td{0%,80%,100%{transform:scale(.7);opacity:.35}40%{transform:scale(1.06);opacity:.95}}
+
     .composer{padding:10px;border-top:1px solid var(--ed-border);background:#000}
     .composer-box{background:#0f0f10;border:1px solid var(--ed-border);border-radius:12px;overflow:hidden}
+    .composer-box:focus-within{border-color:#1f1f1f}
     .pinput{width:100%;min-height:60px;max-height:160px;background:transparent;border:none;outline:none;color:#fff;font-size:14px;line-height:1.6;padding:10px 10px 6px;resize:none;font-family:var(--font)}
+    .pfoot{display:flex;justify-content:flex-end;padding:6px 8px 8px}
+    .send-btn{width:28px;height:28px;border-radius:7px;border:1px solid #1f1f1f;background:#0f0f10;color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer}
+    .send-btn[disabled]{opacity:.45;cursor:not-allowed}
+
+    /* File status pills (AI writing files) */
     .file-status{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px;border:1px solid var(--ed-border);background:#0a0a0a;border-radius:12px;cursor:pointer}
+    .file-status:hover{border-color:#2a2a2a}
     .file-status-left{display:flex;align-items:center;gap:8px;min-width:0}
     .file-status-name{font-size:12.5px;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:190px}
     .file-status-state{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--t3)}
     .spinner{width:14px;height:14px;border-radius:999px;border:2px solid rgba(255,255,255,.18);border-top-color:#fff;animation:spin .8s linear infinite}
     @keyframes spin{to{transform:rotate(360deg)}}
     .check{width:14px;height:14px;display:flex;align-items:center;justify-content:center;color:#a7f3d0}
+
+    /* Surface */
     .surface{flex:1;display:flex;flex-direction:column;min-width:0}
     .topbar{height:46px;border-bottom:1px solid var(--ed-border);background:#000;display:flex;align-items:center;justify-content:space-between;padding:0 10px;gap:10px}
     .tabs{display:flex;align-items:center;gap:4px;padding:4px;border-radius:10px;background:#0a0a0a;border:1px solid var(--ed-border)}
     .tab{display:flex;align-items:center;gap:6px;padding:6px 8px;border-radius:8px;font-size:12px;color:var(--t2);border:1px solid transparent;background:transparent;cursor:pointer;user-select:none}
+    .tab svg{width:12px;height:12px}
     .tab.active{background:#0f0f10;color:#fff;border-color:#1f1f1f}
-    .actions{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
-    .runbar{height:38px;border-bottom:1px solid var(--ed-border);background:#050506;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:0 10px}
-    .run-pill{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:999px;border:1px solid var(--ed-border);background:#0a0a0a;font-size:12px;color:var(--t2)}
-    .change-summary{font-size:12px;color:var(--t2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:60%}
+    .actions{display:flex;align-items:center;gap:6px}
+    .ghost{display:flex;align-items:center;gap:6px;height:26px;padding:0 10px;border-radius:7px;font-size:12px;color:#fff;border:1px solid var(--ed-border);background:#0a0a0a;cursor:pointer}
+    .ghost svg{width:12px;height:12px}
+    .ghost:hover{border-color:#2a2a2a}
+
     .main{flex:1;display:flex;min-height:0;overflow:hidden}
+
+    /* Preview */
     .pane-preview{flex:1;display:flex;min-width:0;padding:8px}
     .preview-card{flex:1;border:1px solid var(--ed-border);border-radius:12px;background:#000;overflow:hidden;display:flex;position:relative}
     .prev-empty{flex:1;display:flex;align-items:center;justify-content:center;padding:16px}
     .prev-empty-inner{display:flex;flex-direction:column;gap:10px;align-items:center;text-align:center;color:var(--t2);max-width:420px}
     .prev-empty-icon{width:58px;height:58px;border-radius:12px;border:1px solid var(--ed-border);background:#0a0a0a;display:flex;align-items:center;justify-content:center;color:var(--t3)}
-    .pframe{flex:1;border:none;background:#fff;display:none;width:100%;height:100%}
+    .prev-empty-icon svg{width:22px;height:22px}
+    .pframe{flex:1;border:none;background:#fff;display:none;width:100%;height:100%;pointer-events:auto}
+
+    /* Code */
     .pane-code{flex:1;display:none;min-width:0}
     .pane-code.on{display:flex}
     .files{width:220px;background:#0a0a0a;border-right:1px solid var(--ed-border);display:flex;flex-direction:column}
     .files-top{padding:8px;border-bottom:1px solid var(--ed-border);display:flex;gap:6px;align-items:center}
+    .file-btn{display:flex;align-items:center;gap:6px;padding:6px 8px;border-radius:8px;border:1px solid var(--ed-border);background:#000;color:#fff;cursor:pointer;font-size:12px}
     .file-list{padding:8px;overflow:auto;display:flex;flex-direction:column;gap:6px}
     .file-row{display:flex;align-items:center;justify-content:space-between;gap:6px;padding:6px 7px;border-radius:8px;border:1px solid transparent;color:var(--t2);cursor:pointer}
-    .file-row:hover,.file-row.active{background:#0f0f10;color:#fff}
-    .file-row.active{border:1px solid #1f1f1f}
+    .file-row:hover{background:#0f0f10;color:#fff}
+    .file-row.active{background:#0f0f10;color:#fff;border:1px solid #1f1f1f}
     .file-left{display:flex;align-items:center;gap:6px;min-width:0}
+    .file-left svg{width:12px;height:12px;flex-shrink:0}
     .file-name{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:12px}
+    .file-mini{width:18px;height:18px;border-radius:6px;border:1px solid var(--ed-border);background:#000;color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer}
+    .file-mini svg{width:10px;height:10px}
+    .file-mini:hover{border-color:#2a2a2a}
+
     .editor{flex:1;display:flex;flex-direction:column;background:#070708}
     .editor-top{height:32px;border-bottom:1px solid var(--ed-border);background:#0a0a0a;display:flex;align-items:center;gap:8px;padding:0 8px;font-size:12px;color:#fff}
     .md-toggle{margin-left:auto;display:none;gap:6px;align-items:center;cursor:pointer;border:1px solid var(--ed-border);background:#000;color:#fff;border-radius:8px;padding:4px 8px;font-size:12px}
     .code-wrap{flex:1;padding:8px;overflow:auto}
-    .code-editor,.md-preview{width:100%;min-height:100%;background:#000;border:1px solid var(--ed-border);border-radius:10px;color:#fff}
-    .code-editor{font-family:var(--mono);font-size:12.5px;line-height:1.7;padding:10px;outline:none;resize:none}
-    .md-preview{display:none;padding:12px;overflow:auto}
+    .code-editor{width:100%;min-height:100%;background:#000;border:1px solid var(--ed-border);border-radius:10px;color:#fff;font-family:var(--mono);font-size:12.5px;line-height:1.7;padding:10px;outline:none;resize:none}
+    .md-preview{display:none;width:100%;min-height:100%;background:#000;border:1px solid var(--ed-border);border-radius:10px;color:#fff;padding:12px;overflow:auto}
+
+    /* Panels */
     .pane-panel{flex:1;display:none;overflow:auto;padding:14px;background:#000}
     .pane-panel.on{display:block}
     .panel-head{font-size:16px;color:#fff;margin-bottom:6px}
     .panel-sub{font-size:12.5px;color:var(--t2);margin-bottom:10px}
     .card{border:1px solid #1f1f1f;background:#0a0a0a;border-radius:12px;padding:14px;margin-bottom:10px}
-    .snapshot-list{display:flex;flex-direction:column;gap:8px}
-    .snapshot-item{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px;border:1px solid #1f1f1f;border-radius:10px;background:#050506}
-    .snapshot-meta{min-width:0}
-    .snapshot-title{font-size:12.5px;color:#fff}
-    .snapshot-sub{font-size:11.5px;color:var(--t3);margin-top:2px}
+    .btn{padding:7px 10px;border-radius:8px;font-size:12px;color:#fff;border:1px solid #2a2a2a;background:#000;cursor:pointer}
+    .btn:hover{border-color:#3a3a3a}
+
+    /* Markdown styles */
     .md h1,.md h2,.md h3,.md h4,.md h5,.md h6{margin:10px 0 6px;line-height:1.25}
     .md h1{font-size:20px}.md h2{font-size:18px}.md h3{font-size:16px}
-    .md p{margin:6px 0}.md ul,.md ol{margin:6px 0 6px 18px}.md li{margin:3px 0}
+    .md p{margin:6px 0}
+    .md ul,.md ol{margin:6px 0 6px 18px}.md li{margin:3px 0}
     .md blockquote{margin:8px 0;padding:6px 10px;border-left:3px solid #2a2a2a;background:#0a0a0a;border-radius:10px;color:var(--t2)}
     .md hr{border:none;border-top:1px solid #1f1f1f;margin:10px 0}
     .md code{font-family:var(--mono);background:#0f0f10;border:1px solid #1f1f1f;padding:0 4px;border-radius:6px;font-size:12px}
@@ -157,7 +217,9 @@
     .md th,.md td{padding:8px 10px;border-bottom:1px solid #1f1f1f;border-right:1px solid #1f1f1f;font-size:12.5px;color:#fff;vertical-align:top}
     .md th{background:#0f0f10;color:#fff;font-weight:600}
     .md tr:last-child td{border-bottom:none}.md td:last-child,.md th:last-child{border-right:none}
-    .md a{color:#93c5fd;text-decoration:none}
+    .md a{color:#93c5fd;text-decoration:none}.md a:hover{text-decoration:underline}
+
+    /* Dialog / Messagebox (custom) */
     .modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.55);backdrop-filter:blur(8px);z-index:400;display:none;align-items:center;justify-content:center}
     .modal-bg.on{display:flex}
     .modal{width:min(520px,92vw);background:#0a0a0a;border:1px solid #1f1f1f;border-radius:12px;padding:14px;color:#fff}
@@ -165,28 +227,33 @@
     .modal p{font-size:12.5px;color:#cbd5e1;margin-bottom:10px}
     .modal input[type="text"]{width:100%;background:#000;border:1px solid #1f1f1f;border-radius:8px;color:#fff;padding:8px 10px;font-family:var(--mono);font-size:12px;outline:none}
     .modal-acts{display:flex;gap:8px;justify-content:flex-end;margin-top:10px}
+
+    /* Share modal with two options */
     .share-modal .opt-row{display:flex;gap:8px;margin:10px 0;flex-wrap:wrap}
     .share-field{display:flex;gap:6px;align-items:center;margin:8px 0}
     .share-input{flex:1;background:#000;border:1px solid #1f1f1f;border-radius:8px;color:#fff;padding:8px 10px;font-family:var(--mono);font-size:12px;outline:none}
+
+    /* Toast */
     #toasts{position:fixed;left:50%;transform:translateX(-50%);bottom:20px;z-index:999;display:flex;flex-direction:column;gap:8px}
     .toast{background:#141416;border:1px solid #2a2a2a;color:#fff;padding:7px 12px;border-radius:999px;font-size:12.5px}
+
+    /* Responsive */
     @media (max-width:980px){
       .workspace{flex-direction:column}
       .chat{width:100%;max-height:46%;border-right:none;border-top:1px solid var(--ed-border)}
       .surface{height:54%}
-      .change-summary{max-width:50%}
     }
     @media (max-width:640px){
       .proj-grid{grid-template-columns:1fr}
       .proj-thumb{height:160px}
-      .actions{justify-content:flex-end}
-      .runbar{height:auto;align-items:flex-start;flex-direction:column;padding:8px 10px}
-      .change-summary{max-width:100%;white-space:normal}
-      .files{width:180px}
     }
   </style>
 </head>
 <body>
+
+  <!-- =======================
+       LANDING
+  ======================== -->
   <div class="screen visible" id="s-landing">
     <div class="land-bg"></div>
     <nav class="land-nav">
@@ -195,42 +262,41 @@
       </a>
       <button class="nav-btn" onclick="showProjects()"><svg data-lucide="folder"></svg> Projects</button>
     </nav>
+
     <div class="land-hero">
-      <div class="land-pill"><span class="pill-tag">New</span> Build websites free - no signup needed</div>
+      <div class="land-pill"><span class="pill-tag">New</span> Build websites free — no signup needed</div>
       <h1 class="land-h1">Build something<br/>beautiful</h1>
-      <p class="land-sub">Create websites by chatting with AI, then preview, share, export, and revisit your projects in one place.</p>
+      <p class="land-sub">Create websites by chatting with AI</p>
+
       <div class="land-box">
-        <textarea class="land-ta" id="land-ta" placeholder="Ask DUB5 to create a landing page for my idea..." rows="2"></textarea>
+        <textarea class="land-ta" id="land-ta" placeholder="Ask DUB5 to create a landing page for my…" rows="2"></textarea>
         <div class="land-box-foot">
           <button class="land-send" onclick="startApp()" title="Start building">
             <svg data-lucide="arrow-up" width="14" height="14"></svg>
           </button>
         </div>
       </div>
-      <div class="land-acts">
-        <button class="nav-btn" onclick="startApp()">Start from prompt</button>
-        <button class="nav-btn" onclick="startApp(true)">Start blank</button>
-        <button class="nav-btn" onclick="showProjects()"><svg data-lucide="folder"></svg> Open recent</button>
-      </div>
+
       <div class="land-chips">
-        <span class="chip" onclick="setP(this)">Personal portfolio with case studies</span>
-        <span class="chip" onclick="setP(this)">SaaS landing page with pricing</span>
-        <span class="chip" onclick="setP(this)">Restaurant site with booking CTA</span>
-        <span class="chip" onclick="setP(this)">Event countdown and RSVP page</span>
-        <span class="chip" onclick="setP(this)">Product showcase with testimonials</span>
-        <span class="chip" onclick="setP(this)">Contact page with map and FAQ</span>
+        <span class="chip" onclick="setP(this)">Personal portfolio</span>
+        <span class="chip" onclick="setP(this)">Restaurant landing page</span>
+        <span class="chip" onclick="setP(this)">Event countdown timer</span>
+        <span class="chip" onclick="setP(this)">Simple quiz game</span>
+        <span class="chip" onclick="setP(this)">Product showcase</span>
+        <span class="chip" onclick="setP(this)">Contact form page</span>
       </div>
-      <div id="recent-strip" class="recent-strip"></div>
     </div>
   </div>
 
+  <!-- =======================
+       PROJECTS
+  ======================== -->
   <div class="screen" id="s-projects">
     <div class="proj-hdr">
       <a class="brand" href="javascript:void(0)" onclick="showScreen('landing')">
         <div class="logo">D5</div><div class="brand-name">DUB5</div>
       </a>
       <div class="proj-title">My Projects</div>
-      <button class="nav-btn" onclick="triggerImport()"><svg data-lucide="upload"></svg> Import</button>
       <button class="nav-btn" onclick="startApp(true)"><svg data-lucide="plus"></svg> New</button>
     </div>
     <div class="proj-body">
@@ -243,6 +309,9 @@
     </div>
   </div>
 
+  <!-- =======================
+       EDITOR
+  ======================== -->
   <div class="screen" id="s-app">
     <header class="app-hdr">
       <a class="brand" href="javascript:void(0)" onclick="showScreen('landing')"><div class="logo">D5</div><div class="brand-name">DUB5</div></a>
@@ -252,18 +321,26 @@
         <button class="icon-btn" title="New project" onclick="newProject()"><svg data-lucide="plus" width="14" height="14"></svg></button>
       </div>
     </header>
+
     <div class="workspace">
+      <!-- Chat -->
       <aside class="chat">
         <div class="msgs" id="msgs"></div>
         <div class="composer">
           <div class="composer-box">
-            <textarea class="pinput" id="pinput" placeholder="Describe what you want to build or change..." rows="2"></textarea>
+            <textarea class="pinput" id="pinput" placeholder="Describe what you want to build or change…" rows="2"></textarea>
             <div class="pfoot">
-              <button class="send-btn" id="send-btn" title="Send" onclick="onSendBtn()"></button>
+              <button class="send-btn" id="send-btn" title="Send" onclick="onSendBtn()">
+                <svg id="send-ico" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                  <line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5,12 12,5 19,12"></polyline>
+                </svg>
+              </button>
             </div>
           </div>
         </div>
       </aside>
+
+      <!-- Surface -->
       <section class="surface">
         <div class="topbar">
           <div class="tabs">
@@ -275,15 +352,12 @@
           <div class="actions">
             <button class="icon-btn" title="Refresh preview" onclick="refreshPrev()"><svg data-lucide="rotate-ccw" width="14" height="14"></svg></button>
             <button class="icon-btn" title="Open preview in new tab" onclick="openTab()"><svg data-lucide="external-link" width="14" height="14"></svg></button>
-            <button class="ghost" onclick="restoreLatestSnapshot()"><svg data-lucide="undo-2"></svg> Restore last preview</button>
             <button class="ghost" onclick="openShare()"><svg data-lucide="share-2"></svg> Share</button>
           </div>
         </div>
-        <div class="runbar">
-          <div class="run-pill"><span id="run-state">Ready</span></div>
-          <div class="change-summary" id="change-summary">No generation changes yet.</div>
-        </div>
+
         <div class="main">
+          <!-- Preview -->
           <div class="pane-preview" id="pane-preview">
             <div class="preview-card">
               <div class="prev-empty" id="prev-empty">
@@ -296,6 +370,8 @@
               <iframe class="pframe" id="pframe" sandbox="allow-scripts allow-forms allow-modals" title="Preview"></iframe>
             </div>
           </div>
+
+          <!-- Code -->
           <div class="pane-code" id="pane-code">
             <aside class="files">
               <div class="files-top">
@@ -303,6 +379,7 @@
               </div>
               <div class="file-list" id="file-tree"></div>
             </aside>
+
             <div class="editor">
               <div class="editor-top">
                 <span id="editor-info">index.html</span>
@@ -314,51 +391,36 @@
               </div>
             </div>
           </div>
+
+          <!-- History -->
           <div class="pane-panel" id="pane-history">
             <div class="panel-head">Project History</div>
-            <div class="panel-sub">Keep notes and lightweight snapshots. They are saved with the project.</div>
+            <div class="panel-sub">Keep your own notes. They’re saved with the project.</div>
+
             <div class="card">
               <div style="color:#fff;margin-bottom:8px">Add note</div>
               <textarea id="hist-note" rows="3" style="width:100%;background:#000;border:1px solid #1f1f1f;border-radius:8px;color:#fff;padding:10px;font-family:var(--mono);font-size:12.5px;outline:none" placeholder="What changed?"></textarea>
-              <div class="btn-row" style="margin-top:10px;justify-content:flex-start">
+              <div style="display:flex;gap:8px;margin-top:10px">
                 <button class="btn" onclick="addHistoryNote()">Save note</button>
                 <button class="btn" onclick="clearHistoryNotes()">Clear all</button>
               </div>
             </div>
+
             <div class="card">
               <div style="color:#fff;margin-bottom:8px">Notes</div>
               <div id="hist-list" style="color:var(--t2);font-size:12.5px">No notes yet.</div>
             </div>
-            <div class="card">
-              <div style="color:#fff;margin-bottom:8px">Snapshots</div>
-              <div class="btn-row" style="justify-content:flex-start;margin-bottom:10px">
-                <button class="btn" onclick="createSnapshot()">Save snapshot</button>
-                <button class="btn" onclick="restoreLatestSnapshot()">Restore latest</button>
-              </div>
-              <div id="snapshot-list" class="snapshot-list" style="color:var(--t2);font-size:12.5px">No snapshots yet.</div>
-            </div>
           </div>
+
+          <!-- Deploy -->
           <div class="pane-panel" id="pane-deploy">
             <div class="panel-head">Deploy Your App</div>
-            <div class="panel-sub">Free options plus secure publishing through a backend proxy.</div>
+            <div class="panel-sub">Free options (drag & drop your HTML).</div>
+
             <div class="card">
               <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px">
                 <button class="btn" onclick="window.open('https://app.netlify.com/drop','_blank')">Deploy to Netlify (Drop)</button>
                 <button class="btn" onclick="window.open('https://vercel.com/new','_blank')">Deploy to Vercel</button>
-              </div>
-            </div>
-            <div class="card">
-              <div style="color:#fff;margin-bottom:8px">Project tools</div>
-              <div class="btn-row" style="justify-content:flex-start">
-                <button class="btn" onclick="exportCurrentProject()">Export project JSON</button>
-                <button class="btn" onclick="duplicateCurrentProject()">Duplicate project</button>
-                <button class="btn" onclick="triggerImport()">Import project JSON</button>
-              </div>
-            </div>
-            <div class="card">
-              <div style="color:#fff;margin-bottom:8px">Secure GitHub publish</div>
-              <div style="font-size:12.5px;color:var(--t2);line-height:1.7">
-                Publish now goes through <code>/aether-vercel-api/publish-project</code>. Set <code>GITHUB_TOKEN</code>, <code>GITHUB_OWNER</code>, <code>GITHUB_REPO</code>, and optional <code>GITHUB_BRANCH</code> in your Vercel environment variables so the token never reaches the browser. If this page is served from GitHub Pages, point <code>window.AETHER_CONFIG.publishEndpoint</code> at that deployed Vercel URL.
               </div>
             </div>
           </div>
@@ -367,10 +429,13 @@
     </div>
   </div>
 
+  <!-- =======================
+       DIALOGS / SHARE
+  ======================== -->
   <div id="dialog-bg" class="modal-bg" aria-hidden="true">
     <div class="modal" role="dialog" aria-modal="true">
       <h3 id="dialog-title">Message</h3>
-      <p id="dialog-msg">...</p>
+      <p id="dialog-msg">…</p>
       <div id="dialog-extra"></div>
       <div class="modal-acts">
         <button class="btn" id="dialog-cancel">Cancel</button>
@@ -383,10 +448,12 @@
     <div class="modal share-modal" role="dialog" aria-modal="true">
       <h3>Share your page</h3>
       <p>Choose an option:</p>
+
+      <!-- Option A: Hash URL (no third-party) -->
       <div class="card">
         <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
           <svg data-lucide="link" width="16" height="16"></svg>
-          <b>Quick Link (Hash-based, no hosting)</b>
+          <b>Quick Link (Hash‑based, no hosting)</b>
         </div>
         <div class="opt-row">
           <button class="btn" onclick="shareQuickLink()">Generate Link</button>
@@ -395,8 +462,10 @@
         <div class="share-field">
           <input id="share-a-url" class="share-input" readonly value=""/>
         </div>
-        <p style="margin-top:6px;color:#a1a1aa;font-size:12px">Embeds the project in the URL hash after compression. No servers involved. Works on other devices through the shared link, depending on URL size.</p>
+        <p style="margin-top:6px;color:#a1a1aa;font-size:12px">Embeds the project (compressed) in the URL hash. No servers involved. Works on other devices via the shared link (size‑dependent).</p>
       </div>
+
+      <!-- GitHub JSON (encrypted at rest) -->
       <div class="card">
         <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
           <svg data-lucide="github" width="16" height="16"></svg>
@@ -410,10 +479,14 @@
           <input id="share-g-url" class="share-input" readonly value=""/>
         </div>
         <p style="margin-top:6px;color:#a1a1aa;font-size:12px">
-          Packages all files in <code>projects/[id].json</code>, encrypts the contents in the browser, then sends only the encrypted payload to your secure backend proxy. The share URL carries the decryption key in its hash so it works on other devices.
+          Packages all files in <code>projects/[id].json</code>, <b>encrypts</b> contents, pushes to your repo using a secure snippet you paste into this app.
+          The share URL carries the decryption key in its hash so it works on other devices.
         </p>
-        <div style="margin-top:8px;color:#a1a1aa;font-size:12px">Status: <span id="gh-status">Idle</span></div>
+        <div style="margin-top:8px;color:#a1a1aa;font-size:12px">
+          Status: <span id="gh-status">Idle</span>
+        </div>
       </div>
+
       <div class="modal-acts">
         <button class="btn" onclick="closeShare()">Close</button>
       </div>
@@ -421,8 +494,745 @@
   </div>
 
   <div id="toasts"></div>
-  <input id="import-project-input" type="file" accept="application/json,.json" style="display:none"/>
 
-  <script type="module" src="/aether-assets/app.js"></script>
+  <script>
+    /* ======================================
+       LOG / ICONS
+    ======================================= */
+    function ts(){ return new Date().toISOString(); }
+    function log(...a){ console.log('[DUB5]', ts(), ...a); }
+    function refreshIcons(){ try{ window.lucide && window.lucide.createIcons(); }catch(e){} }
+
+    /* ======================================
+       STATE
+    ======================================= */
+    const AI_ENDPOINT = 'https://chatbot-beta-weld.vercel.app/api/chatbot';
+
+    let projects = JSON.parse(localStorage.getItem('dub5-projects') || '[]');
+    let currentProjectId = null;
+    let sessionId = 'dub5-' + Math.random().toString(36).slice(2,10);
+
+    let chatHist = [];
+    let notes = [];
+    let files = [];
+    let activeFile = 'index.html';
+    let streaming = false;
+    let ctrl = null;
+
+    /* ======================================
+       SCREEN SWITCH
+    ======================================= */
+    function showScreen(name){
+      ['landing','projects','app'].forEach(n=>{
+        const el = document.getElementById('s-'+n);
+        if(!el) return;
+        if(n===name){ el.style.display='flex'; requestAnimationFrame(()=>el.classList.add('visible')); }
+        else{ el.classList.remove('visible'); el.style.display='none'; }
+      });
+      refreshIcons();
+    }
+
+    /* ======================================
+       LANDING
+    ======================================= */
+    function setP(el){
+      const v = 'Build a ' + (el.textContent||'').trim().toLowerCase();
+      const ta = document.getElementById('land-ta');
+      ta.value = v; ta.focus();
+    }
+
+    function startApp(blank){
+      const txt = (document.getElementById('land-ta').value || '').trim();
+      sessionId = 'dub5-' + Math.random().toString(36).slice(2,10);
+      currentProjectId = 'proj-' + Date.now();
+      chatHist = [];
+      notes = [];
+      files = [{ name:'index.html', content:'' }];
+      activeFile = 'index.html';
+
+      const proj = {
+        id: currentProjectId, name:'Untitled project', sessionId,
+        html:'', files, chat:[], notes:[], updatedAt:Date.now(), lastOpened:Date.now()
+      };
+      projects.unshift(proj); persistProjects();
+
+      // Reset editor
+      document.getElementById('proj-name').value = proj.name;
+      document.getElementById('msgs').innerHTML = '';
+      document.getElementById('code-editor').value = '';
+      document.getElementById('editor-info').textContent = 'index.html';
+      renderFileTree();
+      showPreviewEmpty();
+      renderNotes();
+
+      showScreen('app');
+      switchTab('preview');
+
+      if(!blank && txt){
+        setTimeout(()=>{ const i=document.getElementById('pinput'); i.value=txt; send(); }, 250);
+      }
+      refreshIcons();
+    }
+
+    /* ======================================
+       PROJECTS
+    ======================================= */
+    function persistProjects(){ localStorage.setItem('dub5-projects', JSON.stringify(projects)); }
+
+    function saveCurrentProject(){
+      if(!currentProjectId) return;
+      const idx = projects.findIndex(p=>p.id===currentProjectId);
+      const name = (document.getElementById('proj-name')?.value || 'Untitled project').trim() || 'Untitled project';
+      const html = getIndexHTML();
+      const proj = {
+        id: currentProjectId, name, sessionId,
+        html, files, chat:chatHist, notes,
+        updatedAt:Date.now(), lastOpened:Date.now()
+      };
+      if(idx>=0) projects[idx]=proj; else projects.unshift(proj);
+      persistProjects();
+    }
+
+    function renderProjects(){
+      const grid = document.getElementById('proj-grid');
+      const empty = document.getElementById('proj-empty');
+      if(!projects.length){ grid.innerHTML=''; empty.style.display='flex'; return; }
+      empty.style.display='none';
+      grid.innerHTML = projects.map(p=>{
+        const last = p.lastOpened ? new Date(p.lastOpened).toLocaleString() : '—';
+        const name = p.name || 'Untitled project';
+        const html = p.html || '';
+        const thumb = html
+          ? `<iframe sandbox="allow-scripts" srcdoc="${escapeAttr(html)}"></iframe>`
+          : `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:var(--t3);font-size:12px;gap:8px"><svg data-lucide="file" width="16" height="16"></svg>No preview</div>`;
+        return `
+        <div class="proj-card" onclick="openProject('${p.id}')">
+          <div class="proj-thumb">${thumb}</div>
+          <div class="proj-meta">
+            <div class="proj-name" title="${escapeHTML(name)}">${escapeHTML(name)}</div>
+            <div class="proj-sub">Last opened: ${escapeHTML(last)}</div>
+            <div class="proj-actions" onclick="event.stopPropagation()">
+              <button class="proj-act" onclick="openProject('${p.id}')"><svg data-lucide="play" width="14" height="14"></svg>Open</button>
+              <button class="proj-act" onclick="renameProject('${p.id}')"><svg data-lucide="edit-3" width="14" height="14"></svg>Rename</button>
+              <button class="proj-act danger" onclick="deleteProject('${p.id}')"><svg data-lucide="trash-2" width="14" height="14"></svg>Delete</button>
+            </div>
+          </div>
+        </div>`;
+      }).join('');
+      refreshIcons();
+    }
+
+    function showProjects(){ saveCurrentProject(); renderProjects(); showScreen('projects'); }
+
+    async function renameProject(id){
+      const p = projects.find(x=>x.id===id); if(!p) return;
+      const next = await promptBox('Project name', p.name || 'Untitled project');
+      if(next===null) return;
+      p.name = (next.trim()||'Untitled project'); p.updatedAt=Date.now(); persistProjects(); renderProjects(); toast('Renamed ✓');
+    }
+
+    async function deleteProject(id){
+      if(!await confirmBox('Delete this project? This cannot be undone.')) return;
+      projects = projects.filter(p=>p.id!==id); persistProjects(); renderProjects(); toast('Deleted');
+    }
+
+    function openProject(id){
+      const p = projects.find(x=>x.id===id); if(!p) return;
+      currentProjectId = id;
+      sessionId = p.sessionId || ('dub5-' + Math.random().toString(36).slice(2,10));
+      chatHist = Array.isArray(p.chat) ? [...p.chat] : [];
+      notes = Array.isArray(p.notes) ? [...p.notes] : [];
+      files = Array.isArray(p.files) && p.files.length ? p.files.map(f=>({name:f.name, content:f.content})) : [{name:'index.html', content:(p.html||'')}];
+      activeFile = files.find(f=>f.name==='index.html') ? 'index.html' : files[0].name;
+      p.lastOpened = Date.now(); persistProjects();
+
+      document.getElementById('proj-name').value = p.name || 'Untitled project';
+      document.getElementById('msgs').innerHTML = ''; renderChatFromHistory(chatHist);
+      document.getElementById('code-editor').value = getFileContent(activeFile);
+      document.getElementById('editor-info').textContent = activeFile;
+      renderFileTree(); renderNotes();
+
+      const html = getIndexHTML(); if(html) renderPrev(html); else showPreviewEmpty();
+      showScreen('app'); switchTab('preview'); refreshIcons();
+    }
+
+    (function bindNameSave(){
+      const input = document.getElementById('proj-name'); let t=null;
+      input.addEventListener('input', ()=>{ clearTimeout(t); t=setTimeout(saveCurrentProject, 250); });
+      input.addEventListener('blur', saveCurrentProject);
+    })();
+
+    /* ======================================
+       CHAT + FILE STATUS (BEGIN/END markers)
+    ======================================= */
+    function addUserMsg(text){
+      const wrap = document.getElementById('msgs');
+      const d = document.createElement('div'); d.className='msg user';
+      d.innerHTML = `<div class="bubble"></div>`; d.querySelector('.bubble').textContent = text;
+      wrap.appendChild(d); wrap.scrollTop = wrap.scrollHeight; return d;
+    }
+    function ensureAiMsg(){
+      const wrap = document.getElementById('msgs'); const d = document.createElement('div'); d.className='msg ai';
+      d.innerHTML = `<div class="ai-line md"></div>`; wrap.appendChild(d); wrap.scrollTop = wrap.scrollHeight; return d.querySelector('.ai-line');
+    }
+    function addTyping(){ const w=document.getElementById('msgs'); const d=document.createElement('div'); d.id='_typing'; d.className='typing'; d.innerHTML=`<span class="dot"></span><span class="dot"></span><span class="dot"></span>`; w.appendChild(d); w.scrollTop=w.scrollHeight; }
+    function rmTyping(){ const e=document.getElementById('_typing'); if(e) e.remove(); }
+
+    function addFileStatus(filename){
+      const wrap = document.getElementById('msgs');
+      const el = document.createElement('div'); el.className='file-status'; el.dataset.file=filename;
+      el.innerHTML = `
+        <div class="file-status-left">
+          <svg data-lucide="file-code" width="14" height="14"></svg>
+          <div class="file-status-name" title="${escapeHTML(filename)}">${escapeHTML(filename)}</div>
+        </div>
+        <div class="file-status-state"><div class="spinner"></div><span>Writing…</span></div>`;
+      el.addEventListener('click', ()=>{ switchTab('code'); openFile(filename); });
+      wrap.appendChild(el); wrap.scrollTop = wrap.scrollHeight; refreshIcons(); return el;
+    }
+    function setFileStatusDone(el){
+      if(!el) return;
+      const state = el.querySelector('.file-status-state');
+      state.innerHTML = `<span class="check"><svg data-lucide="check" width="14" height="14"></svg></span><span>Saved</span>`;
+      refreshIcons();
+    }
+
+    // Markdown renderer (extended)
+    function escapeHTML(s){ return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+    function escapeAttr(s){ return escapeHTML(s).replace(/'/g,'&#39;'); }
+
+    function renderMarkdown(md){
+      if(!md) return '';
+      md = md.replace(/\r\n/g,'\n');
+
+      // Fenced blocks first
+      const blocks = [];
+      md = md.replace(/```(\w+)?\n([\s\S]*?)```/g,(_,lang,code)=>{const i=blocks.length;blocks.push({lang:lang||'',code});return `\u0000CODE_${i}\u0000`;});
+
+      let s = escapeHTML(md);
+
+      // Restore code blocks
+      s = s.replace(/\u0000CODE_(\d+)\u0000/g,(_,i)=>{const b=blocks[+i];const ce=escapeHTML(b.code);const cls=b.lang?` class="lang-${escapeHTML(b.lang)}"`:'';return `<pre><code${cls}>${ce}</code></pre>`;});
+
+      // Block-level parsing
+      const lines = s.split('\n'); let out=[]; let inUL=false,inOL=false; let tableBuf=null;
+      const isTableSep = (line)=>{const t=line.trim(); if(!t.includes('|'))return false; return /^(\|?\s*:?-{3,}:?\s*)+(\|?\s*)$/.test(t.replace(/\|/g,'|'));};
+      const splitRow=(line)=>{let p=line.split('|').map(x=>x.trim()); if(p[0]==='')p.shift(); if(p[p.length-1]==='')p.pop(); return p;};
+      const closeLists=()=>{if(inUL){out.push('</ul>'); inUL=false;} if(inOL){out.push('</ol>'); inOL=false;}};
+      const flushTable=()=>{if(!tableBuf)return; const h=tableBuf.head, rows=tableBuf.rows; out.push('<table>'); if(h.length){out.push('<thead><tr>'+h.map(x=>`<th>${x}</th>`).join('')+'</tr></thead>');}
+        out.push('<tbody>'); rows.forEach(r=>out.push('<tr>'+r.map(x=>`<td>${x}</td>`).join('')+'</tr>')); out.push('</tbody></table>'); tableBuf=null; };
+
+      for(let i=0;i<lines.length;i++){
+        const line = lines[i];
+
+        // table
+        if(line.trim().includes('|')){
+          const next = lines[i+1]||'';
+          if(next && isTableSep(next)){
+            closeLists(); const head = splitRow(line); tableBuf={head,rows:[]}; i++; // skip sep
+            while(i+1<lines.length && lines[i+1].trim().includes('|')){ i++; tableBuf.rows.push(splitRow(lines[i])); }
+            flushTable(); continue;
+          }
+        }
+
+        // hr
+        if(/^(\s*)(-{3,}|_{3,}|\*{3,})\s*$/.test(line)){ flushTable(); closeLists(); out.push('<hr>'); continue; }
+
+        // heading
+        const h = line.match(/^(#{1,6})\s+(.*)$/); if(h){ flushTable(); closeLists(); const lvl=h[1].length; out.push(`<h${lvl}>${h[2].trim()}</h${lvl}>`); continue; }
+
+        // quote
+        const bq = line.match(/^>\s?(.*)$/); if(bq){ flushTable(); closeLists(); out.push(`<blockquote>${bq[1]}</blockquote>`); continue; }
+
+        // lists
+        const ol = line.match(/^\s*\d+\.\s+(.*)$/); if(ol){ flushTable(); if(inUL){out.push('</ul>');inUL=false;} if(!inOL){out.push('<ol>');inOL=true;} out.push(`<li>${ol[1]}</li>`); continue; }
+        const ul = line.match(/^\s*[-*+]\s+(.*)$/); if(ul){ flushTable(); if(inOL){out.push('</ol>');inOL=false;} if(!inUL){out.push('<ul>');inUL=true;} out.push(`<li>${ul[1]}</li>`); continue; }
+
+        if(line.trim()===''){ flushTable(); closeLists(); continue; }
+        flushTable(); closeLists(); out.push(`<p>${line}</p>`);
+      }
+      flushTable(); closeLists();
+
+      // inline
+      let html = out.join('\n');
+      html = html.replace(/`([^`\n]+)`/g,'<code>$1</code>');
+      html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g,(m,text,url)=>{const safe=(url||'').trim(); if(!/^(https?:|mailto:)/i.test(safe)) return `${text} (${safe})`; const u=safe.replace(/"/g,'%22'); return `<a href="${u}" target="_blank" rel="noreferrer noopener">${text}</a>`;});
+      html = html.replace(/\*\*\*([^\*\n]+)\*\*\*/g,'<strong><em>$1</em></strong>');
+      html = html.replace(/\*\*([^\*\n]+)\*\*/g,'<strong>$1</strong>');
+      html = html.replace(/(^|[\s])\*([^\*\n]+)\*(?=[\s.,!?:;]|$)/g,'$1<em>$2</em>');
+
+      return html;
+    }
+
+    /* ======================================
+       SEND / STREAM with file markers
+    ======================================= */
+    function setSendBtn(state){
+      const btn = document.getElementById('send-btn'); btn.innerHTML='';
+      if(state==='stop'){
+        btn.title='Stop';
+        btn.insertAdjacentHTML('afterbegin', `<svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="6" width="12" height="12" rx="2"/></svg>`);
+      } else{
+        btn.title='Send';
+        btn.insertAdjacentHTML('afterbegin', `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5,12 12,5 19,12"></polyline></svg>`);
+      }
+    }
+    function onSendBtn(){ if(streaming){ abortStream(); } else { send(); } }
+
+    function beginRe(){ return /(?:^|\n)\s*(?:---\s*)?BEGIN\s+FILE\s*:\s*([^\n-]+?)\s*(?:---)?\s*(?:\n|$)/i; }
+    function endRe(){   return /(?:^|\n)\s*(?:---\s*)?END\s+FILE\s*:\s*([^\n-]+?)\s*(?:---)?\s*(?:\n|$)/i; }
+
+    async function send(){
+      const input = document.getElementById('pinput');
+      const userText = (input.value||'').trim(); if(!userText || streaming) return;
+      input.value='';
+
+      addUserMsg(userText);
+      chatHist.push({role:'user', content:userText});
+      saveCurrentProject();
+
+      addTyping(); streaming=true; setSendBtn('stop'); ctrl = new AbortController();
+      let visibleText=''; let aiEl=null;
+
+      // file streaming state
+      let inFile=false, curFile='', fileBuf=''; let fsEl=null;
+
+      try{
+        const payload = {
+          input: userText, personality:'coder', model:'gpt-4o', thinking_mode:'balanced',
+          session_id: sessionId, history: chatHist.slice(0,-1).slice(-12).map(m=>({role:m.role, content:m.content}))
+        };
+        const res = await fetch(AI_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload),signal:ctrl.signal});
+        if(!res.ok) throw new Error('HTTP '+res.status);
+
+        const reader = res.body.getReader(); const dec = new TextDecoder(); let sse='';
+        while(true){
+          const {value,done}=await reader.read(); if(done)break;
+          sse += dec.decode(value,{stream:true});
+          const events = sse.split('\n\n'); sse = events.pop()||'';
+          for(const evt of events){
+            const lines = evt.split('\n');
+            for(const raw of lines){
+              const line = raw.trim(); if(!line.startsWith('data:')) continue;
+              const data = line.slice(5).trim(); if(!data || data==='[DONE]') continue;
+              let delta=''; try{
+                const obj=JSON.parse(data); if(obj.type==='metadata'||obj.type==='ping') continue;
+                if(obj.type==='done'){ if(obj.files) handleFiles(obj.files); continue; }
+                if(obj.type==='error') continue;
+                delta = obj.content ?? (obj.choices?.[0]?.delta?.content) ?? obj.text ?? obj.delta ?? obj.message ?? '';
+              }catch{ delta = data; }
+              if(!delta) continue;
+
+              // parse markers incrementally
+              let proc = delta;
+              while(proc.length){
+                if(!inFile){
+                  const m = proc.match(beginRe());
+                  if(m){
+                    const idx = m.index??0; visibleText += proc.slice(0,idx);
+                    const len = m[0].length; curFile=(m[1]||'').trim()||'index.html';
+                    inFile=true; fileBuf=''; fsEl=addFileStatus(curFile);
+                    proc = proc.slice(idx+len); continue;
+                  } else { visibleText += proc; proc=''; break; }
+                } else {
+                  const m2 = proc.match(endRe());
+                  if(m2){
+                    const idx2=m2.index??0; fileBuf+=proc.slice(0,idx2);
+                    const len=m2[0].length; const endName=(m2[1]||'').trim()||curFile;
+                    writeFile(endName, fileBuf); setFileStatusDone(fsEl);
+                    inFile=false; curFile=''; fileBuf=''; fsEl=null;
+                    proc = proc.slice(idx2+len); continue;
+                  } else { fileBuf+=proc; proc=''; break; }
+                }
+              }
+
+              const trimmed = visibleText.trim();
+              if(trimmed){
+                if(!aiEl){ rmTyping(); aiEl=ensureAiMsg(); }
+                aiEl.innerHTML = renderMarkdown(visibleText);
+              }
+            }
+          }
+        }
+
+        rmTyping();
+        chatHist.push({role:'assistant', content:visibleText.trim()||''});
+        saveCurrentProject();
+      }catch(err){
+        rmTyping();
+        if(err.name!=='AbortError'){
+          const ai=ensureAiMsg(); ai.textContent='⚠️ '+err.message;
+          chatHist.push({role:'assistant', content:'⚠️ '+err.message}); saveCurrentProject();
+        }
+      }finally{
+        streaming=false; setSendBtn('send'); ctrl=null; // immediate switch back
+      }
+    }
+    function abortStream(){ if(ctrl) ctrl.abort(); }
+
+    /* ======================================
+       FILES
+    ======================================= */
+    function getIndexHTML(){ const f=files.find(x=>x.name==='index.html'); return f? (f.content||'') : ''; }
+    function getFileContent(n){ const f=files.find(x=>x.name===n); return f? (f.content||'') : ''; }
+
+    function writeFile(name, content){
+      name=(name||'index.html').trim(); if(!name) name='index.html';
+      let f=files.find(x=>x.name===name);
+      if(!f){ f={name,content:''}; files.push(f); renderFileTree(); }
+      f.content = content??'';
+      if(activeFile===name){ const ed=document.getElementById('code-editor'); if(ed && ed.value!==f.content) ed.value=f.content; maybeRenderMd(); }
+      if(name==='index.html'){ renderPrev(f.content); } else { saveCurrentProject(); }
+      toast(`Saved ${name}`);
+    }
+
+    function renderFileTree(){
+      const tree = document.getElementById('file-tree');
+      tree.innerHTML = files.map(f=>{
+        const isActive=f.name===activeFile, isIndex=f.name==='index.html';
+        return `
+        <div class="file-row ${isActive?'active':''}" onclick="openFile('${escapeAttr(f.name)}')">
+          <div class="file-left"><svg data-lucide="${f.name.endsWith('.html')?'file-code':f.name.endsWith('.md')?'file-text':'file'}"></svg>
+            <div class="file-name" title="${escapeHTML(f.name)}">${escapeHTML(f.name)}</div>
+          </div>
+          <div style="display:flex;gap:4px" onclick="event.stopPropagation()">
+            ${isIndex?'':`
+            <button class="file-mini" title="Rename" onclick="uiRenameFile('${escapeAttr(f.name)}')"><svg data-lucide="edit-3"></svg></button>
+            <button class="file-mini" title="Delete" onclick="uiDeleteFile('${escapeAttr(f.name)}')"><svg data-lucide="trash-2"></svg></button>`}
+          </div>
+        </div>`;
+      }).join('');
+      refreshIcons();
+    }
+    function openFile(name){
+      if(!files.some(f=>f.name===name)) return;
+      activeFile=name;
+      document.getElementById('editor-info').textContent=name;
+      document.getElementById('code-editor').value=getFileContent(name);
+      renderFileTree(); maybeRenderMd();
+    }
+
+    // Custom message boxes (no alerts/prompts)
+    function dialog(title,msg,{input=false,placeholder='',okText='OK',cancelText='Cancel',value=''}={}){
+      return new Promise(res=>{
+        const bg=document.getElementById('dialog-bg'), t=document.getElementById('dialog-title'),
+              m=document.getElementById('dialog-msg'), extra=document.getElementById('dialog-extra'),
+              btnOk=document.getElementById('dialog-ok'), btnCancel=document.getElementById('dialog-cancel');
+        t.textContent=title; m.textContent=msg; extra.innerHTML='';
+        let inp=null; if(input){ inp=document.createElement('input'); inp.type='text'; inp.placeholder=placeholder; inp.value=value; extra.appendChild(inp); setTimeout(()=>inp.focus(),10); }
+        btnOk.textContent=okText; btnCancel.textContent=cancelText;
+        const close=()=>{ bg.classList.remove('on'); btnOk.onclick=btnCancel.onclick=null; };
+        btnOk.onclick=()=>{ const v=input?(inp.value||''):true; close(); res(v); };
+        btnCancel.onclick=()=>{ close(); res(null); };
+        bg.classList.add('on');
+      });
+    }
+    function confirmBox(msg){ return dialog('Confirm', msg, {input:false,okText:'Yes',cancelText:'No'}).then(v=>v!==null); }
+    function promptBox(msg, val=''){ return dialog('Input', msg, {input:true,okText:'Save',cancelText:'Cancel',value:val}); }
+
+    // UI file ops with custom dialog
+    async function uiNewFile(){
+      const name = await promptBox('New file name (e.g., about.html)'); if(name===null) return;
+      const nm = name.trim(); if(!nm){ toast('Name required'); return; }
+      if(files.some(f=>f.name===nm)){ toast('File exists'); return; }
+      files.push({name:nm, content:''}); activeFile=nm; document.getElementById('editor-info').textContent=nm;
+      document.getElementById('code-editor').value=''; renderFileTree(); saveCurrentProject(); maybeRenderMd();
+    }
+    async function uiRenameFile(oldName){
+      const nf = await promptBox('Rename file', oldName); if(nf===null) return;
+      const name = nf.trim(); if(!name || name===oldName) return;
+      if(name==='index.html'){ toast('Cannot rename to index.html'); return; }
+      if(files.some(f=>f.name===name)){ toast('File exists'); return; }
+      const f=files.find(x=>x.name===oldName); if(!f) return; f.name=name;
+      if(activeFile===oldName) activeFile=name; document.getElementById('editor-info').textContent=activeFile;
+      renderFileTree(); saveCurrentProject(); maybeRenderMd();
+    }
+    async function uiDeleteFile(name){
+      if(name==='index.html'){ toast('Cannot delete index.html'); return; }
+      if(!await confirmBox(`Delete ${name}?`)) return;
+      files = files.filter(f=>f.name!==name);
+      if(activeFile===name){ activeFile='index.html'; document.getElementById('editor-info').textContent=activeFile; document.getElementById('code-editor').value=getFileContent(activeFile); }
+      renderFileTree(); saveCurrentProject(); maybeRenderMd();
+    }
+
+    // Editor autosave + MD preview toggle
+    (function bindEditor(){
+      const ed=document.getElementById('code-editor'); let t=null;
+      ed.addEventListener('input', ()=>{ clearTimeout(t); t=setTimeout(()=>{ writeFile(activeFile, ed.value??''); }, 220); });
+    })();
+    function maybeRenderMd(){
+      const isMd = activeFile.toLowerCase().endsWith('.md');
+      const btn=document.getElementById('md-toggle'); btn.style.display = isMd?'inline-flex':'none';
+      if(!isMd){ document.getElementById('md-preview').style.display='none'; document.getElementById('code-editor').style.display='block'; }
+      if(isMd && document.getElementById('md-preview').style.display==='block'){
+        document.getElementById('md-preview').innerHTML = renderMarkdown(getFileContent(activeFile));
+      }
+    }
+    function toggleMdPreview(){
+      const prev=document.getElementById('md-preview'); const ed=document.getElementById('code-editor');
+      if(prev.style.display==='block'){ prev.style.display='none'; ed.style.display='block'; }
+      else{ prev.innerHTML = renderMarkdown(getFileContent(activeFile)); prev.style.display='block'; ed.style.display='none'; }
+    }
+
+    /* ======================================
+       PREVIEW
+    ======================================= */
+    function showPreviewEmpty(){ document.getElementById('prev-empty').style.display='flex'; document.getElementById('pframe').style.display='none'; }
+    function hidePreviewEmpty(){ document.getElementById('prev-empty').style.display='none'; document.getElementById('pframe').style.display='block'; }
+    function renderPrev(html){
+      const f=document.getElementById('pframe'); hidePreviewEmpty(); f.srcdoc=html;
+    }
+    function refreshPrev(){ const html=getIndexHTML(); if(html) renderPrev(html); }
+    function openTab(){
+      const html=getIndexHTML(); if(!html){ toast('Nothing to preview'); return; }
+      const url=URL.createObjectURL(new Blob([html],{type:'text/html'})); window.open(url,'_blank'); setTimeout(()=>{try{URL.revokeObjectURL(url);}catch{}},60_000);
+    }
+    function dlHTML(){
+      const html=getIndexHTML(); if(!html){ toast('Nothing to download'); return; }
+      const name=(document.getElementById('proj-name').value||'dub5-page').toLowerCase().replace(/\s+/g,'-').replace(/[^a-z0-9\-_.]/g,'');
+      const url=URL.createObjectURL(new Blob([html],{type:'text/html'})); const a=document.createElement('a'); a.href=url;a.download=name+'.html';document.body.appendChild(a);a.click();a.remove(); setTimeout(()=>{try{URL.revokeObjectURL(url);}catch{}},10_000);
+    }
+
+    /* ======================================
+       TABS
+    ======================================= */
+    function switchTab(tab){
+      document.querySelectorAll('.tab').forEach(b=>b.classList.toggle('active', b.dataset.tab===tab));
+      document.getElementById('pane-preview').style.display = (tab==='preview')?'flex':'none';
+      const codePane=document.getElementById('pane-code'); codePane.classList.toggle('on', tab==='code');
+      ['history','deploy'].forEach(p=>document.getElementById('pane-'+p).classList.toggle('on', tab===p));
+      refreshIcons();
+    }
+
+    /* ======================================
+       HISTORY NOTES
+    ======================================= */
+    function addHistoryNote(){
+      const ta=document.getElementById('hist-note'); const text=(ta.value||'').trim(); if(!text) return;
+      const stamp=new Date().toLocaleString(); notes.unshift({text,at:stamp}); ta.value=''; renderNotes(); saveCurrentProject(); toast('Note saved ✓');
+    }
+    function clearHistoryNotes(){ confirmBox('Clear all notes?').then(y=>{ if(!y) return; notes=[]; renderNotes(); saveCurrentProject(); }); }
+    function renderNotes(){
+      const box=document.getElementById('hist-list'); if(!notes.length){ box.textContent='No notes yet.'; return; }
+      box.innerHTML = notes.map(n=>`
+        <div style="border-bottom:1px dashed #1f1f1f;padding:8px 0">
+          <div style="font-family:var(--mono);font-size:12px;color:#9ca3af">${escapeHTML(n.at)}</div>
+          <div style="white-space:pre-wrap;color:#fff;font-size:12.5px;margin-top:4px">${escapeHTML(n.text)}</div>
+        </div>`).join('');
+    }
+
+    /* ======================================
+       SHARE: Option A (Hash) & GitHub (Encrypted JSON)
+    ======================================= */
+    function openShare(){ document.getElementById('share-bg').classList.add('on'); refreshIcons(); }
+    function closeShare(){ document.getElementById('share-bg').classList.remove('on'); }
+
+    // Helpers: UTF-8, base64url, compression, crypto
+    const enc = new TextEncoder(); const dec = new TextDecoder();
+    function b64u(bytes){ let bin=''; bytes.forEach(b=>bin+=String.fromCharCode(b)); let b64=btoa(bin).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,''); return b64; }
+    function b64uToBytes(s){ s=s.replace(/-/g,'+').replace(/_/g,'/'); const pad = s.length%4 ? 4-(s.length%4) : 0; s+= '='.repeat(pad); const bin=atob(s); const arr=new Uint8Array(bin.length); for(let i=0;i<bin.length;i++)arr[i]=bin.charCodeAt(i); return arr; }
+
+    async function deflateRaw(u8){
+      if('CompressionStream' in window){
+        const cs=new CompressionStream('deflate-raw'); const s=new Blob([u8]).stream().pipeThrough(cs); const buf=await new Response(s).arrayBuffer(); return new Uint8Array(buf);
+      } else { return u8; }
+    }
+    async function inflateRaw(u8){
+      if('DecompressionStream' in window){
+        const ds=new DecompressionStream('deflate-raw'); const s=new Blob([u8]).stream().pipeThrough(ds); const buf=await new Response(s).arrayBuffer(); return new Uint8Array(buf);
+      } else { return u8; }
+    }
+
+    async function aesGenKey(){ return crypto.subtle.generateKey({name:'AES-GCM', length:256}, true, ['encrypt','decrypt']); }
+    async function aesExportRaw(k){ const raw=await crypto.subtle.exportKey('raw',k); return new Uint8Array(raw); }
+    async function aesImportRaw(raw){ return crypto.subtle.importKey('raw', raw, {name:'AES-GCM'}, true, ['encrypt','decrypt']); }
+    function rand(n){ const a=new Uint8Array(n); crypto.getRandomValues(a); return a; }
+
+    function packageProject(){
+      const pkg = { v:1, files:{} };
+      files.forEach(f=>{ pkg.files[f.name]=f.content; });
+      return enc.encode(JSON.stringify(pkg));
+    }
+
+    // Option A — Hash link (no hosting)
+    async function shareQuickLink(){
+      const raw = packageProject();
+      const def = await deflateRaw(raw);
+      const url = location.origin + location.pathname + '#v1:' + b64u(def);
+      document.getElementById('share-a-url').value = url; toast('Link ready ✓');
+    }
+
+    // Viewer mode for Option A or GitHub link
+    (async function viewerAuto(){
+      // Option A hash
+      if(location.hash.startsWith('#v1:')){
+        try{
+          const bytes = b64uToBytes(location.hash.slice(4));
+          const inf = await inflateRaw(bytes);
+          const pkg = JSON.parse(dec.decode(inf));
+          // load into memory + render
+          files = Object.entries(pkg.files).map(([name,content])=>({name,content}));
+          activeFile = files.find(f=>f.name==='index.html') ? 'index.html' : files[0].name;
+          renderFileTree(); document.getElementById('code-editor').value=getFileContent(activeFile);
+          renderPrev(getIndexHTML()); showScreen('app'); switchTab('preview'); refreshIcons();
+        }catch(e){ console.error(e); }
+      }
+      // GitHub src param + key in hash: ?src=...#key=...
+      const q = new URLSearchParams(location.search);
+      if(q.has('src') && location.hash.includes('key=')){
+        try{
+          const src = q.get('src');
+          const keyB64 = location.hash.split('key=')[1].split('&')[0];
+          const keyRaw = b64uToBytes(keyB64); const key = await aesImportRaw(keyRaw);
+          const resp = await fetch(src,{cache:'no-store'}); const j = await resp.json();
+          const iv = b64uToBytes(j.iv), data = b64uToBytes(j.data);
+          const plain = new Uint8Array(await crypto.subtle.decrypt({name:'AES-GCM', iv}, key, data));
+          const inflated = await inflateRaw(plain);
+          const pkg = JSON.parse(dec.decode(inflated));
+          files = Object.entries(pkg.files).map(([name,content])=>({name,content}));
+          activeFile = files.find(f=>f.name==='index.html') ? 'index.html' : files[0].name;
+          renderFileTree(); document.getElementById('code-editor').value=getFileContent(activeFile);
+          renderPrev(getIndexHTML()); showScreen('app'); switchTab('preview'); refreshIcons();
+        }catch(e){ console.error(e); toast('Failed to open shared link'); }
+      }
+    })();
+
+    // Option GitHub — encrypt JSON + push to repo via injected snippet
+    async function shareGitHub(){
+      const status = (m)=>{ const s=document.getElementById('gh-status'); s.textContent=m; };
+
+      try{
+        status('Packing…');
+        const raw = packageProject();
+        const def = await deflateRaw(raw);
+
+        status('Encrypting…');
+        const key = await aesGenKey(); const keyRaw = new Uint8Array(await aesExportRaw(key)); const iv = rand(12);
+        const cipher = new Uint8Array(await crypto.subtle.encrypt({name:'AES-GCM', iv}, key, def));
+        const payload = { v:1, iv:b64u(iv), data:b64u(cipher) };
+
+        // path & link
+        const id = currentProjectId || ('proj-'+Date.now());
+        const path = `projects/${id}.json`;
+
+        // --- PLACEHOLDER SNIPPET: will define window.DUB5_GH_PUSH ---
+        /* ==== DUB5 GitHub Push Snippet (Generated) ==== */
+(function(){
+  // Repo config (public)
+  const GH_O="DUB55";
+  const GH_R="aether-projects";
+  const GH_B="main";
+
+  // Obfuscated encrypted PAT parts (AES-GCM)
+  function j(x){return x.join('');}
+  const KP=["3k1U_2V","tkw","l2uFJ","kyH","H2R","OjifXTR","z9DI","L3JU","uAiN4B0"];
+  const IV=["Fzb","1pwWl","nIL","ttcO","6"];
+  const CT=["hh93YKU","sQXkMpl","HKK","DUlcpDc","_YC","PwD","MCCJ","RiAG","XYw","mgK","_3TKVY","sHeo","yoi1p","ir1r","XxyiMRS","9h4JN","lQDD","zu-uMo","x0R","z2s","1dge","TcCSAg8","uZCDq","bszKkg","3u6","8u2","uufPDQ","ig_","cRNFLw9","eozK3r","d42UQ"];
+
+  function b64d(s){s=s.replace(/-/g,'+').replace(/_/g,'/');var pad=s.length%4?4-(s.length%4):0;s+='='.repeat(pad);var bin=atob(s);var arr=new Uint8Array(bin.length);for(var i=0;i<bin.length;i++)arr[i]=bin.charCodeAt(i);return arr;}
+  async function decPAT(){
+    const keyRaw=b64d(j(KP)); const iv=b64d(j(IV)); const ct=b64d(j(CT));
+    const key=await crypto.subtle.importKey('raw', keyRaw, {name:'AES-GCM'}, false, ['decrypt']);
+    const plain=await crypto.subtle.decrypt({name:'AES-GCM',iv}, key, ct);
+    return new TextDecoder().decode(new Uint8Array(plain));
+  }
+
+  async function ghPutFile({owner,repo,branch,path,contentBase64,msg}){
+    // If file exists, fetch sha
+    const base = 'https://api.github.com/repos/'+owner+'/'+repo+'/contents/'+encodeURIComponent(path);
+    const token = await decPAT();
+    async function req(method, body){
+      const r = await fetch(base+(method==='PUT'?'':'?ref='+encodeURIComponent(branch)), {
+        method, headers:{
+          'Authorization': 'Bearer '+token,
+          'Accept': 'application/vnd.github+json',
+          'Content-Type': 'application/json'
+        }, body: body?JSON.stringify(body):undefined
+      }); return r;
+    }
+    let sha = null;
+    try{
+      const gr = await req('GET'); if(gr.ok){ const j=await gr.json(); sha = j.sha || null; }
+    }catch(e){}
+    const putBody = { message: msg||'DUB5 update', content: contentBase64, branch };
+    if(sha) putBody.sha = sha;
+    const pr = await req('PUT', putBody);
+    if(!pr.ok){ throw new Error('GitHub PUT failed: '+pr.status); }
+    const j = await pr.json();
+    return {
+      commitUrl: j.commit && j.commit.html_url,
+      rawUrl: 'https://raw.githubusercontent.com/'+owner+'/'+repo+'/'+branch+'/'+path
+    };
+  }
+
+  // Public bridge for app
+  window.DUB5_GH_PUSH = async function({path,contentJson,message}){
+    // Base64 the JSON (no newlines)
+    const b = btoa(unescape(encodeURIComponent(contentJson)));
+    return await ghPutFile({owner:GH_O,repo:GH_R,branch:GH_B,path,contentBase64:b,msg:message});
+  };
+})();/* ==== END DUB5 Snippet ==== */
+        /*__GITHUB_PUSH_SNIPPET__*/
+
+        if(typeof window.DUB5_GH_PUSH!=='function'){
+          await infoBox(
+            'GitHub push not configured',
+            'Open the "PAT Injector Tool" file, generate the snippet, and paste it into this file at the placeholder.'
+          );
+          status('Not configured'); return;
+        }
+
+        status('Publishing…');
+        const res = await window.DUB5_GH_PUSH({
+          path,
+          contentJson: JSON.stringify(payload, null, 0),
+          message: `DUB5: publish ${id}`
+        });
+
+        if(!res || !res.rawUrl){ status('Publish failed'); toast('GitHub publish failed'); return; }
+
+        // build share URL: include key in hash (viewer will decrypt)
+        const keyB64 = b64u(keyRaw);
+        const share = location.origin + location.pathname + '?src=' + encodeURIComponent(res.rawUrl) + '#key=' + keyB64;
+        document.getElementById('share-g-url').value = share;
+        status('Done ✓'); toast('GitHub link ready ✓');
+      }catch(e){
+        console.error(e); toast('Share failed'); document.getElementById('gh-status').textContent='Error';
+      }
+    }
+
+    /* ======================================
+       SIMPLE INFO BOX (uses dialog UI)
+    ======================================= */
+    function infoBox(title,msg){ return dialog(title,msg,{input:false,okText:'OK',cancelText:'Close'}); }
+
+    /* ======================================
+       SHARE: helpers
+    ======================================= */
+    function copyEl(id){
+      const el=document.getElementById(id); if(!el||!el.value){ toast('Nothing to copy'); return; }
+      navigator.clipboard.writeText(el.value).then(()=>toast('Copied ✓'));
+    }
+
+    /* ======================================
+       INPUT BINDINGS
+    ======================================= */
+    document.getElementById('land-ta').addEventListener('keydown', e=>{ if(e.key==='Enter' && !e.shiftKey){ e.preventDefault(); startApp(); }});
+    (function bindPrompt(){ const p=document.getElementById('pinput'); p.addEventListener('keydown', e=>{ if(e.key==='Enter' && !e.shiftKey){ e.preventDefault(); send(); }}); })();
+
+    /* ======================================
+       TOAST
+    ======================================= */
+    function toast(msg){
+      let t=document.getElementById('toasts'); const el=document.createElement('div'); el.className='toast'; el.textContent=msg; t.appendChild(el); setTimeout(()=>el.remove(),2400);
+    }
+
+    /* ======================================
+       INIT
+    ======================================= */
+    refreshIcons(); renderProjects(); document.getElementById('proj-empty').style.display = projects.length?'none':'flex';
+    setSendBtn('send');
+
+  </script>
 </body>
 </html>
