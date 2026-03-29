@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nederlands Toetsvoorbereiding - Actieve Recall</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --secondary: #475569;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text: #1e293b;
+            --high-prio: #ef4444; /* Rood - Hoogstwaarschijnlijk */
+            --med-prio: #f59e0b; /* Oranje - Waarschijnlijk */
+            --low-prio: #10b981; /* Groen - Waarschijnlijk niet */
+            --border: #e2e8f0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Header & Navigation */
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 2rem 1rem;
+            text-align: center;
+        }
+
+        h1 { margin: 0; font-size: 2rem; }
+        p.subtitle { opacity: 0.9; margin-top: 0.5rem; }
+
+        .priority-legend {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            color: white;
+            display: inline-block;
+        }
+        .badge-high { background-color: var(--high-prio); }
+        .badge-med { background-color: var(--med-prio); }
+        .badge-low { background-color: var(--low-prio); }
+
+        /* Main Container */
+        .container {
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        /* Sections */
+        .section-header {
+            background: var(--secondary);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px 8px 0 0;
+            margin-top: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-top: none;
+            padding: 1.5rem;
+            margin-bottom: 0;
+            position: relative;
+        }
+
+        .card:last-child {
+            border-radius: 0 0 8px 8px;
+            margin-bottom: 2rem;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid var(--bg);
+            padding-bottom: 0.5rem;
+        }
+
+        .card-title {
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: var(--primary);
+        }
+
+        .card-type {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            background: #e2e8f0;
+            padding: 3px 8px;
+            border-radius: 4px;
+        }
+
+        /* Content Styling */
+        .content-area {
+            font-size: 1rem;
+        }
+
+        .content-area ul {
+            padding-left: 20px;
+        }
+
+        .content-area strong {
+            color: var(--secondary);
+        }
+
+        /* Active Recall / Spoilers */
+        .spoiler-container {
+            margin-top: 1rem;
+            border: 1px dashed var(--border);
+            padding: 10px;
+            border-radius: 5px;
+            background: #f1f5f9;
+        }
+
+        .spoiler-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background 0.2s;
+        }
+
+        .spoiler-btn:hover {
+            background: #1d4ed8;
+        }
+
+        .spoiler-content {
+            display: none;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid #cbd5e1;
+            color: #334155;
+        }
+
+        .spoiler-content.visible {
+            display: block;
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Specific Blocks */
+        .prediction-box {
+            background: #fffbeb;
+            border-left: 5px solid var(--med-prio);
+            padding: 15px;
+            margin: 10px 0;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .card-header { flex-direction: column; align-items: flex-start; gap: 5px; }
+            .priority-legend { flex-direction: column; align-items: center; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Nederlands Toetsvoorbereiding</h1>
+    <p class="subtitle">Actieve Recall & Focus Strategie</p>
+    
+    <div class="priority-legend">
+        <span class="badge badge-high">🔥 Hoogstwaarschijnlijk (90-100%)</span>
+        <span class="badge badge-med">⚠️ Waarschijnlijk (70-90%)</span>
+        <span class="badge badge-low">❄️ Waarschijnlijk niet</span>
+    </div>
+</header>
+
+<div class="container" id="app">
+    <!-- Content will be injected here by JavaScript -->
+</div>
+
+<script>
+    // --- RAW DATA FROM PROMPT ---
+    const rawData = `
+---BLOCK_START---
+ID: 101
+SECTION: 1. Interpreteren
+TYPE: Uitleg
+TITLE: Leertekst Interpreteren
+CONTENT:
+**Uitleg Paragraaf 1: Interpreteren**
+
+Interpreteren betekent dat je betekenis geeft aan wat je leest. Bij gedichten gaat dit verder dan alleen de woorden begrijpen. Je probeert te ontdekken wat de dichter wil overbrengen met zijn woorden, beelden en vorm.
+
+**Hoe interpreteer je?**
+1.  **Verbanden leggen:** Je kijkt naar verbanden tussen woorden en regels binnen een strofe, en tussen verschillende strofes onderling.
+2.  **Effecten analyseren:** Je realiseert je welk effect de opbouw, beeldspraak of stijlfiguren op jou hebben.
+3.  **Bedoeling bedenken:** Je bedenkt welke bedoeling de schrijver hiermee kan hebben.
+4.  **Context gebruiken:** Informatie over de dichter of over poëzie in het algemeen kan helpen.
+
+**Belangrijk om te weten:**
+Gedichten zijn meestal geen eenduidige teksten. Dit betekent dat lezers ze verschillend kunnen interpreteren. Er is niet altijd één goed antwoord.
+
+**Begrip:**
+*   **Interpreteren:** Betekenis geven aan iets wat je leest.
+---BLOCK_END---
+
+---BLOCK_START---
+ID: 102
+SECTION: 1. Interpreteren
+TYPE: Samenvatting
+TITLE: Kernconcepten Interpreteren
+CONTENT:
+**Samenvatting & Kernconcepten Paragraaf 1**
+
+**Kernconcepten:**
+*   **Doel:** Betekenis geven aan een gedicht (meer dan alleen woorden weten).
+*   **Methode:** Verbanden leggen (woorden/regels/strofes), effecten analyseren (opbouw/beeldspraak), bedoeling bedenken.
+*   **Hulpbronnen:** Informatie over dichter/poëzie.
+*   **Eigenschap gedichten:** Geen eenduidige teksten (meerdere interpretaties mogelijk).
+
+**Belangrijkste definities om te weten:**
+*   **Interpreteren** = Betekenis geven aan iets wat je leest.
+
+**Wat moet je kunnen?**
+*   Uitleggen wat interpreteren is.
+*   Beschrijven hoe je tot een interpretatie komt (verbanden leggen, effecten bedenken).
+*   Begrijpen dat meerdere interpretaties mogelijk zijn.
+---BLOCK_END---
+
+---BLOCK_START---
+ID: 103
+SECTION: 1. Interpreteren
+TYPE: Oefenvragen
+TITLE: Oefenvragen Interpreteren
+CONTENT:
+**Oefenvragen Paragraaf 1: Interpreteren**
+
+*Doel: Als je deze vragen goed maakt, snap je de hele paragraaf.*
+
+**Vraag 1.1**
+Wat is het verschil tussen alleen weten wat woorden betekenen en het interpreteren van een gedicht?
+
+**Vraag 1.2**
+Noem drie stappen of acties die je onderneemt om tot een interpretatie van een gedicht te komen, volgens de leertekst.
+
+**Vraag 1.3**
+Waarom kunnen lezers hetzelfde gedicht verschillend interpreteren?
+
+**Vraag 1.4**
+Leg uit hoe informatie over de dichter kan helpen bij het interpreteren.
+---BLOCK_END---
+
+---BLOCK_START---
+ID: 104
+SECTION: 1. Interpreteren
+TYPE: Antwoordmodel
+TITLE: Uitwerkingen Oefenvragen Interpreteren
+CONTENT:
+**Uitgebreide Antwoordmodellen Paragraaf 1**
+
+**Antwoord Vraag 1.1**
+*Modelantwoord:* Weten wat woorden betekenen is alleen de basis. Interpreteren gaat verder: je probeert te ontdekken wat de dichter met zijn woorden, beelden en vorm wil overbrengen. Je geeft dus betekenis aan het geheel.
+*Controlepunt:* Noemt dat interpreteren verder gaat dan woordbetekenis en gaat over wat de dichter wil overbrengen.
+
+**Antwoord Vraag 1.2**
+*Modelantwoord:* Drie van de volgende acties:
+1. Verbanden leggen tussen woorden en regels in een strofe, en tussen strofes onderling.
+2. Realiseren welke effecten opbouw, beeldspraak of stijlfiguren hebben.
+3. Bedenken welke bedoeling de schrijver hiermee kan hebben.
+*Controlepunt:* Drie van de genoemde methoden uit de tekst moeten genoemd worden.
+
+**Antwoord Vraag 1.3**
+*Modelantwoord:* Gedichten zijn meestal geen eenduidige teksten. Hierdoor is er ruimte voor verschillende betekenissen.
+*Controlepunt:* Noemt dat gedichten geen eenduidige teksten zijn.
+
+**Antwoord Vraag 1.4**
+*Modelantwoord:* Informatie over de dichter (en over poëzie in het algemeen) kan je helpen om de context te begrijpen, wat weer helpt bij het geven van betekenis (interpretatie).
+*Controlepunt:* Noemt dat het helpt bij de interpretatie/betekenis geven.
+---BLOCK_END---
+
+---BLOCK_START---
+ID: 201
+SECTION: 2. Stijlfiguren
+TYPE: Uitleg
+TITLE: Leertekst Stijlfiguren
+CONTENT:
+**Uitleg Paragraaf 2: Stijlfiguren**
+
+Naast beeldspraak gebruiken dichters stijlfiguren. Dit zijn middelen om taal krachtiger of speelser te maken, of om bepaalde woorden te benadrukken.
+
+**1. Parallellisme en Opsomming**
+*   **Parallellisme:** Herhaling van een bepaalde zinsbouw (niet exact dezelfde woorden).
+    *   *Effect:* Beïnvloedt het ritme en het tempo van een gedicht.
+    *   *Voorbeeld:* "Als hij slaapt, laat ik hem slapen / als hij eet, laat ik hem eten..."
+*   **Opsomming:** Woorden of woordgroepen worden opgesomd (zoals een boodschappenlijstje).
+    *   *Effect:* De dichter benadrukt bepaalde woorden of woordgroepen.
+    *   *Variatie:* Delen kunnen in kracht of grootte toenemen (bijv. "Uren, dagen, maanden, jaren...").
+
+**2. Antithese en Paradox**
+*   **Antithese:** Een tegenstelling. Woorden/zinnen die een tegenstelling vormen staan dicht bij elkaar.
+    *   *Voorbeeld:* "Dat was het einde, het begin kwam later."
+*   **Paradox:** Een schijnbare tegenstrijdigheid. Het lijkt alsof het zichzelf tegenspreekt, maar bij goed lezen klopt het toch.
+    *   *Voorbeeld:* "Hier leeft het sterven voort" (in een museum/context van conservering).
+
+**Begrippenlijst:**
+*   **Beeldspraak:** Vorm van figuurlijk taalgebruik: iets wordt vergeleken met of vervangen door iets anders (het beeld).
+*   **Stijlfiguren:** Middelen om taal krachtiger of speelser te maken, of om bepaalde woorden te benadrukken.
+*   **Parallelisme:** Herhaling van een bepaalde zinsbouw, het beïnvloedt het ritme en het tempo van een gedicht.
+*   **Opsomming:** Het opsommen van woorden of woordgroepen om ze te benadrukken.
+*   **Antithese:** Tegenstelling.
+*   **Paradox:** Schijnbare tegenstrijdigheid.
+---BLOCK_END---
+
+---BLOCK_START---
+ID: 202
+SECTION: 2. Stijlfiguren
+TYPE: Samenvatting
+TITLE: Kernconcepten Stijlfiguren
+CONTENT:
+**Samenvatting & Kernconcepten Paragraaf 2**
+
+**Kernconcepten:**
+*   **Doel stijlfiguren:** Taal krachtiger/speelser maken, woorden benadrukken.
+*   **Parallellisme:** Herhaling van zinsbouw -> beïnvloedt ritme/tempo.
+*   **Opsomming:** Lijstje van woorden/groepen -> benadrukt deze woorden (kan toenemen in kracht).
+*   **Antithese:** Tegenstelling (dicht bij elkaar).
+*   **Paradox:** Schijnbare tegenstrijdigheid (lijkt fout, maar klopt).
+*   **Beeldspraak:** Figuurlijk taalgebruik (vergelijken/vervangen).
+
+**Belangrijkste definities om te weten:**
+*   Ken de definitie van alle 6 de begrippen hierboven uit je hoofd.
+*   Weet het specifieke effect van parallellisme (ritme/tempo) en opsomming (benadrukken).
+
+**Wat moet je kunnen?**
+*   Stijlfiguren herkennen in een fragment.
+*   Het effect van de stijlfiguur benoemen.
+*   Het verschil uitleggen tussen antithese en paradox.
+---BLOCK_END---
+
+---BLOCK_START---
+ID: 203
+SECTION: 2. Stijlfiguren
+TYPE: Oefenvragen
+TITLE: Oefenvragen Stijlfiguren
+CONTENT:
+**Oefenvragen Paragraaf 2: Stijlfiguren**
+
+*Doel: Als je deze vragen goed maakt, snap je de hele paragraaf.*
+
+**Vraag 2.1**
+Wat is het verschil tussen parallellisme en een gewone herhaling van exact dezelfde woorden?
+
+**Vraag 2.2**
+Welk effect heeft parallellisme op een gedicht?
+
+**Vraag 2.3**
+Lees de zin: "Mijn nek, mijn haar, mijn handschrift en mijn naam."
+Welke stijlfiguur is dit en wat is het doel ervan?
+
+**Vraag 2.4**
+Leg het verschil uit tussen een antithese en een paradox.
+
+**Vraag 2.5**
+Classificeer de volgende zin als antithese of paradox en leg uit waarom:
+"Hier leeft het sterven voort."
+---BLOCK_END---
+
+---BLOCK_START---
+ID: 204
+SECTION: 2. Stijlfiguren
+TYPE: Antwoordmodel
+TITLE: Uitwerkingen Oefenvragen Stijlfiguren
+CONTENT:
+**Uitgebreide Antwoordmodellen Paragraaf 2**
+
+**Antwoord Vraag 2.1**
+*Modelantwoord:* Bij parallellisme gaat het om herhaling van een bepaalde zinsbouw, niet van exact dezelfde woorden.
+*Controlepunt:* Moet specifiek "zinsbouw" noemen in plaats van "woorden".
+
+**Antwoord Vraag 2.2**
+*Modelantwoord:* Parallellisme beïnvloedt het ritme en het tempo van een gedicht.
+*Controlepunt:* Moet "ritme" en "tempo" noemen.
+
+**Antwoord Vraag 2.3**
+*Modelantwoord:* Dit is een opsomming. Het doel is om bepaalde woorden of woordgroepen te benadrukken.
+*Controlepunt:* Benaming 'opsomming' en effect 'benadrukken'.
+
+**Antwoord Vraag 2.4**
+*Modelantwoord:* Een antithese is een tegenstelling waarbij woorden/zinnen dicht bij elkaar staan. Een paradox is een schijnbare tegenstrijdigheid; het lijkt alsof het zichzelf tegenspreekt, maar bij goed lezen klopt het toch.
+*Controlepunt:* Antithese = tegenstelling. Paradox = schijnbare tegenstrijdigheid die klopt.
+
+**Antwoord Vraag 2.5**
+*Modelantwoord:* Dit is een paradox. Het lijkt een tegenstrijdigheid (leven vs sterven), maar het blijkt te kloppen (bijvoorbeeld in een museum waar dode dingen bewaard blijven). Een antithese is alleen een tegenstelling zonder deze laag van 'schijnbare tegenstrijdigheid die toch klopt'.
+*Controlepunt:* Benaming 'paradox' en uitleg over schijnbare tegenstrijdigheid.
+---BLOCK_END---
+
+---BLOCK_START---
+ID: 301
+SECTION: 3. Grammatica
+TYPE: Uitleg
+TITLE: Leertekst Grammatica
+CONTENT:
+**Uitleg Paragraaf 3: Grammatica**
+
+**1. Enkelvoudige vs. Samengestelde zin**
+*   **Enkelvoudige zin:** Heeft maar **één persoonsvorm**.
+    *   *Voorbeeld:* "De kat slaapt op de stoel." (pv = slaapt).
+*   **Samengestelde zin:** Heeft **meer dan één persoonsvorm**. Bestaat uit meerdere zinnen die aan elkaar gekoppeld zijn.
+    *   *Voorbeeld:* "De kat slaapt op de stoel en de hond ligt op de grond." (pv = slaapt, ligt).
+*   **Tip:** Tel de persoonsvormen om het type zin te bepalen.
+
+**2. Nevenschikking vs. Onderschikking**
+*   **Nevenschikking:** Twee of meer zinnen/zinsdelen worden **gelijkwaardig** verbonden.
+    *   *Voegwoorden:* en, maar, of, want.
+    *   *Kenmerk:* Beide zinnen kunnen op zichzelf staan.
+    *   *Voorbeeld:* "De zon schijnt en de vogels zingen."
+*   **Onderschikking:** Een bijzin is **afhankelijk** van de hoofdzin en kan **niet zelfstandig** staan.
+    *   *Voegwoorden:* omdat, hoewel, terwijl, dat.
+    *   *Kenmerk:* De bijzin kan niet los staan.
+    *   *Voorbeeld:* "Ik ga naar buiten omdat het mooi weer is."
+*   **Tip:** Vraag jezelf af: kan de bijzin op zichzelf staan? Nee → onderschikking. Ja → nevenschikking.
+
+**3. Zinsdelen benoemen**
+*   **Persoonsvorm (pv):** Werkwoord dat **tijd en persoon** aangeeft. (Vb. speelt)
+*   **Onderwerp (ow):** Degene/datgene die iets doet of ondergaat. (Vb. De jongen)
+*   **Werkwoordelijk gezegde (wg):** Alle werkwoorden in de zin die iets doen/gebeuren aangeven. (Vb. speelt, rent)
+*   **Naamwoordelijk gezegde (ng):** Koppelwerkwoord + naamwoordelijk deel (zn/bn). (Vb. is ziek)
+*   **Lijdend voorwerp (lv):** Wie/wat **ondergaat de handeling** van het werkwoord. (Vb. het boek)
+*   **Meewerkend voorwerp (mw):** Aan wie/voor wie iets gebeurt. (Vb. de leerling)
+*   **Bijwoordelijke bepaling (bwb):** Geeft extra informatie over **tijd, plaats, reden, manier, enz.** (Vb. in de tuin)
+---BLOCK_END---
+
+---BLOCK_START---
+ID: 302
+SECTION: 3. Grammatica
+TYPE: Samenvatting
+TITLE: Kernconcepten Grammatica
+CONTENT:
+**Samenvatting & Kernconcepten Paragraaf 3**
+
+**Kernconcepten Zinstypes:**
+*   **Enkelvoudig:** 1 persoonsvorm.
+*   **Samengesteld:** >1 persoonsvorm.
+*   **Nevenschikking:** Gelijkwaardig, voegwoorden (en, maar, of, want), zinnen kunnen zelfstandig staan.
+*   **Onderschikking:** Afhankelijk (bijzin), voegwoorden (omdat, hoewel, terwijl, dat), zin kan niet zelfstandig staan.
+
+**Kernconcepten Zinsdelen (Afkortingen leren!):**
+*   **pv:** Tijd + persoon.
+*   **ow:** Doet/ondergaat actie.
+*   **wg:** Alle werkwoorden (doen/gebeuren).
+*   **ng:** Koppelwerkwoord + naamwoordelijk deel.
+*   **lv:** Ondergaat handeling.
+*   **mw:** Aan/voor wie.
+*   **bwb:** Extra info (tijd, plaats, reden, manier).
+
+**Wat moet je kunnen?**
+*   Telllen van persoonsvormen.
+*   Bepalen van type voegwoord (neven- vs onderschikkend).
+*   Testen of een zin zelfstandig kan staan.
+*   Benomen van alle 7 zinsdelen in een zin.
+---BLOCK_END---
+
+---BLOCK_START---
+ID: 303
+SECTION: 3. Grammatica
+TYPE: Oefenvragen
+TITLE: Oefenvragen Grammatica
+CONTENT:
+**Oefenvragen Paragraaf 3: Grammatica**
+
+*Doel: Als je deze vragen goed maakt, snap je de hele paragraaf.*
+
+**Vraag 3.1**
+Bepaal of de volgende zin enkelvoudig of samengesteld is en leg uit waarom:
+"De leraar legt de stof uit en de leerlingen luisteren."
+
+**Vraag 3.2**
+Is er sprake van nevenschikking of onderschikking in de volgende zin? Leg uit aan de hand van het voegwoord en de zelfstandigheid.
+"Hij komt niet want hij is ziek."
+
+**Vraag 3.3**
+Is er sprake van nevenschikking of onderschikking in de volgende zin? Leg uit aan de hand van het voegwoord en de zelfstandigheid.
+"Hij komt niet terwijl het mooi weer is."
+
+**Vraag 3.4**
+Benoem de zinsdelen in de volgende zin (gebruik de afkortingen pv, ow, wg, lv, mw, bwb, ng):
+"De leraar geeft de leerling een compliment."
+(Let op: niet alle zinsdelen hoeven in deze zin voor te komen, benoem alleen wat er staat).
+
+**Vraag 3.5**
+Benoem de zinsdelen in de volgende zin:
+"De jongen is ziek."
+---BLOCK_END---
+
+---BLOCK_START---
+ID: 304
+SECTION: 3. Grammatica
+TYPE: Antwoordmodel
+TITLE: Uitwerkingen Oefenvragen Grammatica
+CONTENT:
+**Uitgebreide Antwoordmodellen Paragraaf 3**
+
+**Antwoord Vraag 3.1**
+*Modelantwoord:* Samengestelde zin.
+*Uitleg:* Er zijn twee persoonsvormen: "legt" en "luisteren". Een samengestelde zin heeft meer dan één persoonsvorm.
+*Controlepunt:* Tel correct de persoonsvormen (2) en koppelt dit aan de definitie samengesteld.
+
+**Antwoord Vraag 3.2**
+*Modelantwoord:* Nevenschikking.
+*Uitleg:* Het voegwoord is "want" (nevenschikkend). Beide delen ("Hij komt niet" en "hij is ziek") kunnen op zichzelf staan als zin.
+*Controlepunt:* Noemt voegwoord 'want' en zelfstandigheid van de zinnen.
+
+**Antwoord Vraag 3.3**
+*Modelantwoord:* Onderschikking.
+*Uitleg:* Het voegwoord is "terwijl" (onderschikkend). Het deel "terwijl het mooi weer is" kan niet los staan als zelfstandige zin.
+*Controlepunt:* Noemt voegwoord 'terwijl' en onzelfstandigheid van de bijzin.
+
+**Antwoord Vraag 3.4**
+*Modelantwoord:*
+*   De leraar = ow (onderwerp)
+*   geeft = pv (persoonsvorm) én onderdeel van wg
+*   de leerling = mw (meewerkend voorwerp)
+*   een compliment = lv (lijdend voorwerp)
+*   (wg = geeft, maar vaak wordt bij enkelvoudig wg alleen de pv genoemd als er geen hulpwerkwoorden zijn, volgens de tekst: "alle werkwoorden...". Hier is 'geeft' de pv en het wg).
+*Controlepunt:* Correcte toewijzing van ow, pv, mw, lv.
+
+**Antwoord Vraag 3.5**
+*Modelantwoord:*
+*   De jongen = ow (onderwerp)
+*   is ziek = ng (naamwoordelijk gezegde)
+*   (is = koppelwerkwoord, ziek = naamwoordelijk deel)
+*Controlepunt:* Herkennen van koppelwerkwoord + bn als ng.
+---BLOCK_END---
+
+---BLOCK_START---
+ID: 401
+SECTION: Algemeen
+TYPE: Toetsvoorspelling
+TITLE: Wat komt er op de toets?
+CONTENT:
+**Selectie: Wat komt er op de toets?**
+
+Gebaseerd op de leerstof en de nadruk in de tekst, is hier een schatting van de kans dat onderdelen op de toets komen.
+
+**Heel Zeker op de Toets (90-100% kans)**
+*   **Definities Stijlfiguren:** Je moet het verschil weten tussen Parallellisme, Opsomming, Antithese en Paradox.
+*   **Zinsdelen benoemen:** Vragen waarbij je pv, ow, lv, mw, bwb, wg, ng moet aanwijzen in een zin.
+*   **Enkelvoudige vs. Samengestelde zin:** Bepalen aan de hand van het aantal persoonsvormen.
+
+**Zeker op de Toets (70-90% kans)**
+*   **Nevenschikking vs. Onderschikking:** Herkennen van voegwoorden (en, maar, want vs omdat, terwijl, dat) en de test of een zin zelfstandig kan staan.
+*   **Effecten Stijlfiguren:** Wat doet parallellisme met het ritme? Wat doet een opsomming (benadrukken)?
+*   **Interpreteren:** De definitie van interpreteren en dat gedichten geen eenduidige teksten zijn.
+
+**Waarschijnlijk Niet / Waarschijnlijk Zeker Niet op de Toets**
+*   **De specifieke voorbeeldgedichten uit de tekst:** Je hoeft de gedichten van Sylvia Hubers, Menno Wigman, etc. niet uit je hoofd te leren. Je moet wel het *principe* snappen dat in het voorbeeld zit.
+*   **Exacte formuleringen:** Zolang de betekenis van de definitie maar klopt, hoef je de tekst niet letterlijk te citeren (behalve de begrippenlijst definities).
+*   **Informatie over de dichters:** Specifieke biografische details van de genoemde dichters staan niet in de tekst en komen niet terug.
+---BLOCK_END---
+
+---BLOCK_START---
+ID: 402
+SECTION: Algemeen
+TYPE: Studie Tips
+TITLE: Specifieke Leertips
+CONTENT:
+**Specifieke Leertips voor dit Onderwerp**
+
+1.  **Maak Flashcards voor Begrippen:**
+    *   Maak kaartjes voor: Interpreteren, Beeldspraak, Stijlfiguren, Parallelisme, Opsomming, Antithese, Paradox.
+    *   Aan de achterkant: De exacte definitie uit de tekst.
+    *   Maak ook kaartjes voor de zinsdelen (pv, ow, wg, ng, lv, mw, bwb) met hun definitie.
+
+2.  **Oefen met Zinnen Analyse:**
+    *   Pak willekeurige zinnen uit een boek of tijdschrift.
+    *   Oefen het tellen van persoonsvormen (enkelvoudig/samengesteld).
+    *   Oefen het benoemen van zinsdelen. Dit is vaardigheidswerk, dit moet je doen om te snappen.
+
+3.  **De 'Zelfstandig Sta'-Test:**
+    *   Voor neven- vs onderschikking: Dek de hoofdzin af. Kan het overgebleven stukje nog als zin?
+    *   Ja + voegwoord (en/maar) = Nevenschikking.
+    *   Nee + voegwoord (omdat/dat) = Onderschikking.
+
+4.  **Verwar Paradox en Antithese niet:**
+    *   Antithese = Gewoon tegenstelling (Einde vs Begin).
+    *   Paradox = Lijkt onmogelijk/tegenstrijdig, maar is waar (Levend sterven).
+    *   Ezelsbruggetje: Para**dox** = **Dox**a (mening/klopt toch). Anti**these** = **Tegen**stelling.
+
+5.  **Gebruik de Tips uit de Tekst:**
+    *   De tekst geeft specifieke tips (bijv. "tel de persoonsvormen"). Gebruik deze methodes tijdens de toets expliciet.
+---BLOCK_END---
+
+---BLOCK_START---
+ID: 501
+SECTION: Oefentoets
+TYPE: Toets
+TITLE: Oefentoets Nederlands TW3 (60 min)
+CONTENT:
+**OEFENTOETS NEDERLANDS TW3**
+**Niveau:** 3vwo
+**Tijd:** 60 minuten
+**Totaal aantal punten:** 50 punten
+
+**Deel 1: Interpreteren (5 punten)**
+1.  Leg in je eigen woorden uit wat "interpreteren" betekent bij het lezen van een gedicht. (2 pt)
+2.  Waarom is het mogelijk dat twee leerlingen hetzelfde gedicht verschillend interpreteren? (1 pt)
+3.  Noem twee manieren waarop je verbanden kunt leggen tijdens het interpreteren. (2 pt)
+
+**Deel 2: Stijlfiguren (15 punten)**
+4.  Geef de definitie van 'beeldspraak'. (2 pt)
+5.  Wat is het verschil tussen parallellisme en het herhalen van exact dezelfde woorden? (2 pt)
+6.  Welk effect heeft parallellisme op een gedicht? (2 pt)
+7.  Lees de zin: "Uren, dagen, maanden, jaren vliegen als een schaduw heen."
+    a. Welke stijlfiguur is hier sprake van in het eerste deel (Uren, dagen...)? (1 pt)
+    b. Wat is bijzonder aan deze opsomming? (1 pt)
+8.  Leg het verschil uit tussen een antithese en een paradox. (3 pt)
+9.  Classificeer de volgende fragmenten als Antithese of Paradox: (4 pt)
+    a. "Binnen ging het feest door maar wij in de kou"
+    b. "Hier leeft het sterven voort"
+    c. "Dat was het einde, het begin kwam later."
+    d. "Gestorven nummers... Hier leeft het sterven voort"
+10. Wat is het doel van het gebruik van stijlfiguren volgens de tekst? (2 pt)
+
+**Deel 3: Grammatica - Zinstypes (10 punten)**
+11. Bepaal of de volgende zinnen enkelvoudig of samengesteld zijn. Licht je antwoord kort toe door het aantal persoonsvormen te noemen. (4 pt)
+    a. "De kat slaapt op de stoel."
+    b. "De kat slaapt op de stoel en de hond ligt op de grond."
+12. Bepaal of er sprake is van nevenschikking of onderschikking. Geef ook het voegwoord dat dit aangeeft. (4 pt)
+    a. "De zon schijnt en de vogels zingen."
+    b. "Ik ga naar buiten omdat het mooi weer is."
+13. Waarom kan een bijzin bij onderschikking niet zelfstandig staan? (2 pt)
+
+**Deel 4: Grammatica - Zinsdelen (20 punten)**
+14. Benoem de volgende zinsdelen in de zin: "De jongen speelt buiten." (3 pt)
+    a. De jongen
+    b. speelt
+    c. buiten
+15. Benoem de volgende zinsdelen in de zin: "De jongen leest het boek." (2 pt)
+    a. het boek
+16. Benoem de volgende zinsdelen in de zin: "De leraar geeft de leerling een compliment." (6 pt)
+    a. De leraar
+    b. geeft
+    c. de leerling
+    d. een compliment
+17. Benoem het gezegde in de volgende zinnen. Kies uit: Werkwoordelijk gezegde (wg) of Naamwoordelijk gezegde (ng). (4 pt)
+    a. "De jongen speelt met zijn vriend en rent daarna naar huis."
+    b. "De jongen is ziek."
+18. Analyseer de volgende samengestelde zin volledig. Benoem per deelzin de persoonsvorm (pv) en het onderwerp (ow). (5 pt)
+    "De jongen speelt in de tuin en zijn zus leest een boek."
+    a. Deelzin 1 (pv + ow)
+    b. Deelzin 2 (pv + ow)
+---BLOCK_END---
+
+---BLOCK_START---
+ID: 502
+SECTION: Oefentoets
+TYPE: Antwoordmodel
+TITLE: Uitgebreid Antwoordmodel Oefentoets
+CONTENT:
+**UITGEBREID ANTWOORDMODEL OEFENTOETS**
+
+**Deel 1: Interpreteren**
+1.  **Interpreteren:** Betekenis geven aan wat je leest. Het gaat verder dan woorden weten; je ontdekt wat de dichter wil overbrengen met woorden, beelden en vorm. (2 pt: 1 voor betekenis geven, 1 voor wat dichter wil overbrengen).
+2.  **Verschillende interpretaties:** Gedichten zijn meestal geen eenduidige teksten. (1 pt).
+3.  **Verbanden leggen:** Tussen woorden en regels in een strofe EN tussen de strofes onderling. (2 pt: 1 voor binnen strofe, 1 voor tussen strofes).
+
+**Deel 2: Stijlfiguren**
+4.  **Beeldspraak:** Vorm van figuurlijk taalgebruik: iets wordt vergeleken met of vervangen door iets anders (het beeld). (2 pt).
+5.  **Verschil parallellisme:** Bij parallellisme gaat het om herhaling van een bepaalde zinsbouw, niet van exact dezelfde woorden. (2 pt).
+6.  **Effect parallellisme:** Het beïnvloedt het ritme en het tempo van een gedicht. (2 pt).
+7.  **Opsomming:**
+    a. Opsomming. (1 pt).
+    b. De delen nemen in kracht of grootte toenemen (Uren -> Jaren). (1 pt).
+8.  **Antithese vs Paradox:** Antithese is een tegenstelling (woorden/zinnen dicht bij elkaar). Paradox is een schijnbare tegenstrijdigheid (lijkt zichzelf tegen te spreken maar klopt toch). (3 pt: 1 voor antithese def, 2 voor paradox def).
+9.  **Classificatie:**
+    a. Antithese (feest door vs wij in de kou). (1 pt)
+    b. Paradox (leeft vs sterven). (1 pt)
+    c. Antithese (einde vs begin). (1 pt)
+    d. Paradox (leeft het sterven voort). (1 pt)
+10. **Doel stijlfiguren:** Taal krachtiger of speelser maken, of om bepaalde woorden te benadrukken. (2 pt).
+
+**Deel 3: Grammatica - Zinstypes**
+11. **Enkelvoudig/Samengesteld:**
+    a. Enkelvoudig. 1 persoonsvorm ("slaapt"). (2 pt)
+    b. Samengesteld. 2 persoonsvormen ("slaapt" en "ligt"). (2 pt)
+12. **Neven/Onderschikking:**
+    a. Nevenschikking. Voegwoord: "en". (2 pt)
+    b. Onderschikking. Voegwoord: "omdat". (2 pt)
+13. **Bijzin zelfstandig:** Een bijzin is afhankelijk van de hoofdzin. (2 pt).
+
+**Deel 4: Grammatica - Zinsdelen**
+14. **De jongen speelt buiten:**
+    a. Onderwerp (ow). (1 pt)
+    b. Persoonsvorm (pv) / Werkwoordelijk gezegde (wg). (1 pt)
+    c. Bijwoordelijke bepaling (bwb) (plaats). (1 pt)
+15. **De jongen leest het boek:**
+    a. Lijdend voorwerp (lv). (2 pt)
+16. **De leraar geeft de leerling een compliment:**
+    a. Onderwerp (ow). (1.5 pt)
+    b. Persoonsvorm (pv). (1.5 pt)
+    c. Meewerkend voorwerp (mw). (1.5 pt)
+    d. Lijdend voorwerp (lv). (1.5 pt)
+17. **Gezegde:**
+    a. Werkwoordelijk gezegde (wg) (speelt, rent). (2 pt)
+    b. Naamwoordelijk gezegde (ng) (is ziek). (2 pt)
+18. **Analyse samengestelde zin:**
+    a. Deelzin 1: pv = speelt, ow = De jongen. (2.5 pt)
+    b. Deelzin 2: pv = leest, ow = zijn zus. (2.5 pt)
+---BLOCK_END---
+`;
+
+    // --- PARSER LOGIC ---
+
+    function parseContent(data) {
+        const blocks = data.split('---BLOCK_START---');
+        const parsedBlocks = [];
+
+        blocks.forEach(block => {
+            if (!block.trim()) return;
+            
+            // Split by end marker
+            const parts = block.split('---BLOCK_END---');
+            const contentSection = parts[0];
+
+            // Extract Metadata
+            const lines = contentSection.split('\n');
+            const meta = {};
+            let contentStartIndex = -1;
+
+            for (let i = 0; i < lines.length; i++) {
+                const line = lines[i].trim();
+                if (line.startsWith('ID:')) meta.id = line.replace('ID:', '').trim();
+                if (line.startsWith('SECTION:')) meta.section = line.replace('SECTION:', '').trim();
+                if (line.startsWith('TYPE:')) meta.type = line.replace('TYPE:', '').trim();
+                if (line.startsWith('TITLE:')) meta.title = line.replace('TITLE:', '').trim();
+                if (line === 'CONTENT:') {
+                    contentStartIndex = i + 1;
+                    break;
+                }
+            }
+
+            // Extract Content
+            if (contentStartIndex > -1) {
+                meta.content = lines.slice(contentStartIndex).join('\n').trim();
+                parsedBlocks.push(meta);
+            }
+        });
+        return parsedBlocks;
+    }
+
+    // --- RENDER LOGIC ---
+
+    function formatText(text) {
+        // Simple Markdown-like parser for bold and lists
+        let html = text
+            .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') // Bold
+            .replace(/\n/g, '<br>'); // Newlines
+
+        // Handle Lists (very basic detection)
+        html = html.replace(/^\* (.*?)(?=<br>|$)/gm, '<li>$1</li>');
+        html = html.replace(/<li>(.*?)<\/li>/g, '<ul><li>$1</li></ul>'); // Wrap in UL (imperfect but works for simple lists)
+        
+        // Clean up multiple ULs if adjacent (simple fix)
+        html = html.replace(/<\/ul><br><ul>/g, '');
+
+        return html;
+    }
+
+    function getPriorityBadge(section, type) {
+        // Logic based on Block 401 analysis
+        // High: Stijlfiguren definities, Zinsdelen, Enkelvoud/Samengesteld
+        // Med: Neven/Onderschikking, Effecten Stijlfiguren, Interpreteren
+        // Low: Specifieke gedichten, biografie
+        
+        if (section.includes('Stijlfiguren') && type === 'Samenvatting') return 'badge-high';
+        if (section.includes('Grammatica') && type === 'Samenvatting') return 'badge-high';
+        if (section.includes('Grammatica') && type === 'Oefenvragen') return 'badge-high';
+        if (section.includes('Stijlfiguren') && type === 'Oefenvragen') return 'badge-high';
+        
+        if (section.includes('Interpreteren')) return 'badge-med';
+        if (section.includes('Grammatica') && type === 'Uitleg') return 'badge-med';
+        
+        return 'badge-low'; // Default fallback
+    }
+
+    function createCard(block) {
+        const priorityClass = getPriorityBadge(block.section, block.type);
+        const isQuestion = block.type === 'Oefenvragen' || block.type === 'Toets';
+        const isAnswer = block.type === 'Antwoordmodel';
+        
+        let contentHtml = formatText(block.content);
+
+        // Active Recall Logic: Hide answers for questions
+        if (isQuestion) {
+            contentHtml = `
+                <div class="spoiler-container">
+                    <div>${contentHtml}</div>
+                    <button class="spoiler-btn" onclick="toggleSpoiler(this)">Toon Antwoorden / Uitleg</button>
+                    <div class="spoiler-content">
+                        <em>(Klik op de bijbehorende antwoordmodel sectie hieronder voor de uitwerking)</em>
+                    </div>
+                </div>
+            `;
+        }
+
+        // For answer models, we just display them, maybe with a "Check" icon
+        let icon = '';
+        if(block.type === 'Oefenvragen') icon = '❓';
+        if(block.type === 'Antwoordmodel') icon = '✅';
+        if(block.type === 'Toets') icon = '📝';
+        if(block.type === 'Toetsvoorspelling') icon = '🔮';
+
+        return `
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">${icon} ${block.title}</div>
+                    <div>
+                        <span class="badge ${priorityClass}">${block.type}</span>
+                    </div>
+                </div>
+                <div class="content-area">
+                    ${contentHtml}
+                </div>
+            </div>
+        `;
+    }
+
+    function renderApp() {
+        const blocks = parseContent(rawData);
+        const app = document.getElementById('app');
+        
+        // Group by Section
+        const sections = {};
+        blocks.forEach(block => {
+            if (!sections[block.section]) sections[block.section] = [];
+            sections[block.section].push(block);
+        });
+
+        // Sort sections logically (Interpreteren -> Stijlfiguren -> Grammatica -> Algemeen -> Toets)
+        const sectionOrder = [
+            '1. Interpreteren', 
+            '2. Stijlfiguren', 
+            '3. Grammatica', 
+            'Algemeen', 
+            'Oefentoets'
+        ];
+
+        sectionOrder.forEach(secName => {
+            if (sections[secName]) {
+                const sectionDiv = document.createElement('div');
+                
+                // Header
+                const header = document.createElement('div');
+                header.className = 'section-header';
+                header.innerHTML = `<h2>${secName}</h2>`;
+                sectionDiv.appendChild(header);
+
+                // Blocks
+                sections[secName].forEach(block => {
+                    // Special handling: Don't render the raw prediction block (401) as a normal card, 
+                    // but use its data to influence badges (already done in logic). 
+                    // However, the user might want to SEE the prediction. Let's render it but style it differently.
+                    
+                    const cardHtml = createCard(block);
+                    const cardDiv = document.createElement('div');
+                    cardDiv.innerHTML = cardHtml;
+                    sectionDiv.appendChild(cardDiv.firstElementChild);
+                });
+
+                app.appendChild(sectionDiv);
+            }
+        });
+    }
+
+    // --- INTERACTIVITY ---
+
+    window.toggleSpoiler = function(btn) {
+        const content = btn.nextElementSibling;
+        content.classList.toggle('visible');
+        if (content.classList.contains('visible')) {
+            btn.textContent = "Verberg Antwoorden";
+            btn.style.backgroundColor = "#475569";
+        } else {
+            btn.textContent = "Toon Antwoorden / Uitleg";
+            btn.style.backgroundColor = "var(--primary)";
+        }
+    };
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', renderApp);
+
+</script>
+
+</body>
+</html>
