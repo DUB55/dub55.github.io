@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Title</title>
+
+<!-- Markdown -->
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+<!-- KaTeX -->
+<link rel="stylesheet"
+href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+
+<!-- GitHub style -->
+<link rel="stylesheet"
+href="https://cdn.jsdelivr.net/npm/github-markdown-css/github-markdown.min.css">
+
+<style>
+body{
+    background:#ffffff;
+}
+
+.markdown-body{
+    box-sizing:border-box;
+    max-width:900px;
+    margin:auto;
+    padding:45px;
+    font-size:17px;
+    line-height:1.6;
+}
+
+.katex{
+    font-size:1.1em;
+}
+</style>
+<meta name="referrer" content="no-referrer">
+<meta http-equiv="content-security-policy" content="default-src 'none'; font-src 'self' data: https://cdn.jsdelivr.net; img-src 'self' data:; style-src 'unsafe-inline' https://cdn.jsdelivr.net; media-src 'self' data:; script-src 'unsafe-inline' https://cdn.jsdelivr.net; object-src 'self' data:; frame-src 'self' data:;">
+</head>
+
+<body class="markdown-body">
+
+<article id="preview">
+Laden...
+</article>
+
+
+<template id="markdown-source">
+TEKST HIER
+</template>
+
+<script>
+// Render markdown from template
+document.addEventListener('DOMContentLoaded', function() {
+    const template = document.getElementById('markdown-source');
+    const markdownText = template.content.textContent;
+    const preview = document.getElementById('preview');
+    
+    // Convert markdown to HTML
+    preview.innerHTML = marked.parse(markdownText);
+    
+    // Render KaTeX math
+    renderMathInElement(preview, {
+        delimiters: [
+            {left: '\\(', right: '\\)', display: false},
+            {left: '\\[', right: '\\]', display: true},
+            {left: '(', right: ')', display: false}
+        ],
+        throwOnError: false
+    });
+});
+</script>
+
+</body>
+</html>
