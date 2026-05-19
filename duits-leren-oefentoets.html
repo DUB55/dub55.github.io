@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Duits Oefentoets — 3VWO</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f5f2eb;
+    --card: #fffefa;
+    --ink: #1a1a18;
+    --ink2: #4a4a44;
+    --ink3: #8a8a82;
+    --accent: #2d5a8e;
+    --accent2: #c8501a;
+    --green: #2a6b3c;
+    --green-bg: #e8f4ec;
+    --red: #b83030;
+    --red-bg: #faeaea;
+    --border: #dedad0;
+    --border2: #ccc8bc;
+    --shadow: 0 2px 12px rgba(0,0,0,0.07);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    min-height: 100vh;
+    padding: 0 0 80px;
+  }
+  .masthead {
+    background: var(--ink);
+    color: #f5f2eb;
+    padding: 28px 40px 24px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 20px;
+  }
+  .masthead-left h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2.1rem;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+  .masthead-left .sub {
+    font-size: 0.85rem;
+    color: #aaa89e;
+    margin-top: 6px;
+    font-weight: 300;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .btn-new {
+    background: var(--accent2);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 22px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.15s, transform 0.1s;
+    white-space: nowrap;
+    letter-spacing: 0.01em;
+  }
+  .btn-new:hover { background: #a84016; transform: translateY(-1px); }
+  .btn-new:active { transform: translateY(0); }
+
+  .progress-bar-wrap {
+    background: var(--ink);
+    padding: 0 40px 18px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .progress-track {
+    flex: 1;
+    height: 4px;
+    background: #333;
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: var(--accent2);
+    border-radius: 2px;
+    transition: width 0.4s ease;
+    width: 0%;
+  }
+  .progress-label {
+    font-size: 0.78rem;
+    color: #aaa89e;
+    font-weight: 400;
+    min-width: 60px;
+    text-align: right;
+  }
+
+  .container {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 36px 20px 0;
+  }
+  .section-block {
+    margin-bottom: 36px;
+  }
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 6px;
+    border-bottom: 1.5px solid var(--border2);
+    padding-bottom: 10px;
+  }
+  .section-tag {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: #e4edf7;
+    border-radius: 4px;
+    padding: 3px 8px;
+  }
+  .section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.25rem;
+    font-weight: 400;
+    color: var(--ink);
+  }
+  .section-instr {
+    font-size: 0.84rem;
+    color: var(--ink2);
+    margin-bottom: 14px;
+    line-height: 1.55;
+    font-style: italic;
+  }
+
+  .question-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin-bottom: 10px;
+    box-shadow: var(--shadow);
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    transition: border-color 0.2s;
+  }
+  .question-card:focus-within { border-color: var(--accent); }
+  .q-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.1rem;
+    color: var(--ink3);
+    min-width: 24px;
+    text-align: right;
+    padding-top: 2px;
+    flex-shrink: 0;
+  }
+  .q-body { flex: 1; }
+  .q-prompt {
+    font-size: 0.92rem;
+    color: var(--ink);
+    margin-bottom: 8px;
+    line-height: 1.5;
+    font-weight: 400;
+  }
+  .q-prompt strong { font-weight: 600; }
+  .q-context {
+    font-size: 0.82rem;
+    color: var(--ink3);
+    margin-bottom: 8px;
+    font-style: italic;
+  }
+  .answer-input {
+    width: 100%;
+    border: 1px solid var(--border2);
+    border-radius: 5px;
+    padding: 7px 11px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    background: #fafaf7;
+    color: var(--ink);
+    outline: none;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  .answer-input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(45,90,142,0.1);
+  }
+  .answer-input.correct {
+    border-color: var(--green);
+    background: var(--green-bg);
+    color: var(--green);
+  }
+  .answer-input.wrong {
+    border-color: var(--red);
+    background: var(--red-bg);
+    color: var(--red);
+  }
+  .answer-input:disabled { opacity: 0.9; }
+  .feedback-row {
+    margin-top: 6px;
+    font-size: 0.82rem;
+    display: none;
+    gap: 6px;
+    align-items: center;
+  }
+  .feedback-row.show { display: flex; }
+  .feedback-correct { color: var(--green); font-weight: 500; }
+  .feedback-wrong { color: var(--red); }
+  .feedback-answer { color: var(--green); font-weight: 600; }
+
+  .actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin: 32px 0 8px;
+  }
+  .btn-check {
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 12px 32px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.15s, transform 0.1s;
+    letter-spacing: 0.01em;
+  }
+  .btn-check:hover { background: #1d4a7a; transform: translateY(-1px); }
+  .btn-check:active { transform: translateY(0); }
+
+  .score-banner {
+    display: none;
+    background: var(--card);
+    border: 1.5px solid var(--border2);
+    border-radius: 10px;
+    padding: 24px 28px;
+    margin: 28px 0 0;
+    text-align: center;
+    box-shadow: var(--shadow);
+  }
+  .score-banner.show { display: block; }
+  .score-big {
+    font-family: 'DM Serif Display', serif;
+    font-size: 3.5rem;
+    line-height: 1;
+    color: var(--accent);
+  }
+  .score-sub {
+    font-size: 0.9rem;
+    color: var(--ink2);
+    margin-top: 6px;
+  }
+  .score-grade {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-top: 12px;
+    color: var(--ink);
+  }
+
+  .divider {
+    border: none;
+    border-top: 1px dashed var(--border);
+    margin: 8px 0 18px;
+  }
+
+  @media (max-width: 600px) {
+    .masthead { padding: 20px 16px 16px; flex-direction: column; align-items: flex-start; }
+    .progress-bar-wrap { padding: 0 16px 14px; }
+    .container { padding: 24px 12px 0; }
+    .masthead-left h1 { font-size: 1.6rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="masthead">
+  <div class="masthead-left">
+    <h1>Duits Oefentoets</h1>
+    <div class="sub">Grammatik &amp; Wortschatz · 3 VWO</div>
+  </div>
+  <button class="btn-new" onclick="buildTest()">↻ Nieuwe toets</button>
+</div>
+<div class="progress-bar-wrap">
+  <div class="progress-track"><div class="progress-fill" id="progFill"></div></div>
+  <div class="progress-label" id="progLabel">0 / 0</div>
+</div>
+
+<div class="container" id="testContainer"></div>
+
+<script>
+// ─── DATA ────────────────────────────────────────────────────────────────────
+
+const vocabDE_NL = [
+  {de:"die Gesellschaft",nl:"de maatschappij / de samenleving"},
+  {de:"lösen",nl:"oplossen"},
+  {de:"einladen",nl:"uitnodigen"},
+  {de:"offenbar",nl:"blijkbaar"},
+  {de:"der Müll",nl:"het afval"},
+  {de:"sofort",nl:"meteen / direct"},
+  {de:"riesig",nl:"enorm / reusachtig"},
+  {de:"die Folge",nl:"het gevolg"},
+  {de:"das Gerät",nl:"het toestel / het apparaat"},
+  {de:"schon",nl:"al"},
+  {de:"schön",nl:"mooi"},
+  {de:"der Schutz",nl:"de bescherming"},
+  {de:"die Umwelt",nl:"het milieu"},
+  {de:"die Nahrung",nl:"de voeding"},
+  {de:"der Erwachsene",nl:"de volwassene"},
+  {de:"durchschnittlich",nl:"gemiddeld"},
+  {de:"träumen",nl:"dromen"},
+  {de:"die Forschung",nl:"het onderzoek"},
+  {de:"der Alltag",nl:"het dagelijks leven"},
+  {de:"die Art",nl:"de soort"},
+  {de:"der Wettkampf",nl:"de wedstrijd"},
+  {de:"schade",nl:"jammer"},
+  {de:"es ist egal",nl:"het maakt niet uit"},
+  {de:"bedeuten",nl:"betekenen"},
+  {de:"täglich",nl:"dagelijks"},
+  {de:"unbedingt",nl:"per se / absoluut"},
+  {de:"leider",nl:"helaas"},
+  {de:"zeigen",nl:"laten zien"},
+  {de:"denn",nl:"want"},
+  {de:"jedoch",nl:"echter"},
+  {de:"allerdings",nl:"echter"},
+  {de:"weil",nl:"omdat"},
+  {de:"tatsächlich",nl:"inderdaad"},
+  {de:"statt",nl:"in plaats van"},
+  {de:"nur",nl:"alleen maar / slechts"},
+  {de:"außerdem",nl:"bovendien"},
+  {de:"trotzdem",nl:"desondanks"},
+  {de:"jedenfalls",nl:"in ieder geval"},
+  {de:"zwar",nl:"weliswaar"},
+  {de:"gar",nl:"al helemaal"},
+];
+
+const vocabNL_DE = [
+  {nl:"de baan",de:"der Job"},
+  {nl:"het bijbaantje",de:"der Nebenjob"},
+  {nl:"het nadeel",de:"der Nachteil"},
+  {nl:"het voordeel",de:"der Vorteil"},
+  {nl:"het succes",de:"der Erfolg"},
+  {nl:"succesvol",de:"erfolgreich"},
+  {nl:"de keuze",de:"die Wahl"},
+  {nl:"kiezen",de:"wählen"},
+  {nl:"de opleiding",de:"die Ausbildung"},
+  {nl:"de toekomst",de:"die Zukunft"},
+  {nl:"de wereldreis",de:"die Weltreise"},
+  {nl:"het werk",de:"die Arbeit"},
+  {nl:"het buitenland",de:"das Ausland"},
+  {nl:"het paspoort",de:"der Ausweis"},
+  {nl:"het nieuws",de:"die Nachrichten"},
+  {nl:"het doel",de:"das Ziel"},
+  {nl:"economie",de:"die Wirtschaft"},
+  {nl:"het (school)vak",de:"das Fach"},
+  {nl:"de vakken",de:"die Fächer"},
+  {nl:"makkelijk",de:"einfach / leicht"},
+  {nl:"moeilijk",de:"schwierig / schwer"},
+  {nl:"leuk",de:"toll"},
+  {nl:"stom",de:"doof / blöd"},
+  {nl:"saai",de:"langweilig"},
+  {nl:"bijna",de:"fast"},
+  {nl:"binnen",de:"drinnen"},
+  {nl:"buiten",de:"draußen"},
+  {nl:"bijvoorbeeld",de:"zum Beispiel"},
+  {nl:"gelukkig (emotie)",de:"glücklich"},
+  {nl:"gelukkig",de:"zum Glück"},
+  {nl:"in ieder geval",de:"auf jeden Fall"},
+  {nl:"nodig hebben",de:"brauchen"},
+  {nl:"misschien",de:"vielleicht"},
+  {nl:"nu",de:"jetzt"},
+  {nl:"soms",de:"manchmal"},
+  {nl:"later",de:"später"},
+  {nl:"sinds",de:"seit"},
+  {nl:"vanavond",de:"heute Abend"},
+  {nl:"vanmiddag",de:"heute Nachmittag"},
+  {nl:"het weekend",de:"das Wochenende"},
+  {nl:"de pijn",de:"die Schmerzen"},
+  {nl:"de dokter",de:"der Arzt"},
+  {nl:"gewond",de:"verletzt"},
+  {nl:"de brandweer",de:"die Feuerwehr"},
+  {nl:"het ziekenhuis",de:"das Krankenhaus"},
+  {nl:"de ambulance",de:"der Krankenwagen"},
+  {nl:"de politie",de:"die Polizei"},
+  {nl:"de hulp",de:"die Hilfe"},
+  {nl:"helpen",de:"helfen – geholfen"},
+  {nl:"lopen",de:"laufen – gelaufen"},
+  {nl:"nemen",de:"nehmen – genommen"},
+  {nl:"rijden",de:"fahren – gefahren"},
+  {nl:"gaan",de:"gehen – gegangen"},
+  {nl:"zijn",de:"sein – gewesen"},
+];
+
+// Werkwoord vervoegen — tegenwoordige tijd
+// Format: {subject, infinitive, answer, extra}
+const verbConjPool = [
+  // wohnen
+  {subj:"du",inf:"wohnen",ans:"wohnst"},
+  {subj:"er",inf:"wohnen",ans:"wohnt"},
+  {subj:"wir",inf:"wohnen",ans:"wohnen"},
+  {subj:"ihr",inf:"wohnen",ans:"wohnt"},
+  {subj:"ich",inf:"wohnen",ans:"wohne"},
+  // lieben
+  {subj:"ich",inf:"lieben",ans:"liebe"},
+  {subj:"du",inf:"lieben",ans:"liebst"},
+  {subj:"sie (mw)",inf:"lieben",ans:"liebt"},
+  {subj:"wir",inf:"lieben",ans:"lieben"},
+  // heißen
+  {subj:"du",inf:"heißen",ans:"heißt"},
+  {subj:"er",inf:"heißen",ans:"heißt"},
+  {subj:"ich",inf:"heißen",ans:"heiße"},
+  // spielen
+  {subj:"Lara und Tim",inf:"spielen",ans:"spielen"},
+  {subj:"ihr",inf:"spielen",ans:"spielt"},
+  {subj:"ich",inf:"spielen",ans:"spiele"},
+  // machen
+  {subj:"ihr",inf:"machen",ans:"macht"},
+  {subj:"du",inf:"machen",ans:"machst"},
+  {subj:"sie (mv)",inf:"machen",ans:"machen"},
+  // kochen
+  {subj:"meine Mutter",inf:"kochen",ans:"kocht"},
+  {subj:"ich",inf:"kochen",ans:"koche"},
+  {subj:"ihr",inf:"kochen",ans:"kocht"},
+  // trainieren
+  {subj:"du",inf:"trainieren",ans:"trainierst"},
+  {subj:"ich",inf:"trainieren",ans:"trainiere"},
+  {subj:"er",inf:"trainieren",ans:"trainiert"},
+  // öffnen
+  {subj:"du",inf:"öffnen",ans:"öffnest"},
+  {subj:"er",inf:"öffnen",ans:"öffnet"},
+  // schließen
+  {subj:"er",inf:"schließen",ans:"schließt"},
+  {subj:"du",inf:"schließen",ans:"schließt"},
+  // arbeiten
+  {subj:"du",inf:"arbeiten",ans:"arbeitest"},
+  {subj:"er",inf:"arbeiten",ans:"arbeitet"},
+  {subj:"ich",inf:"arbeiten",ans:"arbeite"},
+  // fahren
+  {subj:"du",inf:"fahren",ans:"fährst"},
+  {subj:"er",inf:"fahren",ans:"fährt"},
+  {subj:"ich",inf:"fahren",ans:"fahre"},
+  // laufen
+  {subj:"du",inf:"laufen",ans:"läufst"},
+  {subj:"er",inf:"laufen",ans:"läuft"},
+  {subj:"ich",inf:"laufen",ans:"laufe"},
+  // lesen
+  {subj:"du",inf:"lesen",ans:"liest"},
+  {subj:"er",inf:"lesen",ans:"liest"},
+  {subj:"ich",inf:"lesen",ans:"lese"},
+  // essen
+  {subj:"du",inf:"essen",ans:"isst"},
+  {subj:"er",inf:"essen",ans:"isst"},
+  {subj:"ich",inf:"essen",ans:"esse"},
+  // helfen
+  {subj:"du",inf:"helfen",ans:"hilfst"},
+  {subj:"er",inf:"helfen",ans:"hilft"},
+  {subj:"ich",inf:"helfen",ans:"helfe"},
+  // nehmen
+  {subj:"du",inf:"nehmen",ans:"nimmst"},
+  {subj:"er",inf:"nehmen",ans:"nimmt"},
+  {subj:"ich",inf:"nehmen",ans:"nehme"},
+  // geben
+  {subj:"du",inf:"geben",ans:"gibst"},
+  {subj:"er",inf:"geben",ans:"gibt"},
+  {subj:"ich",inf:"geben",ans:"gebe"},
+  // sehen
+  {subj:"du",inf:"sehen",ans:"siehst"},
+  {subj:"er",inf:"sehen",ans:"sieht"},
+  {subj:"ich",inf:"sehen",ans:"sehe"},
+  // schreiben
+  {subj:"du",inf:"schreiben",ans:"schreibst"},
+  {subj:"er",inf:"schreiben",ans:"schreibt"},
+  {subj:"ich",inf:"schreiben",ans:"schreibe"},
+  // trinken
+  {subj:"du",inf:"trinken",ans:"trinkst"},
+  {subj:"er",inf:"trinken",ans:"trinkt"},
+  {subj:"ich",inf:"trinken",ans:"trinke"},
+  // kommen
+  {subj:"du",inf:"kommen",ans:"kommst"},
+  {subj:"er",inf:"kommen",ans:"kommt"},
+  {subj:"ich",inf:"kommen",ans:"komme"},
+];
+
+// Perfectum haben/sein
+const perfectPool = [
+  {sent:"Anna, ___ du gestern im Krankenhaus gewesen?",ans:"bist",hint:"zijn + gewesen → perfectum van 'sein'"},
+  {sent:"Ich ___ starke Schmerzen gehabt.",ans:"habe",hint:"haben + gehabt"},
+  {sent:"___ der Arzt dir geholfen?",ans:"Hat",hint:"helfen → haben als hulpww."},
+  {sent:"Er ___ mir sofort Medizin gegeben.",ans:"hat",hint:"geben → haben als hulpww."},
+  {sent:"Zum Glück ___ jetzt alles wieder gut.",ans:"ist",hint:"'gut sein' → sein als hulpww."},
+  {sent:"Wir ___ gestern ins Kino gegangen.",ans:"sind",hint:"gehen → sein als hulpww."},
+  {sent:"Du ___ die ganze Nacht geschlafen.",ans:"hast",hint:"schlafen → haben als hulpww."},
+  {sent:"Sie ___ mit dem Zug gefahren.",ans:"ist",hint:"fahren → sein als hulpww."},
+  {sent:"Ihr ___ viel gelernt!",ans:"habt",hint:"lernen → haben als hulpww."},
+  {sent:"Er ___ zu spät aufgestanden.",ans:"ist",hint:"aufstehen → sein als hulpww."},
+  {sent:"Ich ___ das Buch gelesen.",ans:"habe",hint:"lesen → haben als hulpww."},
+  {sent:"___ du schon gegessen?",ans:"Hast",hint:"essen → haben als hulpww."},
+  {sent:"Die Kinder ___ ins Schwimmbad gelaufen.",ans:"sind",hint:"laufen → sein als hulpww."},
+  {sent:"Er ___ den Brief geschrieben.",ans:"hat",hint:"schreiben → haben als hulpww."},
+];
+
+// werden vervoegen
+const werdenPool = [
+  {subj:"ich",ans:"werde"},
+  {subj:"du",ans:"wirst"},
+  {subj:"er",ans:"wird"},
+  {subj:"sie",ans:"wird"},
+  {subj:"es",ans:"wird"},
+  {subj:"wir",ans:"werden"},
+  {subj:"ihr",ans:"werdet"},
+  {subj:"Sie",ans:"werden"},
+  {subj:"Henk",ans:"wird"},
+  {subj:"du",ans:"wirst"},
+];
+
+// Naamvallen
+const casePool = [
+  {sent:"Er hat die Blumen für ___ Freundin (v) gekauft.",hint:"bezit. vnw. 'zijn', na 'für' (4e NV, v).",ans:"seine Freundin"},
+  {sent:"Der Zug fuhr durch ___ Tunnel (m).",hint:"na 'durch' (4e NV, m).",ans:"den Tunnel"},
+  {sent:"Ich habe seit gestern ___ Hund (m).",hint:"lijdend voorwerp, onbep. lidw. (4e NV, m).",ans:"einen Hund"},
+  {sent:"Seit ___ Woche (v) spielen wir Tennis.",hint:"na 'seit' (3e NV, v, onbep.).",ans:"einer Woche"},
+  {sent:"Ohne ___ Handy (o) können wir keine Videos drehen.",hint:"bezit. vnw. 'jouw', na 'ohne' (4e NV, o).",ans:"dein Handy"},
+  {sent:"Wo ist Noah? Hast du ___ gesehen?",hint:"persoonl. vnw. 4e NV (hem).",ans:"ihn"},
+  {sent:"Um ___ brauchst du dich keine Sorgen zu machen.",hint:"persoonl. vnw. 4e NV na 'um' (mij).",ans:"mich"},
+  {sent:"Nach ___ Ferien (mv) mussten wir zur Schule.",hint:"bezit. vnw. 'onze', na 'nach' (3e NV, mv).",ans:"unseren Ferien"},
+  {sent:"Ich gebe ___ Lehrer (m) eine tolle Karte.",hint:"meewerkend voorwerp (3e NV, m, bep.).",ans:"dem Lehrer"},
+  {sent:"Mit ___ Kamera (v) kann man schöne Fotos machen.",hint:"na 'mit' (3e NV, v, onbep.).",ans:"einer Kamera"},
+  {sent:"Er kommt aus ___ Schweiz (v).",hint:"na 'aus' (3e NV, v, bep.).",ans:"der Schweiz"},
+  {sent:"Ich fahre mit ___ Bus (m) zur Schule.",hint:"na 'mit' (3e NV, m, bep.).",ans:"dem Bus"},
+  {sent:"Sie kauft das Geschenk für ___ Bruder (m).",hint:"na 'für' (4e NV, m, bep.).",ans:"den Bruder"},
+  {sent:"Das Buch gehört ___ Schüler (m).",hint:"meewerkend voorwerp (3e NV, m, bep.).",ans:"dem Schüler"},
+  {sent:"Er fährt ohne ___ Schwester (v) weg.",hint:"bezit. vnw. 'zijn', na 'ohne' (4e NV, v).",ans:"seine Schwester"},
+  {sent:"Ich schreibe ___ Lehrerin (v) eine E-Mail.",hint:"meewerkend voorwerp (3e NV, v, bep.).",ans:"der Lehrerin"},
+  {sent:"Wir wohnen gegenüber ___ Schule (v).",hint:"na 'gegenüber' (3e NV, v, bep.).",ans:"der Schule"},
+  {sent:"Das ist ___ Traum (m) meiner Mutter.",hint:"bezit. (2e NV, m, bep.).",ans:"der Traum"},
+];
+
+// Zin vertalen NL → DE
+const translPool = [
+  {nl:"Misschien werkt zij later in het buitenland.",de:"Vielleicht arbeitet sie später im Ausland."},
+  {nl:"Ik ga in het weekend naar het ziekenhuis.",de:"Ich gehe am Wochenende ins Krankenhaus."},
+  {nl:"Werk jij in de supermarkt of in het ziekenhuis?",de:"Arbeitest du im Supermarkt oder im Krankenhaus?"},
+  {nl:"Soms ben ik saai.",de:"Manchmal bin ich langweilig."},
+  {nl:"Het is jammer dat je ziek bent.",de:"Es ist schade, dass du krank bist."},
+  {nl:"Later word ik dokter.",de:"Später werde ich Arzt."},
+  {nl:"Ik heb helaas geen tijd.",de:"Ich habe leider keine Zeit."},
+  {nl:"Het milieu is heel belangrijk.",de:"Die Umwelt ist sehr wichtig."},
+  {nl:"Bovendien is het dagelijks leven saai.",de:"Außerdem ist der Alltag langweilig."},
+  {nl:"In ieder geval ga ik naar huis.",de:"Auf jeden Fall gehe ich nach Hause."},
+];
+
+// ─── UTILITIES ────────────────────────────────────────────────────────────────
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+function pick(arr, n) { return shuffle(arr).slice(0, n); }
+
+function normalizeAnswer(s) {
+  return s.toLowerCase()
+    .replace(/[.!?,;]/g, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function checkAnswer(userAns, correctAns) {
+  const u = normalizeAnswer(userAns);
+  const corrects = correctAns.split('/').map(s => normalizeAnswer(s.trim()));
+  return corrects.some(c => c === u);
+}
+
+// ─── BUILD TEST ───────────────────────────────────────────────────────────────
+let allQuestions = [];
+
+function buildTest() {
+  const container = document.getElementById('testContainer');
+  container.innerHTML = '';
+  allQuestions = [];
+  let html = '';
+
+  // Section A1: Duits → Nederlands (6 words)
+  const a1words = pick(vocabDE_NL, 6);
+  html += section('A', 'Woordenschat',
+    'Vertaal de volgende <strong>Duitse</strong> woorden naar het <strong>Nederlands</strong>.',
+    a1words.map((w, i) => question(allQuestions, i+1, `<strong>${w.de}</strong>`, w.nl))
+  );
+
+  // Section A2: Nederlands → Duits (6 words)
+  const a2words = pick(vocabNL_DE, 6);
+  const a2start = a1words.length + 1;
+  html += section('A', 'Woordenschat',
+    'Vertaal de volgende <strong>Nederlandse</strong> woorden naar het <strong>Duits</strong>.',
+    a2words.map((w, i) => question(allQuestions, a2start+i, `<strong>${w.nl}</strong>`, w.de))
+  );
+
+  // Section B1: Werkwoorden vervoegen (8 items)
+  const b1verbs = pick(verbConjPool, 8);
+  const b1start = allQuestions.length + 1;
+  html += section('B', 'Werkwoorden',
+    'Vervoeg het werkwoord tussen haakjes in de <strong>tegenwoordige tijd</strong>.',
+    b1verbs.map((v, i) => question(allQuestions, b1start+i,
+      `(<strong>${v.inf}</strong>) — ${v.subj} ___`, v.ans,
+      `Onderwerp: <em>${v.subj}</em>`))
+  );
+
+  // Section B2: Perfectum (5 items)
+  const b2items = pick(perfectPool, 5);
+  const b2start = allQuestions.length + 1;
+  html += section('B', 'Perfectum — haben of sein',
+    'Vul <strong>haben</strong> of <strong>sein</strong> in de juiste vorm in.',
+    b2items.map((q, i) => question(allQuestions, b2start+i,
+      q.sent.replace('___', '<span style="color:var(--ink3)">___</span>'),
+      q.ans, q.hint))
+  );
+
+  // Section B3: werden (4 items)
+  const b3items = pick(werdenPool, 4);
+  const b3start = allQuestions.length + 1;
+  html += section('B', 'werden — toekomst',
+    'Vul <strong>werden</strong> in de juiste vorm in. Gebruik de tegenwoordige tijd.',
+    b3items.map((v, i) => question(allQuestions, b3start+i,
+      `${v.subj} ___ (werden)`, v.ans))
+  );
+
+  // Section C: Naamvallen (6 items)
+  const cItems = pick(casePool, 6);
+  const cStart = allQuestions.length + 1;
+  html += section('C', 'Naamvallen',
+    'Vul het juiste zinsdeel in. Let op naamval en geslacht.',
+    cItems.map((q, i) => question(allQuestions, cStart+i,
+      q.sent.replace('___', '<span style="color:var(--ink3)">___</span>'),
+      q.ans, q.hint))
+  );
+
+  // Section D: Vertalen (3 items)
+  const dItems = pick(translPool, 3);
+  const dStart = allQuestions.length + 1;
+  html += section('D', 'Vertalen',
+    'Vertaal de onderstaande zinnen naar het <strong>Duits</strong>. Let op voorzetsels en werkwoordsvolgorde.',
+    dItems.map((q, i) => question(allQuestions, dStart+i,
+      `<em>${q.nl}</em>`, q.de))
+  );
+
+  html += `<div class="actions"><button class="btn-check" onclick="checkAll()">Nakijken ✓</button></div>`;
+  html += `<div class="score-banner" id="scoreBanner">
+    <div class="score-big" id="scoreNum">—</div>
+    <div class="score-sub" id="scoreSub"></div>
+    <div class="score-grade" id="scoreGrade"></div>
+  </div>`;
+
+  container.innerHTML = html;
+  updateProgress();
+
+  container.querySelectorAll('.answer-input').forEach(inp => {
+    inp.addEventListener('input', updateProgress);
+    inp.addEventListener('keydown', e => { if(e.key === 'Enter') { e.preventDefault(); const inputs = [...container.querySelectorAll('.answer-input')]; const idx = inputs.indexOf(inp); if(idx < inputs.length-1) inputs[idx+1].focus(); }});
+  });
+}
+
+function section(tag, title, instr, questionsHtml) {
+  return `<div class="section-block">
+    <div class="section-header">
+      <span class="section-tag">Onderdeel ${tag}</span>
+      <span class="section-title">${title}</span>
+    </div>
+    <p class="section-instr">${instr}</p>
+    ${questionsHtml.join('')}
+    <hr class="divider">
+  </div>`;
+}
+
+let qidCounter = 0;
+function question(registry, num, promptHtml, answer, hint) {
+  const id = 'q' + (++qidCounter);
+  registry.push({id, answer});
+  const hintHtml = hint ? `<div class="q-context">${hint}</div>` : '';
+  return `<div class="question-card">
+    <div class="q-num">${num}</div>
+    <div class="q-body">
+      <div class="q-prompt">${promptHtml}</div>
+      ${hintHtml}
+      <input class="answer-input" type="text" id="${id}" autocomplete="off" autocorrect="off" spellcheck="false" placeholder="jouw antwoord…">
+      <div class="feedback-row" id="fb_${id}">
+        <span class="feedback-icon"></span>
+        <span class="feedback-text"></span>
+      </div>
+    </div>
+  </div>`;
+}
+
+// ─── CHECKING ────────────────────────────────────────────────────────────────
+function checkAll() {
+  let correct = 0;
+  const total = allQuestions.length;
+
+  allQuestions.forEach(q => {
+    const inp = document.getElementById(q.id);
+    const fb = document.getElementById('fb_' + q.id);
+    const userVal = inp.value.trim();
+    const ok = userVal !== '' && checkAnswer(userVal, q.answer);
+
+    inp.disabled = true;
+    inp.classList.remove('correct','wrong');
+    fb.classList.remove('show');
+
+    if (userVal === '') {
+      inp.classList.add('wrong');
+      fb.innerHTML = `<span class="feedback-wrong">— niet ingevuld</span> <span class="feedback-answer">✓ ${q.answer}</span>`;
+      fb.classList.add('show');
+    } else if (ok) {
+      inp.classList.add('correct');
+      fb.innerHTML = `<span class="feedback-correct">✓ Goed!</span>`;
+      fb.classList.add('show');
+      correct++;
+    } else {
+      inp.classList.add('wrong');
+      fb.innerHTML = `<span class="feedback-wrong">✗ Fout</span> <span style="color:var(--ink3); font-size:0.82rem;">Jij: ${userVal}</span> <span class="feedback-answer">✓ ${q.answer}</span>`;
+      fb.classList.add('show');
+    }
+  });
+
+  const pct = Math.round((correct/total)*100);
+  const grade = +(1 + (correct/total)*9).toFixed(1);
+
+  const banner = document.getElementById('scoreBanner');
+  document.getElementById('scoreNum').textContent = `${correct} / ${total}`;
+  document.getElementById('scoreSub').textContent = `${pct}% correct`;
+
+  let gradeStr = '';
+  if (grade >= 8.5) gradeStr = '🎉 Uitstekend! Cijfer: ' + grade;
+  else if (grade >= 7) gradeStr = '👍 Goed gedaan! Cijfer: ' + grade;
+  else if (grade >= 5.5) gradeStr = '📚 Voldoende. Blijf oefenen! Cijfer: ' + grade;
+  else gradeStr = '⚠️ Onvoldoende. Maak een nieuwe toets! Cijfer: ' + grade;
+  document.getElementById('scoreGrade').textContent = gradeStr;
+
+  banner.classList.add('show');
+  banner.scrollIntoView({behavior:'smooth', block:'center'});
+  updateProgress();
+}
+
+function updateProgress() {
+  const inputs = document.querySelectorAll('.answer-input');
+  const filled = [...inputs].filter(i => i.value.trim() !== '').length;
+  const total = inputs.length;
+  document.getElementById('progFill').style.width = total ? (filled/total*100)+'%' : '0%';
+  document.getElementById('progLabel').textContent = `${filled} / ${total}`;
+}
+
+// Start on load
+buildTest();
+</script>
+</body>
+</html>
