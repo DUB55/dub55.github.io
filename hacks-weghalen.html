@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Title</title>
+
+<!-- Markdown -->
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+<!-- KaTeX -->
+<link rel="stylesheet"
+href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+
+<!-- GitHub style -->
+<link rel="stylesheet"
+href="https://cdn.jsdelivr.net/npm/github-markdown-css/github-markdown.min.css">
+
+<style>
+body{
+    background:#ffffff;
+}
+
+.markdown-body{
+    box-sizing:border-box;
+    max-width:900px;
+    margin:auto;
+    padding:45px;
+    font-size:17px;
+    line-height:1.6;
+}
+
+.katex{
+    font-size:1.1em;
+}
+</style>
+<meta name="referrer" content="no-referrer">
+<meta http-equiv="content-security-policy" content="default-src 'none'; font-src 'self' data: https://cdn.jsdelivr.net; img-src 'self' data:; style-src 'unsafe-inline' https://cdn.jsdelivr.net; media-src 'self' data:; script-src 'unsafe-inline' https://cdn.jsdelivr.net; object-src 'self' data:; frame-src 'self' data:;">
+</head>
+
+<body class="markdown-body">
+
+<article id="preview">
+Laden...
+</article>
+
+
+<template id="markdown-source">
+# Handleiding: Virussen en Hacks Verwijderen
+## Stap-voor-stap instructies om je computer schoon te maken
+
+Deze handleiding legt uit hoe je zelf de virussen en hacks van je computer kunt verwijderen met behulp van Windows Defender, Malicious Software Removal Tool, en Malwarebytes.
+
+---
+
+## Belangrijk Vooraf
+
+**Lees dit eerst:**
+- Volg alle stappen in volgorde
+- Neem de tijd voor elke stap
+- Sla niets over
+- Maak aantekeningen als je iets ziet
+
+**Wat je nodig hebt:**
+- Je computer met Windows
+- Internetverbinding (voor updates)
+- Malwarebytes (als je het hebt geïnstalleerd)
+- Geduld (scannen kan tijd kosten)
+
+---
+
+## Stap 1: Veilige Modus Starten
+
+**Waarom:** In Veilige Modus draaien virussen vaak niet automatisch, waardoor ze makkelijker te verwijderen zijn.
+
+**Hoe doe je dit:**
+
+1. **Herstart je computer**
+2. **Druk herhaaldelijk op F8** tijdens het opstarten
+   - Als dit niet werkt, probeer Shift + F8
+3. **Selecteer "Veilige Modus met netwerk"** (Safe Mode with Networking)
+4. **Log in als administrator**
+
+**Als F8 niet werkt:**
+1. Ga naar Instellingen > Update en beveiliging > Herstel
+2. Klik op "Geavanceerde opties"
+3. Klik op "Opstartinstellingen"
+4. Klik op "Opnieuw opstarten"
+5. Druk op 4 of F4 voor Veilige Modus
+6. Druk op 5 of F5 voor Veilige Modus met netwerk
+
+---
+
+## Stap 2: Windows Defender Volledige Scan
+
+**Waarom:** Windows Defender is ingebouwd in Windows en kan veel virussen detecteren en verwijderen.
+
+**Hoe doe je dit:**
+
+**Methode A: Via Windows Beveiliging**
+1. Druk op **Windows-toets + I** voor Instellingen
+2. Ga naar **Update en beveiliging** > **Windows-beveiliging**
+3. Klik op **Virus- en bedreigingsbeveiliging**
+4. Klik op **Scanopties**
+5. Selecteer **Volledige scan** (Full scan)
+6. Klik op **Nu scannen**
+7. **Wacht tot de scan klaar is** (dit kan 1-2 uur duren)
+
+**Methode B: Via Opdrachtprompt**
+1. Druk op **Windows-toets + R**
+2. Typ: `cmd`
+3. Druk op Enter
+4. Typ het volgende commando:
+   ```
+   "%ProgramFiles%\Windows Defender\MpCmdRun.exe" -Scan -ScanType 2
+   ```
+5. Druk op Enter
+6. **Wacht tot de scan klaar is**
+
+**Wat te doen als er bedreigingen worden gevonden:**
+- Klik op "Acties ondernemen"
+- Selecteer "Verwijderen" (Remove)
+- Start je computer opnieuw op als daarom wordt gevraagd
+
+---
+
+## Stap 3: Malicious Software Removal Tool (MRT)
+
+**Waarom:** Dit is een speciaal hulpmiddel van Microsoft dat bekende malware verwijdert.
+
+**Hoe doe je dit:**
+
+1. Druk op **Windows-toets + R**
+2. Typ: `mrt`
+3. Druk op Enter
+4. Klik op **Volgende** (Next)
+5. Selecteer **Volledige scan** (Full scan)
+6. Klik op **Volgende**
+7. **Wacht tot de scan klaar is** (kan 30-60 minuten duren)
+8. Klik op **Voltooien** (Finish) als klaar
+
+**Als MRT niet werkt:**
+1. Druk op Windows-toets + R
+2. Typ: `cmd`
+3. Druk op Enter
+4. Typ:
+   ```
+   "%windir%\system32\MRT.exe"
+   ```
+5. Druk op Enter
+
+---
+
+## Stap 4: Malwarebytes Scan
+
+**Waarom:** Malwarebytes kan virussen vinden die Windows Defender mist.
+
+**Hoe doe je dit:**
+
+**Als Malwarebytes al geïnstalleerd is:**
+1. Open Malwarebytes
+2. Klik op **Scannen** (Scan)
+3. Selecteer **Geavanceerde scan** (Advanced scan)
+4. Selecteer **Volledige scan** (Full scan)
+5. Klik op **Scannen**
+6. **Wacht tot de scan klaar is**
+
+**Als Malwarebytes niet geïnstalleerd is:**
+1. Ga naar: https://www.malwarebytes.com/nl
+2. Download de gratis versie
+3. Installeer het programma
+4. Volg de stappen hierboven
+
+**Wat te doen als er bedreigingen worden gevonden:**
+- Klik op "Quarantaine" (Quarantine)
+- Klik op "Toepassen" (Apply)
+- Start je computer opnieuw op als daarom wordt gevraagd
+
+---
+
+## Stap 5: Python Virussen Verwijderen uit AppData
+
+**Waarom:** De detectiegeschiedenis toont "trojan python load" bestanden in AppData. Deze moeten handmatig worden verwijderd.
+
+**Hoe doe je dit:**
+
+**Stap 5.1: Open Verkenner**
+1. Druk op **Windows-toets + E**
+2. Klik op de adresbalk bovenin
+
+**Stap 5.2: Ga naar AppData Roaming**
+1. Typ in de adresbalk: `%APPDATA%`
+2. Druk op Enter
+3. Zoek naar verdachte mappen:
+   - Mappen met willekeurige namen (bijv. x8f2k3, a1b2c3)
+   - Mappen met .py bestanden
+   - Mappen die recent zijn gemaakt
+4. **Verwijder verdachte mappen** (klik met rechtermuisknop > Verwijderen)
+
+**Stap 5.3: Ga naar AppData Local**
+1. Typ in de adresbalk: `%LOCALAPPDATA%`
+2. Druk op Enter
+3. Zoek naar verdachte mappen (zelfde als hierboven)
+4. **Verwijder verdachte mappen**
+
+**Stap 5.4: Zoek naar .py bestanden**
+1. In Verkenner, klik op de zoekbalk rechtsboven
+2. Typ: `*.py`
+3. Druk op Enter
+4. Bekijk de resultaten
+5. **Verwijder verdachte .py bestanden** (niet Python zelf als je het normaal gebruikt)
+
+**BELANGRIJK:**
+- Verwijder alleen bestanden/mappen waarvan je zeker weet dat ze verdacht zijn
+- Als je twijfelt, laat het staan en vraag om hulp
+- Maak geen bestanden weg die je nodig hebt
+
+---
+
+## Stap 6: Geplande Taken Controleren
+
+**Waarom:** Virussen maken vaak geplande taken om zichzelf opnieuw te starten.
+
+**Hoe doe je dit:**
+
+1. Druk op **Windows-toets + R**
+2. Typ: `taskschd.msc`
+3. Druk op Enter
+4. Klik op **Taakplanner** (Task Scheduler) in het linkermenu
+5. Klik op **Taakplannerbibliotheek** (Task Scheduler Library)
+6. Bekijk alle taken in de lijst
+
+**Zoek naar verdachte taken:**
+- Taken met willekeurige namen
+- Taken die Python scripts uitvoeren (python.exe of pythonw.exe)
+- Taken die bestanden uit AppData uitvoeren
+- Taken die zijn gemaakt rond de tijd van de infectie
+- Taken van onbekende uitgevers
+
+**Verwijder verdachte taken:**
+1. Klik met rechtermuisknop op de verdachte taak
+2. Selecteer **Uitschakelen** (Disable)
+3. Start je computer opnieuw op
+4. Als alles goed werkt, ga terug en **Verwijder** (Delete) de taak
+
+**Alternatief via Opdrachtprompt:**
+1. Druk op Windows-toets + R
+2. Typ: `cmd`
+3. Druk op Enter
+4. Typ om alle taken te zien:
+   ```
+   schtasks /query /fo LIST /v
+   ```
+5. Bekijk de output
+6. Typ om een specifieke taak te verwijderen:
+   ```
+   schtasks /delete /tn "TaakNaam" /f
+   ```
+
+---
+
+## Stap 7: Register Verwijderen
+
+**Waarom:** Virussen voegen zichzelf toe aan het register om automatisch te starten.
+
+**Hoe doe je dit:**
+
+**WAARSCHUWING:** Wees voorzichtig met het register. Verkeerde wijzigingen kunnen je computer beschadigen.
+
+1. Druk op **Windows-toets + R**
+2. Typ: `regedit`
+3. Druk op Enter
+4. Klik op **Ja** als er om toestemming wordt gevraagd
+
+**Stap 7.1: Controleer Run-sleutels**
+1. Navigeer naar:
+   ```
+   HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Run
+   ```
+2. Bekijk alle items aan de rechterkant
+3. Zoek naar items die:
+   - Wijzen naar Python scripts (python.exe of pythonw.exe)
+   - Wijzen naar bestanden in AppData
+   - Willekeurige namen hebben
+   - Onbekende locaties hebben
+4. **Verwijder verdachte items** (klik met rechtermuisknop > Verwijderen)
+
+5. Navigeer ook naar:
+   ```
+   HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run
+   ```
+6. Herhaal stap 3-4
+
+**Alternatief via Opdrachtprompt:**
+1. Druk op Windows-toets + R
+2. Typ: `cmd`
+3. Druk op Enter
+4. Typ om Run-sleutels te zien:
+   ```
+   reg query "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Run"
+   reg query "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run"
+   ```
+5. Typ om een specifieke sleutel te verwijderen:
+   ```
+   reg delete "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /v "SleutelNaam" /f
+   ```
+
+---
+
+## Stap 8: Cracking Tools Verwijderen
+
+**Waarom:** De detectie toont "riskware.crack" - dit is een cracking tool die vaak malware bevat.
+
+**Hoe doe je dit:**
+
+1. Druk op **Windows-toets + R**
+2. Typ: `cmd`
+3. Druk op Enter
+4. Typ om te zoeken naar het bestand:
+   ```
+   dir /s /b riskware.crack
+   ```
+5. Druk op Enter
+6. Als het bestand wordt gevonden, typ:
+   ```
+   del "pad\naar\bestand\riskware.crack"
+   ```
+7. Druk op Enter
+
+**Alternatief via Verkenner:**
+1. Druk op Windows-toets + E
+2. Klik op de zoekbalk
+3. Typ: `riskware.crack`
+4. Verwijder het gevonden bestand
+
+**Controleer ook op:**
+- Andere cracking tools
+- Keygens
+- Patches
+- Cracks
+
+---
+
+## Stap 9: Extra Scan met HitmanPro (Optioneel)
+
+**Waarom:** HitmanPro is een tweede-opinie scanner die andere virussen kan vinden.
+
+**Hoe doe je dit:**
+
+1. Ga naar: https://www.hitmanpro.com
+2. Download HitmanPro
+3. Installeer het programma
+4. Open HitmanPro
+5. Klik op **Next** om te scannen
+6. Selecteer **No, I only want to perform a one-time scan**
+7. Klik op **Next**
+8. **Wacht tot de scan klaar is**
+9. Klik op **Next** als er bedreigingen worden gevonden
+10. Klik op **Activate free license**
+11. Start je computer opnieuw op als daarom wordt gevraagd
+
+---
+
+## Stap 10: Wachtwoorden Wijzigen
+
+**Waarom:** De hacker kan je wachtwoorden hebben gestolen. Verander ze allemaal.
+
+**Hoe doe je dit:**
+
+**BELANGRIJK:** Gebruik een schoon apparaat (je telefoon of een andere computer) om wachtwoorden te wijzigen. Niet de geïnfecteerde computer.
+
+**Stap 10.1: Microsoft Account**
+1. Ga naar: https://account.live.com/password/reset
+2. Voer je e-mailadres in
+3. Volg de stappen om je wachtwoord te resetten
+4. Maak een sterk, uniek wachtwoord
+
+**Stap 10.2: Andere Accounts**
+- Roblox account
+- Steam account
+- E-mail accounts
+- Andere accounts die mogelijk zijn gecompromitteerd
+
+**Stap 10.3: Maak Sterke Wachtwoorden**
+- Minimaal 12 tekens
+- Mix van hoofdletters, kleine letters, cijfers, en symbolen
+- Niet hetzelfde wachtwoord voor meerdere accounts
+- Geen persoonlijke informatie
+
+**Stap 10.4: Schakel 2-Factor Authenticatie in**
+- Waar mogelijk, schakel 2FA in
+- Gebruik een authenticator app (niet SMS als dat kan)
+- Dit voegt een extra beveiligingslaag toe
+
+---
+
+## Stap 11: Computer Beveiligen
+
+**Waarom:** Voorkom toekomstige infecties.
+
+**Hoe doe je dit:**
+
+**Stap 11.1: Windows Defender Inschakelen**
+1. Ga naar Instellingen > Update en beveiliging > Windows-beveiliging
+2. Klik op Virus- en bedreigingsbeveiliging
+3. Zorg dat "Real-time beveiliging" aan staat
+4. Zorg dat "Cloud-beveiliging" aan staat
+
+**Stap 11.2: Windows Updates**
+1. Ga naar Instellingen > Update en beveiliging > Windows Update
+2. Klik op "Controleren op updates"
+3. Installeer alle beschikbare updates
+4. Start opnieuw op als nodig
+
+**Stap 11.3: Firewall**
+1. Ga naar Instellingen > Update en beveiliging > Windows-beveiliging
+2. Klik op Firewall en netwerkbeveiliging
+3. Zorg dat de firewall aan staat
+
+**Stap 11.4: Verwijder Verdachte Programma's**
+1. Druk op Windows-toets + I
+2. Ga naar Apps > Geïnstalleerde apps
+3. Sorteer op "Installatiedatum"
+4. Verwijder programma's die zijn geïnstalleerd rond de infectietijd
+5. Verwijder programma's die je niet herkent
+
+---
+
+## Stap 12: Maak een Systeemback-up
+
+**Waarom:** Als er iets misgaat, heb je een back-up.
+
+**Hoe doe je dit:**
+
+**Stap 12.1: Belangrijke Bestanden Back-uppen**
+1. Kopieer belangrijke bestanden naar een externe harde schijf of USB-stick
+2. Documenten, foto's, video's, etc.
+
+**Stap 12.2: Maak een Systeemherstelpunt**
+1. Druk op Windows-toets + R
+2. Typ: `sysdm.cpl`
+3. Druk op Enter
+4. Ga naar het tabblad "Systeembeveiliging"
+5. Klik op "Maken"
+6. Geef het herstelpunt een naam
+7. Klik op "Maken"
+
+---
+
+## Samenvatting Checklist
+
+Gebruik deze checklist om te controleren of je alles hebt gedaan:
+
+- [ ] Computer gestart in Veilige Modus
+- [ ] Windows Defender volledige scan uitgevoerd
+- [ ] Malicious Software Removal Tool (MRT) uitgevoerd
+- [ ] Malwarebytes scan uitgevoerd
+- [ ] Verdachte Python bestanden in AppData verwijderd
+- [ ] Verdachte geplande taken verwijderd
+- [ ] Verdachte register-sleutels verwijderd
+- [ ] Cracking tools verwijderd
+- [ ] HitmanPro scan uitgevoerd (optioneel)
+- [ ] Alle wachtwoorden gewijzigd
+- [ ] 2-Factor Authenticatie ingeschakeld
+- [ ] Windows Defender ingeschakeld
+- [ ] Windows updates geïnstalleerd
+- [ ] Firewall ingeschakeld
+- [ ] Verdachte programma's verwijderd
+- [ ] Belangrijke bestanden geback-upped
+- [ ] Systeemherstelpunt gemaakt
+
+---
+
+## Wat te doen als je vastloopt
+
+**Als een scan vastloopt:**
+- Sluit het programma
+- Start je computer opnieuw op
+- Probeer de scan opnieuw
+
+**Als je een bestand niet kunt verwijderen:**
+- Het bestand kan in gebruik zijn
+- Start in Veilige Modus en probeer opnieuw
+- Gebruik een tool zoals "Unlocker" (download met voorzichtigheid)
+
+**Als je niet zeker weet of iets veilig is:**
+- Verwijder het niet
+- Maak een screenshot
+- Vraag om hulp van iemand met ervaring
+
+**Als je computer nog steeds traag is:**
+- Er kunnen nog virussen zijn
+- Overweeg professionele hulp
+- Neem contact op met een computerreparatiedienst
+
+---
+
+## Preventie: Hoe dit te voorkomen
+
+**Niet meer piraten-games downloaden:**
+- Gebruik legitieme platforms zoals Steam, Epic Games Store, GOG
+- Koop games in de uitverkoop
+- Gebruik gratis games van legitieme bronnen
+
+**Wees voorzichtig met downloads:**
+- Download alleen van officiële websites
+- Scan alle downloads voordat je ze opent
+- Lees beoordelingen en reacties
+- Vermijd websites die te mooi lijken om waar te zijn
+
+**Gebruik goede beveiliging:**
+- Houd je software bijgewerkt
+- Gebruik een antivirus programma
+- Schakel 2FA in waar mogelijk
+- Gebruik sterke, unieke wachtwoorden
+
+**Wees alert:**
+- Klik niet op verdachte links
+- Open geen e-mailbijlagen van onbekende afzenders
+- Wees sceptisch over "gratis" aanbiedingen
+- Vertrouw je intuïtie als iets verdacht lijkt
+
+---
+
+## Wanneer professionele hulp zoeken
+
+Zoek professionele hulp als:
+- Je de stappen niet begrijpt
+- Je computer nog steeds besmet lijkt na alle stappen
+- Je belangrijke bestanden zijn vergrendeld (ransomware)
+- Je computer niet meer normaal functioneert
+- Je je niet comfortabel voelt bij het uitvoeren van deze stappen
+
+**Waar hulp zoeken:**
+- Computerreparatiedienst
+- IT-professional
+- Geavanceerde vriend of familielid
+- Online forums (met voorzichtigheid)
+
+---
+
+## Belangrijke Telefoonnummers en Websites
+
+**Nederland:**
+- Politie: 0900-8844 (niet-spoed)
+- Cybercrime: 0900-8844 (optie 1)
+
+**Online hulp:**
+- https://www.politie.nl/nl/contact
+- https://www.ccbnederland.nl/
+
+**Microsoft Support:**
+- https://support.microsoft.com/nl-nl
+
+---
+
+## Veel succes!
+
+Volg deze stappen zorgvuldig en neem de tijd. Het kan een paar uur duren om alles te voltooien, maar het is de moeite waard om je computer schoon te maken.
+
+Als je vragen hebt of vastloopt, aarzel niet om om hulp te vragen. Het is beter om hulp te vragen dan om iets verkeerd te doen.
+
+**Onthoud:** De beste verdediging is preventie. Wees voorzichtig met wat je downloadt en installeert.
+
+</template>
+
+<script>
+// Render markdown from template
+document.addEventListener('DOMContentLoaded', function() {
+    const template = document.getElementById('markdown-source');
+    const markdownText = template.content.textContent;
+    const preview = document.getElementById('preview');
+    
+    // Convert markdown to HTML
+    preview.innerHTML = marked.parse(markdownText);
+    
+    // Render KaTeX math
+    renderMathInElement(preview, {
+        delimiters: [
+            {left: '\\(', right: '\\)', display: false},
+            {left: '\\[', right: '\\]', display: true},
+            {left: '(', right: ')', display: false}
+        ],
+        throwOnError: false
+    });
+});
+</script>
+
+</body>
+</html>
