@@ -36,6 +36,21 @@ body{
 .katex{
     font-size:1.1em;
 }
+
+.paren {
+    font-family: inherit;
+    font-style: normal;
+    font-weight: normal;
+    letter-spacing: normal;
+}
+
+/* TOGGLED ON (KaTeX-like styling) */
+body.paren-style-on .paren {
+    font-family: KaTeX_Main, "Times New Roman", serif;
+    font-style: italic;
+    font-weight: normal;
+    letter-spacing: 0.01em;
+}
 </style>
 <meta name="referrer" content="no-referrer">
 <meta http-equiv="content-security-policy" content="default-src 'none'; font-src 'self' data: https://cdn.jsdelivr.net; img-src 'self' data:; style-src 'unsafe-inline' https://cdn.jsdelivr.net; media-src 'self' data:; script-src 'unsafe-inline' https://cdn.jsdelivr.net; object-src 'self' data:; frame-src 'self' data:;">
@@ -58,16 +73,34 @@ document.addEventListener('DOMContentLoaded', function() {
     const template = document.getElementById('markdown-source');
     const markdownText = template.content.textContent;
     const preview = document.getElementById('preview');
+    let parenStyleEnabled = false;
+    function setParenStyle(enabled) {
+    parenStyleEnabled = enabled;
+    document.body.classList.toggle("paren-style-on", enabled);
+}
     
+    setParenStyle(false);  // disables it (normal text)
+    document.addEventListener("keydown", (e) => {
+    if (e.key === "p") {
+        setParenStyle(!parenStyleEnabled);
+    }
+});
     // Convert markdown to HTML
-    preview.innerHTML = marked.parse(markdownText);
+    let html = marked.parse(markdownText);
+    html = styleParentheses(html);
+    preview.innerHTML = html;
+    function styleParentheses(html) {
+    return html.replace(/\(([^)]+)\)/g, function(match, content) {
+        return `<span class="paren">(${content})</span>`;
+    });
+}
     
     // Render KaTeX math
     renderMathInElement(preview, {
+        
         delimiters: [
-            {left: '\\(', right: '\\)', display: false},
-            {left: '\\[', right: '\\]', display: true},
-            {left: '(', right: ')', display: false}
+            { left: '\\(', right: '\\)', display: false },
+            { left: '\\[', right: '\\]', display: true }
         ],
         throwOnError: false
     });
