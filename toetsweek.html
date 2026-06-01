@@ -4,61 +4,31 @@
   <meta charset="utf-8">
   <title>Toetsweekvoorbereiding</title>
   <link rel="icon" href="/lw-lp/favicon.png">
-  <meta http-equiv="refresh" content="0; URL='https://learning-platform-tau-steel.vercel.app/'" />
   <style>
     html, body {
       margin: 0;
       padding: 0;
       width: 100%;
       height: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      overflow: hidden;
       background-color: #000;
       font-family: sans-serif;
-      color: #fff;
     }
 
-    .fallback {
-      text-align: center;
-    }
-
-    .fallback button {
-      margin-top: 20px;
-      padding: 15px 30px;
-      font-size: 18px;
-      cursor: pointer;
+    iframe {
+      width: 100%;
+      height: 100%;
       border: none;
-      border-radius: 5px;
-      background-color: #1e90ff;
-      color: #fff;
-    }
-
-    .fallback button:hover {
-      background-color: #0d6efd;
-    }
-
-    a {
-      color: #1e90ff;
-      text-decoration: none;
-    }
-
-    a:hover {
-      text-decoration: underline;
+      display: block;
     }
   </style>
 </head>
 <body>
-  <script>
-    // Directe redirect via JavaScript (extra snel)
-    window.location.replace("https://light-learning-platform.vercel.app/");
-  </script>
 
-  <div class="fallback">
-    <p>Als je niet automatisch wordt doorgestuurd, klik dan op de knop hieronder:</p>
-    <button onclick="window.location.href='https://light-learning-platform.vercel.app/'">
-      Klik hier om naar Learning Platform te gaan
-    </button>
-  </div>
+  <iframe 
+    src="https://light-learning-platform.vercel.app/" 
+    title="Learning Platform">
+  </iframe>
+
 </body>
 </html>
